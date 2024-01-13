@@ -1,19 +1,19 @@
 @extends('layouts.landing-page.master')
 @section('landing-page')
-    <div class="row">
+    <div class="row" id="home-section">
         <div class="col-xl-12">
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <img class="d-block img-fluid mx-auto" src="{{ URL::asset('assets/images/profile-bg.jpg') }}"
+                        <img class="d-block img-fluid mx-auto" src="{{ URL::asset('assets/images/carousol-1.png') }}"
                             alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block img-fluid mx-auto" src="{{ URL::asset('assets/images/profile-bg-1.jpg') }}"
+                        <img class="d-block img-fluid mx-auto" src="{{ URL::asset('assets/images/carousol-2.png') }}"
                             alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block img-fluid mx-auto" src="{{ URL::asset('assets/images/profile-bg-2.jpg') }}"
+                        <img class="d-block img-fluid mx-auto" src="{{ URL::asset('assets/images/carousol-3.png') }}"
                             alt="Third slide">
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                             <h5 class="my-0"><span class="text-muted me-2">Mojowarno, Jombang &mdash; 1 H</span>
                             </h5>
                         </div>
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-end" id="visi-misi">
                             <h5 class="my-0"><span class="text-muted me-2"></span> <b>170 Juta</b></h5>
                         </div>
                     </div>
@@ -89,45 +89,8 @@
     </div>
     {{-- Properti Unggulan End --}}
 
-    {{-- Dewan Komisaris Start --}}
-    <div class="card bg-light rounded-0 mt-0 mb-0 shadow-none">
-        <div class="row justify-content-center pb-3 mt-3">
-            <div class="col-md-12 heading-section text-center ftco-animate">
-                <h1 class="mb-5 mt-5"><strong>Dewan Komisaris</strong></h1>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col">
-                    <h3 class="card-text text-right"><strong>HALO</strong></h3>
-                    <p class="card-text text-right">Some quick example text to build on the card title and make up the
-                        bulk of the card's content.</p>
-
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="{{ URL::asset('assets/images/team-1.jpg') }}" class="card-img-top" alt="...">
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="{{ URL::asset('assets/images/team-2.jpg') }}" class="card-img-top" alt="...">
-                    </div>
-                </div>
-                <div class="col">
-                    <h3 class="card-text text-left"><strong>HALO</strong></h3>
-                    <p class="card-text text-left">Some quick example text to build on the card title and make up the
-                        bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- Dewan Komisaris End --}}
-
     {{-- Visi Misi Start --}}
-    <div class="card bg-white rounded-0 mt-5 mb-0 shadow-none">
+    <div class="card bg-light rounded-0 mt-5 mb-0 shadow-none">
         <div class="row justify-content-center pb-5 mt-5 px-3">
             <div class="col-md-12 heading-section text-center">
                 <h1 class="mb-5 mt-3"><strong>Visi Misi</strong></h1>
@@ -227,7 +190,7 @@
                         <div class="media-body">
                             <img class="rounded-circle avatar-xxl mb-4" alt="200x200"
                                 src="assets/images/visi-misi/visi-misi-7.png" data-holder-rendered="true">
-                            <h5 class="heading mb-3"><strong>Peningkatan Terus-Menerus</strong></h5>
+                            <h5 class="heading mb-3" id="about-section"><strong>Peningkatan Terus-Menerus</strong></h5>
                             {{-- <p>Melakukan evaluasi dan perbaikan terus-menerus dalam setiap aspek bisnis, mulai dari
                                     proses internal hingga pelayanan pelanggan, guna memastikan peningkatan kualitas dan
                                     efisiensi secara berkelanjutan.</p> --}}
@@ -241,7 +204,7 @@
     {{-- Visi Misi End --}}
 
     {{-- Tentang Perusahaan Start --}}
-    <div class="card bg-light rounded-0 mt-3 mb-0 shadow-none">
+    <div class="card bg-white rounded-0 mt-3 mb-0 shadow-none">
         <div class="container">
             <div class="col-md-12 col-lg-12 px-lg-5 py-md-5">
                 <div class="py-md-5">
@@ -270,7 +233,8 @@
                                     dan kebutuhan Anda dengan jaminan Sertifikat Resmi.</b></h6>
                             <h6><b><a href="#" class="btn py-3 px-4 text-light" style="background: #4b69bd">Beli
                                         Properti</a>
-                                    <a href="https://wa.me/6281249985217" class="btn btn-secondary py-3 px-4">Hubungi
+                                    <a href="https://wa.me/6281249985217" class="btn btn-secondary py-3 px-4"
+                                        id="komisaris">Hubungi
                                         Kami</a></b></h6>
                         </div>
                     </div>
@@ -280,8 +244,45 @@
     </div>
     {{-- Tentang Perusahaan End --}}
 
+    {{-- Dewan Komisaris Start --}}
+    <div class="card bg-light rounded-0 mt-0 mb-0 shadow-none">
+        <div class="row justify-content-center pb-3 mt-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <h1 class="mb-5 mt-5"><strong>Dewan Komisaris</strong></h1>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col">
+                    <h3 class="card-text text-right"><strong>HALO</strong></h3>
+                    <p class="card-text text-right">Some quick example text to build on the card title and make up the
+                        bulk of the card's content.</p>
+
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="{{ URL::asset('assets/images/team-1.jpg') }}" class="card-img-top" alt="...">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <img src="{{ URL::asset('assets/images/team-2.jpg') }}" class="card-img-top" alt="...">
+                    </div>
+                </div>
+                <div class="col">
+                    <h3 class="card-text text-left"><strong>HALO</strong></h3>
+                    <p class="card-text text-left">Some quick example text to build on the card title and make up the
+                        bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Dewan Komisaris End --}}
+
     {{-- Testimoni Start --}}
-    <div class="card rounded-0 mb-0 shadow-none" style="background: #4b69bd">
+    <div class="card rounded-0 mb-0 shadow-none" style="background: #4b69bd" id="testimoni">
         <div class="row justify-content-center pb-5 mt-5 px-3">
             <div class="col-md-12 heading-section text-center">
                 <h5 class="mb-2 mt-3 text-light"><strong>Testimoni</strong></h5>
