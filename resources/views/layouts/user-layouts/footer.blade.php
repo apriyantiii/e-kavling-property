@@ -1,7 +1,7 @@
 {{-- Footer Start --}}
-<footer class="ftco-footer ftco-section">
+<footer class="ftco-footer ftco-section fixed-bottom bg-white">
     <div class="container-fluid px-md-5">
-        <div class="row mt-5 mb-5">
+        <div class="row mb-5 mt-5">
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
                     <h1 class="ftco-heading-2"><strong>PT. Mutiara Putri Gemilang</strong></h1>
