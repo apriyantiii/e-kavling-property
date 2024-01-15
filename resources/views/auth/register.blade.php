@@ -192,7 +192,7 @@
                                                 <div class="form-floating form-floating-custom mb-4">
                                                     <input type="file"
                                                         class="form-control @error('avatar') is-invalid @enderror"
-                                                        name="avatar" id="input-avatar" required>
+                                                        name="avatar" id="input-avatar">
                                                     @error('avatar')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

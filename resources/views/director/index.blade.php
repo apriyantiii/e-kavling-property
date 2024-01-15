@@ -14,13 +14,7 @@
                             </div>
                         @endif
 
-                        @if (session('error'))
-                            <div class="alert alert-danger" role="alert">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-
-                        {{ __('You are logged in!') }}
+                        {{ __('Kamu login sebagai director!') }}
                     </div>
                 </div>
             </div>
