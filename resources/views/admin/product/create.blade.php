@@ -42,7 +42,8 @@
                                     </label>
                                     <input type="text"
                                         class="form-control form-rounded @error('name') is-invalid @enderror" name="name"
-                                        id="name" placeholder="cth. Perum Merkuri Tengah" value="{{ old('name') }}">
+                                        id="name" placeholder="cth. Perum Merkuri Tengah" value="{{ old('name') }}"
+                                        required autocomplete="name">
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -52,12 +53,13 @@
 
                                 <div class="mb-3">
                                     <label for="product_category_id" class="form-label">
-                                        Pilih Kategori<span class="text-danger">*boleh dikosongi dengan memilih opsi "pilih
-                                            kategori"</span>
+                                        Pilih
+                                        Kategori<span class="text-danger"> *</span>
                                     </label>
                                     <select class="form-control @error('product_category_id') is-invalid @enderror"
                                         data-trigger name="product_category_id" id="category"
-                                        value="{{ old('product_category_id') }}">
+                                        value="{{ old('product_category_id') }}" required
+                                        autocomplete="product_category_id">
                                         <option value="">Pilih Kategori</option>
                                         @foreach ($productCategories as $productCategory)
                                             <option value="{{ $productCategory->id }}">{{ $productCategory->name }}
@@ -79,7 +81,7 @@
                                         class="form-control form-rounded @error('location') is-invalid @enderror"
                                         name="location" id="location"
                                         placeholder="cth. Jln. Basuki Rahmat No.12, Kec. Jombang, Kab. Jombang"
-                                        value="{{ old('location') }}">
+                                        value="{{ old('location') }}" required autocomplete="location">
                                     @error('location')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -95,7 +97,7 @@
                                         class="form-control form-rounded @error('price') is-invalid @enderror"
                                         name="price" id="price"
                                         placeholder="Tercatat dalam satuan Meter Persegi cth. 100 m2"
-                                        value="{{ old('price') }}">
+                                        value="{{ old('price') }}" required autocomplete="price">
                                     @error('price')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -106,7 +108,8 @@
                                 <div class="mb-3">
                                     <label for="description">Deskripsi <span class="text-danger">*</span></label>
                                     <textarea class="form-control" name="description" id="description" rows="5"
-                                        placeholder="cth. kavling ini berada di area perumahan..." value="{{ old('description') }}"></textarea>
+                                        placeholder="cth. kavling ini berada di area perumahan..." value="{{ old('description') }}" required
+                                        autocomplete="description"></textarea>
                                     @error('description')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -124,7 +127,8 @@
                                     </label>
                                     <input type="text"
                                         class="form-control form-rounded @error('code') is-invalid @enderror" name="code"
-                                        id="code" placeholder="cth. PM001" value="{{ old('code') }}">
+                                        id="code" placeholder="cth. PM001" value="{{ old('code') }}" required
+                                        autocomplete="code">
                                     @error('code')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -139,7 +143,7 @@
                                     <input type="text"
                                         class="form-control form-rounded @error('status') is-invalid @enderror"
                                         name="status" id="status_sertifikat" placeholder="cth. SHM/SHG"
-                                        value="{{ old('status') }}">
+                                        value="{{ old('status') }}" required autocomplete="status">
                                     @error('status')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -155,7 +159,7 @@
                                         class="form-control form-rounded @error('size') is-invalid @enderror"
                                         name="size" id="size"
                                         placeholder="Tercatat dalam satuan Meter Persegi cth. 100 m2"
-                                        value="{{ old('size') }}">
+                                        value="{{ old('size') }}" required autocomplete="size">
                                     @error('size')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -169,7 +173,8 @@
                                     </label>
                                     <input type="file"
                                         class="form-control form-rounded @error('photo') is-invalid @enderror"
-                                        name="photo" id="photo" placeholder="" value="{{ old('photo') }}">
+                                        name="photo" id="photo" placeholder="" value="{{ old('photo') }}"
+                                        required autocomplete="photo">
                                     @error('photo')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -180,7 +185,8 @@
                                 <div class="mb-3">
                                     <label for="feature">Fasilitas<span class="text-danger">*</span></label>
                                     <textarea class="form-control" name="feature" id="feature" rows="5"
-                                        placeholder="cth. dekat dengan pasar, ATM, pedagang kaki lima" value="{{ old('feature') }}"></textarea>
+                                        placeholder="cth. dekat dengan pasar, ATM, pedagang kaki lima" value="{{ old('feature') }}" required
+                                        autocomplete="feature"></textarea>
                                     @error('feature')
                                         <div class="invalid-feedback">
                                             {{ $message }}

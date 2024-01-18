@@ -16,6 +16,17 @@
                     </a>
                 </li>
 
+                <li class="my-2">
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="box"></i>
+                        <span>Produk & Kategori</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('product.index') }}">Produk</a></li>
+                        <li><a href="{{ route('category.index') }}">Kategori</a></li>
+                    </ul>
+                </li>
+
                 {{-- @if (Auth::user()->hasPermissionTo('partner')) --}}
                 {{-- <li class="my-2">
                     <a href="jawdvascript: void(0);" class="has-arrow">
@@ -54,13 +65,13 @@
                 {{-- @endif --}}
 
                 {{-- @if (Auth::user()->hasPermissionTo('product')) --}}
-                <li class="my-2">
+                {{-- <li class="my-2">
                     <a href="{{ route('product.index') }}">
                         <i data-feather="box"></i>
                         <span>Produk & Kategori</span>
                     </a>
 
-                </li>
+                </li> --}}
                 {{-- @endif --}}
 
                 {{-- <li class="my-2">

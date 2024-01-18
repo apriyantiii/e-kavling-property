@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_category_id')->nullable();
+            $table->unsignedBigInteger('product_category_id');
 
             $table->string('name');
             $table->string('code');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('product_category_id')->references('id')->on('product_categories')->onUpdate('cascade');
         });
     }
 

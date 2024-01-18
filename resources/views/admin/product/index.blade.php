@@ -38,7 +38,7 @@
             @endif
 
             <div class="card">
-                <div class="card-header align-items-center d-flex">
+                {{-- <div class="card-header align-items-center d-flex">
                     <div class="flex-shrink-0">
                         <ul class="rounded nav justify-content-end nav-tabs-custom card-header-tabs" role="tablist">
                             <li class="nav-item">
@@ -55,7 +55,7 @@
                             </li>
                         </ul>
                     </div>
-                </div><!-- end card header -->
+                </div><!-- end card header --> --}}
 
                 <div class="card-body">
 
@@ -190,18 +190,18 @@
                                                                     </li>
 
                                                                     <li>
-                                                                        <form id="deleteForm1{{ $product->id }}"
+                                                                        <a href="#" class="dropdown-item"
+                                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                                            <i
+                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                            Hapus
+                                                                        </a>
+
+                                                                        <form id="deleteProductForm"
                                                                             action="{{ route('product.destroy', $product->id) }}"
-                                                                            method="POST">
+                                                                            method="POST" style="display: none;">
                                                                             @csrf
                                                                             @method('DELETE')
-                                                                            <a href="#"
-                                                                                class="dropdown-item delete-product"
-                                                                                onclick="event.preventDefault(); document.getElementById('deleteForm{{ $product->id }}').submit();">
-                                                                                <i
-                                                                                    class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                                Hapus
-                                                                            </a>
                                                                         </form>
                                                                     </li>
                                                                 </ul>
@@ -215,197 +215,12 @@
                                 </div>
                             </form>
                         </div>
-
-                        {{-- product category --}}
-                        <div class="tab-pane" id="product-categories" role="tabpanel">
-                            <div class="card-header">
-                                <div class="row align-items-center">
-                                    <div class="col-md-6">
-                                        <div>
-                                            <h5 class="card-title">Kategori Produk
-                                                <span
-                                                    class="text-muted fw-normal">({{ $productCategories->count() }})</span>
-                                            </h5>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
-                                            <div>
-
-                                                <button type="button"
-                                                    class="btn btn-success btn-rounded waves-effect waves-light"
-                                                    data-bs-toggle="modal" data-bs-target="#addCategory"><i
-                                                        class="bx bx-plus me-1"></i>
-                                                    Buat Kategori Baru</button>
-                                            </div>
-
-                                            <div class="dropdown">
-                                                <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
-                                                    href="#" role="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('category.destroy-all') }}">
-                                                            <i class="bx bx-trash me-1 text-danger"></i>
-                                                            Hapus Semua
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="datatable"
-                                        class="table align-middle datatable dt-responsive table-check nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Nama Kategori</th>
-                                                <th>Lokasi</th>
-                                                <th>Tindakan</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            @foreach ($productCategories as $productCategory)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $productCategory->name }}</td>
-                                                    <td>{{ $productCategory->location }}</td>
-                                                    <td class="align-middle">
-                                                        <div class="dropdown">
-                                                            <a href="#" class="dropdown-toggle card-drop"
-                                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a href="{{ route('category.edit', $productCategory->id) }}"
-                                                                        class="dropdown-item">
-                                                                        <i
-                                                                            class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                        Edit
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="#" class="dropdown-item"
-                                                                        onclick="event.preventDefault(); document.getElementById('deleteCategoryForm').submit();">
-                                                                        <i
-                                                                            class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                        Hapus
-                                                                    </a>
-
-                                                                    <form id="deleteCategoryForm"
-                                                                        action="{{ route('category.destroy', $productCategory->id) }}"
-                                                                        method="POST" style="display: none;">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                    </form>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div><!-- end card-body -->
             </div><!-- end card -->
 
         </div> <!-- end col -->
     </div> <!-- end row -->
-
-
-    {{-- START:: Modal Tambah Kategori Baru --}}
-    <div id="addCategory" class="modal fade" tabindex="-1" aria-labelledby="addCategoryLabel" aria-hidden="true"
-        data-bs-scroll="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryLabel">
-                        Buat Kategori Baru
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('category.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">
-                                        Nama Kategori <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text"
-                                        class="form-control form-rounded @error('name') is-invalid @enderror"
-                                        name="name" id="name" placeholder="cth. Perum Merkuri"
-                                        value="{{ old('name') }}">
-                                    @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="code" class="form-label">
-                                    Kode Kategori <span class="text-danger">*</span>
-                                </label>
-                                <input type="text"
-                                    class="form-control form-rounded @error('code') is-invalid @enderror" name="code"
-                                    id="code" placeholder="cth. PM00" value="{{ old('code') }}">
-                                @error('code')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="location" class="form-label">
-                                    Lokasi <span class="text-danger">*</span>
-                                </label>
-                                <input type="text"
-                                    class="form-control form-rounded @error('location') is-invalid @enderror"
-                                    name="location" id="location" placeholder="cth. Japanan Lor, Jombang"
-                                    value="{{ old('location') }}">
-                                @error('location')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-rounded btn btn-secondary waves-effect"
-                            data-bs-dismiss="modal">Batal</button>
-                        <button type="submit"
-                            class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- END:: Modal Tambah Kategori Baru --}}
 @endsection
 @section('script')
     <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
@@ -442,24 +257,24 @@
         });
 
         // Delete Product
-        $(document).ready(function() {
-            // error message validation modal
-            @if ($errors->has('category_name') || $errors->has('category_parent') || $errors->has('category_description'))
-                $('#addCategory').modal('show');
-            @endif
+        // $(document).ready(function() {
+        //     // error message validation modal
+        //     @if ($errors->has('category_name') || $errors->has('category_parent') || $errors->has('category_description'))
+        //         $('#addCategory').modal('show');
+        //     @endif
 
-            // Delete Product
-            $('.delete-product').click(function(event) {
-                event.preventDefault();
+        //     // Delete Product
+        //     $('.delete-product').click(function(event) {
+        //         event.preventDefault();
 
-                var productId = $(this).data('product-id');
-                var confirmation = confirm('Apakah Anda yakin ingin menghapus produk?');
+        //         var productId = $(this).data('product-id');
+        //         var confirmation = confirm('Apakah Anda yakin ingin menghapus produk?');
 
-                if (confirmation) {
-                    var form = $('#deleteForm1' + productId);
-                    form.submit();
-                }
-            });
-        });
+        //         if (confirmation) {
+        //             var form = $('#deleteForm1' + productId);
+        //             form.submit();
+        //         }
+        //     });
+        // });
     </script>
 @endsection

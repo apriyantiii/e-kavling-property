@@ -61,7 +61,7 @@ class ProductController extends Controller
         try {
             $request->validate([
                 // 'user_id' => 'required|exists:users,id',
-                'product_category_id' => 'nullable|exists:product_categories,id',
+                'product_category_id' => 'required|exists:product_categories,id',
                 'name' => 'required|string|max:255',
                 'code' => 'required|string|max:50|unique:products,code',
                 'description' => 'required|string',
@@ -166,6 +166,15 @@ class ProductController extends Controller
     }
 
     /* Category */
+
+    public function indexCategory()
+    {
+        $productCategories = ProductCategory::all();
+        $products = Product::all();
+
+        return view('admin.product.index-category', compact('productCategories', 'products'));
+    }
+
     public function storeCategory(Request $request)
     {
         $validatedData = $request->validate([
@@ -176,7 +185,7 @@ class ProductController extends Controller
 
         ProductCategory::create($validatedData);
 
-        return redirect()->route('product.index')->with('success', 'Data kategori produk berhasil ditambahkan!');
+        return redirect()->route('category.index')->with('success', 'Data kategori produk berhasil ditambahkan!');
         // set flash message
         return with(['type' => 'success', 'delay' => 2500, 'message' => 'Data kategori produk berhasil ditambahkan!']);
     }
@@ -196,7 +205,7 @@ class ProductController extends Controller
 
         $productCategory->update($validatedData);
 
-        return redirect()->route('product.index')->with('success', 'Data kategori produk berhasil diperbarui!');
+        return redirect()->route('category.index')->with('success', 'Data kategori produk berhasil diperbarui!');
         // set flash message
         return with(['type' => 'success', 'delay' => 2500, 'message' => 'Data kategori produk berhasil diperbaharui!']);
     }
@@ -212,7 +221,7 @@ class ProductController extends Controller
         $productCategory->delete();
 
         // Redirect dengan pesan sukses
-        return redirect()->route('product.index')->with('success', 'Data kategori produk berhasil dihapus!');
+        return redirect()->route('category.index')->with('success', 'Data kategori produk berhasil dihapus!');
     }
 
 
