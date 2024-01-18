@@ -51,13 +51,13 @@
                 <button type="button" class="btn header-item bg-soft-light border-start border-end"
                     id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                    @if (Auth::user()->avatar)
+                    {{-- @if (Auth::user()->avatar)
                         <img src="{{ asset('storage/' . Auth::user()->avatar) }}"
                             class="rounded-circle header-profile-user" alt="Avatar - {{ Auth::user()->name }}">
                     @else
                         <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}"
                             class="rounded-circle header-profile-user" alt="Avatar - {{ Auth::user()->name }}">
-                    @endif
+                    @endif --}}
 
 
                     <span class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::user()->name }}</span>

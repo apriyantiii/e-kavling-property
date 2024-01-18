@@ -32,13 +32,14 @@ Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome
 //product
 Route::get('product/index', [ProductController::class, 'index'])->name('product.index')->middleware('is_admin');
 Route::get('product/create', [ProductController::class, 'create'])->name('product.create')->middleware('is_admin');
-Route::get('product/delete', [ProductController::class, 'destroy'])->name('product.destroy')->middleware('is_admin');
+Route::post('product/create', [ProductController::class, 'store'])->name('product.store')->middleware('is_admin');
+Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('product.destroy')->middleware('is_admin');
 
 //category-product
 Route::post('category/create', [ProductController::class, 'storeCategory'])->name('category.store')->middleware('is_admin');
 Route::get('category/{productCategory}/edit', [ProductController::class, 'editCategory'])->name('category.edit')->middleware('is_admin');
 Route::put('category/{productCategory}', [ProductController::class, 'updateCategory'])->name('category.update')->middleware('is_admin');
-Route::delete('category/{productCategory}', [ProductController::class, 'destroyCategory'])->name('category.destroy')->middleware('is_admin');
+Route::delete('category/{productCategory}/delete', [ProductController::class, 'destroyCategory'])->name('category.destroy')->middleware('is_admin');
 Route::delete('category/delete-all', [ProductController::class, 'destroyAllCategory'])->name('category.destroy-all')->middleware('is_admin');
 
 // ADMIN END

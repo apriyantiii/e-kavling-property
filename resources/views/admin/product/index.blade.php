@@ -108,7 +108,7 @@
 
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li>
-                                                        <a class="dropdown-item" href="{{ route('product.destroy') }}">
+                                                        <a class="dropdown-item" href="">
                                                             <i class="bx bx-trash me-1 text-danger"></i>
                                                             Hapus Semua
                                                         </a>
@@ -147,49 +147,68 @@
 
 
                                             <tbody>
-                                                <tr>
-                                                    <th>
-                                                        {{-- value nya nanti diisi {{ $product->id }} --}}
-                                                        <input type="checkbox" value="#" name="products[]"
-                                                            id="select">
-                                                    </th>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="align-middle">
-                                                        <div class="dropdown">
-                                                            <a href="#" class="dropdown-toggle card-drop"
-                                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a href="#" class="dropdown-item"><i
-                                                                            class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                        Stok</a>
-                                                                </li>
+                                                @foreach ($products as $product)
+                                                    <tr>
+                                                        <th>
+                                                            {{-- value nya nanti diisi {{ $product->id }} --}}
+                                                            <input type="checkbox" value="{{ $product->id }}"
+                                                                name="products[]" id="select">
+                                                        </th>
 
+                                                        <td class="text-center align-middle">
+                                                            <img src="{{ URL::asset('storage/' . $product->photo) }}"
+                                                                width="70" alt="">
+                                                        </td>
+                                                        <td>{{ $product->name }}</td>
+                                                        <td>{{ $product->code }}</td>
+                                                        <td>
+                                                            @if ($product->productCategory && $product->productCategory->name)
+                                                                {{ $product->productCategory->name }}
+                                                            @else
+                                                                <span class="text-danger">Tidak Masuk Kategori</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $product->location }}</td>
+                                                        <td>{{ $product->size }}</td>
+                                                        <td>{{ $product->price }}</td>
+                                                        <td class="align-middle">
+                                                            <div class="dropdown">
+                                                                <a href="#" class="dropdown-toggle card-drop"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    <li><a href="#" class="dropdown-item"><i
+                                                                                class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                                            Detail</a>
+                                                                    </li>
+                                                                    <li><a href="#" class="dropdown-item">
+                                                                            <i
+                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                            Edit
+                                                                        </a>
+                                                                    </li>
 
-                                                                <li><a href="#" class="dropdown-item">
-                                                                        <i
-                                                                            class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                        Edit
-                                                                    </a>
-                                                                </li>
-                                                                </li>
-                                                                <li><a href="#" class="dropdown-item">
-                                                                        <i
-                                                                            class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                        Hapus
-                                                                    </a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
+                                                                    <li>
+                                                                        <form id="deleteForm1{{ $product->id }}"
+                                                                            action="{{ route('product.destroy', $product->id) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <a href="#"
+                                                                                class="dropdown-item delete-product"
+                                                                                onclick="event.preventDefault(); document.getElementById('deleteForm{{ $product->id }}').submit();">
+                                                                                <i
+                                                                                    class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                                Hapus
+                                                                            </a>
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -278,15 +297,16 @@
                                                                         Edit
                                                                     </a>
                                                                 </li>
+
                                                                 <li>
                                                                     <a href="#" class="dropdown-item"
-                                                                        onclick="event.preventDefault(); document.getElementById('deleteForm').submit();">
+                                                                        onclick="event.preventDefault(); document.getElementById('deleteCategoryForm').submit();">
                                                                         <i
                                                                             class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
                                                                         Hapus
                                                                     </a>
 
-                                                                    <form id="deleteForm"
+                                                                    <form id="deleteCategoryForm"
                                                                         action="{{ route('category.destroy', $productCategory->id) }}"
                                                                         method="POST" style="display: none;">
                                                                         @csrf
@@ -342,26 +362,6 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            {{-- <div class="mb-3">
-                                <label for="category" class="form-label font-size-13 text-muted">
-                                    Pilih
-                                    Kategori
-                                </label>
-                                <select class="form-control @error('category_parent') is-invalid @enderror" data-trigger
-                                    name="category_parent" id="category">
-                                    <option value="">Pilih Kategori</option>
-                                    @foreach ($productCategories as $productCategory)
-                                        <option value="{{ $productCategory->name }}">{{ $productCategory->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('category_parent')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div> --}}
 
                             <div class="mb-3">
                                 <label for="code" class="form-label">
@@ -441,20 +441,25 @@
             $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
         });
 
-        // print barcode
-        function printBarcode(url) {
-            if ($('input:checked').length < 1) {
-                alert('Pilih data yang akan dicetak');
-                return;
-            } else if ($('input:checked').length < 3) {
-                alert('Pilih minimal 3 data untuk dicetak');
-                return;
-            } else {
-                $('.form-product')
-                    .attr('target', '_blank')
-                    .attr('action', url)
-                    .submit();
-            }
-        }
+        // Delete Product
+        $(document).ready(function() {
+            // error message validation modal
+            @if ($errors->has('category_name') || $errors->has('category_parent') || $errors->has('category_description'))
+                $('#addCategory').modal('show');
+            @endif
+
+            // Delete Product
+            $('.delete-product').click(function(event) {
+                event.preventDefault();
+
+                var productId = $(this).data('product-id');
+                var confirmation = confirm('Apakah Anda yakin ingin menghapus produk?');
+
+                if (confirmation) {
+                    var form = $('#deleteForm1' + productId);
+                    form.submit();
+                }
+            });
+        });
     </script>
 @endsection
