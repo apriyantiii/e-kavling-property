@@ -60,7 +60,8 @@
                     @endif --}}
 
 
-                    <span class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::user()->name }}</span>
+                    <span
+                        class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::guard('is_admin')->user()->name }}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -69,13 +70,9 @@
                         <i class="align-middle mdi mdi-cog font-size-16 me-1"></i> Pengaturan
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item " href="javascript:void();"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
-                            class="align-middle bx bx-power-off font-size-16 me-1"></i> <span
-                            key="t-logout">@lang('translation.Logout')</span></a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                    <a class="dropdown-item" href="{{ route('admin.logout') }}">
+                        <i class="align-middle bx bx-power-off font-size-16 me-1"></i> Keluar
+                    </a>
                 </div>
             </div>
 

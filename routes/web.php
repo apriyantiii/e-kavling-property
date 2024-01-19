@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +28,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // ADMIN START
-Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+Route::prefix('admin')->group(function () {
+    Route::get('/', [Admin\LoginController::class, 'loginForm']);
+    Route::get('/login', [Admin\LoginController::class, 'loginForm'])->name('admin.login');
+    Route::post('/login', [Admin\LoginController::class, 'login'])->name('admin.login');
+    Route::get('/home', [Admin\HomeController::class, 'index'])->name('admin.home');
+    Route::get('logout', [Admin\LoginController::class, 'logoutAdmin'])->name('admin.logout');
+});
+// Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
 //product
 Route::get('product/index', [ProductController::class, 'index'])->name('product.index')->middleware('is_admin');
