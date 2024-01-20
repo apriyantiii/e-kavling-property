@@ -52,7 +52,7 @@ class LoginController extends Controller
             } elseif (auth()->user()->role == 'director') {
                 return redirect()->route('director.home');
             } else {
-                return redirect()->route('home');
+                return redirect()->route('home.properti');
             }
         } else {
             return redirect()->route('login')->with('error', 'salah email atau password');

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,13 +19,18 @@ use App\Http\Controllers\Admin;
 */
 
 Route::get('/', function () {
-    return view('guest.landing-page');
+    return view('landing-page');
 });
 
+//USER AUTH
 Auth::routes();
 
-// User
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// USER START
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.properti');
+
+// product route
+Route::get('product/detail', [User\ProductController::class, 'index'])->name('product.show');
+//USER END
 
 
 // ADMIN START
