@@ -27,7 +27,7 @@ Auth::routes();
 
 // USER START
 Route::prefix('/')->group(function () {
-    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.properti');
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.properti')->middleware('auth');
 
     // product route
     Route::get('product/detail', [User\ProductController::class, 'index'])->name('product.show');
@@ -46,8 +46,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [Admin\LoginController::class, 'loginForm']);
     Route::get('/login', [Admin\LoginController::class, 'loginForm'])->name('admin.login');
     Route::post('/login', [Admin\LoginController::class, 'login'])->name('admin.login');
-    Route::get('/home', [Admin\HomeController::class, 'index'])->name('admin.home');
-    Route::get('logout', [Admin\LoginController::class, 'logoutAdmin'])->name('admin.logout');
+    Route::get('/home', [Admin\HomeController::class, 'index'])->name('admin.home')->middleware('is_admin');
+    Route::get('logout', [Admin\LoginController::class, 'logoutAdmin'])->name('admin.logout')->middleware('is_admin');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
