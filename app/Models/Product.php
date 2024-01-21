@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'product_category_id', 'name', 'code', 'description', 'feature', 'status', 'location', 'size', 'price', 'photo',
+        'admin_id', 'product_category_id', 'name', 'code', 'description', 'feature', 'status', 'location', 'size', 'price', 'photo',
     ];
 
     protected $casts = [
@@ -23,8 +23,13 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class);
     }
 
-    public function user()
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+
+    public function admin()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Admin::class);
     }
 }

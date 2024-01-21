@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -34,28 +36,6 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     $validatedData = $request->validate([
-    //         'user_id' => auth()->user()->id,
-    //         'product_category_id' => 'nullable|exists:product_categories,id',
-    //         'name' => 'required|string|max:255',
-    //         'code' => 'required|string|max:50|unique:products,code',
-    //         'description' => 'required|string',
-    //         'feature' => 'required|string',
-    //         'status' => 'required|string|max:50',
-    //         'location' => 'required|string|max:255',
-    //         'size' => 'required|string|max:50',
-    //         'price' => 'required|integer|min:0',
-    //         'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //     ]);
-
-    //     Product::create($validatedData);
-
-    //     return redirect()->route('product.index')->with('success', 'Data produk baru berhasil ditambahkan!');
-    //     // set flash message
-    //     return with(['type' => 'success', 'delay' => 2500, 'message' => 'Data produk baru berhasil ditambahkan!']);
-    // }
     public function store(Request $request)
     {
         try {
@@ -75,7 +55,7 @@ class ProductController extends Controller
             ]);
 
             $product = new Product([
-                'user_id' => auth()->user()->id,
+                'admin_id' => Auth::guard('is_admin')->user()->id,
                 'product_category_id' => $request->input('product_category_id'),
                 'name' => $request->input('name'),
                 'code' => $request->input('code'),
@@ -97,37 +77,6 @@ class ProductController extends Controller
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
-
-    // public function store(Request $request)
-    // {
-    //     try {
-    //         $validatedData = $request->validate([
-    //             // 'user_id' => 'required|exists:users,id',
-    //             'product_category_id' => 'nullable|exists:product_categories,id',
-    //             'name' => 'required|string|max:255',
-    //             'code' => 'required|string|max:50|unique:products,code',
-    //             'description' => 'required|string',
-    //             'feature' => 'required|string',
-    //             'status' => 'required|string|max:50',
-    //             'location' => 'required|string|max:255',
-    //             'size' => 'required|string|max:50',
-    //             'price' => 'required|integer|min:0',
-    //             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
-    //         ]);
-
-    //         $validatedData['user_id'] = auth()->user()->id;
-
-    //         // dd($validatedData);
-
-    //         Product::create($validatedData);
-
-    //         // Menggunakan redirect biasa
-    //         return redirect()->route('product.index')->with('success', 'Data produk baru berhasil ditambahkan!');
-    //     } catch (\Exception $e) {
-    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
-    //     }
-    // }
-
 
     /**
      * Display the specified resource.
