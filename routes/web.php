@@ -26,10 +26,18 @@ Route::get('/', function () {
 Auth::routes();
 
 // USER START
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.properti');
+Route::prefix('/')->group(function () {
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.properti');
 
-// product route
-Route::get('product/detail', [User\ProductController::class, 'index'])->name('product.show');
+    // product route
+    Route::get('product/detail', [User\ProductController::class, 'index'])->name('product.show');
+
+    //profile route
+    Route::get('profile', [User\ProfileController::class, 'index'])->name('profile.index');
+    // Route::put('profile/{user}/update', [User\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('profile/{user}', [User\ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/update-avatar', [User\ProfileController::class, 'update'])->name('profile.update.avatar');
+});
 //USER END
 
 

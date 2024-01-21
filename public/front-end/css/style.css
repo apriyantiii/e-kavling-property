@@ -441,8 +441,8 @@ pre {
 
 .container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 0px;
+  padding-left: 0px;
   margin-right: auto;
   margin-left: auto; }
   @media (min-width: 576px) {
@@ -460,8 +460,8 @@ pre {
 
 .container-fluid {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 0px;
+  padding-left: 0px;
   margin-right: auto;
   margin-left: auto; }
 
@@ -1586,19 +1586,24 @@ pre {
   .table-responsive > .table-bordered {
     border: 0; }
 
+/* .form-control{
+  border:none;
+  height:40px;padding-left:17px;padding-right:50px;background-color:#f3f3f9;box-shadow:none;
+  background-color:rgba(243,243,249,.1);color:#fff;color:#adb5bd;background-color:#2f373f;border:1px solid #2f373f;
+} */
 .form-control {
   display: block;
   width: 100%;
-  height: calc(2.25rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
+  height: calc(1.75rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+  border-radius: 0.3rem;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;

@@ -61,6 +61,7 @@ class ProductController extends Controller
         try {
             $request->validate([
                 // 'user_id' => 'required|exists:users,id',
+                'id'=> 'auto_increment',
                 'product_category_id' => 'required|exists:product_categories,id',
                 'name' => 'required|string|max:255',
                 'code' => 'required|string|max:50|unique:products,code',
