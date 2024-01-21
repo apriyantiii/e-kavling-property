@@ -62,24 +62,28 @@ class ProfileController extends Controller
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email,' . $user->id,
-                'password' => 'nullable|string|min:6',
-                'avatar' => 'nullable',
+                'password' => 'nullable|string|min:6', // tambahkan confirmed untuk konfirmasi password
+                'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
                 'contact' => 'required|string|max:20',
                 'address' => 'required|string|max:255',
             ]);
 
-            $avatarPath = $request->hasFile('avatar')
-                ? $request->file('avatar')->store('avatars', 'public')
-                : $user->avatar;
-
-            $user->update([
+            $data = [
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'contact' => $request->input('contact'),
                 'address' => $request->input('address'),
-                'password' => $request->filled('password') ? bcrypt($request->input('password')) : $user->password,
-                'avatar' => $avatarPath,
-            ]);
+            ];
+
+            if ($request->filled('password')) {
+                $data['password'] = bcrypt($request->input('password'));
+            }
+
+            if ($request->hasFile('avatar')) {
+                $data['avatar'] = $request->file('avatar')->store('users', 'public');
+            }
+
+            $user->update($data);
 
             return redirect()->route('profile.index')->with('success', 'Profil pengguna berhasil diperbarui!');
         } catch (\Exception $e) {
@@ -87,6 +91,35 @@ class ProfileController extends Controller
             dd($e->getMessage());
         }
     }
+
+    // public function update(Request $request, User $user)
+    // {
+    //     try {
+    //         $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'email' => 'required|email|unique:users,email,' . $user->id,
+    //             'password' => 'nullable|string|min:6',
+    //             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+    //             'contact' => 'required|string|max:20',
+    //             'address' => 'required|string|max:255',
+    //         ]);
+
+
+    //         $user->update([
+    //             'name' => $request->input('name'),
+    //             'email' => $request->input('email'),
+    //             'contact' => $request->input('contact'),
+    //             'address' => $request->input('address'),
+    //             'password' => $request->filled('password') ? bcrypt($request->input('password')) : $user->password,
+    //             'avatar' => $request->hasFile('avatar') ? $request->file('avatar')->store('users', 'public') : null,
+    //         ]);
+
+    //         return redirect()->route('profile.index')->with('success', 'Profil pengguna berhasil diperbarui!');
+    //     } catch (\Exception $e) {
+    //         // Tampilkan pesan exception untuk debugging
+    //         dd($e->getMessage());
+    //     }
+    // }
 
     /**
      * Show the form for creating a new resource.

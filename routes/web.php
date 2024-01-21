@@ -36,7 +36,7 @@ Route::prefix('/')->group(function () {
     Route::get('profile', [User\ProfileController::class, 'index'])->name('profile.index');
     // Route::put('profile/{user}/update', [User\ProfileController::class, 'update'])->name('profile.update');
     Route::put('profile/{user}', [User\ProfileController::class, 'update'])->name('profile.update');
-    Route::patch('/profile/update-avatar', [User\ProfileController::class, 'update'])->name('profile.update.avatar');
+    // Route::patch('/profile/update-avatar', [User\ProfileController::class, 'update'])->name('profile.update.avatar');
 });
 //USER END
 

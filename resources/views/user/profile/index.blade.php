@@ -15,14 +15,6 @@
                         <img class="d-block img-fluid" height="100px" style="height: 300px; width: 1750px;"
                             src="{{ URL::asset('front-end/images/profile-1.jpg') }}" alt="First slide">
                     </div>
-                    {{-- <div class="carousel-item">
-                        <img class="d-block img-fluid mx-auto" src="{{ URL::asset('assets/images/carousol-2.png') }}"
-                            alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block img-fluid mx-auto" src="{{ URL::asset('assets/images/carousol-3.png') }}"
-                            alt="Third slide">
-                    </div> --}}
                 </div>
             </div>
         </div><!-- end col -->
@@ -33,21 +25,21 @@
             <div class="card">
                 <h5 class="card-header bg-transparent border-bottom"><strong>Profil Saya</strong></h5>
                 <div class="card-body">
-                    <h4 class="card-title">Special title treatment</h4>
+                    {{-- <h4 class="card-title">Special title treatment</h4>
                     <p class="card-text">With supporting text below as a natural lead-in to
-                        additional content.</p>
-                    {{-- <div class="row justify-content-center" style="margin-left: 25px">
+                        additional content.</p> --}}
+                    <div class="row justify-content-center" style="margin-left: 25px">
                         <div class="col-md-6">
                             <div class="mt-4 mt-md-0 mb-3">
                                 <img class="img-thumbnail rounded-circle avatar-xxl" alt="200x200"
-                                    src="{{ asset('storage/' . Auth::user()->avatar) }}" data-holder-rendered="true">
+                                    src="{{ URL::asset('storage/' . $user->avatar) }}" data-holder-rendered="true">
                             </div>
                         </div><!-- end col -->
-                    </div><!-- end row --> --}}
+                    </div><!-- end row -->
 
-                    <div class="d-flex justify-content-center mb-3">
+                    {{-- <div class="d-flex justify-content-center mb-3">
                         <a href="javascript: void(0);" class="btn btn-primary float-end">Go somewhere</a>
-                    </div>
+                    </div> --}}
 
                     <div class="table-responsive-vertical">
                         <table id="datatable" class="table align-middle datatable dt-responsive table-check nowrap"
@@ -87,6 +79,21 @@
                 <div class="card-header bg-transparent border-bottom">
                     <h5><strong>Edit Profil</strong></h5>
                 </div>
+                @if (session()->has('success'))
+                    @include('components.alert.success', [
+                        'type' => session('type', 'success'),
+                        'delay' => session('delay', 2500),
+                        'message' => session('success'),
+                    ])
+                @endif
+
+                @if (session()->has('failure'))
+                    @include('components.alert.failure', [
+                        'type' => session('type', 'failure'),
+                        'delay' => session('delay', 2500),
+                        'message' => session('failure'),
+                    ])
+                @endif
                 <div class="card-body">
                     {{-- {{ route('user.update', $user) }} --}}
                     <form action="{{ route('profile.update', $user->id) }}" method="POST">

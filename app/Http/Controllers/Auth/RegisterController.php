@@ -64,7 +64,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $avatar = isset($data['avatar']) ? $data['avatar'] : 'default-avatar.jpg';
+        // $avatar = isset($data['avatar']) ? $data['avatar'] : 'default-avatar.jpg';
+        $avatar = isset($data['avatar']) ? $data['avatar']->store('avatars', 'public') : 'default-avatar.jpg';
         // $gender = isset($data['gender']) ? $data['gender'] : 'male';
 
         return User::create([
