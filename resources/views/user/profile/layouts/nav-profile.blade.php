@@ -5,7 +5,7 @@
                 <img src="{{ URL::asset('assets/images/logo-e-kavling.png') }}" alt="" height="30">
                 <span class="logo-txt">PT. MGP</span>
         </a> --}}
-        <a class="navbar-brand text-black" href="index.html">
+        <a class="navbar-brand text-black" href="{{ route('home.properti') }}">
             <h4><strong>E-Kavling</strong></h4>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -29,8 +29,6 @@
                     </a>
                 </li>
 
-                {{-- <ul class="navbar-nav ms-auto"> --}}
-                <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
                         <li class="nav-item">
@@ -80,26 +78,6 @@
                         </div>
                     </li>
                 @endguest
-                {{-- </ul> --}}
-
-                {{-- @if (Route::has('login'))
-                    @auth
-                        <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link"><span>Home</span></a></li>
-                    @else
-                        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link"><span>Log
-                                    in</span></a></li>
-
-                        @if (Route::has('register'))
-                            <li class="nav-item"><a href="{{ route('register') }}"
-                                    class="nav-link"><span>Register</span></a></li>
-                        @endif
-                    @endauth
-
-                @endif --}}
-
-
-
-
             </ul>
         </div>
     </div>

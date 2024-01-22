@@ -12,8 +12,9 @@
                             <div class="d-flex flex-column h-100">
                                 <div class="mb-4 mb-md-5 text-center">
                                     <a href="{{ url('/') }}" class="d-block auth-logo">
-                                        <img src="{{ URL::asset('assets/images/logo-e-kavling.png') }}" alt=""
-                                            height="28"> <span class="logo-txt">E-kavling</span>
+                                        <img src="{{ URL::asset('assets/images/logo-2.png') }}" alt=""
+                                            height="28">
+                                        <span class="logo-txt">E-kavling</span>
                                     </a>
                                 </div>
                                 <div class="auth-content my-auto">

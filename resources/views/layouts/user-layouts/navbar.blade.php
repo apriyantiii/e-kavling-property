@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             <span class="logo-lg">
-                <img src="{{ URL::asset('assets/images/logo-e-kavling.png') }}" alt="" height="30">
+                <img src="{{ URL::asset('assets/images/logo-2.png') }}" alt="" height="30">
                 <span class="logo-txt">PT. MGP</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

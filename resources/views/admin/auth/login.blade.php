@@ -10,21 +10,20 @@
                     <div class="p-4 auth-full-page-content d-flex p-sm-5">
                         <div class="w-100">
                             <div class="d-flex flex-column h-100">
-                                <div class="mb-4 text-center mb-md-5">
+                                <div class="mb-4 mt-5 text-center">
                                     <a href="{{ url('/') }}" class="mb-9">
-                                        <img src="{{ asset('favicon-modis.png') }}" class="mb-2" height="50"
-                                            alt="Modis Fashion Bali">
-                                        {{-- <img src="{{ asset('favicon-megumi.png') }}" alt="" height="28"> --}}
+                                        <img src="{{ URL::asset('assets/images/logo-2.png') }}" class="mb-2"
+                                            height="50" alt="E-kavling PT.MGP">
                                     </a>
                                     <a href="{{ url('/') }}" class="d-block auth-logo">
                                         {{-- <span class="logo-txt">MODIS ✖ MEGUMI</span> --}}
-                                        <span class="logo-txt">MODIS FASHION</span>
+                                        <span class="logo-txt">ADMIN E-KAVLING</span>
                                     </a>
                                 </div>
                                 <div class="my-auto auth-content">
                                     <div class="text-center">
                                         <h5 class="mb-0">Welcome Back !</h5>
-                                        <p class="mt-2 text-muted">Sign in to continue to your POS.</p>
+                                        <p class="mt-2 text-muted">Sign in to continue to your e-kavling admin</p>
                                     </div>
                                     @if (Session::has('success'))
                                         <div class="alert alert-success" role="alert">
@@ -77,9 +76,9 @@
                                     <p class="mb-0">©
                                         <script>
                                             document.write(new Date().getFullYear())
-                                        </script> Point of Sales . Crafted with <i
-                                            class="mdi mdi-heart text-danger"></i> by <a href="https://damirich.id/"
-                                            target="_blank">Damirich Group</a>
+                                        </script> E-kavling . Crafted with <i
+                                            class="mdi mdi-heart text-danger"></i> by <a href=# target="_blank">PT.MGP
+                                            Group</a>
                                     </p>
                                 </div>
                             </div>
