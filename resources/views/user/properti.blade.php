@@ -63,13 +63,46 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-9 text-center">
-                        <h2>Choose Your Dream House</h2>
-                        <p>We can manage your dream building A small river named Duden flows by their place</p>
-                        <p class="mb-0"><a href="#" class="btn btn-white px-4 py-3">Search Places</a></p>
+                        <h2>Pilih Properti Impianmu</h2>
+                        <p>Seperti sungai yang mengalir ke arah yang benar, investasi yang
+                            cerdas dapat membawa manfaat jangka panjang dan keberlanjutan untuk masa depan.
+                        </p>
+
                     </div>
+                    <form action="{{ route('product.search') }}" method="get" class="search-location">
+                        <div class="row">
+                            <div class="col-lg align-items-end">
+                                <div class="form-group">
+                                    <div class="form-field">
+                                        <input type="search" class="form-control" name="search" placeholder="Cari"
+                                            required>
+                                        <button type="submit"><span class="ion-ios-search"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
+
+        <!-- Hasil Pencarian -->
+        {{-- <div class="container">
+            <h2>Search Results for "{{ $searchTerm }}"</h2>
+
+            @if ($results->isEmpty())
+                <p>No results found.</p>
+            @else
+                <ul>
+                    @foreach ($results as $result)
+                        <li>
+                            <a href="{{ route('product.show', $result->id) }}">{{ $result->name }}</a>
+                            {{-- Tambahkan informasi lain yang ingin ditampilkan --}}
+        {{-- </li>
+        @endforeach
+        </ul>
+        @endif
+        </div> --}}
         {{-- <section class="hero-wrap hero-wrap-2" style="background-image: url('front-end/images/bg_3.jpg');"
             data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
@@ -89,7 +122,7 @@
         <section class="ftco-section ftco-properties" id="properties-section">
             <div class="container-fluid px-md-5">
                 <div class="row">
-                    <div class="col-lg-3 pr-lg-4">
+                    {{-- <div class="col-lg-3 pr-lg-4">
                         <div class="search-wrap">
                             <h3 class="mb-5">Advance Search</h3>
                             <form action="#" class="search-property">
@@ -283,34 +316,40 @@
                                 </div>
                             </form>
                         </div>
-                    </div><!-- end -->
-                    <div class="col-lg-9">
+                    </div><!-- end --> --}}
+
+                    <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-md-6 col-lg-4">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="{{ asset('front-end/images/work-1.jpg') }}" class="img-fluid"
-                                            alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
+                            @foreach ($allProducts as $allProduct)
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="properties ftco-animate">
+                                        <div class="img">
+                                            <img src="{{ URL::asset('storage/' . $allProduct->photo) }}"
+                                                style="height: 250px; width: 450px" class="img-fluid rounded"
+                                                alt="Colorlib Template">
+                                        </div>
+                                        <div class="desc">
+                                            {{-- <div
                                             class="text bg-primary d-flex text-center align-items-center justify-content-center">
                                             <span>Sale</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="{{ route('product.show') }}">Fatima Subdivision</a></h3>
+                                        </div> --}}
+                                            <div class="d-flex pt-5">
+                                                <div>
+                                                    <h3><a
+                                                            href="{{ route('product.show', $allProduct->id) }}">{{ $allProduct->name }}</a>
+                                                    </h3>
+                                                </div>
+                                                <div class="pl-md-4">
+                                                    <h4 class="price">{{ $allProduct->formatted_price }}</h4>
+                                                </div>
                                             </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$120,000</h4>
-                                            </div>
+                                            <p class="h-info"><span class="location">{{ $allProduct->code }}</span> <span
+                                                    class="details">&mdash; {{ $allProduct->location }}</span></p>
                                         </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
+                            @endforeach
+                            {{-- <div class="col-md-6 col-lg-4">
                                 <div class="properties ftco-animate">
                                     <div class="img">
                                         <img src="{{ asset('front-end/images/work-2.jpg') }}" class="img-fluid"
@@ -333,175 +372,8 @@
                                                 class="details">&mdash; 3bds, 2bath</span></p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="{{ asset('front-end/images/work-3.jpg') }}" class="img-fluid"
-                                            alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-primary d-flex text-center align-items-center justify-content-center">
-                                            <span>Sale</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties-single.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$230,000</h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="{{ asset('front-end/images/work-4.jpg') }}" class="img-fluid"
-                                            alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-primary d-flex text-center align-items-center justify-content-center">
-                                            <span>Sale</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties-single.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$120,000</h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="{{ asset('front-end/images/work-5.jpg') }}" class="img-fluid"
-                                            alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-secondary d-flex text-center align-items-center justify-content-center">
-                                            <span>Rent</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties-single.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$50<span>/mo</span></h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="{{ asset('front-end/images/work-6.jpg') }}" class="img-fluid"
-                                            alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-primary d-flex text-center align-items-center justify-content-center">
-                                            <span>Sale</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties-single.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$120,000</h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="{{ asset('front-end/images/work-7.jpg') }}" class="img-fluid"
-                                            alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-primary d-flex text-center align-items-center justify-content-center">
-                                            <span>Sale</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties-single.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$120,000</h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="{{ asset('front-end/images/work-8.jpg') }}" class="img-fluid"
-                                            alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-primary d-flex text-center align-items-center justify-content-center">
-                                            <span>Sale</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties-single.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$120,000</h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="{{ asset('front-end/images/work-9.jpg') }}" class="img-fluid"
-                                            alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-primary d-flex text-center align-items-center justify-content-center">
-                                            <span>Sale</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties-single.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$120,000</h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
-                                </div>
-                            </div>
+                            </div> --}}
+
                         </div>
                         <div class="row mt-5">
                             <div class="col text-center">

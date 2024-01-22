@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,9 +22,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('user.properti');
+        // Fungsi formatPrice 
+        if (!function_exists('formatPrice')) {
+            function formatPrice($price)
+            {
+                return 'Rp ' . number_format($price, 0, ',', '.');
+            }
+        }
+
+        $allProducts = Product::all();
+
+        // Memformat harga menggunakan fungsi formatPrice untuk setiap produk
+        $allProducts->transform(function ($product) {
+            $product->formatted_price = formatPrice($product->price);
+            return $product;
+        });
+
+        return view('user.properti', compact('allProducts'));
     }
     public function adminHome()
     {

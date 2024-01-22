@@ -22,6 +22,31 @@
     <link rel="stylesheet" href="{{ asset('front-end/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('front-end/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('front-end/css/style.css') }}">
+    <style>
+        .tour-wrap table {
+            margin-bottom: 0;
+            /* Menghilangkan margin bawah pada tabel */
+        }
+
+        .tour-wrap th,
+        .tour-wrap td {
+            padding: 5px;
+            /* Atur padding sesuai kebutuhan */
+            border-top: none;
+            /* Menghilangkan border atas pada sel */
+        }
+
+        .tour-wrap p {
+            margin-bottom: 0px;
+            /* Atur margin bawah pada elemen paragraf */
+        }
+
+        .tour-wrap .d-flex ul li,
+        .tour-wrap .block-16 figure {
+            margin-bottom: 0px;
+            /* Atur margin bawah pada elemen-elemen ini */
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -46,28 +71,26 @@
         <section class="ftco-section ftco-services-2">
             <div class="container">
                 <div class="row">
+                    {{-- @foreach ($allProducts as $allProduct) --}}
                     <div class="col-md-12 property-wrap mb-5">
                         <div class="row">
                             <div class="col-md-6 d-flex ftco-animate">
                                 <div class="img align-self-stretch"
-                                    style="background-image:url('{{ URL::asset('front-end/images/work-2.jpg') }}');">
+                                    style="background-image:url('{{ URL::asset('storage/' . $products->photo) }}');">
                                 </div>
                             </div>
                             <div class="col-md-6 ftco-animate py-5">
                                 <div class="text py-5 pl-md-5">
                                     <div class="d-flex">
                                         <div>
-                                            <h3><a href="properties-single.html">Fatima Subdivision</a></h3>
+                                            <h3><a href="properties-single.html">{{ $products->name }}<span
+                                                        class="details">&mdash; {{ $products->code }}</a></h3>
                                         </div>
                                         <div class="pl-md-4">
-                                            <h4 class="price">$120,000</h4>
+                                            <h4 class="price">{!! $products->formatted_price !!}</h4>
                                         </div>
                                     </div>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right
-                                        at the coast of the Semantics, a large language ocean. A small river named Duden
-                                        flows by their place and supplies it with the necessary regelialia. It is a
-                                        paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                    <p>{!! $products->description_sentences !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -76,38 +99,38 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <th scope="row">Lot area</th>
+                                    <th scope="row"><strong>Fasilitas</strong></th>
                                     <td>
-                                        <p>1,250 SQ FT</p>
+                                        <p>{!! $products->feature_sentences !!}</p>
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->
 
                                 <tr>
-                                    <th scope="row">Floor Area</th>
+                                    <th scope="row"><strong>Lokasi</strong></th>
                                     <td>
-                                        <p>1,300 SQ FT</p>
+                                        <p>{{ $products->location }}</p>
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->
 
                                 <tr>
-                                    <th scope="row">Bedroom</th>
+                                    <th scope="row"><strong>Luas Wilayah</strong></th>
                                     <td>
-                                        <p>4 Bedrooms</p>
+                                        <p>{{ $products->size }}</p>
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->
 
                                 <tr>
-                                    <th scope="row">Bathroom</th>
+                                    <th scope="row"><strong>Status Sertifikat</strong></th>
                                     <td>
-                                        <p>4 Bathrooms</p>
+                                        <p>{{ $products->status }}</p>
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->
 
-                                <tr>
+                                {{-- <tr>
                                     <th scope="row">Garage</th>
                                     <td>
                                         <p>2 Garage</p>
@@ -162,8 +185,8 @@
                                                         class="icon-play"></span></a>
                                             </figure>
                                         </div>
-                                    </td>
-                                </tr><!-- END TR-->
+                                    </td> --}}
+                                {{-- </tr><!-- END TR--> --}}
                             </tbody>
                         </table>
                     </div>
@@ -296,6 +319,7 @@
                             </div>
                         </div>
                     </div> --}}
+                    {{-- @endforeach --}}
                 </div>
             </div>
         </section> <!-- .section -->

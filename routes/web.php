@@ -27,16 +27,19 @@ Auth::routes();
 
 // USER START
 Route::prefix('/')->group(function () {
+    //home isinya kumpulan beberapa product
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.properti')->middleware('auth');
 
     // product route
-    Route::get('product/detail', [User\ProductController::class, 'index'])->name('product.show');
+    Route::get('product/detail/{id}', [User\ProductController::class, 'show'])->name('product.show')->middleware('auth');
+    Route::get('/search', [User\ProductController::class, 'search'])->name('product.search');
+
+    //product-categories
+    Route::get('categories', [User\ProductController::class, 'indexCategories'])->name('categories.index')->middleware('auth');
 
     //profile route
     Route::get('profile', [User\ProfileController::class, 'index'])->name('profile.index');
-    // Route::put('profile/{user}/update', [User\ProfileController::class, 'update'])->name('profile.update');
     Route::put('profile/{user}', [User\ProfileController::class, 'update'])->name('profile.update');
-    // Route::patch('/profile/update-avatar', [User\ProfileController::class, 'update'])->name('profile.update.avatar');
 });
 //USER END
 
