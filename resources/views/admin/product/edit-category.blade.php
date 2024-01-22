@@ -34,11 +34,11 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">
-                                        Nama Kategori <span class="text-danger">*</span>
+                                        Nama Kategori
                                     </label>
                                     <input type="text"
                                         class="form-control form-rounded @error('name') is-invalid @enderror" name="name"
-                                        id="name" placeholder="cth. Lingerie, Shirt S, dll"
+                                        id="name" placeholder="cth. Griya Pakuwon, dll"
                                         value="{{ $productCategory->name }}">
                                     @error('name')
                                         <div class="invalid-feedback">
@@ -51,7 +51,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="code" class="form-label">
-                                        Kode Kategori <span class="text-danger">*</span>
+                                        Kode Kategori
                                     </label>
                                     <input type="text"
                                         class="form-control form-rounded @error('code') is-invalid @enderror" name="code"
@@ -66,7 +66,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="location" class="form-label">
-                                        Lokasi <span class="text-danger">*</span>
+                                        Lokasi
                                     </label>
                                     <input type="text"
                                         class="form-control form-rounded @error('location') is-invalid @enderror"

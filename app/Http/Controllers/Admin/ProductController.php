@@ -41,7 +41,7 @@ class ProductController extends Controller
         try {
             $request->validate([
                 // 'user_id' => 'required|exists:users,id',
-                'id'=> 'auto_increment',
+                'id' => 'auto_increment',
                 'product_category_id' => 'required|exists:product_categories,id',
                 'name' => 'required|string|max:255',
                 'code' => 'required|string|max:50|unique:products,code',
@@ -89,18 +89,61 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+
+    public function edit(Product $product)
     {
-        //
+        // Ambil kategori produk terkait
+        $productCategory = ProductCategory::find($product->product_category_id);
+
+        // Pastikan kategori produk ditemukan
+        if ($productCategory) {
+            return view('admin.product.edit', compact('product', 'productCategory'));
+        } else {
+            // Lakukan penanganan jika kategori produk tidak ditemukan
+            return redirect()->route('edit.product.index')->with('error', 'Kategori produk tidak ditemukan.');
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        try {
+            $request->validate([
+                'product_category_id' => 'required|exists:product_categories,id',
+                'name' => 'required|string|max:255',
+                'code' => 'required|string|max:50|unique:products,code,' . $product->id,
+                'description' => 'required|string',
+                'feature' => 'required|string',
+                'status' => 'required|string|max:50',
+                'location' => 'required|string|max:255',
+                'size' => 'required|string|max:50',
+                'price' => 'required|integer|min:0',
+                'photo' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
+            ]);
+
+            // Update data produk
+            $product->update([
+                'product_category_id' => $request->input('product_category_id'),
+                'name' => $request->input('name'),
+                'code' => $request->input('code'),
+                'description' => $request->input('description'),
+                'feature' => $request->input('feature'),
+                'status' => $request->input('status'),
+                'location' => $request->input('location'),
+                'size' => $request->input('size'),
+                'price' => $request->input('price'),
+                'photo' => $request->hasFile('photo') ? $request->file('photo')->store('products', 'public') : $product->photo,
+            ]);
+
+            // Menggunakan redirect biasa
+            return redirect()->route('product.index')->with('success', 'Data produk berhasil diperbarui!');
+        } catch (\Exception $e) {
+            dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -182,7 +182,8 @@
                                                                                 class="mdi mdi-eye font-size-16 text-success me-1"></i>
                                                                             Detail</a>
                                                                     </li>
-                                                                    <li><a href="#" class="dropdown-item">
+                                                                    <li><a href="{{ route('product.edit', $product->id) }}"
+                                                                            class="dropdown-item">
                                                                             <i
                                                                                 class="mdi mdi-pencil font-size-16 text-success me-1"></i>
                                                                             Edit
