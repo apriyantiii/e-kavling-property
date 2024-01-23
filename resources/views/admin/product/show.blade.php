@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Semua Produk
-@endsection
+    Detail Produk - {{ $products->name }}
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
         type="text/css">
@@ -35,13 +34,13 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6">
                                     <div>
-                                        <h5 class="card-title">Kategori Produk
-                                            <span class="text-muted fw-normal">({{ $productCategories->count() }})</span>
+                                        <h5 class="card-title">Detail Produk
+                                            <span class="text-muted fw-normal">{{ $products->name }}</span>
                                         </h5>
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
                                         <div>
 
@@ -70,65 +69,61 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive-vertical">
                                 <table id="datatable" class="table align-middle datatable dt-responsive table-check nowrap"
                                     style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Nama Kategori</th>
-                                            <th>Lokasi</th>
-                                            <th>Tindakan</th>
-                                        </tr>
-                                    </thead>
 
-                                    <tbody>
-                                        @foreach ($productCategories as $productCategory)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $productCategory->name }}</td>
-                                                <td>{{ $productCategory->location }}</td>
-                                                <td class="align-middle">
-                                                    <div class="dropdown">
-                                                        <a href="#" class="dropdown-toggle card-drop"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a href="{{ route('category.edit', $productCategory->id) }}"
-                                                                    class="dropdown-item">
-                                                                    <i
-                                                                        class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                    Edit
-                                                                </a>
-                                                            </li>
+                                    <tr>
+                                        <td data-label="Foto Produk"><strong>Foto Produk</strong></td>
+                                        <td><img src="{{ URL::asset('storage/' . $products->photo) }}" width="70"
+                                                alt=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Nama Produk"><strong>Nama Produk</strong></td>
+                                        <td>{{ $products->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Kode"><strong>Kode</strong></td>
+                                        <td>{{ $products->code }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Harga"><strong>Harga</strong></td>
+                                        <td>
+                                            {!! $products->formatted_price !!}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Kategori"><strong>Kategori</strong></td>
+                                        <td>{{ $products->productCategory->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Alamat"><strong>Alamat</strong></td>
+                                        <td>{{ $products->location }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Deskripsi"><strong>Deskripsi</strong></td>
+                                        <td>{!! $products->description_sentences !!}</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Fasilitas"><strong>Fasilitas</strong></td>
+                                        <td>{!! $products->feature_sentences !!}</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Status"><strong>Status</strong></td>
+                                        <td>{{ $products->status }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Ukuran"><strong>Ukuran</strong></td>
+                                        <td>{{ $products->size }}</td>
+                                    </tr>
 
-                                                            <li>
-                                                                <a href="#" class="dropdown-item"
-                                                                    onclick="event.preventDefault(); document.getElementById('deleteCategoryForm').submit();">
-                                                                    <i
-                                                                        class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                    Hapus
-                                                                </a>
 
-                                                                <form id="deleteCategoryForm"
-                                                                    action="{{ route('category.destroy', $productCategory->id) }}"
-                                                                    method="POST" style="display: none;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
+
                                 </table>
                             </div>
                         </div>
@@ -206,8 +201,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn-rounded btn btn-secondary waves-effect"
                             data-bs-dismiss="modal">Batal</button>
-                        <button type="submit"
-                            class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
+                        <button type="submit" class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -227,22 +221,12 @@
     </script>
     <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
 
+    {{-- form select --}}
+    {{-- <script src="{{ URL::asset('assets/js/pages/form-wizard.init.js') }}"></script> --}}
     <script src="{{ URL::asset('assets/libs/choices.js/choices.js.min.js') }}"></script>
+    {{-- <script src="{{ URL::asset('assets/libs/@simonwep/@simonwep.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script> --}}
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
 
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
-
-    <script>
-        $(document).ready(function() {
-            // error message validation modal
-            @if ($errors->has('category_name') || $errors->has('category_parent') || $errors->has('category_description'))
-                $('#addCategory').modal('show');
-            @endif
-        });
-
-        // check box selected all
-        $('#select_all').click(function() {
-            $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
-        });
-    </script>
 @endsection

@@ -1,6 +1,6 @@
 @extends('user.layouts.master')
 @section('title')
-    Beranda E-Kavling
+    Detail Product
 @endsection
 @section('css')
     <meta charset="utf-8">

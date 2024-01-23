@@ -81,9 +81,28 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showProduct(string $id)
     {
-        //
+        // Fungsi formatPrice 
+        if (!function_exists('formatPrice')) {
+            function formatPrice($price)
+            {
+                return 'Rp ' . number_format($price, 0, ',', '.');
+            }
+        }
+
+        $products = Product::find($id);
+        // Memisahkan fitur menjadi kalimat-kalimat
+        $products->feature_sentences = nl2br($products->feature);
+
+        // Memisahkan deskripsi menjadi kalimat-kalimat
+        $products->description_sentences = nl2br($products->description);
+
+        // Memformat harga menggunakan fungsi formatPrice
+        $products->formatted_price = formatPrice($products->price);
+
+        $allProducts = Product::all();
+        return view('admin.product.show', compact('products', 'allProducts'));
     }
 
     /**

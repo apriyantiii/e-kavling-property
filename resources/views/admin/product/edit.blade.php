@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Buat Produk Baru
+    Edit - {{ $product->name }}
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/twitter-bootstrap-wizard/twitter-bootstrap-wizard.min.css') }}" rel="stylesheet">
@@ -17,16 +17,16 @@
             Produk
         @endslot
         @slot('title')
-            Buat Produk Baru
+            {{ $product->name }}
         @endslot
     @endcomponent
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="mb-0 card-title">Buat Produk</h4>
+                    <h4 class="mb-0 card-title">Edit Produk</h4>
                     <p class="card-title-desc mt-2">
-                        Tambahkan Produk Baru sesuai dengan form di bawah!
+                        Edit Produk Anda dengan mudah sesuai kebutuhan
                     </p>
                 </div>
                 <div class="card-body">

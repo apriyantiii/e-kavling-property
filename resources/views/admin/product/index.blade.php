@@ -67,7 +67,7 @@
                                     <div class="col-md-6">
                                         <div>
                                             <h5 class="card-title">Semua Produk
-                                                <span class="text-muted fw-normal"></span>
+                                                <span class="text-muted fw-normal">({{ $products->count() }})</span>
                                             </h5>
                                         </div>
                                     </div>
@@ -178,7 +178,8 @@
                                                                     <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                                                 </a>
                                                                 <ul class="dropdown-menu dropdown-menu-end">
-                                                                    <li><a href="#" class="dropdown-item"><i
+                                                                    <li><a href="{{ route('detail.product.admin', $product->id) }}"
+                                                                            class="dropdown-item"><i
                                                                                 class="mdi mdi-eye font-size-16 text-success me-1"></i>
                                                                             Detail</a>
                                                                     </li>
