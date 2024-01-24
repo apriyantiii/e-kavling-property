@@ -22,9 +22,12 @@ return new class extends Migration
             $table->text('feature');
             $table->string('status');
             $table->string('location');
+            $table->double('latitude', 10, 8)->nullable();
+            $table->double('longitude', 11, 8)->nullable();
             $table->string('size');
             $table->integer('price');
             $table->string('photo');
+            $table->string('video_url')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

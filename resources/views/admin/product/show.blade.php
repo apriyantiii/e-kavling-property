@@ -35,41 +35,9 @@
                                 <div class="col-md-6">
                                     <div>
                                         <h5 class="card-title">Detail Produk
-                                            <span class="text-muted fw-normal">{{ $products->name }}</span>
                                         </h5>
                                     </div>
                                 </div>
-
-                                {{-- <div class="col-md-6">
-                                    <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
-                                        <div>
-
-                                            <button type="button"
-                                                class="btn btn-success btn-rounded waves-effect waves-light"
-                                                data-bs-toggle="modal" data-bs-target="#addCategory"><i
-                                                    class="bx bx-plus me-1"></i>
-                                                Buat Kategori Baru</button>
-                                        </div>
-
-                                        <div class="dropdown">
-                                            <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
-                                                href="#" role="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <i class="bx bx-dots-horizontal-rounded"></i>
-                                            </a>
-
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li>
-                                                    <a class="dropdown-item" href="{{ route('category.destroy-all') }}">
-                                                        <i class="bx bx-trash me-1 text-danger"></i>
-                                                        Hapus Semua
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                </div> --}}
                             </div>
                         </div>
 
@@ -106,6 +74,14 @@
                                         <td>{{ $products->location }}</td>
                                     </tr>
                                     <tr>
+                                        <td data-label="Latitude"><strong>Latitude</strong></td>
+                                        <td>{{ $products->latitude }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Longitude"><strong>Longitude</strong></td>
+                                        <td>{{ $products->longitude }}</td>
+                                    </tr>
+                                    <tr>
                                         <td data-label="Deskripsi"><strong>Deskripsi</strong></td>
                                         <td>{!! $products->description_sentences !!}</td>
                                     </tr>
@@ -121,9 +97,20 @@
                                         <td data-label="Ukuran"><strong>Ukuran</strong></td>
                                         <td>{{ $products->size }}</td>
                                     </tr>
-
-
-
+                                    <tr>
+                                        <td data-label="Vidio"><strong>Vidio</strong></td>
+                                        <td>
+                                            <div class="block-16">
+                                                <figure>
+                                                    <!-- Ganti URL video sesuai dengan URL video yang disimpan di database -->
+                                                    <video width="340" height="240" controls>
+                                                        <source src="{{ asset('storage/' . $products->video_url) }}"
+                                                            type="video/mp4"><span class="icon-play"></span>
+                                                    </video>
+                                                </figure>
+                                            </div>
+                                        </td>
+                                    </tr><!-- END TR-->
                                 </table>
                             </div>
                         </div>
@@ -201,7 +188,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn-rounded btn btn-secondary waves-effect"
                             data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
+                        <button type="submit"
+                            class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -222,10 +210,7 @@
     <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
 
     {{-- form select --}}
-    {{-- <script src="{{ URL::asset('assets/js/pages/form-wizard.init.js') }}"></script> --}}
     <script src="{{ URL::asset('assets/libs/choices.js/choices.js.min.js') }}"></script>
-    {{-- <script src="{{ URL::asset('assets/libs/@simonwep/@simonwep.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script> --}}
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
 
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>

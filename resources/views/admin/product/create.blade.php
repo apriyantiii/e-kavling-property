@@ -106,6 +106,21 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="photo" class="form-label">
+                                        Upload Foto <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="file"
+                                        class="form-control form-rounded @error('photo') is-invalid @enderror"
+                                        name="photo" id="photo" placeholder="" value="{{ old('photo') }}" required
+                                        autocomplete="photo">
+                                    @error('photo')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="description">Deskripsi <span class="text-danger">*</span></label>
                                     <textarea class="form-control" name="description" id="description" rows="5"
                                         placeholder="cth. kavling ini berada di area perumahan..." value="{{ old('description') }}" required
@@ -126,9 +141,9 @@
                                         Kode Produk <span class="text-danger">*</span>
                                     </label>
                                     <input type="text"
-                                        class="form-control form-rounded @error('code') is-invalid @enderror" name="code"
-                                        id="code" placeholder="cth. PM001" value="{{ old('code') }}" required
-                                        autocomplete="code">
+                                        class="form-control form-rounded @error('code') is-invalid @enderror"
+                                        name="code" id="code" placeholder="cth. PM001"
+                                        value="{{ old('code') }}" required autocomplete="code">
                                     @error('code')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -152,6 +167,36 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label for="latitude" class="form-label">Latitude <span class="text-danger">
+                                                    <a
+                                                        href="https://kiaton.kontan.co.id/news/ini-2-cara-melihat-titik-koordinat-di-google-maps-untuk-memudahkan-perjalanan">*cara
+                                                        menemukan lng lat</a></span></label>
+                                            <input type="number"
+                                                class="form-control form-rounded @error('latitude') is-invalid @enderror"
+                                                name="latitude" id="latitude" value="{{ old('latitude') }}"
+                                                placeholder="cth. -7.555932570835964">
+                                            @error('latitude')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label for="longitude" class="form-label">Longitude</label>
+                                            <input type="number"
+                                                class="form-control form-rounded @error('longitude') is-invalid @enderror"
+                                                name="longitude" id="longitude" value="{{ old('longitude') }}"
+                                                placeholder="cth. 112.23399313901098">
+                                            @error('longitude')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="size" class="form-label">
                                         Luas Tanah <span class="text-danger">*</span>
                                     </label>
@@ -168,14 +213,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="photo" class="form-label">
-                                        Upload Foto <span class="text-danger">*</span>
+                                    <label for="video_url" class="form-label">
+                                        Upload Vidio <span class="text-danger">*</span>
                                     </label>
                                     <input type="file"
-                                        class="form-control form-rounded @error('photo') is-invalid @enderror"
-                                        name="photo" id="photo" placeholder="" value="{{ old('photo') }}"
-                                        required autocomplete="photo">
-                                    @error('photo')
+                                        class="form-control form-rounded @error('video_url') is-invalid @enderror"
+                                        name="video_url" id="video_url" placeholder="" value="{{ old('video_url') }}"
+                                        accept="video/*">
+                                    @error('video_url')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

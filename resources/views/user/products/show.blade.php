@@ -19,6 +19,12 @@
 
     <link rel="stylesheet" href="{{ asset('front-end/css/ionicons.min.css') }}">
 
+    {{-- maps --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <link rel="stylesheet" href="{{ asset('front-end/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('front-end/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('front-end/css/style.css') }}">
@@ -71,7 +77,6 @@
         <section class="ftco-section ftco-services-2">
             <div class="container">
                 <div class="row">
-                    {{-- @foreach ($allProducts as $allProduct) --}}
                     <div class="col-md-12 property-wrap mb-5">
                         <div class="row">
                             <div class="col-md-6 d-flex ftco-animate">
@@ -129,197 +134,56 @@
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->
-
-                                {{-- <tr>
-                                    <th scope="row">Garage</th>
+                                <tr>
+                                    <th scope="row"><strong>Latitude</strong></th>
                                     <td>
-                                        <p>2 Garage</p>
+                                        <p>{{ $products->latitude }}</p>
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->
-
-
                                 <tr>
-                                    <th scope="row">Included</th>
-                                    <td class="d-flex">
-                                        <ul>
-                                            <li>Year Built: 2019</li>
-                                            <li>Roofing New</li>
-                                        </ul>
-                                        <ul>
-                                            <li>Free Taxes</li>
-                                            <li>Agent</li>
-                                        </ul>
+                                    <th scope="row"><strong>Longitude</strong></th>
+                                    <td>
+                                        <p>{{ $products->longitude }}</p>
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->
 
                                 <tr>
-                                    <th scope="row">Not Included</th>
-                                    <td class="d-flex">
-                                        <ul>
-                                            <li>Taxes</li>
-                                        </ul>
-                                        <ul>
-                                            <li>Entry Fees</li>
-                                        </ul>
+                                    <th scope="row"><strong>Status Sertifikat</strong></th>
+                                    <td>
+                                        <p>{{ $products->status }}</p>
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->
                                 <tr>
-                                    <th scope="row">Maps</th>
+                                    <th scope="row"><strong>Vidio Lokasi</strong></th>
                                     <td>
-                                        <div id="map"></div>
-                                    </td>
-                                </tr><!-- END TR-->
-
-                                <tr>
-                                    <th scope="row">Take A Tour</th>
-                                    <td>
-                                        <!-- <div id="map"></div> -->
                                         <div class="block-16">
                                             <figure>
-                                                <div class="img" style="background-image: url(images/work-2.jpg);">
-                                                </div>
-                                                <a href="https://vimeo.com/45830194" class="play-button popup-vimeo"><span
-                                                        class="icon-play"></span></a>
+                                                <!-- Ganti URL video sesuai dengan URL video yang disimpan di database -->
+                                                <video width="1000" height="440" controls>
+                                                    <source src="{{ asset('storage/' . $products->video_url) }}"
+                                                        type="video/mp4"><span class="icon-play"></span>
+                                                    <a href="https://vimeo.com/45830194"
+                                                        class="play-button popup-vimeo"></a>
+                                                </video>
                                             </figure>
                                         </div>
-                                    </td> --}}
-                                {{-- </tr><!-- END TR--> --}}
+                                    </td>
+                                </tr><!-- END TR-->
+
+                                <tr>
+                                    <th scope="row"><strong>Lokasi Melalui Maps</strong></th>
+                                    <td>
+                                        <div id="map" style="width: 1000px; height: 400px;"></div>
+                                    </td>
+                                    <td></td>
+                                </tr><!-- END TR-->
                             </tbody>
                         </table>
                     </div>
-                    {{-- <div class="col-md-12 tour-wrap">
-                        <div class="pt-5 mt-5">
-                            <h3 class="mb-5">6 Reviews</h3>
-                            <ul class="comment-list">
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img src="images/person_1.jpg" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                        <h3>John Doe</h3>
-                                        <div class="meta">October 03, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                            necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
-                                            sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-                                </li>
 
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img src="images/person_1.jpg" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                        <h3>John Doe</h3>
-                                        <div class="meta">October 03, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                            necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
-                                            sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-
-                                    <ul class="children">
-                                        <li class="comment">
-                                            <div class="vcard bio">
-                                                <img src="images/person_1.jpg" alt="Image placeholder">
-                                            </div>
-                                            <div class="comment-body">
-                                                <h3>John Doe</h3>
-                                                <div class="meta">October 03, 2018 at 2:21pm</div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem
-                                                    laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat
-                                                    saepe enim sapiente iste iure! Quam voluptas earum impedit
-                                                    necessitatibus, nihil?</p>
-                                                <p><a href="#" class="reply">Reply</a></p>
-                                            </div>
-
-
-                                            <ul class="children">
-                                                <li class="comment">
-                                                    <div class="vcard bio">
-                                                        <img src="images/person_1.jpg" alt="Image placeholder">
-                                                    </div>
-                                                    <div class="comment-body">
-                                                        <h3>John Doe</h3>
-                                                        <div class="meta">October 03, 2018 at 2:21pm</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                            Pariatur quidem laborum necessitatibus, ipsam impedit vitae
-                                                            autem, eum officia, fugiat saepe enim sapiente iste iure! Quam
-                                                            voluptas earum impedit necessitatibus, nihil?</p>
-                                                        <p><a href="#" class="reply">Reply</a></p>
-                                                    </div>
-
-                                                    <ul class="children">
-                                                        <li class="comment">
-                                                            <div class="vcard bio">
-                                                                <img src="images/person_1.jpg" alt="Image placeholder">
-                                                            </div>
-                                                            <div class="comment-body">
-                                                                <h3>John Doe</h3>
-                                                                <div class="meta">October 03, 2018 at 2:21pm</div>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    Pariatur quidem laborum necessitatibus, ipsam impedit
-                                                                    vitae autem, eum officia, fugiat saepe enim sapiente
-                                                                    iste iure! Quam voluptas earum impedit necessitatibus,
-                                                                    nihil?</p>
-                                                                <p><a href="#" class="reply">Reply</a></p>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img src="images/person_1.jpg" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                        <h3>John Doe</h3>
-                                        <div class="meta">October 03, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                            necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
-                                            sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-                                </li>
-                            </ul>
-                            <!-- END comment-list -->
-
-                            <div class="comment-form-wrap pt-5">
-                                <h3 class="mb-5">Leave a comment</h3>
-                                <form action="#" class="p-5 bg-light">
-                                    <div class="form-group">
-                                        <label for="name">Name *</label>
-                                        <input type="text" class="form-control" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email *</label>
-                                        <input type="email" class="form-control" id="email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="website">Website</label>
-                                        <input type="url" class="form-control" id="website">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="message">Message</label>
-                                        <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div> --}}
-                    {{-- @endforeach --}}
                 </div>
             </div>
         </section> <!-- .section -->
@@ -341,6 +205,53 @@
     <script src="{{ asset('js/scrollax.min.js') }}"></script>
     <script src="{{ asset('js/google-map.js') }}"></script>
 
+    <script>
+        const latitude = {{ $products->latitude }};
+        const longitude = {{ $products->longitude }};
+
+        const map = L.map('map').setView([latitude, longitude], 13);
+
+        const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const marker = L.marker([latitude, longitude]).addTo(map)
+            .bindPopup('<b>{{ $products->name }}</b><br>{{ $products->location }}').openPopup();
+
+        const popup = L.popup()
+            .setLatLng([latitude, longitude])
+            .setContent('<b>{{ $products->name }}</b><br>{{ $products->location }}')
+            .openOn(map);
+    </script>
+
+    {{-- <script>
+        const map = L.map('map').setView([-7.555932570835964, 112.23399313901098], 13);
+
+        const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const marker = L.marker([-7.555932570835964, 112.23399313901098]).addTo(map)
+            .bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
+
+        const popup = L.popup()
+            .setLatLng([-7.555932570835964, 112.23399313901098])
+            .setContent('I am a standalone popup.')
+            .openOn(map);
+
+        function onMapClick(e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent(`You clicked the map at ${e.latlng.toString()}`)
+                .openOn(map);
+        }
+
+        map.on('click', onMapClick);
+    </script> --}}
+
+
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> --}}
 @endsection

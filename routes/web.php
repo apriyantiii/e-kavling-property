@@ -22,6 +22,11 @@ Route::get('/', function () {
     return view('landing-page');
 });
 
+Route::get('/maps', function () {
+    return view('user.products.maps');
+});
+
+
 //USER AUTH
 Auth::routes();
 
@@ -68,7 +73,7 @@ Route::prefix('admin')->group(function () {
     Route::get('category/{productCategory}/edit', [Admin\ProductController::class, 'editCategory'])->name('category.edit')->middleware('is_admin');
     Route::put('category/{productCategory}', [Admin\ProductController::class, 'updateCategory'])->name('category.update')->middleware('is_admin');
     Route::delete('category/{productCategory}/delete', [Admin\ProductController::class, 'destroyCategory'])->name('category.destroy')->middleware('is_admin');
-    Route::delete('category/delete-all', [Admin\ProductController::class, 'destroyAllCategory'])->name('category.destroy-all')->middleware('is_admin');
+    Route::delete('category/delete-all', [Admin\ProductController::class, 'destroyAllCategory'])->name('category.destroy-all');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 

@@ -40,8 +40,6 @@ class ProductController extends Controller
     {
         try {
             $request->validate([
-                // 'user_id' => 'required|exists:users,id',
-                'id' => 'auto_increment',
                 'product_category_id' => 'required|exists:product_categories,id',
                 'name' => 'required|string|max:255',
                 'code' => 'required|string|max:50|unique:products,code',
@@ -52,7 +50,13 @@ class ProductController extends Controller
                 'size' => 'required|string|max:50',
                 'price' => 'required|integer|min:0',
                 'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
+                'latitude' => ['required', 'regex:/^-?\d{1,2}\.\d{6}$/'],
+                'longitude' => ['required', 'regex:/^-?\d{1,3}\.\d{6}$/'],
+                'video_url' => 'required|mimes:mp4,avi,wmv,mov|max:20480', // Maksimal 20MB
             ]);
+
+            // Simpan video
+            $videoPath = $request->file('video_url')->store('videos', 'public');
 
             $product = new Product([
                 'admin_id' => Auth::guard('is_admin')->user()->id,
@@ -65,10 +69,12 @@ class ProductController extends Controller
                 'location' => $request->input('location'),
                 'size' => $request->input('size'),
                 'price' => $request->input('price'),
+                'video_url' => $videoPath, // Simpan path video_url
+                'latitude' => $request->input('latitude'),
+                'longitude' => $request->input('longitude'),
                 'photo' => $request->hasFile('photo') ? $request->file('photo')->store('products', 'public') : null,
             ]);
 
-            // dd($request);
             $product->save();
 
             // Menggunakan redirect biasa
@@ -77,6 +83,7 @@ class ProductController extends Controller
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -140,7 +147,13 @@ class ProductController extends Controller
                 'size' => 'required|string|max:50',
                 'price' => 'required|integer|min:0',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
+                'latitude' => ['required', 'regex:/^-?\d{1,2}\.\d{6}$/'],
+                'longitude' => ['required', 'regex:/^-?\d{1,3}\.\d{6}$/'],
+                'video_url' => 'required|mimes:mp4,avi,wmv,mov|max:20480', // Maksimal 20MB
             ]);
+
+            // Simpan video
+            $videoPath = $request->file('video_url')->store('videos', 'public');
 
             // Update data produk
             $product->update([
@@ -154,6 +167,9 @@ class ProductController extends Controller
                 'size' => $request->input('size'),
                 'price' => $request->input('price'),
                 'photo' => $request->hasFile('photo') ? $request->file('photo')->store('products', 'public') : $product->photo,
+                'video_url' => $videoPath, // Simpan path video_url
+                'latitude' => $request->input('latitude'),
+                'longitude' => $request->input('longitude'),
             ]);
 
             // Menggunakan redirect biasa
@@ -240,16 +256,16 @@ class ProductController extends Controller
     public function destroyAllCategory()
     {
         // Cek apakah ada kategori yang memiliki produk
-        // $categoriesWithProducts = ProductCategory::has('products')->exists();
+        $categoriesWithProducts = ProductCategory::has('products')->exists();
 
-        // if ($categoriesWithProducts) {
-        //     return redirect()->route('productRetail.index')->with('failure', 'Tidak dapat menghapus semua Kategori yang memiliki Produk!');
-        // }
+        if ($categoriesWithProducts) {
+            return redirect()->route('category.index')->with('failure', 'Tidak dapat menghapus semua Kategori yang memiliki Produk!');
+        }
 
         // Hapus semua kategori produk dari database
         ProductCategory::truncate();
 
         // Redirect dengan pesan sukses
-        return redirect()->route('product.index')->with('success', 'Semua data kategori produk berhasil dihapus!');
+        return redirect()->route('category.index')->with('success', 'Semua data kategori produk berhasil dihapus!');
     }
 }

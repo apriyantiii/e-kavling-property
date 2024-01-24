@@ -104,6 +104,20 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="photo" class="form-label">
+                                        Upload Foto
+                                    </label>
+                                    <input type="file"
+                                        class="form-control form-rounded @error('photo') is-invalid @enderror"
+                                        name="photo" id="photo" placeholder="" value="{{ $product->photo }}">
+                                    @error('photo')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="description">Deskrips</label>
                                     <textarea class="form-control" name="description" id="description" rows="5"
                                         placeholder="cth. kavling ini berada di area perumahan..." value="">{{ old('description', $product->description) }}</textarea>
@@ -148,6 +162,36 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label for="latitude" class="form-label">Latitude <span class="text-danger">
+                                                    <a
+                                                        href="https://kiaton.kontan.co.id/news/ini-2-cara-melihat-titik-koordinat-di-google-maps-untuk-memudahkan-perjalanan">*cara
+                                                        menemukan lng lat</a></span></label>
+                                            <input type="number"
+                                                class="form-control form-rounded @error('latitude') is-invalid @enderror"
+                                                name="latitude" id="latitude" value="{{ $product->latitude }}"
+                                                placeholder="cth. -7.555932570835964">
+                                            @error('latitude')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label for="longitude" class="form-label">Longitude</label>
+                                            <input type="number"
+                                                class="form-control form-rounded @error('longitude') is-invalid @enderror"
+                                                name="longitude" id="longitude" value="{{ $product->longitude }}"
+                                                placeholder="cth. 112.23399313901098">
+                                            @error('longitude')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="size" class="form-label">
                                         Luas Tanah
                                     </label>
@@ -164,13 +208,16 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="photo" class="form-label">
-                                        Upload Foto
-                                    </label>
+                                    <label for="video_url" class="form-label">
+                                        Upload Vidio
+                                    </label><span class="text-danger">
+                                        *masukkan ulang vidio
+                                    </span>
                                     <input type="file"
-                                        class="form-control form-rounded @error('photo') is-invalid @enderror"
-                                        name="photo" id="photo" placeholder="" value="{{ $product->photo }}">
-                                    @error('photo')
+                                        class="form-control form-rounded @error('video_url') is-invalid @enderror"
+                                        name="video_url" id="video_url" placeholder=""
+                                        value="{{ $product->video_url }}" accept="video/*">
+                                    @error('video_url')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

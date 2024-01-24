@@ -3,19 +3,10 @@
     Semua Produk
 @endsection
 @section('css')
-    {{-- <link href="{{ URL::asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet"> --}}
-
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
         type="text/css" />
-    {{-- <link href="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.css') }}"
-        rel="stylesheet" type="text/css" /> --}}
-    {{-- <link href="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.css') }}"
-        rel="stylesheet" type="text/css" /> --}}
-
     {{-- select css --}}
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
-    {{-- <link href="{{ URL::asset('assets/libs/@simonwep/@simonwep.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/libs/flatpickr/flatpickr.min.css') }}" rel="stylesheet"> --}}
 @endsection
 @section('content')
     <div class="row">
@@ -38,25 +29,6 @@
             @endif
 
             <div class="card">
-                {{-- <div class="card-header align-items-center d-flex">
-                    <div class="flex-shrink-0">
-                        <ul class="rounded nav justify-content-end nav-tabs-custom card-header-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#products" role="tab">
-                                    <span class="d-block d-sm-none"><i class="fas fa-boxes"></i></span>
-                                    <span class="d-none d-sm-block fw-bold">Produk</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#product-categories" role="tab">
-                                    <span class="d-block d-sm-none"><i class="fas fa-indent"></i></span>
-                                    <span class="d-none d-sm-block fw-bold">Kategori Produk</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div><!-- end card header --> --}}
-
                 <div class="card-body">
 
                     <!-- Tab panes -->
@@ -108,13 +80,19 @@
 
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li>
-                                                        <a class="dropdown-item" href="">
-                                                            <i class="bx bx-trash me-1 text-danger"></i>
-                                                            Hapus Semua
-                                                        </a>
+                                                        <form action="{{ route('category.delete-all') }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit" class="dropdown-item">
+                                                                <i class="bx bx-trash me-1 text-danger"></i>
+                                                                Hapus Semua
+                                                            </button>
+                                                        </form>
                                                     </li>
                                                 </ul>
                                             </div>
+
                                         </div>
 
                                     </div>
@@ -237,12 +215,8 @@
     <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
 
     {{-- form select --}}
-    {{-- <script src="{{ URL::asset('assets/js/pages/form-wizard.init.js') }}"></script> --}}
     <script src="{{ URL::asset('assets/libs/choices.js/choices.js.min.js') }}"></script>
-    {{-- <script src="{{ URL::asset('assets/libs/@simonwep/@simonwep.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script> --}}
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
-
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
 
     <script>
@@ -257,26 +231,5 @@
         $('#select_all').click(function() {
             $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
         });
-
-        // Delete Product
-        // $(document).ready(function() {
-        //     // error message validation modal
-        //     @if ($errors->has('category_name') || $errors->has('category_parent') || $errors->has('category_description'))
-        //         $('#addCategory').modal('show');
-        //     @endif
-
-        //     // Delete Product
-        //     $('.delete-product').click(function(event) {
-        //         event.preventDefault();
-
-        //         var productId = $(this).data('product-id');
-        //         var confirmation = confirm('Apakah Anda yakin ingin menghapus produk?');
-
-        //         if (confirmation) {
-        //             var form = $('#deleteForm1' + productId);
-        //             form.submit();
-        //         }
-        //     });
-        // });
     </script>
 @endsection
