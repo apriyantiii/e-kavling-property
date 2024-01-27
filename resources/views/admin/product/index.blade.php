@@ -30,8 +30,6 @@
 
             <div class="card">
                 <div class="card-body">
-
-                    <!-- Tab panes -->
                     <div class="tab-content text-muted">
                         <div class="tab-pane active" id="products" role="tabpanel">
                             <div class="card-header">
@@ -80,7 +78,7 @@
 
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li>
-                                                        <form action="{{ route('category.delete-all') }}" method="POST">
+                                                        {{-- <form action="{{ route('category.delete-all') }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
 
@@ -88,7 +86,7 @@
                                                                 <i class="bx bx-trash me-1 text-danger"></i>
                                                                 Hapus Semua
                                                             </button>
-                                                        </form>
+                                                        </form> --}}
                                                     </li>
                                                 </ul>
                                             </div>

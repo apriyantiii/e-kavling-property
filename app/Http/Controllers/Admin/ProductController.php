@@ -22,9 +22,6 @@ class ProductController extends Controller
         return view('admin.product.index', compact('productCategories', 'products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $productCategories = ProductCategory::all();
@@ -32,10 +29,7 @@ class ProductController extends Controller
 
         return view('admin.product.create', compact('productCategories'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         try {
@@ -84,10 +78,6 @@ class ProductController extends Controller
         }
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function showProduct(string $id)
     {
         // Fungsi formatPrice 

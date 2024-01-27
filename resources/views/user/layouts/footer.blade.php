@@ -13,40 +13,6 @@
                     </ul>
                 </div>
             </div>
-            {{-- <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-4">
-                    <h2 class="ftco-heading-2">Community</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Search
-                                Properties</a></li>
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>For Agents</a></li>
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Reviews</a></li>
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>FAQs</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-4">
-                    <h2 class="ftco-heading-2">About Us</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Our Story</a></li>
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Meet the team</a>
-                        </li>
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Careers</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Company</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>About Us</a></li>
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Press</a></li>
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
-                        <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Careers</a></li>
-                    </ul>
-                </div>
-            </div> --}}
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">Ada yang Perlu Ditanyakan?</h2>

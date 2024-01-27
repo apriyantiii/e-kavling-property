@@ -118,11 +118,8 @@
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->
-
         <!-- end col -->
     </div> <!-- end row -->
-
-
     {{-- START:: Modal Tambah Kategori Baru --}}
     <div id="addCategory" class="modal fade" tabindex="-1" aria-labelledby="addCategoryLabel" aria-hidden="true"
         data-bs-scroll="true">

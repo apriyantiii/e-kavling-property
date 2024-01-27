@@ -48,7 +48,6 @@ Route::prefix('/')->group(function () {
 });
 //USER END
 
-
 // ADMIN START
 Route::prefix('admin')->group(function () {
     // Auth Admin

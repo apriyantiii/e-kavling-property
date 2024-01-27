@@ -1,5 +1,4 @@
 @extends('user.profile.layouts.master')
-
 @section('title')
     Akun Saya
 @endsection

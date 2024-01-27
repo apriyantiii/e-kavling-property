@@ -24,11 +24,7 @@
                         <a class="dropdown-item" href="#prosedur-pembelian">Prosedur Pembelian</a>
                     </div>
                 </li>
-                {{-- <li class="nav-item"><a href="#prosedur-pembelian" class="nav-link"><span>Prosedur Pembelian</span></a></li> --}}
-                {{-- <li class="nav-item"><a href="#agent-section" class="nav-link"><span>Dewan Komisaris</span></a></li> --}}
-                {{-- <li class="nav-item"><a href="#blog-section" class="nav-link"><span>Blog</span></a></li> --}}
                 <li class="nav-item"><a href="#testimoni" class="nav-link"><span>Testimoni</span></a></li>
-                {{-- <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Kontak</span></a></li> --}}
 
                 @if (Route::has('login'))
                     @auth
@@ -44,10 +40,6 @@
                     @endauth
 
                 @endif
-
-
-
-
             </ul>
         </div>
     </div>
