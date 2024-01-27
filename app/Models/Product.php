@@ -31,4 +31,10 @@ class Product extends Model
     {
         return $this->belongsTo(Admin::class);
     }
+
+    // Relasi many-to-many dengan wishlists
+    public function wishlist()
+    {
+        return $this->belongsToMany(Wishlist::class);
+    }
 }

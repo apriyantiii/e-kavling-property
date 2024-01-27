@@ -13,8 +13,12 @@
                 <li class="nav-item"><a href="{{ url('/') }}" class="nav-link"><span>Beranda</span></a></li>
                 <li class="nav-item"><a href="{{ route('home.properti') }}" class="nav-link"><span>Properti</span></a>
                 </li>
+
                 <li class="nav-item"><a href="{{ route('categories.index') }}"
                         class="nav-link"><span>Kategori</span></a>
+                </li>
+
+                <li class="nav-item"><a href="{{ route('wishlist.index') }}" class="nav-link"><span>Wishlist</span></a>
                 </li>
 
                 {{-- <ul class="navbar-nav ms-auto"> --}}

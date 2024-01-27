@@ -29,6 +29,24 @@
                     </a>
                 </li>
 
+                <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link">
+                        <h5><span>Kategori</span></h5>
+                    </a>
+                </li>
+
+                <li class="nav-item"><a href="{{ route('wishlist.index') }}" class="nav-link">
+                        <h5><span>Wishlist</span></h5>
+                    </a>
+                </li>
+
+                {{-- <li class="nav-item"><a href="{{ route('categories.index') }}"
+                        class="nav-link"><span>Kategori</span></a>
+                </li>
+
+                <li class="nav-item"><a href="{{ route('categories.index') }}"
+                        class="nav-link"><span>Wishlist</span></a>
+                </li> --}}
+
                 @guest
                     @if (Route::has('login'))
                         <li class="nav-item">

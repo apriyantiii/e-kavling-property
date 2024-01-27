@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="{{ asset('front-end/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('front-end/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('front-end/css/style.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .tour-wrap table {
             margin-bottom: 0;
@@ -59,14 +61,32 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-end justify-content-start">
                     <div class="col-md-9 ftco-animate pb-4">
-                        <h1 class="mb-3 bread">Property Details</h1>
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
-                                        class="ion-ios-arrow-forward"></i></a></span> <span>Properties Single <i
+                        <h1 class="mb-3 bread">Detail Properti</h1>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Beranda Properti <i
+                                        class="ion-ios-arrow-forward"></i></a></span> <span>{{ $products->name }} <i
                                     class="ion-ios-arrow-forward"></i></span></p>
                     </div>
                 </div>
             </div>
         </section>
+        <br><br>
+        <div class="container">
+            @if (session()->has('success'))
+                @include('components.alert.success', [
+                    'type' => session('type', 'success'),
+                    'delay' => session('delay', 2500),
+                    'message' => session('success'),
+                ])
+            @endif
+
+            @if (session()->has('failure'))
+                @include('components.alert.failure', [
+                    'type' => session('type', 'failure'),
+                    'delay' => session('delay', 2500),
+                    'message' => session('failure'),
+                ])
+            @endif
+        </div>
 
         <section class="ftco-section ftco-services-2">
             <div class="container">
@@ -80,19 +100,33 @@
                             </div>
                             <div class="col-md-6 ftco-animate py-5">
                                 <div class="text py-5 pl-md-5">
-                                    <div class="d-flex">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div>
                                             <h3><a href="properties-single.html">{{ $products->name }}<span
                                                         class="details">&mdash; {{ $products->code }}</a></h3>
                                         </div>
-                                        <div class="pl-md-4">
+                                        <div>
                                             <h4 class="price">{!! $products->formatted_price !!}</h4>
                                         </div>
                                     </div>
-                                    <p>{!! $products->description_sentences !!}</p>
+                                    <p class="mb-5">{!! $products->description_sentences !!}</p>
+                                    <div class="d-flex">
+                                        <form method="POST" action="{{ route('wishlist.store') }}" class="me-2">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $products->id }}">
+                                            <button type="submit" class="btn btn-outline-secondary py-3 px-4"
+                                                style="margin-right: 3px"><span
+                                                    class="far fa-heart pr-2"></span>Wishlist</button>
+                                        </form>
+                                        <a href="#" class="btn btn-outline-danger py-3 px-4 me-2"
+                                            style="margin-right: 3px"><span class="fab fa-rocketchat pr-2"></span>Live
+                                            Chat</a>
+                                        <a href="#" class="btn btn-secondary py-3 px-4">Beli Properti</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="col-md-12 tour-wrap">
                         <table class="table">

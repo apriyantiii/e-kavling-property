@@ -45,6 +45,11 @@ Route::prefix('/')->group(function () {
     //profile route
     Route::get('profile', [User\ProfileController::class, 'index'])->name('profile.index');
     Route::put('profile/{user}', [User\ProfileController::class, 'update'])->name('profile.update');
+
+    //wishlist
+    Route::get('wishlist/', [User\WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('wishlist/create', [User\WishlistController::class, 'store'])->name('wishlist.store');
+    Route::delete('/wishlist/{wishlist}/delete', [User\WishlistController::class, 'destroy'])->name('wishlist.destroy');
 });
 //USER END
 
