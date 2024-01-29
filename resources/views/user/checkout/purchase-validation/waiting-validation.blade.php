@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row my-4">
+                                {{-- <div class="row my-4">
                                     <div class="col-sm-6">
                                         @foreach ($purchaseValidation as $singlePurchaseValidation)
                                             @if ($singlePurchaseValidation->user_id === Auth::id())
@@ -52,7 +52,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                                </div>
+                                </div> --}}
                             </div>
                         </div> <!-- end col -->
                         {{-- <div class="col-sm-6">
@@ -71,13 +71,13 @@
         <script>
             window.location = "{{ route('checkout.index') }}";
         </script>
-@endif
-</div>
-</div>
-<!-- end row -->
+    @endif
+    </div>
+    </div>
+    <!-- end row -->
 @endsection
 @section('script')
-<script src="{{ URL::asset('assets/libs/select2/select2.min.js') }}"></script>
-<script src="{{ URL::asset('assets/js/pages/ecommerce-select2.init.js') }}"></script>
-<script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/libs/select2/select2.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/pages/ecommerce-select2.init.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
 @endsection
