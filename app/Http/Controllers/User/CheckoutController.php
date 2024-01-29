@@ -98,18 +98,92 @@ class CheckoutController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function editPurchaseValidation(PurchaseValidation $purchaseValidation)
+    public function editPurchaseValidation()
     {
-        return view('user.checkout.purchase-validation.edit', compact('purchaseValidation'));
-    }
+        // Mendapatkan ID pengguna yang sedang login
+        $userId = Auth::id();
 
+        // Mendapatkan PurchaseValidation berdasarkan ID pengguna
+        $purchaseValidation = PurchaseValidation::where('user_id', $userId)->first();
+
+        return view('user.checkout.purchase-validation.waiting-validation', compact('purchaseValidation'));
+    }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+    public function updatePurchaseValidation(Request $request)
     {
-        //
+        // Validasi form jika diperlukan
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'nik' => 'required|integer',
+            'job' => 'required|string|max:255',
+            'age' => 'required|integer',
+            'telpon' => 'required|string|max:255',
+            'address' => 'required|string',
+            // 'status' => 'required|in:approved,pending',
+        ]);
+
+        // Mengambil ID pengguna yang sedang login
+        $userId = Auth::id();
+
+        // Mendapatkan PurchaseValidation berdasarkan ID pengguna
+        $purchaseValidation = PurchaseValidation::where('user_id', $userId)->first();
+
+        // Update data PurchaseValidation
+        $purchaseValidation->update([
+            'name' => $request->input('name'),
+            'nik' => $request->input('nik'),
+            'job' => $request->input('job'),
+            'age' => $request->input('age'),
+            'telpon' => $request->input('telpon'),
+            'address' => $request->input('address'),
+            // 'status' => $request->input('status'),
+        ]);
+
+        // Redirect atau tampilkan pesan sukses
+        return redirect()->route('purchase.editPurchaseValidation')->with('success', 'Validasi data berhasil diperbarui!');
     }
+    // public function updatePurchaseValidation(Request $request, $id)
+    // {
+    //     try {
+    //         $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'nik' => 'required|integer',
+    //             'job' => 'required|string|max:255',
+    //             'age' => 'required|integer',
+    //             'telpon' => 'required|string|max:255',
+    //             'address' => 'required|string',
+    //             // 'status' => 'required|in:approved,pending',
+    //         ]);
+
+    //         // Mencari data validasi pembelian berdasarkan ID
+    //         $purchaseValidation = PurchaseValidation::find($id);
+
+    //         if (!$purchaseValidation) {
+    //             return redirect()->back()->with('error', 'Data validasi pembelian tidak ditemukan.');
+    //         }
+
+    //         // Memperbarui data validasi pembelian
+    //         $purchaseValidation->name = $request->name;
+    //         $purchaseValidation->nik = $request->nik;
+    //         $purchaseValidation->job = $request->job;
+    //         $purchaseValidation->age = $request->age;
+    //         $purchaseValidation->telpon = $request->telpon;
+    //         $purchaseValidation->address = $request->address;
+    //         // $purchaseValidation->status = $request->status;
+
+    //         // Menyimpan perubahan
+    //         $purchaseValidation->save();
+
+    //         // Menggunakan redirect biasa
+    //         return redirect()->route('purchase.waiting-validation')->with('success', 'Data validasi pembelian berhasil diperbarui!');
+    //     } catch (\Exception $e) {
+    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+    //     }
+    // }
+
 
     /**
      * Remove the specified resource from storage.

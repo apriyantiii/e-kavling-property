@@ -55,10 +55,13 @@ Route::prefix('/')->group(function () {
     //checkout
     Route::get('checkout', [User\Checkout\PurchaseValidationController::class, 'index'])->name('checkout.index');
     // Rute untuk menyimpan pembelian validasi
-    Route::post('/checkout', [User\Checkout\PurchaseValidationController::class, 'store'])->name('purchase.validation.store')->middleware('web');
+    Route::post('/checkout', [User\Checkout\PurchaseValidationController::class, 'store'])->name('purchase.validation.store');
     Route::get('checkout/waiting-validation', [User\Checkout\PurchaseValidationController::class, 'indexWaitingValidation'])->name('purchase.waiting-validation');
     // Route::get('checkout/edit-validation/{purchaseValidation}', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('purchase.editPurchaseValidation');
     // Route::put('checkout/edit-validation/{purchaseValidation}', [User\Checkout\PurchaseValidationController::class . 'update'])->name('purchase.updatePurchaseValidation');
+
+    Route::put('checkout/update-purchase-validation', [User\Checkout\PurchaseValidationController::class, 'update'])->name('purchase.updatePurchaseValidation');
+    Route::get('checkout/edit-purchase-validation', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('purchase.editPurchaseValidation');
 
     Route::get('checkout/confirmation', [User\Checkout\PurchaseValidationController::class, 'indexConfirmation'])->name('checkout.confirmation');
     Route::get('checkout/payments', [User\Checkout\PurchaseValidationController::class, 'indexPayments'])->name('checkout.payments');

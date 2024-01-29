@@ -29,6 +29,21 @@
                                     <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel"
                                         aria-labelledby="v-pills-shipping-tab">
                                         <div>
+                                            @if (session()->has('success'))
+                                                @include('components.alert.success', [
+                                                    'type' => session('type', 'success'),
+                                                    'delay' => session('delay', 2500),
+                                                    'message' => session('success'),
+                                                ])
+                                            @endif
+
+                                            @if (session()->has('failure'))
+                                                @include('components.alert.failure', [
+                                                    'type' => session('type', 'failure'),
+                                                    'delay' => session('delay', 2500),
+                                                    'message' => session('failure'),
+                                                ])
+                                            @endif
                                             <h3 class="card-title text-center mt-5"><strong>Validasi Data Pembelian
                                                     Diterima!</strong></h3><br>
                                             <h4 class="card-title-desc text-center mb-2">Pembelianmu sedang di konfirmasi
@@ -40,6 +55,14 @@
                                             <i class='bx bxs-time text-center'
                                                 style='font-size: 4rem; display: block; margin: 0 auto;'></i>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row my-4">
+                                    <div class="col-sm-6">
+                                        <a href="{{ route('purchase.editPurchaseValidation') }}"
+                                            class="btn text-muted d-none d-sm-inline-block btn-link">
+                                            <i class="mdi mdi-arrow-left me-1"></i> Kembali
+                                        </a>
                                     </div>
                                 </div>
                                 {{-- <div class="row my-4">
