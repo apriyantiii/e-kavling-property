@@ -26,6 +26,16 @@
                     'message' => session('failure'),
                 ])
             @endif
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h4 class="card-title">Halaman Wishlist</h4>
+                        <p class="card-title-desc mb-4">Berisi properti yang telah diinginkan dan akan dibeli di kemudian
+                            hari. <br><strong>Untuk checkout silahkan tekan produk yang diinginkan dan checkout di halaman
+                                detail properti</strong></p>
+                    </div>
+                </div>
+            </div>
             <div class="col-xl-12">
                 <div class="card justify-content-center">
                     <div class="card-body justify-content-center">
@@ -46,14 +56,6 @@
                                             <td>
                                                 <img src="{{ URL::asset('storage/' . $item->product->photo) }}"
                                                     alt="product-img" title="product-img" class="avatar-xl" />
-
-                                                {{-- @if ($item->product)
-                                                    <img src="{{ URL::asset('storage/' . $item->product->photo) }}"
-                                                        alt="product-img" title="product-img" class="avatar-md" />
-                                                @else
-                                                    <!-- Handle jika produk tidak ditemukan -->
-                                                    Product Not Found
-                                                @endif --}}
                                             </td>
                                             <td>
                                                 <h5 class="font-size-14 text-truncate"><a
@@ -75,11 +77,6 @@
                                                 {{ $item->product->location }}
                                             </td>
                                             <td>
-                                                {{-- <a href="javascript:void(0);"
-                                                    class="action-icon text-danger delete-wishlist"
-                                                    data-id="{{ $item->id }}">
-                                                    <i class="mdi mdi-trash-can font-size-18"></i>
-                                                </a> --}}
                                                 <a href="#" class="action-icon text-danger delete-wishlist"
                                                     onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
                                                     <i class="mdi mdi-trash-can font-size-18"></i>
@@ -102,12 +99,12 @@
                                 <a href="{{ route('home.properti') }}" class="btn btn-secondary">
                                     <i class="mdi mdi-arrow-left me-1"></i> Properti Lainnya </a>
                             </div> <!-- end col -->
-                            <div class="col-sm-6">
+                            {{-- <div class="col-sm-6">
                                 <div class="text-sm-end mt-2 mt-sm-0">
-                                    <a href="{{ url('ecommerce-checkout') }}" class="btn btn-success">
+                                    <a href="{{ url('checkout') }}" class="btn btn-success">
                                         <i class="mdi mdi-cart-arrow-right me-1"></i> Beli Sekarang </a>
                                 </div>
-                            </div> <!-- end col -->
+                            </div> <!-- end col --> --}}
                         </div> <!-- end row-->
                     </div>
                 </div>

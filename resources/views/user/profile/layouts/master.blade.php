@@ -34,7 +34,7 @@
     </main>
 
     {{-- Footer Start --}}
-    @include('layouts.landing-page.footer')
+    @include('user.profile.layouts.footer')
     {{-- Footer End --}}
 
 </div>

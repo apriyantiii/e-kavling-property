@@ -83,9 +83,23 @@
                                     style="margin-right: 5px;"></span>Profil
                                 Saya
                             </a>
+                            {{-- <a class="dropdown-item" href="{{ url('checkout') }}"><span class="fas fa-shopping-cart"
+                                    style="margin-right: 5px;"></span>Pembelian
+                            </a> --}}
+                            @if (session('purchase_status') === 'waiting_confirmation')
+                                <!-- Tampilkan tautan atau menu yang sesuai ketika status pembelian adalah 'waiting_confirmation' -->
+                                <a class="dropdown-item" href="{{ route('purchase.waiting-validation') }}">
+                                    <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
+                                </a>
+                            @else
+                                <!-- Tampilkan tautan atau menu yang sesuai ketika status pembelian tidak 'waiting_confirmation' -->
+                                <a class="dropdown-item" href="{{ route('checkout.index') }}">
+                                    <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
+                                </a>
+                            @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><span
+                                                    document.getElementById('logout-form').submit();"><span
                                     class="fas fa-sign-out-alt" style="margin-right: 5px;"></span>
                                 {{ __('Logout') }}
                             </a>

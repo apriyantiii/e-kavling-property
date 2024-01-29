@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\User;
+use App\Http\Controllers\User\Checkout;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +51,17 @@ Route::prefix('/')->group(function () {
     Route::get('wishlist/', [User\WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('wishlist/create', [User\WishlistController::class, 'store'])->name('wishlist.store');
     Route::delete('/wishlist/{wishlist}/delete', [User\WishlistController::class, 'destroy'])->name('wishlist.destroy');
+
+    //checkout
+    Route::get('checkout', [User\Checkout\PurchaseValidationController::class, 'index'])->name('checkout.index');
+    // Rute untuk menyimpan pembelian validasi
+    Route::post('/checkout', [User\Checkout\PurchaseValidationController::class, 'store'])->name('purchase.validation.store')->middleware('web');
+    Route::get('checkout/waiting-validation', [User\Checkout\PurchaseValidationController::class, 'indexWaitingValidation'])->name('purchase.waiting-validation');
+    Route::get('checkout/edit-validation/{purchaseValidation}', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('purchase.editPurchaseValidation');
+    Route::put('checkout/edit-validation/{purchaseValidation}', [User\Checkout\PurchaseValidationController::class . 'update'])->name('purchase.updatePurchaseValidation');
+
+    Route::get('checkout/confirmation', [User\Checkout\PurchaseValidationController::class, 'indexConfirmation'])->name('checkout.confirmation');
+    Route::get('checkout/payments', [User\Checkout\PurchaseValidationController::class, 'indexPayments'])->name('checkout.payments');
 });
 //USER END
 

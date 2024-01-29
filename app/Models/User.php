@@ -51,4 +51,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Wishlist::class);
     }
+
+    // Definisi relasi one-to-many dengan model PurchaseValidation
+    public function purchaseValidations()
+    {
+        return $this->hasMany(PurchaseValidation::class);
+    }
 }
