@@ -32,15 +32,15 @@
                                     aria-labelledby="v-pills-confir-tab">
                                     <div class="card shadow-none border mb-0">
                                         <div class="card-body">
-                                            <h4 class="card-title mb-4">Order Summary</h4>
+                                            <h4 class="card-title mb-4">Rincian Pesanan</h4>
 
                                             <div class="table-responsive">
                                                 <table class="table align-middle mb-0 table-nowrap">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th scope="col">Product</th>
-                                                            <th scope="col">Product Desc</th>
-                                                            <th scope="col">Price</th>
+                                                            <th scope="col">Properti</th>
+                                                            <th scope="col">Detail</th>
+                                                            <th scope="col">Harga</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

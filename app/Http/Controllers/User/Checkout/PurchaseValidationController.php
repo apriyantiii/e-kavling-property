@@ -31,6 +31,7 @@ class PurchaseValidationController extends Controller
         return view('user.checkout.purchase-validation.waiting-validate');
     }
 
+
     /**
      * Show the form for creating a new resource.
      */
