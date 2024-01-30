@@ -27,6 +27,13 @@
                     </ul>
                 </li>
 
+                <li class="mb-2">
+                    <a href="{{ route('wishlist.index') }}">
+                        <i data-feather="heart"></i>
+                        <span>Wishlist</span>
+                    </a>
+                </li>
+
                 {{-- @if (Auth::user()->hasPermissionTo('partner')) --}}
                 {{-- <li class="my-2">
                     <a href="jawdvascript: void(0);" class="has-arrow">

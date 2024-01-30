@@ -93,6 +93,9 @@ Route::prefix('admin')->group(function () {
     Route::put('category/{productCategory}', [Admin\ProductController::class, 'updateCategory'])->name('category.update')->middleware('is_admin');
     Route::delete('category/{productCategory}/delete', [Admin\ProductController::class, 'destroyCategory'])->name('category.destroy')->middleware('is_admin');
     Route::delete('category/delete-all', [Admin\ProductController::class, 'destroyAllCategory'])->name('category.destroy-all');
+
+    // Wishlist
+    Route::get('wishlist', [Admin\WishlistController::class, 'index'])->name('wishlist.index');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 

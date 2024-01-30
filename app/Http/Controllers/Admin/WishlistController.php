@@ -12,7 +12,7 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        //
+        return view('Admin.wishlist.index');
     }
 
     /**
