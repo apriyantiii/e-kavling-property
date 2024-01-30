@@ -57,15 +57,15 @@
                                     class="icon icon-user-circle pr-2"></span> Profil
                                 Saya
                             </a>
-                            @if (session('purchase_status') === 'waiting_confirmation')
+                            {{-- @if (session('purchase_status') === 'waiting_confirmation')
                                 <a class="dropdown-item" href="{{ route('purchase.waiting-validation') }}"><span
                                         class="icon icon-shopping-cart pr-2"></span> Pembelian
                                 </a>
-                                {{-- @else
+                                @else
                                 <a class="dropdown-item" href="{{ route('checkout.index') }}"><span
                                         class="icon icon-shopping-cart pr-2"></span> Pembelian
-                                </a> --}}
-                            @endif
+                                </a>
+                            @endif --}}
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();"><span

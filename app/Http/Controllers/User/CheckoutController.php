@@ -20,7 +20,7 @@ class CheckoutController extends Controller
     public function indexWaitingValidation($id)
     {
         $purchaseValidation = PurchaseValidation::find($id);
-        return view('user.checkout.purchase-validation.waiting-validation', compact('purchaseValidation'));
+        return view('user.checkout.purchase-validation.waiting-validate', compact('purchaseValidation'));
     }
 
     public function indexPayments()

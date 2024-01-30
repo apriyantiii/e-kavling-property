@@ -28,7 +28,7 @@
                                 <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel"
                                     aria-labelledby="v-pills-shipping-tab">
                                     <div>
-                                        
+
                                         <h4 class="card-title">Validasi Data Pembeli</h4>
                                         <p class="card-title-desc mb-4">Isi sesuai dengan data diri pembeli karena
                                             dipergunakan untuk keperluan akad jual beli sebagai pihak kedua</p>
@@ -183,7 +183,7 @@
                                             </div>
                                             <div class="row my-4">
                                                 <div class="col-sm-6">
-                                                    <a href="{{ route('purchase.waiting-validation') }}"
+                                                    <a href="{{ route('waiting-validate') }}"
                                                         class="btn text-muted d-none d-sm-inline-block btn-link">
                                                         <i class="mdi mdi-arrow-left me-1"></i> Kembali Tunggu Validasi
                                                     </a>
