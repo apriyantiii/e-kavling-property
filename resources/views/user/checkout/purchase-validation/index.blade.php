@@ -35,6 +35,11 @@
                                         <form method="POST" action="{{ route('purchase.validation.store') }}"
                                             enctype="multipart/form-data">
                                             @csrf
+                                            @error('product_id')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+
+                                            <input type="hidden" name="product_id" value="{{ $product ? $product->id : old('product_id') }}">
 
                                             <div class="row">
                                                 <div class="col-md-6">

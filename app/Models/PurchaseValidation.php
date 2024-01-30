@@ -10,6 +10,7 @@ class PurchaseValidation extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'product_id',
         'name',
         'nik',
         'job',
@@ -23,5 +24,11 @@ class PurchaseValidation extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Definisi relasi many-to-one dengan model ProductPro
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

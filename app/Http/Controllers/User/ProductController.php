@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -55,26 +56,33 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        // Fungsi formatPrice 
-        if (!function_exists('formatPrice')) {
-            function formatPrice($price)
-            {
-                return 'Rp ' . number_format($price, 0, ',', '.');
+        try {
+            // Fungsi formatPrice 
+            if (!function_exists('formatPrice')) {
+                function formatPrice($price)
+                {
+                    return 'Rp ' . number_format($price, 0, ',', '.');
+                }
             }
+
+            $products = Product::findOrFail($id);
+
+            // $products = Product::find($id);
+            // Memisahkan fitur menjadi kalimat-kalimat
+            $products->feature_sentences = nl2br($products->feature);
+
+            // Memisahkan deskripsi menjadi kalimat-kalimat
+            $products->description_sentences = nl2br($products->description);
+
+            // Memformat harga menggunakan fungsi formatPrice
+            $products->formatted_price = formatPrice($products->price);
+
+            $allProducts = Product::all();
+            return view('user.products.show', compact('products', 'allProducts'));
+        } catch (ModelNotFoundException $e) {
+            // Produk tidak ditemukan, redirect atau tampilkan pesan error
+            return redirect()->route('user.products.show')->with('error', 'Produk tidak ditemukan.');
         }
-
-        $products = Product::find($id);
-        // Memisahkan fitur menjadi kalimat-kalimat
-        $products->feature_sentences = nl2br($products->feature);
-
-        // Memisahkan deskripsi menjadi kalimat-kalimat
-        $products->description_sentences = nl2br($products->description);
-
-        // Memformat harga menggunakan fungsi formatPrice
-        $products->formatted_price = formatPrice($products->price);
-
-        $allProducts = Product::all();
-        return view('user.products.show', compact('products', 'allProducts'));
     }
 
     /**

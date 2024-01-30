@@ -61,10 +61,10 @@
                                 <a class="dropdown-item" href="{{ route('purchase.waiting-validation') }}"><span
                                         class="icon icon-shopping-cart pr-2"></span> Pembelian
                                 </a>
-                            @else
+                                {{-- @else
                                 <a class="dropdown-item" href="{{ route('checkout.index') }}"><span
                                         class="icon icon-shopping-cart pr-2"></span> Pembelian
-                                </a>
+                                </a> --}}
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();

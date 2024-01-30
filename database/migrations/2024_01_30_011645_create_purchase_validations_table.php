@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('purchase_validations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
             $table->string('name');
-            $table->integer('nik');
+            $table->bigInteger('nik');
             $table->string('job');
             $table->integer('age');
             $table->string('telpon');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->enum('status', ['approved', 'pending'])->default('pending');
             $table->timestamps();
 
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

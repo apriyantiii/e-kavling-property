@@ -91,11 +91,11 @@
                                 <a class="dropdown-item" href="{{ route('purchase.waiting-validation') }}">
                                     <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
                                 </a>
-                            @else
+                                {{-- @else
                                 <!-- Tampilkan tautan atau menu yang sesuai ketika status pembelian tidak 'waiting_confirmation' -->
                                 <a class="dropdown-item" href="{{ route('checkout.index') }}">
                                     <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
-                                </a>
+                                </a> --}}
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();

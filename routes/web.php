@@ -23,8 +23,8 @@ Route::get('/', function () {
     return view('landing-page');
 });
 
-Route::get('/maps', function () {
-    return view('user.products.maps');
+Route::get('/co', function () {
+    return view('user.checkout.confirmation.index');
 });
 
 
@@ -53,13 +53,10 @@ Route::prefix('/')->group(function () {
     Route::delete('/wishlist/{wishlist}/delete', [User\WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
     //checkout
-    Route::get('checkout', [User\Checkout\PurchaseValidationController::class, 'index'])->name('checkout.index');
+    Route::get('checkout/{product}', [User\Checkout\PurchaseValidationController::class, 'index'])->name('checkout.index');
     // Rute untuk menyimpan pembelian validasi
-    Route::post('/checkout', [User\Checkout\PurchaseValidationController::class, 'store'])->name('purchase.validation.store');
+    Route::post('checkout/store', [User\Checkout\PurchaseValidationController::class, 'store'])->name('purchase.validation.store');
     Route::get('checkout/waiting-validation', [User\Checkout\PurchaseValidationController::class, 'indexWaitingValidation'])->name('purchase.waiting-validation');
-    // Route::get('checkout/edit-validation/{purchaseValidation}', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('purchase.editPurchaseValidation');
-    // Route::put('checkout/edit-validation/{purchaseValidation}', [User\Checkout\PurchaseValidationController::class . 'update'])->name('purchase.updatePurchaseValidation');
-
     Route::put('checkout/update-purchase-validation', [User\Checkout\PurchaseValidationController::class, 'update'])->name('purchase.updatePurchaseValidation');
     Route::get('checkout/edit-purchase-validation', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('purchase.editPurchaseValidation');
 

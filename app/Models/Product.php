@@ -37,4 +37,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Wishlist::class);
     }
+
+    public function purchaseValidations()
+    {
+        return $this->hasMany(PurchaseValidation::class);
+    }
 }

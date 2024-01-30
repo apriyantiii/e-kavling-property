@@ -30,7 +30,7 @@ class CheckoutController extends Controller
 
     public function indexConfirmation()
     {
-        return view('user.checkout.confirmation');
+        return view('user.checkout.confirmation.index');
     }
 
     /**
