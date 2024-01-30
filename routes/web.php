@@ -61,7 +61,7 @@ Route::prefix('/')->group(function () {
     Route::get('edit-validation', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('edit-validate');
     Route::get('validation', [User\Checkout\PurchaseValidationController::class, 'waitingValidate'])->name('waiting-validate');
 
-    Route::get('checkout/tunggu-validasi', [User\CheckoutController::class, 'indexWaitingValidation'])->name('purchase.waiting-validate');
+    // Route::get('checkout/tunggu-validasi', [User\CheckoutController::class, 'indexWaitingValidation'])->name('purchase.waiting-validate');
     Route::get('checkout/confirmation', [User\Checkout\PurchaseValidationController::class, 'indexConfirmation'])->name('checkout.confirmation');
     Route::get('checkout/payments', [User\Checkout\PurchaseValidationController::class, 'indexPayments'])->name('checkout.payments');
 });

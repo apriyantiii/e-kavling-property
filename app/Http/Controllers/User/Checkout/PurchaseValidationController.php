@@ -8,6 +8,7 @@ use App\Models\PurchaseValidation;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PurchaseValidationController extends Controller
 {
@@ -38,6 +39,57 @@ class PurchaseValidationController extends Controller
         //
     }
 
+    // public function store(Request $request)
+    // {
+    //     try {
+    //         // Validasi form jika diperlukan
+    //         $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'nik' => 'required|integer',
+    //             'job' => 'required|string|max:255',
+    //             'age' => 'required|integer',
+    //             'telpon' => 'required|string|max:255',
+    //             'address' => 'required|string',
+    //             'product_id' => 'required|exists:products,id', // Validasi product_id
+    //         ]);
+
+    //         // dd($request);
+    //         // Mengambil ID pengguna yang sedang login
+    //         $userId = Auth::id();
+    //         $productId = $request->input('product_id');
+    //         $product = Product::find($productId);
+
+    //         // dd($product);
+
+    //         // Simpan data pembelian ke dalam tabel purchase_validations
+    //         PurchaseValidation::create([
+    //             'user_id' => $userId,
+    //             'product_id' => $product->id, // Menggunakan $product->id untuk mendapatkan ID produk
+    //             'name' => $request->input('name'),
+    //             'nik' => $request->input('nik'),
+    //             'job' => $request->input('job'),
+    //             'age' => $request->input('age'),
+    //             'telpon' => $request->input('telpon'),
+    //             'address' => $request->input('address'),
+    //             'status' => 'pending', // Atur status sesuai kebutuhan
+    //         ]);
+
+    //         // Simpan status pembelian ke dalam session
+    //         // session()->put('purchase_status', 'waiting_confirmation');
+
+    //         // Menggunakan redirect biasa
+    //         $redirect = redirect()->route('waiting-validate')->with('success', 'Berkas validasi berhasil dikirimkan!');
+    //         // dd(session('success'), $redirect);
+
+    //         return $redirect;
+    //         // Menggunakan redirect biasa
+    //         // return redirect()->route('purchase.waiting-validation')->with('success', 'Berkas validasi berhasil dikirimkan!');
+    //     } catch (\Exception $e) {
+    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+    //     }
+    // }
+
+
     public function store(Request $request)
     {
         try {
@@ -50,15 +102,30 @@ class PurchaseValidationController extends Controller
                 'telpon' => 'required|string|max:255',
                 'address' => 'required|string',
                 'product_id' => 'required|exists:products,id', // Validasi product_id
+                'kk_file' => 'nullable|mimes:jpeg,png,jpg,pdf|max:2048',
+                'ktp_file' => 'nullable|mimes:jpeg,png,jpg,pdf|max:2048',
             ]);
 
-            // dd($request);
             // Mengambil ID pengguna yang sedang login
             $userId = Auth::id();
             $productId = $request->input('product_id');
             $product = Product::find($productId);
 
-            // dd($product);
+            // Simpan file KK
+            $kkFileName = null;
+            if ($request->hasFile('kk_file')) {
+                $kkFile = $request->file('kk_file');
+                $kkFileName = 'kk_' . time() . '.' . $kkFile->getClientOriginalExtension();
+                $kkFile->storeAs('public/uploads', $kkFileName);
+            }
+
+            // Simpan file KTP
+            $ktpFileName = null;
+            if ($request->hasFile('ktp_file')) {
+                $ktpFile = $request->file('ktp_file');
+                $ktpFileName = 'ktp_' . time() . '.' . $ktpFile->getClientOriginalExtension();
+                $ktpFile->storeAs('public/uploads', $ktpFileName);
+            }
 
             // Simpan data pembelian ke dalam tabel purchase_validations
             PurchaseValidation::create([
@@ -71,6 +138,8 @@ class PurchaseValidationController extends Controller
                 'telpon' => $request->input('telpon'),
                 'address' => $request->input('address'),
                 'status' => 'pending', // Atur status sesuai kebutuhan
+                'kk_file' => $kkFileName,
+                'ktp_file' => $ktpFileName,
             ]);
 
             // Simpan status pembelian ke dalam session
@@ -81,8 +150,6 @@ class PurchaseValidationController extends Controller
             // dd(session('success'), $redirect);
 
             return $redirect;
-            // Menggunakan redirect biasa
-            // return redirect()->route('purchase.waiting-validation')->with('success', 'Berkas validasi berhasil dikirimkan!');
         } catch (\Exception $e) {
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
@@ -116,37 +183,104 @@ class PurchaseValidationController extends Controller
      */
     public function update(Request $request)
     {
-        // Validasi form jika diperlukan
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'nik' => 'required|integer',
-            'job' => 'required|string|max:255',
-            'age' => 'required|integer',
-            'telpon' => 'required|string|max:255',
-            'address' => 'required|string',
-            // 'status' => 'required|in:approved,pending',
-        ]);
+        try {
+            // Validasi form jika diperlukan
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'nik' => 'required|integer',
+                'job' => 'required|string|max:255',
+                'age' => 'required|integer',
+                'telpon' => 'required|string|max:255',
+                'address' => 'required|string',
+                'kk_file' => 'nullable|mimes:jpeg,png,jpg,pdf|max:2048',
+                'ktp_file' => 'nullable|mimes:jpeg,png,jpg,pdf|max:2048',
+                // 'status' => 'required|in:approved,pending',
+            ]);
 
-        // Mengambil ID pengguna yang sedang login
-        $userId = Auth::id();
+            // Mengambil ID pengguna yang sedang login
+            $userId = Auth::id();
 
-        // Mendapatkan PurchaseValidation berdasarkan ID pengguna
-        $purchaseValidation = PurchaseValidation::where('user_id', $userId)->first();
+            // Mendapatkan PurchaseValidation berdasarkan ID pengguna
+            $purchaseValidation = PurchaseValidation::where('user_id', $userId)->first();
 
-        // Update data PurchaseValidation
-        $purchaseValidation->update([
-            'name' => $request->input('name'),
-            'nik' => $request->input('nik'),
-            'job' => $request->input('job'),
-            'age' => $request->input('age'),
-            'telpon' => $request->input('telpon'),
-            'address' => $request->input('address'),
-            // 'status' => $request->input('status'),
-        ]);
+            // Hapus file KK yang lama jika ada file KK baru diunggah
+            if ($request->hasFile('kk_file') && $purchaseValidation->kk_file) {
+                Storage::delete('public/uploads/' . $purchaseValidation->kk_file);
+            }
 
-        // Redirect atau tampilkan pesan sukses
-        return redirect()->route('waiting-validate')->with('success', 'Validasi data berhasil diperbarui!');
+            // Hapus file KTP yang lama jika ada file KTP baru diunggah
+            if ($request->hasFile('ktp_file') && $purchaseValidation->ktp_file) {
+                Storage::delete('public/uploads/' . $purchaseValidation->ktp_file);
+            }
+
+            // Simpan file KK yang baru
+            $kkFileName = null;
+            if ($request->hasFile('kk_file')) {
+                $kkFile = $request->file('kk_file');
+                $kkFileName = 'kk_' . time() . '.' . $kkFile->getClientOriginalExtension();
+                $kkFile->storeAs('public/uploads', $kkFileName);
+            }
+
+            // Simpan file KTP yang baru
+            $ktpFileName = null;
+            if ($request->hasFile('ktp_file')) {
+                $ktpFile = $request->file('ktp_file');
+                $ktpFileName = 'ktp_' . time() . '.' . $ktpFile->getClientOriginalExtension();
+                $ktpFile->storeAs('public/uploads', $ktpFileName);
+            }
+
+            // Update data PurchaseValidation
+            $purchaseValidation->update([
+                'name' => $request->input('name'),
+                'nik' => $request->input('nik'),
+                'job' => $request->input('job'),
+                'age' => $request->input('age'),
+                'telpon' => $request->input('telpon'),
+                'address' => $request->input('address'),
+                'kk_file' => $kkFileName,
+                'ktp_file' => $ktpFileName,
+                // 'status' => $request->input('status'),
+            ]);
+
+            // Redirect atau tampilkan pesan sukses
+            return redirect()->route('waiting-validate')->with('success', 'Validasi data berhasil diperbarui!');
+        } catch (\Exception $e) {
+            dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+        }
     }
+    // public function update(Request $request)
+    // {
+    //     // Validasi form jika diperlukan
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'nik' => 'required|integer',
+    //         'job' => 'required|string|max:255',
+    //         'age' => 'required|integer',
+    //         'telpon' => 'required|string|max:255',
+    //         'address' => 'required|string',
+    //         // 'status' => 'required|in:approved,pending',
+    //     ]);
+
+    //     // Mengambil ID pengguna yang sedang login
+    //     $userId = Auth::id();
+
+    //     // Mendapatkan PurchaseValidation berdasarkan ID pengguna
+    //     $purchaseValidation = PurchaseValidation::where('user_id', $userId)->first();
+
+    //     // Update data PurchaseValidation
+    //     $purchaseValidation->update([
+    //         'name' => $request->input('name'),
+    //         'nik' => $request->input('nik'),
+    //         'job' => $request->input('job'),
+    //         'age' => $request->input('age'),
+    //         'telpon' => $request->input('telpon'),
+    //         'address' => $request->input('address'),
+    //         // 'status' => $request->input('status'),
+    //     ]);
+
+    //     // Redirect atau tampilkan pesan sukses
+    //     return redirect()->route('waiting-validate')->with('success', 'Validasi data berhasil diperbarui!');
+    // }
     // public function update(Request $request, PurchaseValidation $purchaseValidation)
     // {
     //     try {

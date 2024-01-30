@@ -42,7 +42,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group mb-3">
                                                         <label for="name" class="form-label">
-                                                            Nama Lengkap <span class="text-danger">*</span>
+                                                            Nama Lengkap
                                                         </label>
                                                         <input type="text"
                                                             class="form-control form-rounded @error('name') is-invalid @enderror"
@@ -58,7 +58,7 @@
 
                                                     <div class="form-group mb-3">
                                                         <label for="job" class="form-label">
-                                                            Pekerjaan <span class="text-danger">*</span>
+                                                            Pekerjaan
                                                         </label>
                                                         <input type="text"
                                                             class="form-control form-rounded @error('job') is-invalid @enderror"
@@ -73,8 +73,24 @@
                                                     </div>
 
                                                     <div class="form-group mb-3">
+                                                        <label for="ktp_file" class="form-label">
+                                                            Upload KTP
+                                                        </label>
+                                                        <input type="file"
+                                                            class="form-control form-rounded @error('ktp_file') is-invalid @enderror"
+                                                            name="ktp_file" id="ktp_file" placeholder=""
+                                                            value="{{ $purchaseValidation->ktp_file }}" required
+                                                            autocomplete="ktp_file">
+                                                        @error('ktp_file')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="form-group mb-3">
                                                         <label for="telpon" class="form-label">
-                                                            Telepon <span class="text-danger">*</span>
+                                                            Telepon
                                                         </label>
                                                         <input type="text"
                                                             class="form-control form-rounded @error('telpon') is-invalid @enderror"
@@ -93,7 +109,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group mb-3">
                                                         <label for="nik" class="form-label">
-                                                            No. KTP/NIK <span class="text-danger">*</span>
+                                                            No. KTP/NIK
                                                         </label>
                                                         <input type="number"
                                                             class="form-control form-rounded @error('nik') is-invalid @enderror"
@@ -108,7 +124,7 @@
 
                                                     <div class="form-group mb-3">
                                                         <label for="age" class="form-label">
-                                                            Umur <span class="text-danger">*</span>
+                                                            Umur
                                                         </label>
                                                         <input type="number"
                                                             class="form-control form-rounded @error('age') is-invalid @enderror"
@@ -126,7 +142,7 @@
                                                         <div class="col">
                                                             <div class="form-group mb-3">
                                                                 <label for="place_of_birth" class="form-label">
-                                                                    Tempat Lahir <span class="text-danger">*</span>
+                                                                    Tempat Lahir
                                                                 </label>
                                                                 <input type="text"
                                                                     class="form-control form-rounded @error('place_of_birth') is-invalid @enderror"
@@ -144,7 +160,7 @@
                                                         <div class="col">
                                                             <div class="form-group mb-3">
                                                                 <label for="date_of_birth" class="form-label">Tanggal
-                                                                    Lahir<span class="text-danger">*</span></label>
+                                                                    Lahi</label>
                                                                 <input
                                                                     class="form-control form-rounded @error('date_of_birth') is-invalid @enderror"
                                                                     type="date" value="2019-08-19"
@@ -165,8 +181,24 @@
                                                         <textarea class="form-control" id="billing-address" rows="3" placeholder="Enter full address"></textarea> --}}
 
                                                     <div class="form-group mb-3">
+                                                        <label for="kk_file" class="form-label">
+                                                            Upload KK
+                                                        </label>
+                                                        <input type="file"
+                                                            class="form-control form-rounded @error('kk_file') is-invalid @enderror"
+                                                            name="kk_file" id="kk_file" placeholder=""
+                                                            value="{{ $purchaseValidation->kk_file }}" required
+                                                            autocomplete="kk_file">
+                                                        @error('kk_file')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="form-group mb-3">
                                                         <label for="address" class="form-label">
-                                                            Alamat Lengkap <span class="text-danger">*</span>
+                                                            Alamat Lengkap
                                                         </label>
                                                         <textarea class="form-control form-rounded @error('address') is-invalid @enderror" name="address" id="address"
                                                             placeholder="Alamat lengkap dimulai dari dusun, desa, kecamatan, kabupaten" value="{{ old('address') }}" required

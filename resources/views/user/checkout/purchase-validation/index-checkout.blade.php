@@ -76,6 +76,22 @@
                                                         @enderror
                                                     </div>
 
+
+                                                    <div class="form-group mb-3">
+                                                        <label for="ktp_file" class="form-label">
+                                                            Upload KTP
+                                                        </label>
+                                                        <input type="file"
+                                                            class="form-control form-rounded @error('ktp_file') is-invalid @enderror"
+                                                            name="ktp_file" id="ktp_file" placeholder=""
+                                                            value="{{ old('ktp_file') }}" required autocomplete="ktp_file">
+                                                        @error('ktp_file')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+
                                                     <div class="form-group mb-3">
                                                         <label for="telpon" class="form-label">
                                                             Telepon <span class="text-danger">*</span>
@@ -102,7 +118,7 @@
                                                         <input type="number"
                                                             class="form-control form-rounded @error('nik') is-invalid @enderror"
                                                             name="nik" id="nik" placeholder="Masukkan No. KTP/NIK"
-                                                            value="{{ old('nik') }}" required autocomplete="nik">
+                                                            value="{{ old('nik') }}">
                                                         @error('nik')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -166,6 +182,21 @@
                                                     {{-- <label for="billing-address"
                                                             class="col-form-label">Address</label>
                                                         <textarea class="form-control" id="billing-address" rows="3" placeholder="Enter full address"></textarea> --}}
+
+                                                    <div class="form-group mb-3">
+                                                        <label for="kk_file" class="form-label">
+                                                            Upload KK
+                                                        </label>
+                                                        <input type="file"
+                                                            class="form-control form-rounded @error('kk_file') is-invalid @enderror"
+                                                            name="kk_file" id="kk_file" placeholder=""
+                                                            value="{{ old('kk_file') }}">
+                                                        @error('kk_file')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
 
                                                     <div class="form-group mb-3">
                                                         <label for="address" class="form-label">

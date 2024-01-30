@@ -18,6 +18,8 @@ class PurchaseValidation extends Model
         'telpon',
         'address',
         'status',
+        'kk_file',
+        'ktp_file',
     ];
 
     // Definisi relasi many-to-one dengan model User
