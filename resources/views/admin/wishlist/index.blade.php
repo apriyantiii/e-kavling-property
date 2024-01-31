@@ -54,91 +54,45 @@
                                             style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>
-                                                        <input type="checkbox" name="select_all" id="select_all">
-                                                    </th>
+                                                    <th>No.</th>
                                                     <th>Nama Properti</th>
                                                     <th>Jumlah User</th>
-                                                    <th>Action</th>
+                                                    <th>Detail Pengguna</th>
                                                 </tr>
                                             </thead>
 
 
                                             <tbody>
-                                                {{-- @foreach ($products as $product) --}}
-                                                <tr>
-                                                    <th>
-                                                        {{-- value nya nanti diisi {{ $product->id }} --}}
-                                                        <input type="checkbox" value="#" name="products[]"
-                                                            id="select">
-                                                    </th>
-                                                    <td></td>
-                                                    <td></td>
-                                                    {{-- <td class="text-center align-middle">
-                                                            <img src="{{ URL::asset('storage/' . $product->photo) }}"
-                                                                width="70" alt="">
-                                                        </td>
-                                                        <td>{{ $product->name }}</td>
-                                                        <td>{{ $product->code }}</td>
+                                                @foreach ($userCounts as $userCount)
+                                                    <tr>
+                                                        {{-- {{ $loop->iteration }} --}}
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ optional($userCount->product)->name }}</td>
+                                                        <td>{{ $userCount->user_count }}</td>
                                                         <td>
-                                                            @if ($product->productCategory && $product->productCategory->name)
-                                                                {{ $product->productCategory->name }}
+                                                            @if ($userCount->user_names)
+                                                                {{ implode(', ', explode(',', $userCount->user_names)) }}
                                                             @else
-                                                                <span class="text-danger">Tidak Masuk Kategori</span>
+                                                                No user data available
                                                             @endif
                                                         </td>
-                                                        <td>{{ $product->location }}</td>
-                                                        <td>{{ $product->size }}</td>
-                                                        <td>{{ $product->price }}</td> --}}
-                                                    <td class="align-middle">
-                                                        <a href="#" class="action-icon text-danger delete-wishlist"
-                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
-                                                            <i class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                        </a>
 
-                                                        <form id="deleteProductForm" action="#" method="POST"
-                                                            style="display: none;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form>
-                                                    </td>
-                                                    {{-- <td class="align-middle">
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle card-drop"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    <li><a href="#" class="dropdown-item"><i
-                                                                                class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                            Detail</a>
-                                                                    </li>
-                                                                    <li><a href="#" class="dropdown-item">
-                                                                            <i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                            Edit
-                                                                        </a>
-                                                                    </li>
+                                                        {{-- <td class="align-middle">
+                                                            <a href="#"
+                                                                class="action-icon text-danger delete-wishlist"
+                                                                onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                                <i class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                            </a>
 
-                                                                    <li>
-                                                                        <a href="#" class="dropdown-item"
-                                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
-                                                                            <i
-                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                            Hapus
-                                                                        </a>
-
-                                                                        <form id="deleteProductForm" action="#"
-                                                                            method="POST" style="display: none;">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                        </form>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+                                                            <form id="deleteProductForm" action="#" method="POST"
+                                                                style="display: none;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                            </form>
                                                         </td> --}}
-                                                </tr>
-                                                {{-- @endforeach --}}
+
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

@@ -1,35 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Checkout;
 
 use App\Http\Controllers\Controller;
 use App\Models\PurchaseValidation;
-use App\Models\Wishlist;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class WishlistController extends Controller
+class DataValidateController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $wishlistView = Wishlist::find($id);
-        $userCounts = Wishlist::select(
-            'product_id',
-            DB::raw('COUNT(user_id) as user_count'),
-            DB::raw('GROUP_CONCAT(DISTINCT users.name) as user_names')
-        )
-            ->groupBy('product_id')
-            ->leftJoin('users', 'wishlists.user_id', '=', 'users.id') // Gabungkan dengan tabel users
-            ->with(['product']) // Hanya perlu menggabungkan dengan tabel products jika ingin mendapatkan data produk terkait
-            ->get();
+        $validate = PurchaseValidation::all();
 
-        // $wishlist = Wishlist::all();
-        return view('admin.wishlist.index', compact('userCounts'));
+        return view('admin.checkout.data-validate.index', compact('validate'));
     }
-
 
     /**
      * Show the form for creating a new resource.

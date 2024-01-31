@@ -96,6 +96,9 @@ Route::prefix('admin')->group(function () {
 
     // Wishlist
     Route::get('wishlist', [Admin\WishlistController::class, 'index'])->name('wishlist.index');
+
+    Route::get('data-validate', [Admin\Checkout\DataValidateController::class, 'index'])->name('checkout.data-validate');
+    Route::get('payments-validate', [Admin\Checkout\PaymentsValidateController::class, 'index'])->name('checkout.payments-validate');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 

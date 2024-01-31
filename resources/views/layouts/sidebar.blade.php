@@ -27,6 +27,17 @@
                     </ul>
                 </li>
 
+                <li class="my-2">
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="dollar-sign"></i>
+                        <span>Penjualan</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('checkout.data-validate') }}">Validasi Berkas</a></li>
+                        <li><a href="{{ route('checkout.payments-validate') }}">Validasi Pembayaran</a></li>
+                    </ul>
+                </li>
+
                 <li class="mb-2">
                     <a href="{{ route('wishlist.index') }}">
                         <i data-feather="heart"></i>
