@@ -186,21 +186,6 @@
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
 
-    {{-- <script>
-        $(document).ready(function() {
-            // error message validation modal
-            @if ($errors->has('category_name') || $errors->has('category_parent') || $errors->has('category_description'))
-                $('#addCategory').modal('show');
-            @endif
-        });
-
-        // check box selected all
-        $('#select_all').click(function() {
-            $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
-            $('#submitForm').click(); // Menjalankan klik pada elemen submit tersembunyi
-        });
-    </script> --}}
-
     <script>
         $(document).ready(function() {
             // error message validation modal

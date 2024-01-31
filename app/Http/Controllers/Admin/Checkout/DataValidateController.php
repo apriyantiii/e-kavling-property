@@ -26,6 +26,10 @@ class DataValidateController extends Controller
         ]);
 
         $purchaseValidate->status = $request->input('status');
+
+        // Perbarui status pembelian pada session
+        session()->put('purchase_status', $request->input('status'));
+
         $purchaseValidate->save();
         return redirect()->route('checkout.data-validate')->with('success', 'Status validasi berkas berhasil di update!');
     }

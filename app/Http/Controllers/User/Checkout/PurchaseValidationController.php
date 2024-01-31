@@ -40,56 +40,6 @@ class PurchaseValidationController extends Controller
         //
     }
 
-    // public function store(Request $request)
-    // {
-    //     try {
-    //         // Validasi form jika diperlukan
-    //         $request->validate([
-    //             'name' => 'required|string|max:255',
-    //             'nik' => 'required|integer',
-    //             'job' => 'required|string|max:255',
-    //             'age' => 'required|integer',
-    //             'telpon' => 'required|string|max:255',
-    //             'address' => 'required|string',
-    //             'product_id' => 'required|exists:products,id', // Validasi product_id
-    //         ]);
-
-    //         // dd($request);
-    //         // Mengambil ID pengguna yang sedang login
-    //         $userId = Auth::id();
-    //         $productId = $request->input('product_id');
-    //         $product = Product::find($productId);
-
-    //         // dd($product);
-
-    //         // Simpan data pembelian ke dalam tabel purchase_validations
-    //         PurchaseValidation::create([
-    //             'user_id' => $userId,
-    //             'product_id' => $product->id, // Menggunakan $product->id untuk mendapatkan ID produk
-    //             'name' => $request->input('name'),
-    //             'nik' => $request->input('nik'),
-    //             'job' => $request->input('job'),
-    //             'age' => $request->input('age'),
-    //             'telpon' => $request->input('telpon'),
-    //             'address' => $request->input('address'),
-    //             'status' => 'pending', // Atur status sesuai kebutuhan
-    //         ]);
-
-    //         // Simpan status pembelian ke dalam session
-    //         // session()->put('purchase_status', 'waiting_confirmation');
-
-    //         // Menggunakan redirect biasa
-    //         $redirect = redirect()->route('waiting-validate')->with('success', 'Berkas validasi berhasil dikirimkan!');
-    //         // dd(session('success'), $redirect);
-
-    //         return $redirect;
-    //         // Menggunakan redirect biasa
-    //         // return redirect()->route('purchase.waiting-validation')->with('success', 'Berkas validasi berhasil dikirimkan!');
-    //     } catch (\Exception $e) {
-    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
-    //     }
-    // }
-
 
     public function store(Request $request)
     {
@@ -144,7 +94,7 @@ class PurchaseValidationController extends Controller
             ]);
 
             // Simpan status pembelian ke dalam session
-            // session()->put('purchase_status', 'waiting_confirmation');
+            session()->put('purchase_status', 'waiting_confirmation');
 
             // Menggunakan redirect biasa
             $redirect = redirect()->route('waiting-validate')->with('success', 'Berkas validasi berhasil dikirimkan!');

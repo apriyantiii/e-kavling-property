@@ -63,18 +63,16 @@
                                         <i class="mdi mdi-arrow-left me-1"></i> Kembali
                                     </a>
                                 </div>
-                            </div>
-                            {{-- <div class="row my-4">
+                                @if (session('purchase_status') == 'approved')
                                     <div class="col-sm-6">
-                                        @foreach ($purchaseValidation as $singlePurchaseValidation)
-                                            @if ($singlePurchaseValidation->user_id === Auth::id())
-                                                <a href="{{ route('purchase.editPurchaseValidation', $singlePurchaseValidation->id) }}"
-                                                    class="btn text-muted d-none d-sm-inline-block btn-link">
-                                                    <i class="mdi mdi-arrow-left me-1"></i> Kembali </a>
-                                            @break
-                                        @endif
-                                    @endforeach
-                                </div> --}}
+                                        <div class="text-end">
+                                            <a href="{{ route('checkout.confirmation') }}" class="btn btn-success">
+                                                <i class="mdi mdi-briefcase-check me-1"></i> Konfirmasi Pembelian </a>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+
                         </div>
                     </div> <!-- end col -->
                     {{-- <div class="col-sm-6">

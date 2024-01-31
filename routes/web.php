@@ -61,6 +61,7 @@ Route::prefix('/')->group(function () {
     Route::get('edit-validation', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('edit-validate');
     Route::get('validation', [User\Checkout\PurchaseValidationController::class, 'waitingValidate'])->name('waiting-validate');
 
+    Route::get('confirmation', [User\Checkout\ConfirmationController::class, 'index'])->name('checkout.confirmation');
 
     // Route::get('checkout/tunggu-validasi', [User\CheckoutController::class, 'indexWaitingValidation'])->name('purchase.waiting-validate');
     // Route::get('checkout/confirmation', [User\Checkout\PurchaseValidationController::class, 'indexConfirmation'])->name('checkout.confirmation');
@@ -97,6 +98,7 @@ Route::prefix('admin')->group(function () {
     // Wishlist
     Route::get('wishlist', [Admin\WishlistController::class, 'index'])->name('wishlist.index');
 
+    //Validasi berkas
     Route::get('data-validate', [Admin\Checkout\DataValidateController::class, 'index'])->name('checkout.data-validate');
     Route::put('data-validate/{purchaseValidate}', [Admin\Checkout\DataValidateController::class, 'update'])->name('data-validate.update');
 

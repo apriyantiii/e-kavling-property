@@ -39,6 +39,7 @@
                                                     <thead class="table-light">
                                                         <tr>
                                                             <th scope="col">Properti</th>
+                                                            <th scope="col">Atas Nama</th>
                                                             <th scope="col">Detail</th>
                                                             <th scope="col">Harga</th>
                                                         </tr>
@@ -46,41 +47,34 @@
                                                     <tbody>
                                                         <tr>
                                                             <th scope="row"><img
-                                                                    src="{{ URL::asset('assets/images/product/img-1.png') }}"
+                                                                    src="{{ URL::asset('storage/' . $product->photo) }}"
                                                                     alt="product-img" title="product-img" class="avatar-md">
                                                             </th>
                                                             <td>
-                                                                <h5 class="font-size-14 text-truncate"><a
-                                                                        href="{{ url('ecommerce-product-detail') }} "
-                                                                        class="text-dark">Half sleeve T-shirt (64GB) </a>
+                                                                <h5 class="font-size-14 text-truncate text-dark">
+                                                                    {{ $user->name }}
                                                                 </h5>
-                                                                <p class="text-muted mb-0">$ 450 x 1</p>
                                                             </td>
-                                                            <td>$ 450</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row"><img
-                                                                    src="{{ URL::asset('assets/images/product/img-7.png') }}"
-                                                                    alt="product-img" title="product-img" class="avatar-md">
-                                                            </th>
                                                             <td>
                                                                 <h5 class="font-size-14 text-truncate"><a
-                                                                        href="{{ url('ecommerce-product-detail') }}"
-                                                                        class="text-dark">Wireless Headphone </a></h5>
-                                                                <p class="text-muted mb-0">$ 225 x 1</p>
+                                                                        href="{{ route('product.show', $product->id) }}"
+                                                                        class="text-dark">{{ $product->name }} </a>
+                                                                </h5>
+                                                                <p class="text-muted mb-0">{{ $product->location }} </p>
                                                             </td>
-                                                            <td>$ 225</td>
+                                                            <td>{{ $product->formatted_price }}</td>
                                                         </tr>
+
                                                         <tr>
-                                                            <td colspan="2">
+                                                            <td colspan="3">
                                                                 <h6 class="m-0 text-end">Sub Total:</h6>
                                                             </td>
                                                             <td>
-                                                                $ 675
+                                                                {{ $product->formatted_price }}
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="3">
+                                                            <td colspan="4">
                                                                 <div class="bg-soft-primary p-3 rounded">
                                                                     <h5 class="font-size-14 text-primary mb-0"><i
                                                                             class="fas fa-shipping-fast me-2"></i> Shipping
@@ -90,11 +84,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2">
+                                                            <td colspan="3">
                                                                 <h6 class="m-0 text-end">Total:</h6>
                                                             </td>
                                                             <td>
-                                                                $ 675
+                                                                {{ $product->formatted_price }}
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -110,12 +104,12 @@
                     <div class="row my-4">
                         <div class="col-sm-6">
                             <a href="{{ url('ecommerce-cart') }}" class="btn text-muted d-none d-sm-inline-block btn-link">
-                                <i class="mdi mdi-arrow-left me-1"></i> Back to Shopping Cart </a>
+                                <i class="mdi mdi-arrow-left me-1"></i> Kembali</a>
                         </div> <!-- end col -->
                         <div class="col-sm-6">
                             <div class="text-end">
                                 <a href="{{ url('ecommerce-checkout') }}" class="btn btn-success">
-                                    <i class="mdi mdi-truck-fast me-1"></i> Proceed to Shipping </a>
+                                    <i class="mdi mdi-truck-fast me-1"></i> Lanjutkan Pembayaran </a>
                             </div>
                         </div> <!-- end col -->
                     </div> <!-- end row -->
