@@ -18,6 +18,18 @@ class DataValidateController extends Controller
         return view('admin.checkout.data-validate.index', compact('validate'));
     }
 
+    public function update(Request $request, PurchaseValidation $purchaseValidate)
+    {
+
+        $request->validate([
+            'status' => 'required|in:approved,pending',
+        ]);
+
+        $purchaseValidate->status = $request->input('status');
+        $purchaseValidate->save();
+        return redirect()->route('checkout.data-validate')->with('success', 'Status validasi berkas berhasil di update!');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -53,10 +65,6 @@ class DataValidateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

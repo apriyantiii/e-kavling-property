@@ -55,7 +55,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>
-                                                        <input type="checkbox" name="select_all" id="select_all">
+                                                        <input type="checkbox" id="select_all">
                                                     </th>
                                                     <th>Nama Produk</th>
                                                     <th>Nama Pembeli</th>
@@ -77,8 +77,8 @@
                                                     <tr>
                                                         <th>
                                                             {{-- value nya nanti diisi {{ $product->id }} --}}
-                                                            <input type="checkbox" value="{{ $purchaseValidate->id }}"
-                                                                name="products[]" id="select">
+                                                            <input type="checkbox" name="products[]"
+                                                                value="{{ $purchaseValidate->id }}" class="checkbox">
                                                         </th>
                                                         <td>{{ $purchaseValidate->product->name }}</td>
                                                         <td>{{ $purchaseValidate->name }}</td>
@@ -87,9 +87,33 @@
                                                         <td>{{ $purchaseValidate->job }}</td>
                                                         <td>{{ $purchaseValidate->telpon }}</td>
                                                         <td>{{ $purchaseValidate->address }}</td>
-                                                        <td>{{ $purchaseValidate->status }}</td>
+                                                        <td>
+                                                            <form
+                                                                action="{{ route('data-validate.update', $purchaseValidate) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+
+                                                                <select
+                                                                    class="nice-select default-select wide form-control solid"
+                                                                    name="status" onchange="this.form.submit()">
+
+                                                                    <option value="approved"
+                                                                        {{ $purchaseValidate->status === 'approved' ? 'selected' : '' }}>
+                                                                        Disetujui
+                                                                    </option>
+                                                                    <option value="pending"
+                                                                        {{ $purchaseValidate->status === 'pending' ? 'selected' : '' }}>
+                                                                        Pending
+                                                                    </option>
+                                                                </select>
+                                                                <input type="submit" style="display:none;" id="submitForm">
+                                                            </form>
+                                                        </td>
+
                                                         <td><a href="{{ asset('storage/uploads/' . $purchaseValidate->kk_file) }}"
                                                                 target="_blank">Lihat KK</a>
+                                                        </td>
                                                         <td>
                                                             <a href="{{ asset('storage/uploads/' . $purchaseValidate->ktp_file) }}"
                                                                 target="_blank">Lihat KTP</a>
@@ -161,6 +185,21 @@
     <script src="{{ URL::asset('assets/libs/choices.js/choices.js.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
+
+    {{-- <script>
+        $(document).ready(function() {
+            // error message validation modal
+            @if ($errors->has('category_name') || $errors->has('category_parent') || $errors->has('category_description'))
+                $('#addCategory').modal('show');
+            @endif
+        });
+
+        // check box selected all
+        $('#select_all').click(function() {
+            $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+            $('#submitForm').click(); // Menjalankan klik pada elemen submit tersembunyi
+        });
+    </script> --}}
 
     <script>
         $(document).ready(function() {
