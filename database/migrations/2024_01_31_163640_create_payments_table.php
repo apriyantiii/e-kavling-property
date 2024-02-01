@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('purchase_validation_id');
+            $table->unsignedBigInteger('product_id');
+
             $table->string('name');
             $table->date('payment_date');
             $table->enum('type', ['cash', 'inhouse', 'kpr']);
@@ -27,6 +29,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'process', 'approved'])->default('pending');
             $table->timestamps();
 
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('purchase_validation_id')->references('id')->on('purchase_validations')->onDelete('cascade');
         });
     }

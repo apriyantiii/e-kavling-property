@@ -58,18 +58,20 @@ Route::prefix('/')->group(function () {
     Route::put('checkout/update-purchase-validation', [User\Checkout\PurchaseValidationController::class, 'update'])->name('purchase.updatePurchaseValidation');
     // Route::get('checkout/edit-purchase-validation', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('purchase.editPurchaseValidation');
 
+    // checkout-validasi berkas
     Route::get('edit-validation', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('edit-validate');
     Route::get('validation', [User\Checkout\PurchaseValidationController::class, 'waitingValidate'])->name('waiting-validate');
 
+    // checkout-konfirmasi pembelian
     Route::get('confirmation', [User\Checkout\ConfirmationController::class, 'index'])->name('checkout.confirmation');
 
+    // Checkout-pembayaran
     Route::get('payments', [User\Checkout\PaymentsController::class, 'index'])->name('checkout.payments');
     Route::post('payments/store', [User\Checkout\PaymentsController::class, 'store'])->name('checkout.payments.store');
     Route::get('payments-success', [User\Checkout\PaymentsController::class, 'paymentSuccess'])->name('checkout.payments-success');
 
-    // Route::get('checkout/tunggu-validasi', [User\CheckoutController::class, 'indexWaitingValidation'])->name('purchase.waiting-validate');
-    // Route::get('checkout/confirmation', [User\Checkout\PurchaseValidationController::class, 'indexConfirmation'])->name('checkout.confirmation');
-    // Route::get('checkout/payments', [User\Checkout\PurchaseValidationController::class, 'indexPayments'])->name('checkout.payments');
+    // Checkout-rincian pembelian
+    Route::get('invoice', [User\Checkout\InvoiceController::class, 'index'])->name('checkout.invoice');
 });
 //USER END
 
@@ -100,7 +102,7 @@ Route::prefix('admin')->group(function () {
     Route::delete('category/delete-all', [Admin\ProductController::class, 'destroyAllCategory'])->name('category.destroy-all');
 
     // Wishlist
-    Route::get('wishlist', [Admin\WishlistController::class, 'index'])->name('wishlist.index');
+    Route::get('wishlist', [Admin\WishlistController::class, 'index'])->name('admin.wishlist.index');
 
     //Validasi berkas
     Route::get('data-validate', [Admin\Checkout\DataValidateController::class, 'index'])->name('checkout.data-validate');

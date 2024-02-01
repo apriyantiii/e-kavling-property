@@ -54,7 +54,7 @@
                                         </div>
                                         <div class="col-sm-6 mt-4 mb-4" style="margin: auto">
                                             <div class="text-center">
-                                                <a href="{{ url('ecommerce-checkout') }}" class="btn btn-primary"
+                                                <a href="{{ route('checkout.invoice') }}" class="btn btn-primary"
                                                     style="border-radius: 15px">
                                                     </i> Rincian Pesanan </a>
                                             </div>

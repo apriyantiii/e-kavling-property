@@ -28,4 +28,9 @@ class Payments extends Model
     {
         return $this->belongsTo(PurchaseValidation::class);
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'purchase_validation_id', 'id');
+    }
 }
