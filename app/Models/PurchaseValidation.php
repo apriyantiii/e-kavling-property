@@ -33,4 +33,10 @@ class PurchaseValidation extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    // one to many
+    public function payment()
+    {
+        return $this->hasMany(Payments::class, 'purchase_validation_id');
+    }
 }

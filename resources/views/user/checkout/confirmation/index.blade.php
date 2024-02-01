@@ -103,13 +103,14 @@
                     </div>
                     <div class="row my-4">
                         <div class="col-sm-6">
-                            <a href="{{ url('ecommerce-cart') }}" class="btn text-muted d-none d-sm-inline-block btn-link">
+                            <a href="{{ route('checkout.data-validate') }}"
+                                class="btn text-muted d-none d-sm-inline-block btn-link">
                                 <i class="mdi mdi-arrow-left me-1"></i> Kembali</a>
                         </div> <!-- end col -->
                         <div class="col-sm-6">
                             <div class="text-end">
-                                <a href="{{ url('ecommerce-checkout') }}" class="btn btn-success">
-                                    <i class="mdi mdi-truck-fast me-1"></i> Lanjutkan Pembayaran </a>
+                                <a href="{{ route('checkout.payments') }}" class="btn btn-success">
+                                    <i class="mdi mdi-cash me-1"></i> Lanjutkan Pembayaran </a>
                             </div>
                         </div> <!-- end col -->
                     </div> <!-- end row -->

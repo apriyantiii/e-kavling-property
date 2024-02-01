@@ -63,6 +63,10 @@ Route::prefix('/')->group(function () {
 
     Route::get('confirmation', [User\Checkout\ConfirmationController::class, 'index'])->name('checkout.confirmation');
 
+    Route::get('payments', [User\Checkout\PaymentsController::class, 'index'])->name('checkout.payments');
+    Route::post('payments/store', [User\Checkout\PaymentsController::class, 'store'])->name('checkout.payments.store');
+    Route::get('payments-success', [User\Checkout\PaymentsController::class, 'paymentSuccess'])->name('checkout.payments-success');
+
     // Route::get('checkout/tunggu-validasi', [User\CheckoutController::class, 'indexWaitingValidation'])->name('purchase.waiting-validate');
     // Route::get('checkout/confirmation', [User\Checkout\PurchaseValidationController::class, 'indexConfirmation'])->name('checkout.confirmation');
     // Route::get('checkout/payments', [User\Checkout\PurchaseValidationController::class, 'indexPayments'])->name('checkout.payments');
