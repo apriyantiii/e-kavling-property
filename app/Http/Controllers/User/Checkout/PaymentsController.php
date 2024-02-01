@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Payments;
 use App\Models\PurchaseValidation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentsController extends Controller
 {
@@ -67,6 +68,7 @@ class PaymentsController extends Controller
             // Validasi form jika diperlukan
             $request->validate([
                 'purchase_validation_id' => 'required|exists:purchase_validations,id',
+                'product_id' => 'required|exists:products,id',
                 'name' => 'required|string|max:255',
                 'payment_date' => 'required|date',
                 'type' => 'required|in:cash,inhouse,kpr',
@@ -82,6 +84,8 @@ class PaymentsController extends Controller
             // $purchaseValidationID = $request->input('purchase_validation_id');
             // $purchaseValidation = PurchaseValidation::find($purchaseValidationID);
 
+            $userId = Auth::id();
+
             $tfFileName = null;
             if ($request->hasFile('transfer')) {
                 $transferFile = $request->file('transfer');
@@ -92,6 +96,8 @@ class PaymentsController extends Controller
             // Simpan data pembayaran ke dalam tabel payments
             Payments::create([
                 'purchase_validation_id' => $request->input('purchase_validation_id'),
+                'user_id' => $userId,
+                'product_id' => $request->input('product_id'),
                 'name' => $request->input('name'),
                 'payment_date' => $request->input('payment_date'),
                 'type' => $request->input('type'),

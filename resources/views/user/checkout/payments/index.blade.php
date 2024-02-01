@@ -103,6 +103,9 @@
                                                     <input type="hidden" name="purchase_validation_id"
                                                         value="{{ $purchaseValidation ? $purchaseValidation->id : old('purchase_validation_id') }}">
 
+                                                    <input type="hidden" name="product_id"
+                                                        value="{{ $product ? $product->id : old('product_id') }}">
+
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group mb-3">

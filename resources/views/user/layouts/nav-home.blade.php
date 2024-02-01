@@ -57,6 +57,9 @@
                                     class="icon icon-user-circle pr-2"></span> Profil
                                 Saya
                             </a>
+                            <a class="dropdown-item" href="{{ route('checkout.invoice') }}"><span
+                                    class="icon icon-shopping-cart pr-2"></span> Pembelian
+                            </a>
                             {{-- @if (session('purchase_status') === 'waiting_confirmation')
                                 <a class="dropdown-item" href="{{ route('purchase.waiting-validation') }}"><span
                                         class="icon icon-shopping-cart pr-2"></span> Pembelian

@@ -11,6 +11,8 @@ class Payments extends Model
 
     protected $fillable = [
         'purchase_validation_id',
+        'user_id',
+        'product_id',
         'name',
         'payment_date',
         'type',

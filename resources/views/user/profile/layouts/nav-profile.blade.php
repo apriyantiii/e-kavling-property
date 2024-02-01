@@ -83,6 +83,9 @@
                                     style="margin-right: 5px;"></span>Profil
                                 Saya
                             </a>
+                            <a class="dropdown-item" href="{{ route('checkout.invoice') }}">
+                                    <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
+                                </a>
                             {{-- <a class="dropdown-item" href="{{ url('checkout') }}"><span class="fas fa-shopping-cart"
                                     style="margin-right: 5px;"></span>Pembelian
                             </a> --}}

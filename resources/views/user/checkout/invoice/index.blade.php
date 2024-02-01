@@ -110,40 +110,50 @@
 
                 {{-- product category --}}
                 <div class="tab-pane" id="product-categories" role="tabpanel">
-                    <div class="card-body">
-                        <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px"><strong>Status Pembelian:
-                            </strong>
-                        </h3>
-                        <hr style="border-top: 2px solid #000000; margin-top: 0px;">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="" alt="product-img" title="product-img" class="avatar-xl" />
-                            </div>
-                            <div class="col-md-5">
-                                <h4>
-                                    @if (isset($product))
-                                        <p>Nama Produk: {{ $product->name }}</p>
-                                    @endif
-                                </h4>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <img src="" alt="product-img" title="product-img" class="avatar-xl" />
-                            </div>
-                        </div>
+                    @foreach ($payments as $payment)
+                        <div class="card" style="border-radius: 20px">
+                            <div class="card-body">
+                                <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
+                                    <strong>Status Berkas:
+                                        @if ($payment->status == 'pending')
+                                            <span class="badge bg-warning">Pending</span>
+                                        @elseif ($payment->status == 'approved')
+                                            <span class="badge bg-success">Approved</span>
+                                        @else
+                                            <span class="badge bg-secondary">{{ $payment->status }}</span>
+                                        @endif
+                                    </strong>
+                                </h3>
+                                <hr style="border-top: 2px solid #000000; margin-top: 0px;">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="{{ URL::asset('storage/' . $payment->product->photo) }}"
+                                            alt="product-img" title="product-img" class="avatar-xxl" />
+                                    </div>
 
-                        <div class="row mt-4">
-                            <div class="col-md-12 text-end">
-                                <a href="{{ route('home.properti') }}">
-                                    Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a>
-                            </div> <!-- end col -->
-                            {{-- <div class="col-sm-6">
-                                <div class="text-sm-end mt-2 mt-sm-0">
-                                    <a href="{{ url('checkout') }}" class="btn btn-success">
-                                        <i class="mdi mdi-cart-arrow-right me-1"></i> Beli Sekarang </a>
+                                    <div class="col-md-6 text-start">
+                                        <h5>{{ $payment->product->name }}</h5>
+                                        <p>{{ $payment->product->location }}</p>
+                                        <br>
+                                        <h6><strong>Atas Nama: {{ $payment->name }}</strong></h6>
+                                    </div>
+
+                                    <div class="col-md-4 text-end">
+                                        @if ($payment->product)
+                                            <h4>{{ $payment->product->formatted_price }}</h4>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div> <!-- end col --> --}}
-                        </div> <!-- end row-->
-                    </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-12 text-end">
+                                        <h5><a href="{{ route('home.properti') }}">
+                                                Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
+                                    </div> <!-- end col -->
+                                </div> <!-- end row-->
+                            </div>
+                        </div> <!-- end card -->
+                    @endforeach
                 </div>
             </div>
 

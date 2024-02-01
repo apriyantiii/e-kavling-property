@@ -35,6 +35,15 @@ class InvoiceController extends Controller
             ->where('user_id', $currentUserId)
             ->get();
 
+        $payments = Payments::with('product')
+            ->where(function ($query) use ($currentUserId) {
+                $query->where('status', 'approved')
+                    ->orWhere('status', 'process')
+                    ->orWhere('status', 'pending');
+            })
+            ->where('user_id', $currentUserId)
+            ->get();
+
         // Tambahkan formatted_price ke objek product
         foreach ($purchaseValidation as $validation) {
             if ($validation->product) {
@@ -42,9 +51,17 @@ class InvoiceController extends Controller
             }
         }
 
+        // Tambahkan formatted_price ke objek product
+        foreach ($payments as $payment) {
+            if ($payment->product) {
+                $payment->product->formatted_price = formatPrice($payment->product->price);
+            }
+        }
+
         // Kirim data pembelian ke view
-        return view('user.checkout.invoice.index', compact('purchaseValidation'));
+        return view('user.checkout.invoice.index', compact('purchaseValidation', 'payments'));
     }
+
     // public function index()
     // {
     //     // Fungsi formatPrice 
