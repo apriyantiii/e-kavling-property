@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Checkout;
 use App\Http\Controllers\Controller;
 use App\Models\Payments;
 use App\Models\PurchaseValidation;
+use Faker\Provider\ar_EG\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +36,7 @@ class InvoiceController extends Controller
             ->where('user_id', $currentUserId)
             ->get();
 
+
         $payments = Payments::with('product')
             ->where(function ($query) use ($currentUserId) {
                 $query->where('status', 'approved')
@@ -62,66 +64,23 @@ class InvoiceController extends Controller
         return view('user.checkout.invoice.index', compact('purchaseValidation', 'payments'));
     }
 
-    // public function index()
-    // {
-    //     // Fungsi formatPrice 
-    //     if (!function_exists('formatPrice')) {
-    //         function formatPrice($price)
-    //         {
-    //             return 'Rp ' . number_format($price, 0, ',', '.');
-    //         }
-    //     }
+    public function showValidate(PurchaseValidation $purchaseValidationShow)
+    {
+        // Pastikan bahwa pembelian yang ditampilkan hanya milik pengguna yang saat ini login
+        $currentUserId = Auth::id();
 
-    //     // Ambil data pesanan berdasarkan status pembelian yang disetujui
-    //     $payments = Payments::where('status', 'approved')->first();
+        // Ambil data pembelian berdasarkan ID pembelian yang diberikan dan user_id
+        $purchaseValidation = PurchaseValidation::with('product')
+            ->where('user_id', $currentUserId)
+            ->findOrFail($purchaseValidationShow->id);
 
-    //     // Ambil data relasi user dan product
-    //     // $user = $payments->user;
-    //     $product = $payments->purchaseValidation->product;
+        return view('user.checkout.invoice.show-validate', compact('purchaseValidation'));
+    }
 
-    //     // Tambahkan formatted_price ke objek product
-    //     $product->formatted_price = formatPrice($product->price);
-
-    //     // Kirim data pesanan dan relasi ke view
-    //     return view('user.checkout.invoice.index', compact('payments', 'product'));
-    // }
-
-    // public function index($id_purchase_validation)
-    // {
-    //     // Fungsi formatPrice 
-    //     if (!function_exists('formatPrice')) {
-    //         function formatPrice($price)
-    //         {
-    //             return 'Rp ' . number_format($price, 0, ',', '.');
-    //         }
-    //     }
-
-    //     // Ambil data pembayaran berdasarkan id_purchase_validation
-    //     $payment = Payments::with('purchaseValidation.product')
-    //         ->where('purchase_validation_id', $id_purchase_validation)
-    //         ->first();
-
-    //     // // Periksa apakah pembayaran ditemukan
-    //     // if (!$payment) {
-    //     //     // Handle jika tidak ada pembayaran yang sesuai
-    //     //     // Misalnya, redirect atau tampilkan pesan kesalahan
-    //     //     return redirect()->route('nama_route_ke_halaman_yang_diinginkan');
-    //     // }
-
-    //     // // Periksa apakah relasi purchaseValidation dan product ada
-    //     // if (!$payment->purchaseValidation || !$payment->purchaseValidation->product) {
-    //     //     // Handle jika relasi purchaseValidation atau product tidak ditemukan
-    //     //     // Misalnya, redirect atau tampilkan pesan kesalahan
-    //     //     return redirect()->route('nama_route_ke_halaman_yang_diinginkan');
-    //     // }
-
-    //     // Tambahkan formatted_price ke objek product
-    //     $product = $payment->purchaseValidation->product;
-    //     $product->formatted_price = formatPrice($product->price);
-
-    //     // Kirim data pembayaran dan relasi ke view
-    //     return view('user.checkout.invoice.index', compact('payment', 'product'));
-    // }
+    public function showPayment(Payments $payments)
+    {
+        return view('user.checkout.invoice.show-payments', compact('payments'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -142,10 +101,7 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

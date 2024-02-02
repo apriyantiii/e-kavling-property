@@ -29,17 +29,6 @@
                     'message' => session('failure'),
                 ])
             @endif
-            {{-- <div class="card">
-                <div class="card-body">
-                    <div>
-                        <h4 class="card-title">Halaman Wishlist</h4>
-                        <p class="card-title-desc mb-4">Berisi properti yang telah diinginkan dan akan dibeli di kemudian
-                            hari. <br><strong>Untuk checkout silahkan tekan produk yang diinginkan dan checkout di halaman
-                                detail properti</strong></p>
-                    </div>
-                </div>
-            </div> --}}
-
 
             <div class="flex-shrink-0 mb-5">
                 <ul class="rounded nav nav-tabs-custom card-header-tabs" role="tablist">
@@ -98,7 +87,7 @@
 
                                 <div class="row mt-4">
                                     <div class="col-md-12 text-end">
-                                        <h5><a href="{{ route('home.properti') }}">
+                                        <h5><a href="{{ route('checkout.invoice.validate', $validation->id) }}">
                                                 Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
                                     </div> <!-- end col -->
                                 </div> <!-- end row-->
@@ -108,7 +97,7 @@
                 </div>
 
 
-                {{-- product category --}}
+                {{-- payments --}}
                 <div class="tab-pane" id="product-categories" role="tabpanel">
                     @foreach ($payments as $payment)
                         <div class="card" style="border-radius: 20px">
@@ -147,7 +136,7 @@
 
                                 <div class="row mt-4">
                                     <div class="col-md-12 text-end">
-                                        <h5><a href="{{ route('home.properti') }}">
+                                        <h5><a href="{{ route('checkout.invoice.payment', $payment->id) }}">
                                                 Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
                                     </div> <!-- end col -->
                                 </div> <!-- end row-->

@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('/co', function () {
-    return view('user.checkout.confirmation.index');
+    return view('user.checkout.invoice.show-validate');
 });
 
 
@@ -72,6 +72,9 @@ Route::prefix('/')->group(function () {
 
     // Checkout-rincian pembelian
     Route::get('invoice', [User\Checkout\InvoiceController::class, 'index'])->name('checkout.invoice');
+
+    Route::get('invoice-validate/detail/{purchaseValidationShow}', [User\Checkout\InvoiceController::class, 'showValidate'])->name('checkout.invoice.validate');
+    Route::get('invoice-payments/detail/{payments}', [User\Checkout\InvoiceController::class, 'showPayment'])->name('checkout.invoice.payment');
 });
 //USER END
 
