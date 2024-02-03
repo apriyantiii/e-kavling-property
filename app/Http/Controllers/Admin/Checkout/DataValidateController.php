@@ -18,20 +18,36 @@ class DataValidateController extends Controller
         return view('admin.checkout.data-validate.index', compact('validate'));
     }
 
-    public function update(Request $request, PurchaseValidation $purchaseValidate)
-    {
+    // public function update(Request $request, PurchaseValidation $purchaseValidate)
+    // {
 
+    //     $request->validate([
+    //         'status' => 'required|in:approved,pending',
+    //     ]);
+
+    //     $purchaseValidate->status = $request->input('status');
+
+    //     // Perbarui status pembelian pada session
+    //     session()->put('purchase_status', $request->input('status'));
+
+    //     $purchaseValidate->save();
+    //     return redirect()->route('checkout.data-validate')->with('success', 'Status validasi berkas berhasil di update!');
+    // }
+
+    public function updateStatus(Request $request, PurchaseValidation $purchaseValidate)
+    {
         $request->validate([
-            'status' => 'required|in:approved,pending',
+            'status' => ['required', 'in:pending,approved,rejected'],
         ]);
 
-        $purchaseValidate->status = $request->input('status');
+        $purchaseValidate->update(['status' => $request->status]);
 
-        // Perbarui status pembelian pada session
-        session()->put('purchase_status', $request->input('status'));
+        return redirect()->back()->with('success', 'Status berkas berhasil diubah!');
+    }
 
-        $purchaseValidate->save();
-        return redirect()->route('checkout.data-validate')->with('success', 'Status validasi berkas berhasil di update!');
+    public function show(PurchaseValidation $showValidate)
+    {
+        return view('admin.checkout.data-validate.show', compact('showValidate'));
     }
 
     /**
@@ -53,10 +69,7 @@ class DataValidateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Checkout;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payments;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 
 class PaymentsValidateController extends Controller
@@ -12,12 +14,25 @@ class PaymentsValidateController extends Controller
      */
     public function index()
     {
-        return view('admin.checkout.payments-validate.index');
+        $payments = Payments::all();
+        return view('admin.checkout.payments-validate.index', compact('payments'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
+    public function updateStatus(Request $request, Payments $payment)
+    {
+        $request->validate([
+            'status' => ['required', 'in:pending,approved,rejected'],
+        ]);
+
+        $payment->update(['status' => $request->status]);
+
+        return redirect()->back()->with('success', 'Status pembayaran berhasil di update!');
+    }
+
     public function create()
     {
         //
@@ -34,9 +49,9 @@ class PaymentsValidateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Payments $showPayment)
     {
-        //
+        return view('admin.checkout.payments-validate.show', compact('showPayment'));
     }
 
     /**

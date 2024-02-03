@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('nominal');
             $table->string('transfer');
             $table->text('payment_description')->nullable();
-            $table->enum('status', ['pending', 'process', 'approved'])->default('pending');
+            $table->enum('status', ['pending', 'rejected', 'approved'])->default('pending');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

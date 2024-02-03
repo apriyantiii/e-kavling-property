@@ -7,6 +7,14 @@
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @component('components.breadcrumb')
+        @slot('li_1')
+            Produk
+        @endslot
+        @slot('title')
+            Detail Produk
+        @endslot
+    @endcomponent
     <div class="row">
         <div class="col-12">
 

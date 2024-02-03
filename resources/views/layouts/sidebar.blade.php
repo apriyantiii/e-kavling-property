@@ -29,7 +29,7 @@
 
                 <li class="my-2">
                     <a href="javascript: void(0);" class="has-arrow">
-                        <i data-feather="dollar-sign"></i>
+                        <i data-feather="shopping-bag"></i>
                         <span>Penjualan</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">

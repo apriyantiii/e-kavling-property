@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('/co', function () {
-    return view('user.checkout.invoice.show-validate');
+    return view('admin.checkout.payments-validate.show');
 });
 
 
@@ -109,9 +109,17 @@ Route::prefix('admin')->group(function () {
 
     //Validasi berkas
     Route::get('data-validate', [Admin\Checkout\DataValidateController::class, 'index'])->name('checkout.data-validate');
-    Route::put('data-validate/{purchaseValidate}', [Admin\Checkout\DataValidateController::class, 'update'])->name('data-validate.update');
+    Route::patch('data-validate/{purchaseValidate}', [Admin\Checkout\DataValidateController::class, 'updateStatus'])->name('data-validate.update');
+    Route::get('payments-detail/{showValidate}', [Admin\Checkout\DataValidateController::class, 'show'])->name('checkout.validate.show');
 
+
+    // payments
     Route::get('payments-validate', [Admin\Checkout\PaymentsValidateController::class, 'index'])->name('checkout.payments-validate');
+    Route::get('payments-detail/{showPayment}', [Admin\Checkout\PaymentsValidateController::class, 'show'])->name('checkout.payment.show');
+
+    // Route::patch('/payments/{payment}', [PaymentController::class, 'updateStatus'])->name('update-status');
+    Route::patch('/payments/{payment}', [Admin\Checkout\PaymentsValidateController::class, 'updateStatus'])->name('update-status');
+    // Route::patch('payments-validate/{payment}', [Admin\Checkout\PaymentsValidateController::class, 'updateStatus'])->name('checkout.payment.update-status');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
