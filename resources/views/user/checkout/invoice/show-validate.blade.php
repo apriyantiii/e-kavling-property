@@ -12,99 +12,116 @@
 @section('content')
     <br><br>
 
-    <div class="row mb-5">
-        <div class="container">
-            @if (session()->has('success'))
-                @include('components.alert.success', [
-                    'type' => session('type', 'success'),
-                    'delay' => session('delay', 2500),
-                    'message' => session('success'),
-                ])
-            @endif
+    <div class="row">
+        <div class="col-lg-12" style="width: 80%; margin: auto">
+            <div class="card">
+                <div class="card-body mx-4">
+                    <form class="outer-repeater mt-2" method="post">
+                        <div data-repeater-list="outer-group" class="outer">
+                            <div class="row my-4">
+                                <div class="col-lg-12 d-flex justify-content-center">
+                                    <div class="img mx-5">
+                                        <img src="{{ URL::asset('storage/' . $purchaseValidation->product->photo) }}"
+                                            alt="" class="img-fluid" width="500" height="250">
+                                    </div>
+                                </div>
 
-            @if (session()->has('failure'))
-                @include('components.alert.failure', [
-                    'type' => session('type', 'failure'),
-                    'delay' => session('delay', 2500),
-                    'message' => session('failure'),
-                ])
-            @endif
+                            </div>
+                            <div class="row mt-5">
+                                <!-- Start left col -->
+                                <div class="col-lg-6">
+                                    <div class="mb-4">
+                                        <h5>Informasi Pembeli</h5>
+                                        <hr class="mt-1 mb-1">
+                                        <a class="text-primary font-size-16">{{ $purchaseValidation->name }}</a>
+                                        <br>
+                                        <span> Telp: {{ $purchaseValidation->telpon }}</span>
+                                        <br>
+                                        <span> Alamat: {{ $purchaseValidation->address }}
+                                    </div>
+                                </div>
+                                <!-- Stop left col -->
+                                <!-- Start Rifht col -->
+                                <div class="col-lg-6">
+                                    <div class="mb-4">
+                                        <h5>Order Kepada</h5>
+                                        <hr class="mt-1 mb-1">
+                                        <a class="text-primary font-size-16">PT. Mutiara Putri Gemilang</a>
+                                        <br>
+                                        <span> Telp: +62-812-4998-5217</span>
+                                        <br>
+                                        <span> Email: pt.mutiaraputrigemilang@gmail.com
+                                    </div>
+                                </div>
+                                <!-- Stop right col -->
+                            </div>
+                            <!-- Start Row -->
+                            <div class="row align-items-center">
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-nowrap table-check" id="tableOrder">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th class="fw-bold">Nama Produk</th>
+                                                <th class="fw-bold">Nama Pembeli</th>
+                                                <th class="fw-bold">NIK</th>
+                                                <th class="fw-bold">Umur</th>
+                                                <th class="fw-bold">Pekerjaan</th>
+                                                <th class="fw-bold">No. Telp</th>
+                                                <th class="fw-bold">Alamat</th>
+                                                <th class="fw-bold">Status</th>
+                                                <th class="fw-bold">File KK</th>
+                                                <th class="fw-bold">File KTP</th>
+                                                <th class="fw-bold">Dibuat Pada</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{ $purchaseValidation->product->name }}</td>
+                                                <td>{{ $purchaseValidation->name }}</td>
+                                                <td>{{ $purchaseValidation->nik }}</td>
+                                                <td>{{ $purchaseValidation->age }}</td>
+                                                <td>{{ $purchaseValidation->job }}</td>
+                                                <td>{{ $purchaseValidation->telpon }}</td>
+                                                <td>{{ $purchaseValidation->address }}</td>
+                                                <td>
+                                                    @if ($purchaseValidation->status == 'pending')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
+                                                    @elseif ($purchaseValidation->status == 'approved')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-success font-size-14">Disetujui</span>
+                                                    @elseif ($purchaseValidation->status == 'rejected')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-danger font-size-14">Ditolak</span>
+                                                    @else
+                                                        <span
+                                                            class="badge bg-secondary">{{ $purchaseValidation->status }}</span>
+                                                    @endif
+                                                </td>
 
-            <div class="card" style="border-radius: 20px">
-                <div class="card-body">
-                    <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
-                        <strong>Status Berkas:
-                            @if ($purchaseValidation->status == 'pending')
-                                <span class="badge bg-warning">Pending</span>
-                            @elseif ($purchaseValidation->status == 'approved')
-                                <span class="badge bg-success">Approved</span>
-                            @else
-                                <span class="badge bg-secondary">{{ $purchaseValidation->status }}</span>
-                            @endif
-                        </strong>
-                    </h3>
-                    <hr style="border-top: 2px solid #000000; margin-top: 0px;">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="{{ URL::asset('storage/' . $purchaseValidation->product->photo) }}" alt="product-img"
-                                title="product-img" class="avatar-xxl" />
+                                                <td><a href="{{ asset('storage/uploads/' . $purchaseValidation->kk_file) }}"
+                                                        target="_blank">Lihat KK</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ asset('storage/uploads/' . $purchaseValidation->ktp_file) }}"
+                                                        target="_blank">Lihat KTP</a>
+                                                </td>
+                                                <td>{{ $purchaseValidation->created_at }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+
                         </div>
 
-                        <div class="col-md-6 text-start">
-                            <h4>{{ $purchaseValidation->product->name }}</h4>
-                            <p>{{ $purchaseValidation->product->location }}</p>
-                            <br>
-                            <h5><strong>Atas Nama: {{ $purchaseValidation->name }}</strong></h5>
-                        </div>
-
-                        <div class="col-md-4 text-end">
-                            <h4>{{ $purchaseValidation->product->formatted_price }}</h4>
-                            {{-- {!! $products->formatted_price !!} --}}
-                        </div>
-                    </div>
-
-                    <div class="table-responsive-vertical text-end" style="float: right;">
-                        <table id="datatable" class="table align-middle datatable dt-responsive table-check nowrap"
-                            style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
-
-                            <tr colspan="3">
-                                <td data-label="Pekerjaan"><strong>Pekerjaan</strong></td>
-                                <td>{{ $purchaseValidation->job }}</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Umur"><strong>Umur</strong></td>
-                                <td>{{ $purchaseValidation->age }}</td>
-                            </tr>
-                            <tr>
-                                <td data-label="No. Telepon"><strong>No. Telepon</strong></td>
-                                <td>
-                                    {{ $purchaseValidation->telpon }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Alamat"><strong>Alamat</strong></td>
-                                <td>{{ $purchaseValidation->address }}</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Dibuat Pada"><strong>Dibuat Pada</strong></td>
-                                <td>{{ $purchaseValidation->created_at }}</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    {{-- <div class="row mt-4">
-                        <div class="col-md-12 text-end">
-                            <h5><a href="{{ route('checkout.invoice.validate', $purchaseValidation->id) }}">
-                                    Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
-                        </div> <!-- end col -->
-                    </div> <!-- end row--> --}}
+                    </form>
                 </div>
-            </div> <!-- end card -->
-
+            </div>
         </div>
-
     </div>
-    </div>
+    <!-- end row -->
 @endsection
 @section('script')
     <script src="{{ URL::asset('assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.js') }}"></script>

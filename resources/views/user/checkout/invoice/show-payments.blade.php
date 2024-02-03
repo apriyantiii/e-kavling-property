@@ -12,118 +12,168 @@
 @section('content')
     <br><br>
 
-    <div class="row mb-5">
-        <div class="container">
-            @if (session()->has('success'))
-                @include('components.alert.success', [
-                    'type' => session('type', 'success'),
-                    'delay' => session('delay', 2500),
-                    'message' => session('success'),
-                ])
-            @endif
+    <div class="row">
+        <div class="col-lg-12" style="width: 80%; margin: auto;">
+            <div class="card">
+                <div class="card-body mx-4">
+                    <form class="outer-repeater mt-2" method="post">
+                        <div data-repeater-list="outer-group" class="outer">
+                            <div class="row my-4">
+                                <div class="col-lg-12 d-flex justify-content-center">
+                                    <div class="img mx-5">
+                                        <img src="{{ URL::asset('storage/' . $payments->product->photo) }}" alt=""
+                                            class="img-fluid" width="500" height="250">
+                                    </div>
+                                </div>
 
-            @if (session()->has('failure'))
-                @include('components.alert.failure', [
-                    'type' => session('type', 'failure'),
-                    'delay' => session('delay', 2500),
-                    'message' => session('failure'),
-                ])
-            @endif
+                            </div>
+                            <div class="row mt-5">
+                                <!-- Start left col -->
+                                <div class="col-lg-6">
+                                    <div class="mb-4">
+                                        <h5>Informasi Pembeli</h5>
+                                        <hr class="mt-1 mb-1">
+                                        <a class="text-primary font-size-16">{{ $payments->name }}</a>
+                                        <br>
+                                        <span> Telp: {{ $payments->purchaseValidation->telpon }}</span>
+                                        <br>
+                                        <span> Alamat: {{ $payments->purchaseValidation->address }}
+                                    </div>
+                                </div>
+                                <!-- Stop left col -->
+                                <!-- Start Rifht col -->
+                                <div class="col-lg-6">
+                                    <div class="mb-4">
+                                        <h5>Order Kepada</h5>
+                                        <hr class="mt-1 mb-1">
+                                        <a class="text-primary font-size-16">PT. Mutiara Putri Gemilang</a>
+                                        <br>
+                                        <span> Telp: +62-812-4998-5217</span>
+                                        <br>
+                                        <span> Email: pt.mutiaraputrigemilang@gmail.com
+                                    </div>
+                                </div>
+                                <!-- Stop right col -->
+                            </div>
+                            <!-- Start Row -->
+                            <div class="row align-items-center">
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-nowrap table-check" id="tableOrder">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th class="fw-bold">Produk</th>
+                                                <th class="fw-bold">Harga</th>
+                                                <th class="fw-bold">Tanggal Bayar</th>
+                                                <th class="fw-bold">Tipe Pembelian</th>
+                                                <th class="fw-bold">Tenor</th>
+                                                <th class="fw-bold">Ditransfer Dari</th>
+                                                <th class="fw-bold">Bank Tujuan</th>
+                                                <th class="fw-bold">Nama Rekening</th>
+                                                <th class="fw-bold">Nominal</th>
+                                                <th class="fw-bold">Bukti Transfer</th>
+                                                <th class="fw-bold">Deskripsi</th>
+                                                <th class="fw-bold">Status</th>
+                                                <th class="fw-bold">Dibuat Pada</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    {{ $payments->product->name }}
+                                                </td>
+                                                <td>
+                                                    {{ number_format($payments->product->price, 2, ',', '.') }}
+                                                </td>
+                                                <td>
+                                                    {{ \Carbon\Carbon::parse($payments->payment_date)->format('d M Y') }}
+                                                </td>
+                                                <td>
+                                                    {{ $payments->type }}
+                                                </td>
+                                                <td>
+                                                    @if ($payments->tenor !== null)
+                                                        {{ $payments->tenor }}
+                                                    @else
+                                                        <span class="text-danger">Null</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ $payments->home_bank }}
+                                                </td>
+                                                <td>
+                                                    {{ $payments->destination_bank }}
+                                                </td>
+                                                <td>
+                                                    {{ $payments->rekening_name }}
+                                                </td>
+                                                <td>
+                                                    {{ $payments->nominal }}
+                                                </td>
+                                                <td><a href="{{ asset('storage/uploads/' . $payments->transfer) }}"
+                                                        target="_blank">Bukti Transfer</a>
+                                                </td>
+                                                <td>
+                                                    @if ($payments->payment_description !== null)
+                                                        {{ $payments->payment_description }}
+                                                    @else
+                                                        <span class="text-danger">Tidak ada deskripsi</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ $payments->status }}
+                                                </td>
+                                                <td>
+                                                    {{ $payments->created_at }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-lg-4">
+                                    <div class="table-responsive ">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Subtotal :</td>
+                                                    <td class="text-end">
+                                                        Rp {{ number_format($payments->product->price, 2, ',', '.') }}</td>
+                                                </tr>
 
-            <div class="card" style="border-radius: 20px">
-                <div class="card-body">
-                    <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
-                        <strong>Status Berkas:
-                            @if ($payments->status == 'pending')
-                                <span class="badge bg-warning">Pending</span>
-                            @elseif ($payments->status == 'approved')
-                                <span class="badge bg-success">Approved</span>
-                            @else
-                                <span class="badge bg-secondary">{{ $payments->status }}</span>
-                            @endif
-                        </strong>
-                    </h3>
-                    <hr style="border-top: 2px solid #000000; margin-top: 0px;">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="{{ URL::asset('storage/' . $payments->product->photo) }}" alt="product-img"
-                                title="product-img" class="avatar-xxl" />
+                                                <tr>
+                                                    <td>Total Diskon : </td>
+                                                    <td class="text-end">Rp (0.00)</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Pajak : </td>
+                                                    <td class="text-end">Rp 0.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total :</td>
+                                                    <td class="text-end">Rp
+                                                        {{ number_format($payments->product->price, 2, ',', '.') }}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>Pajak Included :</th>
+                                                    <th class="text-end">Rp 0.00</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="col-md-6 text-start">
-                            <h4>{{ $payments->product->name }}</h4>
-                            <p>{{ $payments->product->location }}</p>
-                            <br>
-                            <h5><strong>Atas Nama: {{ $payments->name }}</strong></h5>
-                        </div>
-
-                        <div class="col-md-4 text-end">
-                            @if ($payments->product)
-                                <h4>{{ $payments->product->price }}</h4>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="table-responsive-vertical text-end" style="float: right;">
-                        <table id="datatable" class="table align-middle datatable dt-responsive table-check nowrap"
-                            style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
-
-                            <tr colspan="3">
-                                <td data-label="Total Pembayaran"><strong>Total Pembayaran</strong></td>
-                                <td>{{ $payments->product->price }}</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Tanggal Pembayaran"><strong>Tanggal Pembayaran</strong></td>
-                                <td>{{ $payments->payment_date }}</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Tipe Pembelian"><strong>Tipe Pembelian</strong></td>
-                                <td>
-                                    {{ $payments->type }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Tenor"><strong>Tenor</strong></td>
-                                <td>
-                                    @if ($payments->tenor !== null)
-                                        {{ $payments->tenor }}
-                                    @else
-                                        <span class="text-danger">Tidak menggunakan tenor</span>
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Pembayaran Dari"><strong>Pembayaran Dari</strong></td>
-                                <td>{{ $payments->home_bank }}</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Pembayaran Ke"><strong>Pembayaran Ke</strong></td>
-                                <td>{{ $payments->destination_bank }}</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Nominal Pembayaran"><strong>Nominal Pembayaran</strong></td>
-                                <td>{{ $payments->nominal }}</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Dibuat Pada"><strong>Dibuat Pada</strong></td>
-                                <td>{{ $payments->created_at }}</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    {{-- <div class="row mt-4">
-                        <div class="col-md-12 text-end">
-                            <h5><a href="{{ route('checkout.invoice.validate', $purchaseValidation->id) }}">
-                                    Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
-                        </div> <!-- end col -->
-                    </div> <!-- end row--> --}}
+                    </form>
                 </div>
-            </div> <!-- end card -->
-
+            </div>
         </div>
-
     </div>
-    </div>
+    <!-- end row -->
 @endsection
 @section('script')
     <script src="{{ URL::asset('assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.js') }}"></script>

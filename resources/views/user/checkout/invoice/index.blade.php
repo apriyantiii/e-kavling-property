@@ -56,9 +56,14 @@
                                 <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
                                     <strong>Status Berkas:
                                         @if ($validation->status == 'pending')
-                                            <span class="badge bg-warning">Pending</span>
+                                            <span
+                                                class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
                                         @elseif ($validation->status == 'approved')
-                                            <span class="badge bg-success">Approved</span>
+                                            <span
+                                                class="badge badge-pill rounded-pill bg-success font-size-14">Approved</span>
+                                        @elseif ($validation->status == 'rejected')
+                                            <span
+                                                class="badge badge-pill rounded-pill bg-danger font-size-14">Approved</span>
                                         @else
                                             <span class="badge bg-secondary">{{ $validation->status }}</span>
                                         @endif
@@ -105,9 +110,14 @@
                                 <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
                                     <strong>Status Berkas:
                                         @if ($payment->status == 'pending')
-                                            <span class="badge bg-warning">Pending</span>
+                                            <span
+                                                class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
                                         @elseif ($payment->status == 'approved')
-                                            <span class="badge bg-success">Approved</span>
+                                            <span
+                                                class="badge badge-pill rounded-pill bg-success font-size-14">Approved</span>
+                                        @elseif ($payment->status == 'rejected')
+                                            <span
+                                                class="badge badge-pill rounded-pill bg-danger font-size-14">Approved</span>
                                         @else
                                             <span class="badge bg-secondary">{{ $payment->status }}</span>
                                         @endif
