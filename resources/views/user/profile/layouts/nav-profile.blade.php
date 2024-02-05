@@ -34,6 +34,11 @@
                     </a>
                 </li>
 
+                <li class="nav-item"><a href="{{ route('user.live-chat') }}" class="nav-link">
+                        <h5><span>Live Chat</span></h5>
+                    </a>
+                </li>
+
                 <li class="nav-item"><a href="{{ route('wishlist.index') }}" class="nav-link">
                         <h5><span>Wishlist</span></h5>
                     </a>
@@ -84,8 +89,8 @@
                                 Saya
                             </a>
                             <a class="dropdown-item" href="{{ route('checkout.invoice') }}">
-                                    <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
-                                </a>
+                                <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
+                            </a>
                             {{-- <a class="dropdown-item" href="{{ url('checkout') }}"><span class="fas fa-shopping-cart"
                                     style="margin-right: 5px;"></span>Pembelian
                             </a> --}}

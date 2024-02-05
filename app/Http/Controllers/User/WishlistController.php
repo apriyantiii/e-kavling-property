@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
@@ -21,11 +22,13 @@ class WishlistController extends Controller
                 return 'Rp ' . number_format($price, 0, ',', '.');
             }
         }
-        // $wishlist = Wishlist::get();
+        // Mendapatkan user yang sedang login
+        $user = Auth::user();
 
-        // $wishlist->formatted_price = formatPrice($wishlist->price);
-
-        $wishlist = Wishlist::with('product')->get();
+        // Menampilkan wishlist berdasarkan user_id yang sedang login
+        $wishlist = Wishlist::with('product')
+            ->where('user_id', $user->id)
+            ->get();
 
         // Menambahkan formatted_price untuk setiap item di koleksi
         $wishlist->each(function ($item) {

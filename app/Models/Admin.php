@@ -22,4 +22,9 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Product::class);
     }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class, 'admin_id');
+    }
 }

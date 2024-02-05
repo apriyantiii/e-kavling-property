@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('/co', function () {
-    return view('admin.checkout.payments-validate.show');
+    return view('admin.live-chat.show');
 });
 
 
@@ -72,9 +72,14 @@ Route::prefix('/')->group(function () {
 
     // Checkout-rincian pembelian
     Route::get('invoice', [User\Checkout\InvoiceController::class, 'index'])->name('checkout.invoice');
-
     Route::get('invoice-validate/detail/{purchaseValidationShow}', [User\Checkout\InvoiceController::class, 'showValidate'])->name('checkout.invoice.validate');
     Route::get('invoice-payments/detail/{payments}', [User\Checkout\InvoiceController::class, 'showPayment'])->name('checkout.invoice.payment');
+
+    // live chat
+    Route::get('live-chat', [User\LiveChatController::class, 'index'])->name('user.live-chat');
+    Route::post('live-chat/store', [User\LiveChatController::class, 'store'])->name('user.live-chat.store');
+    Route::get('live-chat/product/{product}', [User\LiveChatController::class, 'indexChat'])->name('user.live-chat.product');
+    Route::post('live-chat/product/store/{product}', [User\LiveChatController::class, 'storeChat'])->name('user.live-chat.product.storeChat');
 });
 //USER END
 
@@ -112,14 +117,13 @@ Route::prefix('admin')->group(function () {
     Route::patch('data-validate/{purchaseValidate}', [Admin\Checkout\DataValidateController::class, 'updateStatus'])->name('data-validate.update');
     Route::get('payments-detail/{showValidate}', [Admin\Checkout\DataValidateController::class, 'show'])->name('checkout.validate.show');
 
-
     // payments
     Route::get('payments-validate', [Admin\Checkout\PaymentsValidateController::class, 'index'])->name('checkout.payments-validate');
     Route::get('payments-detail/{showPayment}', [Admin\Checkout\PaymentsValidateController::class, 'show'])->name('checkout.payment.show');
-
-    // Route::patch('/payments/{payment}', [PaymentController::class, 'updateStatus'])->name('update-status');
     Route::patch('/payments/{payment}', [Admin\Checkout\PaymentsValidateController::class, 'updateStatus'])->name('update-status');
-    // Route::patch('payments-validate/{payment}', [Admin\Checkout\PaymentsValidateController::class, 'updateStatus'])->name('checkout.payment.update-status');
+
+    //live chat
+    route::get('chat/index', [Admin\ChatController::class, 'index'])->name('admin.chat.index');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 

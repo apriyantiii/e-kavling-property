@@ -18,6 +18,9 @@
                         class="nav-link"><span>Kategori</span></a>
                 </li>
 
+                <li class="nav-item"><a href="{{ route('user.live-chat') }}" class="nav-link"><span>Live Chat</span></a>
+                </li>
+
                 <li class="nav-item"><a href="{{ route('wishlist.index') }}" class="nav-link"><span>Wishlist</span></a>
                 </li>
 

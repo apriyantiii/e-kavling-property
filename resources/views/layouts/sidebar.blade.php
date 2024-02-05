@@ -39,9 +39,16 @@
                 </li>
 
                 <li class="mb-2">
-                    <a href="{{ route('wishlist.index') }}">
+                    <a href="{{ route('admin.wishlist.index') }}">
                         <i data-feather="heart"></i>
                         <span>Wishlist</span>
+                    </a>
+                </li>
+
+                <li class="mb-2">
+                    <a href="{{ route('admin.chat.index') }}">
+                        <i data-feather="message-square"></i>
+                        <span>Chat</span>
                     </a>
                 </li>
 

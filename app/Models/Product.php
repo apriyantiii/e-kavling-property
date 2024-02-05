@@ -47,4 +47,9 @@ class Product extends Model
     {
         return $this->hasMany(Payments::class, 'purchase_validation_id', 'id');
     }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
 }
