@@ -78,46 +78,18 @@
                         <li class="chat-day-title">
                             <span class="title">Today</span>
                         </li>
-                        <li>
-                            <div class="conversation-list">
-                                <div class="d-flex">
-                                    <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
-                                        class="rounded-circle avatar-sm" alt="">
-                                    <div class="flex-1">
-                                        <div class="ctext-wrap">
-                                            <div class="ctext-wrap-content">
-                                                <div class="conversation-name"><span class="time">10:00 AM</span></div>
-                                                <p class="mb-0">Good Morning</p>
-                                            </div>
-                                            <div class="dropdown align-self-start">
-                                                <a class="dropdown-toggle" href="#" role="button"
-                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">Copy</a>
-                                                    <a class="dropdown-item" href="#">Save</a>
-                                                    <a class="dropdown-item" href="#">Forward</a>
-                                                    <a class="dropdown-item" href="#">Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                        </li>
-
-                        @foreach ($chats as $chat)
+                        @foreach ($userChats as $userChat)
                             <li class="right">
                                 <div class="conversation-list">
                                     <div class="d-flex">
                                         <div class="flex-1">
                                             <div class="ctext-wrap">
                                                 <div class="ctext-wrap-content">
-                                                    <div class="conversation-name"><span class="time">10:02 AM</span>
+                                                    <div class="conversation-name"><span
+                                                            class="time">{{ $userChat->created_at ? $userChat->created_at->format('h:i A') : 'Unknown' }}</span>
                                                     </div>
-                                                    <p class="mb-0">{{ $chat->message }}</p>
+                                                    <p class="mb-0">{{ $userChat->message }}</p>
                                                 </div>
                                                 <div class="dropdown align-self-start">
                                                     <a class="dropdown-toggle" href="#" role="button"
@@ -142,39 +114,43 @@
 
                             </li>
                         @endforeach
+
+                        @foreach ($adminChats as $adminChat)
+                            <li>
+                                <div class="conversation-list">
+                                    <div class="d-flex">
+                                        <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
+                                            class="rounded-circle avatar-sm" alt="">
+                                        <div class="flex-1">
+                                            <div class="ctext-wrap">
+                                                <div class="ctext-wrap-content">
+                                                    <div class="conversation-name"><span
+                                                            class="time">{{ $adminChat->created_at ? $adminChat->created_at->format('h:i A') : 'Unknown' }}</span>
+                                                    </div>
+                                                    <p class="mb-0">{{ $adminChat->message }}</p>
+                                                </div>
+                                                <div class="dropdown align-self-start">
+                                                    <a class="dropdown-toggle" href="#" role="button"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Copy</a>
+                                                        <a class="dropdown-item" href="#">Save</a>
+                                                        <a class="dropdown-item" href="#">Forward</a>
+                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
-
-                {{-- <div class="p-3 border-top">
-
-                    <form method="POST" action="{{ route('user.live-chat.store') }}" enctype="multipart/form-data">
-                        @csrf --}}
-                {{-- <input type="hidden" name="product_id"
-                                value="{{ $product ? $product->id : old('product_id') }}"> --}}
-                {{-- <div class="row">
-                            <div class="col">
-                                <div class="position-relative">
-                                    <input type="text"
-                                        class="form-control border bg-soft-light @error('message') is-invalid @enderror"
-                                        name="message" id="message" placeholder="Kirim Pesan..."
-                                        value="{{ old('message') }}" required autocomplete="message">
-                                    @error('message')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit"
-                                    class="btn btn-primary chat-send w-md waves-effect waves-light"><span
-                                        class="d-none d-sm-inline-block me-2">Send</span> <i
-                                        class="mdi mdi-send float-end"></i></button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div> --}}
 
                 <div class="p-3 border-top">
                     <form method="POST"

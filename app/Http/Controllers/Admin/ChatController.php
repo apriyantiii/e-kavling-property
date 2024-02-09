@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
@@ -27,35 +28,93 @@ class ChatController extends Controller
 
     public function show($userId)
     {
+        // $userChats = Chat::where('user_id', $userId)
+        //     ->whereNull('admin_id') // Hanya chat dari user (admin_id null)
+        //     ->orderBy('created_at', 'asc')
+        //     ->get();
         $userChats = Chat::where('user_id', $userId)
+            ->where(function ($query) use ($userId) {
+                $query->whereRaw('(admin_id IS NULL OR admin_id <> ?)', [$userId]);
+            })
             ->orderBy('created_at', 'asc')
             ->get();
 
-        return view('admin.live-chat.show', compact('userChats'));
+        $adminChats = Chat::whereNotNull('admin_id') // Hanya chat dari admin (admin_id tidak null)
+            ->whereNotNull('user_id') // Hanya chat yang tidak ditujukan kepada pengguna (user_id null)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('admin.live-chat.show', compact('userChats', 'userId', 'adminChats'));
     }
 
-    // public function show($userId)
-    // {
-    //     // Ambil semua percakapan untuk pengguna tertentu
-    //     $chats = Chat::all();
-
-    //     // dd($chats);
-
-    //     return view('admin.live-chat.show', compact('chats'));
-    // }
-
-    public function showChat($userId)
+    public function store(Request $request, $userId)
     {
-        // Ambil semua percakapan untuk pengguna tertentu
-        $chats = Chat::where('user_id', $userId)
-            ->orderBy('created_at', 'asc')
-            ->get();
+        try {
+            // Validate the incoming request data
+            $request->validate([
+                'product_id' => 'nullable|exists:products,id',
+                'message' => 'required|string',
+            ]);
 
+            // Mengambil ID admin yang sedang login
+            $adminId = Auth::guard('is_admin')->user()->id;
 
+            // Mendapatkan product_id dari request
+            $productId = $request->input('product_id');
 
-        return view('admin.live-chat.show-chat', compact('chats'));
+            // Create a new Chat instance and fill it with the validated data
+            Chat::create([
+                'user_id' => $userId, // Menggunakan $userId dari parameter
+                'admin_id' => $adminId,
+                'product_id' => $productId,
+                'message' => $request->input('message'),
+                'status' => 'accept',
+            ]);
+
+            // Menggunakan redirect biasa
+            $redirect = redirect()->route('admin.chat.show')->with('success', 'Pesan Terkirim!');
+            // dd(session('success'), $redirect);
+
+            return $redirect;
+        } catch (\Exception $e) {
+            dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+        }
     }
 
+
+
+    // public function store(Request $request)
+    // {
+    //     try {
+    //         // Validate the incoming request data
+    //         $request->validate([
+    //             'product_id' => 'nullable|exists:products,id',
+    //             'message' => 'required|string',
+    //         ]);
+
+    //         $userId = Chat::where('user_id', $userId)
+
+    //         // Mengambil ID pengguna yang sedang login
+    //         $adminId = Auth::guard('is_admin')->user()->id;
+    //         $productId = $request->input('product_id');
+
+    //         // Create a new Chat instance and fill it with the validated data
+    //         Chat::create([
+    //             'user_id' => $userId,
+    //             'admin_id' => $adminId,
+    //             'message' => $request->input('message'),
+    //             'status' => 'accept',
+    //         ]);
+
+    //         // Menggunakan redirect biasa
+    //         $redirect = redirect()->route('admin.live-chat.show')->with('success', 'Pesan Terkirim!');
+    //         // dd(session('success'), $redirect);
+
+    //         return $redirect;
+    //     } catch (\Exception $e) {
+    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+    //     }
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -69,39 +128,11 @@ class ChatController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-    }
+
 
     /**
      * Display the specified resource.
      */
-    // public function showChat(Chat $chat)
-    // {
-    //     return view('admin.live-chat.show', compact('chat'));
-    // }
-
-    // public function showChat($userId)
-    // {
-    //     $chat = Chat::where('user_id', $userId)
-    //         ->orderBy('created_at', 'desc')
-    //         ->get();
-
-    //     return view('admin.live-chat.show', compact('chat'));
-    // }
-
-    // public function showChat($userId)
-    // {
-    //     // Ambil semua pesan dari pengguna dengan user_id yang diberikan
-    //     $roomChats = Chat::where('user_id', $userId)
-    //         ->orderBy('created_at', 'desc')
-    //         ->get();
-
-    //     dd($roomChats);
-
-    //     return view('admin.live-chat.show', compact('roomChats'));
-    // }
-
 
     /**
      * Show the form for editing the specified resource.

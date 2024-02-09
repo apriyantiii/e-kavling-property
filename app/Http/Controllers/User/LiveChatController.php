@@ -31,8 +31,20 @@ class LiveChatController extends Controller
         $user = Auth::user();
 
         // Menampilkan chat berdasarkan user_id yang sedang login
-        $chats = Chat::where('user_id', $user->id)->get();
-        return view('user.live-chat.index', compact('chats'));
+        $userChats = Chat::where('user_id', $user->id)
+            ->where(function ($query) use ($user) {
+                $query->whereNull('admin_id')
+                    ->orWhere('admin_id', '<>', $user->id);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        $adminChats = Chat::whereNotNull('admin_id') // Hanya chat dari admin (admin_id tidak null)
+            ->whereNotNull('user_id') // Hanya chat yang tidak ditujukan kepada pengguna (user_id null)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('user.live-chat.index', compact('userChats', 'adminChats'));
     }
 
     /**

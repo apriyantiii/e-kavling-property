@@ -75,7 +75,7 @@
                         <span class="title">Today</span>
                     </li>
                     <li>
-                        @foreach ($userChats as $chat)
+                        @foreach ($userChats as $userChat)
                             <div class="conversation-list">
 
                                 <div class="d-flex">
@@ -86,9 +86,9 @@
                                             <div class="ctext-wrap-content">
                                                 <div class="conversation-name">
                                                     <span
-                                                        class="time">{{ $chat->created_at ? $chat->created_at->format('h:i A') : 'Unknown' }}</span>
+                                                        class="time">{{ $userChat->created_at ? $userChat->created_at->format('h:i A') : 'Unknown' }}</span>
                                                 </div>
-                                                <p class="mb-0">{{ $chat->message }}</p>
+                                                <p class="mb-0">{{ $userChat->message }}</p>
                                             </div>
                                             <div class="dropdown align-self-start">
                                                 <a class="dropdown-toggle" href="#" role="button"
@@ -106,96 +106,123 @@
                                     </div>
                                 </div>
                         @endforeach
-            </div>
-
-
-
-
-            </li>
-
-            {{-- @foreach ($chats as $chat)
-                            <li class="right">
-                                <div class="conversation-list">
-                                    <div class="d-flex">
-                                        <div class="flex-1">
-                                            <div class="ctext-wrap">
-                                                <div class="ctext-wrap-content">
-                                                    <div class="conversation-name"><span class="time">10:02 AM</span>
-                                                    </div>
-                                                    <p class="mb-0">{{ $chat->message }}</p>
+                    </li>
+                    @foreach ($adminChats as $adminChat)
+                        <li class="right">
+                            <div class="conversation-list">
+                                <div class="d-flex">
+                                    <div class="flex-1">
+                                        <div class="ctext-wrap">
+                                            <div class="ctext-wrap-content">
+                                                <div class="conversation-name"><span
+                                                        class="time">{{ $adminChat->created_at ? $adminChat->created_at->format('h:i A') : 'Unknown' }}</span>
                                                 </div>
-                                                <div class="dropdown align-self-start">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Copy</a>
-                                                        <a class="dropdown-item" href="#">Save</a>
-                                                        <a class="dropdown-item" href="#">Forward</a>
-                                                        <a class="dropdown-item" href="#">Delete</a>
-                                                    </div>
+                                                <p class="mb-0">{{ $adminChat->message }}</p>
+                                            </div>
+                                            <div class="dropdown align-self-start">
+                                                <a class="dropdown-toggle" href="#" role="button"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                    <a class="dropdown-item" href="#">Save</a>
+                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                    <a class="dropdown-item" href="#">Delete</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src="{{ URL::asset('assets/images/users/avatar-6.jpg') }}"
-                                            class="rounded-circle avatar-sm" alt="">
                                     </div>
-
+                                    <img src="{{ URL::asset('assets/images/users/avatar-6.jpg') }}"
+                                        class="rounded-circle avatar-sm" alt="">
                                 </div>
 
-                            </li>
-                        @endforeach --}}
-            </ul>
-        </div>
-
-        {{-- <div class="p-3 border-top">
-
-                    <form method="POST" action="{{ route('user.live-chat.store') }}" enctype="multipart/form-data">
-                        @csrf --}}
-        {{-- <input type="hidden" name="product_id"
-                                value="{{ $product ? $product->id : old('product_id') }}"> --}}
-        {{-- <div class="row">
-                            <div class="col">
-                                <div class="position-relative">
-                                    <input type="text"
-                                        class="form-control border bg-soft-light @error('message') is-invalid @enderror"
-                                        name="message" id="message" placeholder="Kirim Pesan..."
-                                        value="{{ old('message') }}" required autocomplete="message">
-                                    @error('message')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
                             </div>
-                            <div class="col-auto">
-                                <button type="submit"
-                                    class="btn btn-primary chat-send w-md waves-effect waves-light"><span
-                                        class="d-none d-sm-inline-block me-2">Send</span> <i
-                                        class="mdi mdi-send float-end"></i></button>
+                        </li>
+                    @endforeach
+
+                    {{-- @foreach ($adminChats as $adminChat)
+                        <li class="right">
+                            <div class="conversation-list">
+                                <div class="d-flex">
+                                    <div class="flex-1">
+                                        <div class="ctext-wrap">
+                                            <div class="ctext-wrap-content">
+                                                <div class="conversation-name"><span class="time">10:02 AM</span>
+                                                </div>
+                                                <p class="mb-0">halo</p>
+                                            </div>
+                                            <div class="dropdown align-self-start">
+                                                <a class="dropdown-toggle" href="#" role="button"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                    <a class="dropdown-item" href="#">Save</a>
+                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img src="{{ URL::asset('assets/images/users/avatar-6.jpg') }}"
+                                        class="rounded-circle avatar-sm" alt="">
+                                </div>
+
+                            </div>
+
+                        </li>
+                    @endforeach --}}
+                </ul>
+            </div>
+
+            <div class="p-3 border-top">
+
+                <form method="POST" action="{{ route('admin.chat.store', $userId) }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="userId" value="{{ $userId }}">
+                    {{-- <input type="hidden" name="product_id"
+                                value="{{ $product ? $product->id : old('product_id') }}"> --}}
+                    <div class="row">
+                        <div class="col">
+                            <div class="position-relative">
+                                <input type="text"
+                                    class="form-control border bg-soft-light @error('message') is-invalid @enderror"
+                                    name="message" id="message" placeholder="Kirim Pesan..."
+                                    value="{{ old('message') }}" required autocomplete="message">
+                                @error('message')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
-                    </form>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span
+                                    class="d-none d-sm-inline-block me-2">Kirim</span> <i
+                                    class="mdi mdi-send float-end"></i></button>
+                        </div>
+                    </div>
+                </form>
 
-                </div> --}}
+            </div>
 
-        <div class="p-3 border-top">
+            {{-- <div class="p-3 border-top">
             <form method="POST"
                 @if (request()->routeIs('user.live-chat')) action="{{ route('user.live-chat.store') }}" 
                         @elseif(request()->routeIs('user.live-chat.product')) 
                         action="{{ route('user.live-chat.product.storeChat', ['product' => $product->id]) }}" @endif
                 enctype="multipart/form-data">
-                @csrf
+                @csrf --}}
 
-                {{-- Cek apakah route adalah chat produk --}}
-                @if (request()->routeIs('user.live-chat.product'))
-                    {{-- Jika ya, tambahkan input hidden untuk product_id --}}
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                @endif
+            {{-- Cek apakah route adalah chat produk --}}
+            {{-- @if (request()->routeIs('user.live-chat.product')) --}}
+            {{-- Jika ya, tambahkan input hidden untuk product_id --}}
+            {{-- <input type="hidden" name="product_id" value="{{ $product->id }}">
+                @endif --}}
 
-                <div class="row">
+            {{-- <div class="row">
                     <div class="col">
                         <div class="position-relative">
                             <input type="text"
@@ -216,9 +243,9 @@
                     </div>
                 </div>
             </form>
-        </div>
+        </div> --}}
 
-    </div>
+        </div>
     </div>
 @endsection
 @section('script')

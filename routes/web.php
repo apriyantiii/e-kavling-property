@@ -123,8 +123,9 @@ Route::prefix('admin')->group(function () {
     Route::patch('/payments/{payment}', [Admin\Checkout\PaymentsValidateController::class, 'updateStatus'])->name('update-status');
 
     //live chat
-    route::get('chat/index', [Admin\ChatController::class, 'index'])->name('admin.chat.index');
+    Route::get('chat/index', [Admin\ChatController::class, 'index'])->name('admin.chat.index');
     Route::get('chat/show/{userID}', [Admin\ChatController::class, 'show'])->name('admin.chat.show');
+    Route::post('chat/store/{userID}', [Admin\ChatController::class, 'store'])->name('admin.chat.store');
     // Route::patch('chat/update-status/{userId}', [Admin\ChatController::class, 'updateStatus'])->name('admin.chat.update-status');
     // Route::put('chat/update-status/{userId}', [Admin\ChatController::class, 'updateStatus'])->name('admin.chat.update-status');
 });
