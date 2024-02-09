@@ -165,27 +165,7 @@
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                         @endif
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="position-relative">
-                                    <input type="text"
-                                        class="form-control border bg-soft-light @error('message') is-invalid @enderror"
-                                        name="message" id="message" placeholder="Kirim Pesan..."
-                                        value="{{ old('message') }}" required autocomplete="message">
-                                    @error('message')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit"
-                                    class="btn btn-primary chat-send w-md waves-effect waves-light"><span
-                                        class="d-none d-sm-inline-block me-2">Kirim </span> <i
-                                        class="mdi mdi-send float-end"></i></button>
-                            </div>
-                        </div>
+                        
                     </form>
                 </div>
 

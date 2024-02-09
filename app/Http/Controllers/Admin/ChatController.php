@@ -44,7 +44,10 @@ class ChatController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
 
-        return view('admin.live-chat.show', compact('userChats', 'userId', 'adminChats'));
+        $allChats = $userChats->merge($adminChats)->sortBy('created_at');
+
+
+        return view('admin.live-chat.show', ['userId' => $userId, 'allChats' => $allChats]);
     }
 
     public function store(Request $request, $userId)
