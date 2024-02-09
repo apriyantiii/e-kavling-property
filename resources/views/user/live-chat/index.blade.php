@@ -73,81 +73,80 @@
                     </div>
                 </div>
 
-                <div class="chat-conversation p-3" data-simplebar style="max-height: 550px;">
+                <div class="chat-conversation p-3" data-simplebar style="max-height: 550px;" id="chat-conversation">
                     <ul class="list-unstyled mb-0">
                         <li class="chat-day-title">
                             <span class="title">Today</span>
                         </li>
 
-                        @foreach ($userChats as $userChat)
-                            <li class="right">
-                                <div class="conversation-list">
-                                    <div class="d-flex">
-                                        <div class="flex-1">
-                                            <div class="ctext-wrap">
-                                                <div class="ctext-wrap-content">
-                                                    <div class="conversation-name"><span
-                                                            class="time">{{ $userChat->created_at ? $userChat->created_at->format('h:i A') : 'Unknown' }}</span>
+                        @foreach ($allChats as $chat)
+                            @if ($chat->user_id && !$chat->admin_id)
+                                <li class="right">
+                                    <div class="conversation-list">
+                                        <div class="d-flex">
+                                            <div class="flex-1">
+                                                <div class="ctext-wrap">
+                                                    <div class="ctext-wrap-content">
+                                                        <div class="conversation-name"><span
+                                                                class="time">{{ $chat->created_at ? $chat->created_at->format('h:i A') : 'Unknown' }}</span>
+                                                        </div>
+                                                        <p class="mb-0">{{ $chat->message }}</p>
                                                     </div>
-                                                    <p class="mb-0">{{ $userChat->message }}</p>
+                                                    <div class="dropdown align-self-start">
+                                                        <a class="dropdown-toggle" href="#" role="button"
+                                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Copy</a>
+                                                            <a class="dropdown-item" href="#">Save</a>
+                                                            <a class="dropdown-item" href="#">Forward</a>
+                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="dropdown align-self-start">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
+                                            </div>
+                                            <img src="{{ URL::asset('assets/images/users/avatar-6.jpg') }}"
+                                                class="rounded-circle avatar-sm" alt="">
+                                        </div>
+
+                                    </div>
+
+                                </li>
+                            @endif
+
+                            @if ($chat->admin_id)
+                                <li>
+                                    <div class="conversation-list">
+                                        <div class="d-flex">
+                                            <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
+                                                class="rounded-circle avatar-sm" alt="">
+                                            <div class="flex-1">
+                                                <div class="ctext-wrap">
+                                                    <div class="ctext-wrap-content">
+                                                        <div class="conversation-name"><span
+                                                                class="time">{{ $chat->created_at ? $chat->created_at->format('h:i A') : 'Unknown' }}</span>
+                                                            <p class="mb-0">{{ $chat->message }}</p>
+                                                        </div>
+                                                        <a class="dropdown-toggle" href="#" role="button">
+                                                    </div>
+                                                    <div class="dropdown align-self-start" data-bs-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
                                                         <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Copy</a>
-                                                        <a class="dropdown-item" href="#">Save</a>
-                                                        <a class="dropdown-item" href="#">Forward</a>
-                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                        </a>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Copy</a>
+                                                            <a class="dropdown-item" href="#">Save</a>
+                                                            <a class="dropdown-item" href="#">Forward</a>
+                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src="{{ URL::asset('assets/images/users/avatar-6.jpg') }}"
-                                            class="rounded-circle avatar-sm" alt="">
-                                    </div>
-
-                                </div>
-
-                            </li>
-                        @endforeach
-
-                        @foreach ($adminChats as $adminChat)
-                            <li>
-                                <div class="conversation-list">
-                                    <div class="d-flex">
-                                        <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
-                                            class="rounded-circle avatar-sm" alt="">
-                                        <div class="flex-1">
-                                            <div class="ctext-wrap">
-                                                <div class="ctext-wrap-content">
-                                                    <div class="conversation-name"><span
-                                                            class="time">{{ $adminChat->created_at ? $adminChat->created_at->format('h:i A') : 'Unknown' }}</span>
-                                                    </div>
-                                                    <p class="mb-0">{{ $adminChat->message }}</p>
-                                                </div>
-                                                <div class="dropdown align-self-start">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Copy</a>
-                                                        <a class="dropdown-item" href="#">Save</a>
-                                                        <a class="dropdown-item" href="#">Forward</a>
-                                                        <a class="dropdown-item" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </li>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>

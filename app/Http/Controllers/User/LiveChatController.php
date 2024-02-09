@@ -28,24 +28,27 @@ class LiveChatController extends Controller
     public function index()
     {
         // Mendapatkan user yang sedang login
-        $user = Auth::user();
+        $currentUser = Auth::user();
 
-        // Menampilkan chat berdasarkan user_id yang sedang login
-        $userChats = Chat::where('user_id', $user->id)
-            ->where(function ($query) use ($user) {
+        $userChats = Chat::where('user_id', $currentUser->id)
+            ->where(function ($query) use ($currentUser) {
                 $query->whereNull('admin_id')
-                    ->orWhere('admin_id', '<>', $user->id);
+                    ->orWhere('admin_id', '<>', $currentUser->id);
             })
             ->orderBy('created_at', 'asc')
             ->get();
 
-        $adminChats = Chat::whereNotNull('admin_id') // Hanya chat dari admin (admin_id tidak null)
-            ->whereNotNull('user_id') // Hanya chat yang tidak ditujukan kepada pengguna (user_id null)
+        $adminChats = Chat::whereNotNull('admin_id')
+            ->whereNotNull('user_id')
             ->orderBy('created_at', 'asc')
             ->get();
 
-        return view('user.live-chat.index', compact('userChats', 'adminChats'));
+
+        $allChats = $userChats->merge($adminChats)->sortBy('created_at');
+
+        return view('user.live-chat.index', compact('allChats'));
     }
+
 
     /**
      * Show the form for creating a new resource.
