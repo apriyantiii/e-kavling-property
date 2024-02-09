@@ -13,17 +13,17 @@ class LiveChatController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function indexChat($id)
-    {
-        $product = Product::find($id);
+    // public function indexChat($id)
+    // {
+    //     $product = Product::find($id);
 
-        // Mendapatkan user yang sedang login
-        $user = Auth::user();
+    //     // Mendapatkan user yang sedang login
+    //     $user = Auth::user();
 
-        // Menampilkan chat berdasarkan user_id yang sedang login
-        $chats = Chat::where('user_id', $user->id)->get();
-        return view('user.live-chat.index', compact('product', 'chats'));
-    }
+    //     // Menampilkan chat berdasarkan user_id yang sedang login
+    //     $chats = Chat::where('user_id', $user->id)->get();
+    //     return view('user.live-chat.index', compact('product', 'chats'));
+    // }
 
     public function index()
     {

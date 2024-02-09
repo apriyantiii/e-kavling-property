@@ -39,98 +39,54 @@
                         @csrf
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="datatable-buttons"
-                                    class="table align-middle datatable dt-responsive table-check nowrap"
+                                <table id="datatable" class="table align-middle datatable dt-responsive table-check nowrap"
                                     style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>
                                                 <input type="checkbox" id="select_all">
                                             </th>
-                                            <th>Nama Produk</th>
-                                            <th>Nama Pembeli</th>
-                                            <th>Tanggal Pembayaran</th>
-                                            <th>Type</th>
-                                            <th>Nominal</th>
+                                            <th>Nama</th>
+                                            <th>Waktu</th>
                                             <th>Status</th>
-                                            <th>Aksi</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
 
-
                                     <tbody>
-
-                                        {{-- @foreach ($payments as $payment)
+                                        @foreach ($latestChats as $chat)
                                             <tr>
                                                 <th>
-                                                    value nya nanti diisi {{ $product->id }}
-                                                    <input type="checkbox" name="products[]" value="{{ $payment->id }}"
+                                                    {{-- value nya nanti diisi {{ $product->id }} --}}
+                                                    <input type="checkbox" name="latestChats[]" value="{{ $chat->id }}"
                                                         class="checkbox">
                                                 </th>
-                                                <td>{{ $payment->product->name }}</td>
-                                                <td>{{ $payment->name }}</td>
-                                                <td>{{ $payment->payment_date }}</td>
-                                                <td>{{ $payment->type }}</td>
-                                                <td>{{ $payment->nominal }}</td>
+                                                <td><strong>{{ $chat->user->name }}</strong>
+                                                    <p>{{ $chat->message }}</p>
+                                                </td>
+                                                <td>{{ $chat->created_at }}</td>
                                                 <td>
-                                                    @if ($payment->status == 'pending')
+                                                    @if ($chat->status == 'accept')
                                                         <span
-                                                            class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
-                                                    @elseif ($payment->status == 'approved')
+                                                            class="badge badge-pill rounded-pill bg-success font-size-14">Diterima</span>
+                                                    @elseif ($chat->status == 'read')
                                                         <span
-                                                            class="badge badge-pill rounded-pill bg-success font-size-14">Disetujui</span>
-                                                    @elseif ($payment->status == 'rejected')
-                                                        <span
-                                                            class="badge badge-pill rounded-pill bg-danger font-size-14">Ditolak</span>
+                                                            class="badge badge-pill rounded-pill bg-warning font-size-14">Dibaca</span>
                                                     @else
-                                                        <span class="badge bg-secondary">{{ $payment->status }}</span>
+                                                        <span class="badge bg-secondary">{{ $chat->status }}</span>
                                                     @endif
                                                 </td>
-
-                                                <td class="align-middle">
-                                                    <div class="dropdown">
-                                                        <a href="#" class="dropdown-toggle card-drop"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a href="#"
-                                                                    class="dropdown-item">
-                                                                    <i
-                                                                        class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                    Detail
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a type="button" class="btn" data-bs-toggle="modal"
-                                                                    data-bs-target="#myModal"><i
-                                                                        class="mdi mdi-pencil font-size-16 text-success me-2"></i>Edit</a>
-                                                            </li>
-
-                                                            <li>
-                                                                <a href="#" class="dropdown-item"
-                                                                    onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
-                                                                    <i
-                                                                        class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                    Hapus
-                                                                </a>
-
-                                                                <form id="deleteProductForm" action="#" method="POST"
-                                                                    style="display: none;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                                <td>
+                                                    <a href="{{ route('admin.chat.show', $chat->user_id) }}"
+                                                        class="btn btn-primary btn-sm btn-rounded">
+                                                        <i class="mdi mdi-eye font-size-16 text-light me-1"></i>
+                                                        Lihat Chat
+                                                    </a>
                                                 </td>
-                                            </tr> --}}
-                                        {{-- @endforeach --}}
 
-                                        {{-- Model KK --}}
+                                            </tr>
+                                        @endforeach
 
-
-                                        {{-- Model KTP --}}
                                     </tbody>
                                 </table>
                             </div>

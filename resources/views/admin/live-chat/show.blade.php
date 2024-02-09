@@ -75,259 +75,150 @@
                         <span class="title">Today</span>
                     </li>
                     <li>
-                        <div class="conversation-list">
-                            <div class="d-flex">
-                                <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
-                                    class="rounded-circle avatar-sm" alt="">
-                                <div class="flex-1">
-                                    <div class="ctext-wrap">
-                                        <div class="ctext-wrap-content">
-                                            <div class="conversation-name"><span class="time">10:00 AM</span></div>
-                                            <p class="mb-0">Good Morning</p>
-                                        </div>
-                                        <div class="dropdown align-self-start">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Copy</a>
-                                                <a class="dropdown-item" href="#">Save</a>
-                                                <a class="dropdown-item" href="#">Forward</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
+                        @foreach ($userChats as $chat)
+                            <div class="conversation-list">
+
+                                <div class="d-flex">
+                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}"
+                                        class="rounded-circle avatar-sm" alt="">
+                                    <div class="flex-1">
+                                        <div class="ctext-wrap">
+                                            <div class="ctext-wrap-content">
+                                                <div class="conversation-name">
+                                                    <span
+                                                        class="time">{{ $chat->created_at ? $chat->created_at->format('h:i A') : 'Unknown' }}</span>
+                                                </div>
+                                                <p class="mb-0">{{ $chat->message }}</p>
+                                            </div>
+                                            <div class="dropdown align-self-start">
+                                                <a class="dropdown-toggle" href="#" role="button"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                    <a class="dropdown-item" href="#">Save</a>
+                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                    </li>
-
-                    <li class="right">
-                        <div class="conversation-list">
-                            <div class="d-flex">
-                                <div class="flex-1">
-                                    <div class="ctext-wrap">
-                                        <div class="ctext-wrap-content">
-                                            <div class="conversation-name"><span class="time">10:02 AM</span></div>
-                                            <p class="mb-0">Good morning</p>
-                                        </div>
-                                        <div class="dropdown align-self-start">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Copy</a>
-                                                <a class="dropdown-item" href="#">Save</a>
-                                                <a class="dropdown-item" href="#">Forward</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <img src="{{ URL::asset('assets/images/users/avatar-6.jpg') }}"
-                                    class="rounded-circle avatar-sm" alt="">
-                            </div>
-
-                        </div>
-
-                    </li>
-
-                    <li>
-                        <div class="conversation-list">
-                            <div class="d-flex">
-                                <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
-                                    class="rounded-circle avatar-sm" alt="">
-                                <div class="flex-1">
-                                    <div class="ctext-wrap">
-                                        <div class="ctext-wrap-content">
-                                            <div class="conversation-name"><span class="time">10:04 AM</span></div>
-                                            <p class="mb-0">
-                                                Hi there, How are you?
-                                            </p>
-                                        </div>
-                                        <div class="dropdown align-self-start">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Copy</a>
-                                                <a class="dropdown-item" href="#">Save</a>
-                                                <a class="dropdown-item" href="#">Forward</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex">
-                                <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
-                                    class="rounded-circle avatar-sm" alt="">
-                                <div class="flex-1">
-                                    <div class="ctext-wrap">
-                                        <div class="ctext-wrap-content">
-                                            <div class="conversation-name"><span class="time">10:04 AM</span></div>
-                                            <p class="mb-0">
-                                                Waiting for your reply.As I heve to go back soon. i have to travel long
-                                                distance.
-                                            </p>
-                                        </div>
-                                        <div class="dropdown align-self-start">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Copy</a>
-                                                <a class="dropdown-item" href="#">Save</a>
-                                                <a class="dropdown-item" href="#">Forward</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    </li>
-
-                    <li class="right">
-                        <div class="conversation-list">
-                            <div class="d-flex">
-                                <div class="flex-1">
-                                    <div class="ctext-wrap">
-                                        <div class="ctext-wrap-content">
-                                            <div class="conversation-name"><span class="time">10:08 AM</span></div>
-                                            <p class="mb-0">
-                                                Hi, I am coming there in few minutes. Please wait!! I am in taxi right
-                                                now.
-                                            </p>
-                                        </div>
-                                        <div class="dropdown align-self-start">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Copy</a>
-                                                <a class="dropdown-item" href="#">Save</a>
-                                                <a class="dropdown-item" href="#">Forward</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <img src="{{ URL::asset('assets/images/users/avatar-6.jpg') }}"
-                                    class="rounded-circle avatar-sm" alt="">
-                            </div>
-                        </div>
-
-                    </li>
-
-                    <li>
-                        <div class="conversation-list">
-                            <div class="d-flex">
-                                <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
-                                    class="rounded-circle avatar-sm" alt="">
-                                <div class="flex-1">
-                                    <div class="ctext-wrap">
-                                        <div class="ctext-wrap-content">
-                                            <div class="conversation-name"><span class="time">10:06 AM</span></div>
-                                            <p class="mb-0">
-                                                Thank You very much, I am waiting here at StarBuck cafe.
-                                            </p>
-                                        </div>
-                                        <div class="dropdown align-self-start">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Copy</a>
-                                                <a class="dropdown-item" href="#">Save</a>
-                                                <a class="dropdown-item" href="#">Forward</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </li>
-
-
-                    <li>
-                        <div class="conversation-list">
-                            <div class="d-flex">
-                                <img src="{{ URL::asset('assets/images/users/avatar-3.jpg') }}"
-                                    class="rounded-circle avatar-sm" alt="">
-                                <div class="flex-1">
-                                    <div class="ctext-wrap">
-                                        <div class="ctext-wrap-content">
-                                            <div class="conversation-name"><span class="time">10:09 AM</span></div>
-                                            <p class="mb-0">
-                                                img-1.jpg & img-2.jpg images for a New Projects
-                                            </p>
-
-                                            <ul class="list-inline message-img mt-3  mb-0">
-                                                <li class="list-inline-item message-img-list">
-                                                    <a class="d-inline-block m-1" href="">
-                                                        <img src="{{ URL::asset('assets/images/small/img-1.jpg') }}"
-                                                            alt="" class="rounded img-thumbnail">
-                                                    </a>
-                                                </li>
-
-                                                <li class="list-inline-item message-img-list">
-                                                    <a class="d-inline-block m-1" href="">
-                                                        <img src="{{ URL::asset('assets/images/small/img-2.jpg') }}"
-                                                            alt="" class="rounded img-thumbnail">
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="dropdown align-self-start">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Copy</a>
-                                                <a class="dropdown-item" href="#">Save</a>
-                                                <a class="dropdown-item" href="#">Forward</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                        @endforeach
             </div>
 
-            <div class="p-3 border-top">
+
+
+
+            </li>
+
+            {{-- @foreach ($chats as $chat)
+                            <li class="right">
+                                <div class="conversation-list">
+                                    <div class="d-flex">
+                                        <div class="flex-1">
+                                            <div class="ctext-wrap">
+                                                <div class="ctext-wrap-content">
+                                                    <div class="conversation-name"><span class="time">10:02 AM</span>
+                                                    </div>
+                                                    <p class="mb-0">{{ $chat->message }}</p>
+                                                </div>
+                                                <div class="dropdown align-self-start">
+                                                    <a class="dropdown-toggle" href="#" role="button"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Copy</a>
+                                                        <a class="dropdown-item" href="#">Save</a>
+                                                        <a class="dropdown-item" href="#">Forward</a>
+                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="{{ URL::asset('assets/images/users/avatar-6.jpg') }}"
+                                            class="rounded-circle avatar-sm" alt="">
+                                    </div>
+
+                                </div>
+
+                            </li>
+                        @endforeach --}}
+            </ul>
+        </div>
+
+        {{-- <div class="p-3 border-top">
+
+                    <form method="POST" action="{{ route('user.live-chat.store') }}" enctype="multipart/form-data">
+                        @csrf --}}
+        {{-- <input type="hidden" name="product_id"
+                                value="{{ $product ? $product->id : old('product_id') }}"> --}}
+        {{-- <div class="row">
+                            <div class="col">
+                                <div class="position-relative">
+                                    <input type="text"
+                                        class="form-control border bg-soft-light @error('message') is-invalid @enderror"
+                                        name="message" id="message" placeholder="Kirim Pesan..."
+                                        value="{{ old('message') }}" required autocomplete="message">
+                                    @error('message')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit"
+                                    class="btn btn-primary chat-send w-md waves-effect waves-light"><span
+                                        class="d-none d-sm-inline-block me-2">Send</span> <i
+                                        class="mdi mdi-send float-end"></i></button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div> --}}
+
+        <div class="p-3 border-top">
+            <form method="POST"
+                @if (request()->routeIs('user.live-chat')) action="{{ route('user.live-chat.store') }}" 
+                        @elseif(request()->routeIs('user.live-chat.product')) 
+                        action="{{ route('user.live-chat.product.storeChat', ['product' => $product->id]) }}" @endif
+                enctype="multipart/form-data">
+                @csrf
+
+                {{-- Cek apakah route adalah chat produk --}}
+                @if (request()->routeIs('user.live-chat.product'))
+                    {{-- Jika ya, tambahkan input hidden untuk product_id --}}
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                @endif
+
                 <div class="row">
                     <div class="col">
                         <div class="position-relative">
-                            <input type="text" class="form-control border bg-soft-light"
-                                placeholder="Enter Message...">
+                            <input type="text"
+                                class="form-control border bg-soft-light @error('message') is-invalid @enderror"
+                                name="message" id="message" placeholder="Kirim Pesan..." value="{{ old('message') }}"
+                                required autocomplete="message">
+                            @error('message')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span
-                                class="d-none d-sm-inline-block me-2">Send</span> <i
+                                class="d-none d-sm-inline-block me-2">Kirim </span> <i
                                 class="mdi mdi-send float-end"></i></button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
+
+    </div>
     </div>
 @endsection
 @section('script')
