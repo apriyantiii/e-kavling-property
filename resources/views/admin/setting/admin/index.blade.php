@@ -54,7 +54,6 @@
                                     <div class="col-md-6">
                                         <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
                                             <div>
-
                                                 <button type="button"
                                                     class="btn btn-success btn-rounded waves-effect waves-light"
                                                     data-bs-toggle="modal" data-bs-target="#addAdmin"><i
@@ -108,6 +107,52 @@
                                             </thead>
 
                                             <tbody>
+                                                <th>
+                                                    <input type="checkbox" name="products[]" value="#"
+                                                        class="checkbox">
+                                                </th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="align-middle">
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li><a href="#" class="dropdown-item">
+                                                                    <i
+                                                                        class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                                    Detail
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a type="button" class="btn" data-bs-toggle="modal"
+                                                                    data-bs-target="#editAdmin"><i
+                                                                        class="mdi mdi-pencil font-size-16 text-success me-2"></i>Edit</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="#" class="dropdown-item"
+                                                                    onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                                    <i
+                                                                        class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                    Hapus
+                                                                </a>
+
+                                                                <form id="deleteProductForm" action="#" method="POST"
+                                                                    style="display: none;">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
                                                 {{-- @foreach ($validate as $purchaseValidate)
                                                     <tr>
                                                         <th>
@@ -186,46 +231,127 @@
         </div> <!-- end col -->
     </div> <!-- end row -->
 
-    <!-- sample modal ubah level admin -->
-    {{-- <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+    <!-- sample modal edit admin -->
+    <div id="editAdmin" class="modal fade" tabindex="-1" aria-labelledby="editAdminLabel" aria-hidden="true"
         data-bs-scroll="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Update Level</h5>
+                    <h5 class="modal-title" id="editAdminLabel">
+                        Edit Admin
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('data-validate.update', $purchaseValidate->id) }}" method="post">
-                        @csrf
-                        @method('patch')
+                <form action="#" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="name" class="form-label">
+                                    Nama Lengkap <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control form-rounded @error('name') is-invalid @enderror"
+                                    name="name" id="name" placeholder="Nama Lengkap" value="{{ old('name') }}">
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="nice-select default-select wide form-control solid" name="status"
-                                onchange="this.form.submit()">
-                                <option value="pending" {{ $purchaseValidate->status === 'pending' ? 'selected' : '' }}>
-                                    Pending
-                                </option>
-                                <option value="approved" {{ $purchaseValidate->status === 'approved' ? 'selected' : '' }}>
-                                    Disetujui
-                                </option>
-                                <option value="rejected" {{ $purchaseValidate->status === 'rejected' ? 'selected' : '' }}>
-                                    Ditolak</option>
-                            </select>
+                            <div class="col-6 mb-3">
+                                <label for="email" class="form-label">
+                                    Email <span class="text-danger">*</span>
+                                </label>
+                                <input type="email"
+                                    class="form-control form-rounded @error('email') is-invalid @enderror" name="email"
+                                    id="email" placeholder="cth. ptmpg@gmail.com" value="{{ old('email') }}">
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <label for="input-password" class="form-label">Password <span
+                                        class="text-danger">*</span></label>
+                                <input type="password"
+                                    class="form-control form-rounded @error('password') is-invalid @enderror"
+                                    name="password" id="input-password" placeholder="Masukkan Kata Sandi" required
+                                    autocomplete="new-password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <label for="gender" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select @error('gender') is-invalid @enderror" name="gender"
+                                    id="gender" required>
+                                    <option value="" selected disabled>Pilih..</option>
+                                    <option value="male">Laki-laki</option>
+                                    <option value="female">Perempuan</option>
+                                </select>
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <label for="contact" class="form-label">
+                                    Kontak
+                                </label>
+                                <input type="text"
+                                    class="form-control form-rounded @error('contact') is-invalid @enderror"
+                                    name="contact" id="contact" placeholder="Nama Lengkap"
+                                    value="{{ old('contact') }}">
+                                @error('contact')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <label for="level" class="form-label">Level <span class="text-danger">*</span></label>
+                                <select class="form-select @error('level') is-invalid @enderror" name="level"
+                                    id="level" required>
+                                    <option value="" selected disabled>Pilih..</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="director">Director</option>
+                                </select>
+                                @error('level')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Alamat</label>
+                                <textarea class="form-control form-rounded @error('address') is-invalid @enderror" name="address" id="address"
+                                    rows="2" placeholder="cth. Japanan Lor, Jombang">{{ old('address') }}</textarea>
+                                @error('address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light">Save
-                        changes</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal --> --}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-rounded btn btn-secondary waves-effect"
+                            data-bs-dismiss="modal">Batal</button>
+                        <button type="submit"
+                            class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.modal -->
 
     {{-- START:: Modal Tambah Admin Baru --}}
     <div id="addAdmin" class="modal fade" tabindex="-1" aria-labelledby="addAdminLabel" aria-hidden="true"
@@ -238,57 +364,105 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                {{-- <form action="{{ route('category.store') }}" method="POST">
+                <form action="#" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">
-                                        Nama Kategori <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text"
-                                        class="form-control form-rounded @error('name') is-invalid @enderror"
-                                        name="name" id="name" placeholder="cth. Perum Merkuri"
-                                        value="{{ old('name') }}">
-                                    @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="code" class="form-label">
-                                    Kode Kategori <span class="text-danger">*</span>
+                            <div class="col-6 mb-3">
+                                <label for="name" class="form-label">
+                                    Nama Lengkap <span class="text-danger">*</span>
                                 </label>
                                 <input type="text"
-                                    class="form-control form-rounded @error('code') is-invalid @enderror" name="code"
-                                    id="code" placeholder="cth. PM00" value="{{ old('code') }}">
-                                @error('code')
+                                    class="form-control form-rounded @error('name') is-invalid @enderror" name="name"
+                                    id="name" placeholder="Nama Lengkap" value="{{ old('name') }}">
+                                @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label for="location" class="form-label">
-                                    Lokasi <span class="text-danger">*</span>
+                            <div class="col-6 mb-3">
+                                <label for="email" class="form-label">
+                                    Email <span class="text-danger">*</span>
                                 </label>
-                                <input type="text"
-                                    class="form-control form-rounded @error('location') is-invalid @enderror"
-                                    name="location" id="location" placeholder="cth. Japanan Lor, Jombang"
-                                    value="{{ old('location') }}">
-                                @error('location')
+                                <input type="email"
+                                    class="form-control form-rounded @error('email') is-invalid @enderror" name="email"
+                                    id="email" placeholder="cth. ptmpg@gmail.com" value="{{ old('email') }}">
+                                @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
 
+                            <div class="col-6 mb-3">
+                                <label for="input-password" class="form-label">Password <span
+                                        class="text-danger">*</span></label>
+                                <input type="password"
+                                    class="form-control form-rounded @error('password') is-invalid @enderror"
+                                    name="password" id="input-password" placeholder="Masukkan Kata Sandi" required
+                                    autocomplete="new-password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
 
+                            <div class="col-6 mb-3">
+                                <label for="gender" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select @error('gender') is-invalid @enderror" name="gender"
+                                    id="gender" required>
+                                    <option value="" selected disabled>Pilih..</option>
+                                    <option value="male">Laki-laki</option>
+                                    <option value="female">Perempuan</option>
+                                </select>
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <label for="contact" class="form-label">
+                                    Kontak
+                                </label>
+                                <input type="text"
+                                    class="form-control form-rounded @error('contact') is-invalid @enderror"
+                                    name="contact" id="contact" placeholder="Nama Lengkap"
+                                    value="{{ old('contact') }}">
+                                @error('contact')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <label for="level" class="form-label">Level <span class="text-danger">*</span></label>
+                                <select class="form-select @error('level') is-invalid @enderror" name="level"
+                                    id="level" required>
+                                    <option value="" selected disabled>Pilih..</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="director">Director</option>
+                                </select>
+                                @error('level')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Alamat</label>
+                                <textarea class="form-control form-rounded @error('address') is-invalid @enderror" name="address" id="address"
+                                    rows="2" placeholder="cth. Japanan Lor, Jombang">{{ old('address') }}</textarea>
+                                @error('address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -297,7 +471,7 @@
                         <button type="submit"
                             class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
                     </div>
-                </form> --}}
+                </form>
             </div>
         </div>
     </div>
