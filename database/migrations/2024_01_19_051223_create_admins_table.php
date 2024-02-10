@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->enum('gender', ['male', 'female']);
+            $table->string('contact');
+            $table->text('address');
             $table->string('level')->default('admin');
             $table->timestamps();
         });

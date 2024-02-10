@@ -52,6 +52,17 @@
                     </a>
                 </li>
 
+                <li class="my-2">
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="settings"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('admin.setting-admin.index') }}">Admin</a></li>
+                        <li><a href="{{ route('admin.setting-user.index') }}">Pengguna</a></li>
+                    </ul>
+                </li>
+
                 {{-- @if (Auth::user()->hasPermissionTo('partner')) --}}
                 {{-- <li class="my-2">
                     <a href="jawdvascript: void(0);" class="has-arrow">

@@ -128,8 +128,12 @@ Route::prefix('admin')->group(function () {
     Route::get('chat/show/{userID}', [Admin\ChatController::class, 'show'])->name('admin.chat.show');
     Route::post('chat/store/{userID}', [Admin\ChatController::class, 'store'])->name('admin.chat.store');
     Route::delete('chat/{chat}', [Admin\ChatController::class, 'destroy'])->name('admin.chat.destroy');
-    // Route::patch('chat/update-status/{userId}', [Admin\ChatController::class, 'updateStatus'])->name('admin.chat.update-status');
-    // Route::put('chat/update-status/{userId}', [Admin\ChatController::class, 'updateStatus'])->name('admin.chat.update-status');
+
+    //pengaturan-> admin
+    Route::get('settings/admin', [Admin\Setting\AdminController::class, 'index'])->name('admin.setting-admin.index');
+
+    //pengaturan-> user
+    Route::get('settings/user', [Admin\Setting\UserController::class, 'index'])->name('admin.setting-user.index');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
