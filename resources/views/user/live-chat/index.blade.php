@@ -1,6 +1,6 @@
 @extends('user.profile.layouts.master')
 @section('title')
-    Checkout
+    Live Chat
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/select2/select2.min.css') }}" rel="stylesheet">
