@@ -28,10 +28,6 @@ class ChatController extends Controller
 
     public function show($userId)
     {
-        // $userChats = Chat::where('user_id', $userId)
-        //     ->whereNull('admin_id') // Hanya chat dari user (admin_id null)
-        //     ->orderBy('created_at', 'asc')
-        //     ->get();
         $userChats = Chat::where('user_id', $userId)
             ->where(function ($query) use ($userId) {
                 $query->whereRaw('(admin_id IS NULL OR admin_id <> ?)', [$userId]);
@@ -46,6 +42,8 @@ class ChatController extends Controller
 
         $allChats = $userChats->merge($adminChats)->sortBy('created_at');
 
+        // Pastikan $userId tersedia sebelum mengirimkan ke tampilan
+        $userId = $userId ?? null;
 
         return view('admin.live-chat.show', ['userId' => $userId, 'allChats' => $allChats]);
     }
@@ -75,8 +73,7 @@ class ChatController extends Controller
             ]);
 
             // Menggunakan redirect biasa
-            $redirect = redirect()->route('admin.chat.show')->with('success', 'Pesan Terkirim!');
-            // dd(session('success'), $redirect);
+            $redirect = redirect()->route('admin.chat.show', ['userID' => $userId])->with('success', 'Pesan Terkirim!');
 
             return $redirect;
         } catch (\Exception $e) {
