@@ -78,51 +78,27 @@
 
             <div class="chat-conversation p-3" data-simplebar style="max-height: 550px;">
                 <ul class="list-unstyled mb-0">
-                    <li class="chat-day-title">
-                        <span class="title">Today</span>
-                    </li>
+                    @php
+                        $lastDate = null;
+                    @endphp
                     @foreach ($allChats as $chat)
+                        @if ($chat->created_at->format('Y-m-d') != $lastDate)
+                            <li class="chat-day-title">
+                                <span
+                                    class="title">{{ $chat->created_at ? $chat->created_at->format('l, j F Y') : 'Unknown' }}</span>
+                            </li>
+                            @php
+                                $lastDate = $chat->created_at->format('Y-m-d');
+                            @endphp
+                        @endif
                         @if ($chat->user_id && !$chat->admin_id)
                             <li>
                                 <div class="conversation-list">
                                     <div class="d-flex">
-                                        <img src="{{ URL::asset('storage/' . $chat->user->avatar) }}"
-                                            class="rounded-circle avatar-sm" alt="">
                                         <div class="flex-1">
                                             <div class="ctext-wrap">
                                                 <div class="ctext-wrap-content">
-                                                    <div class="conversation-name"><span
-                                                            class="time">{{ $chat->created_at ? $chat->created_at->format('h:i A') : 'Unknown' }}</span>
-                                                        <p class="mb-0">{{ $chat->message }}</p>
-                                                    </div>
-                                                    <a class="dropdown-toggle" href="#" role="button">
-                                                </div>
-                                                <div class="dropdown align-self-start" data-bs-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Copy</a>
-                                                        <a class="dropdown-item" href="#">Save</a>
-                                                        <a class="dropdown-item" href="#">Forward</a>
-                                                        <a class="dropdown-item" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </li>
-                        @endif
-
-                        @if ($chat->admin_id)
-                            <li class="right">
-                                <div class="conversation-list">
-                                    <div class="d-flex">
-                                        <div class="flex-1">
-                                            <div class="ctext-wrap">
-                                                <div class="ctext-wrap-content">
-                                                    <div class="conversation-name"><span
-                                                            class="time">{{ $chat->created_at ? $chat->created_at->format('h:i A') : 'Unknown' }}</span>
+                                                    <div class="conversation-name">
                                                     </div>
                                                     <p class="mb-0">{{ $chat->message }}</p>
                                                 </div>
@@ -133,12 +109,61 @@
                                                         <i class="bx bx-dots-vertical-rounded"></i>
                                                     </a>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Copy</a>
+                                                        {{-- <a class="dropdown-item" href="#">Copy</a>
                                                         <a class="dropdown-item" href="#">Save</a>
-                                                        <a class="dropdown-item" href="#">Forward</a>
-                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                        <a class="dropdown-item" href="#">Forward</a> --}}
+                                                        <form action="{{ route('admin.chat.destroy', $chat->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="dropdown-item"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus chat ini?')">Hapus</button>
+                                                        </form>
                                                     </div>
                                                 </div>
+                                                <span class="font-size-10 float-end mt-1"
+                                                    style="margin: auto; padding-left: 0px">{{ $chat->created_at ? $chat->created_at->format('h:i A') : 'Unknown' }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+                        @endif
+
+                        @if ($chat->admin_id)
+                            <li class="right">
+                                <div class="conversation-list">
+                                    <div class="d-flex">
+                                        <div class="flex-1">
+                                            <div class="ctext-wrap">
+                                                <div class="ctext-wrap-content">
+                                                    <div class="conversation-name">
+                                                    </div>
+                                                    <p class="mb-0">{{ $chat->message }}</p>
+                                                </div>
+                                                <div class="dropdown align-self-start">
+                                                    <a class="dropdown-toggle" href="#" role="button"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        {{-- <a class="dropdown-item" href="#">Copy</a>
+                                                        <a class="dropdown-item" href="#">Save</a>
+                                                        <a class="dropdown-item" href="#">Forward</a> --}}
+                                                        <form action="{{ route('admin.chat.destroy', $chat->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="dropdown-item"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus chat ini?')">Hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <span class="font-size-10 float-end mt-1"
+                                                    style="margin: auto; padding-left: 0px">{{ $chat->created_at ? $chat->created_at->format('h:i A') : 'Unknown' }}</span>
+
                                             </div>
                                         </div>
                                         <img src="{{ URL::asset('assets/images/users/admin.jpg') }}"

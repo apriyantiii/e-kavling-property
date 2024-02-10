@@ -13,18 +13,6 @@ class LiveChatController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function indexChat($id)
-    // {
-    //     $product = Product::find($id);
-
-    //     // Mendapatkan user yang sedang login
-    //     $user = Auth::user();
-
-    //     // Menampilkan chat berdasarkan user_id yang sedang login
-    //     $chats = Chat::where('user_id', $user->id)->get();
-    //     return view('user.live-chat.index', compact('product', 'chats'));
-    // }
-
     public function index()
     {
         // Mendapatkan user yang sedang login
@@ -124,6 +112,23 @@ class LiveChatController extends Controller
         }
     }
 
+    public function destroy($chatId)
+    {
+        try {
+            // Cari chat berdasarkan ID
+            $chat = Chat::findOrFail($chatId);
+
+            // Hapus chat
+            $chat->delete();
+
+            // Redirect kembali ke halaman sebelumnya
+            return back()->with('success', 'Pesan berhasil dihapus!');
+        } catch (\Exception $e) {
+            // Tampilkan pesan exception untuk debugging
+            dd($e->getMessage());
+        }
+    }
+
     /**
      * Display the specified resource.
      */
@@ -151,8 +156,4 @@ class LiveChatController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

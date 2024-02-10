@@ -42,6 +42,14 @@ class ChatController extends Controller
 
         $allChats = $userChats->merge($adminChats)->sortBy('created_at');
 
+        // Update status chat menjadi "dibaca"
+        foreach ($allChats as $chat) {
+            if ($chat->user_id == $userId && $chat->status != 'read') {
+                $chat->status = 'read';
+                $chat->save();
+            }
+        }
+
         // Pastikan $userId tersedia sebelum mengirimkan ke tampilan
         $userId = $userId ?? null;
 
@@ -81,40 +89,23 @@ class ChatController extends Controller
         }
     }
 
+    public function destroy($chatId)
+    {
+        try {
+            // Cari chat berdasarkan ID
+            $chat = Chat::findOrFail($chatId);
 
+            // Hapus chat
+            $chat->delete();
 
-    // public function store(Request $request)
-    // {
-    //     try {
-    //         // Validate the incoming request data
-    //         $request->validate([
-    //             'product_id' => 'nullable|exists:products,id',
-    //             'message' => 'required|string',
-    //         ]);
+            // Redirect kembali ke halaman sebelumnya
+            return back()->with('success', 'Pesan berhasil dihapus!');
+        } catch (\Exception $e) {
+            // Tampilkan pesan exception untuk debugging
+            dd($e->getMessage());
+        }
+    }
 
-    //         $userId = Chat::where('user_id', $userId)
-
-    //         // Mengambil ID pengguna yang sedang login
-    //         $adminId = Auth::guard('is_admin')->user()->id;
-    //         $productId = $request->input('product_id');
-
-    //         // Create a new Chat instance and fill it with the validated data
-    //         Chat::create([
-    //             'user_id' => $userId,
-    //             'admin_id' => $adminId,
-    //             'message' => $request->input('message'),
-    //             'status' => 'accept',
-    //         ]);
-
-    //         // Menggunakan redirect biasa
-    //         $redirect = redirect()->route('admin.live-chat.show')->with('success', 'Pesan Terkirim!');
-    //         // dd(session('success'), $redirect);
-
-    //         return $redirect;
-    //     } catch (\Exception $e) {
-    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
-    //     }
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -146,14 +137,6 @@ class ChatController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
     {
         //
     }
