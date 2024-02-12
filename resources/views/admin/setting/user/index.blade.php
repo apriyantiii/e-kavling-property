@@ -132,55 +132,69 @@
 
 
                                             <tbody>
-                                                <tr>
-                                                    <th>
-                                                        {{-- {{ $product->id }} --}}
-                                                        <input type="checkbox" value="" name="products[]"
-                                                            id="select">
-                                                    </th>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="align-middle">
-                                                        <div class="dropdown">
-                                                            <a href="#" class="dropdown-toggle card-drop"
-                                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a href="#" class="dropdown-item"><i
-                                                                            class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                        Detail</a>
-                                                                </li>
-                                                                <li><a href="#" class="dropdown-item">
-                                                                        <i
-                                                                            class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                        Edit
-                                                                    </a>
-                                                                </li>
+                                                @foreach ($user as $user)
+                                                    <tr>
+                                                        <th>
 
-                                                                <li>
-                                                                    <a href="#" class="dropdown-item"
-                                                                        onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
-                                                                        <i
-                                                                            class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                        Hapus
-                                                                    </a>
+                                                            <input type="checkbox" value="{{ $user->id }}"
+                                                                name="products[]" id="select">
+                                                        </th>
+                                                        <td class="text-center align-middle">
+                                                            @if ($user->avatar !== null)
+                                                                <img src="{{ URL::asset('storage/' . $user->avatar) }}"
+                                                                    width="70" alt="">
+                                                            @else
+                                                                <!-- Tampilkan placeholder gambar atau teks alternatif -->
+                                                                <span class="text-danger">null</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $user->name }}</td>
+                                                        <td>{{ $user->email }}</td>
+                                                        <td>{{ $user->gender }}</td>
+                                                        <td>{{ $user->role }}</td>
+                                                        <td>{{ $user->contact }}</td>
+                                                        <td>{{ $user->address }}</td>
+                                                        <td class="align-middle">
+                                                            <div class="dropdown">
+                                                                <a href="#" class="dropdown-toggle card-drop"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    {{-- <li><a href="#" class="dropdown-item"><i
+                                                                                class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                                            Detail</a>
+                                                                    </li> --}}
+                                                                    <li><a href="{{ route('admin.setting-user.edit', $user->id) }}"
+                                                                            class="dropdown-item">
+                                                                            <i
+                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                            Edit
+                                                                        </a>
+                                                                    </li>
 
-                                                                    <form id="deleteProductForm" action="#"
-                                                                        method="POST" style="display: none;">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                    </form>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                                    <li>
+                                                                        <a href="#" class="dropdown-item"
+                                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                                            <i
+                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                            Hapus
+                                                                        </a>
+
+                                                                        <form id="deleteProductForm"
+                                                                            action="{{ route('admin.setting-user.destroy', $user->id) }}"
+                                                                            method="POST" style="display: none;">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                        </form>
+                                                                    </li>
+
+
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                                 {{-- @foreach ($products as $product)
                                                     <tr>
                                                         <th>

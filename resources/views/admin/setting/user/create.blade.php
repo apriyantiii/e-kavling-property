@@ -30,8 +30,8 @@
                     </p>
                 </div>
                 <div class="card-body">
-                    <form class="needs-validation mt-0 pt-2" novalidate method="POST" action="#"
-                        enctype="multipart/form-data">
+                    <form class="needs-validation mt-0 pt-2" novalidate method="POST"
+                        action="{{ route('admin.setting-user.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
@@ -116,12 +116,11 @@
 
                                 <div class="mb-3">
                                     <label for="avatar" class="form-label">
-                                        Upload Profile Pengguna <span class="text-danger">*</span>
+                                        Upload Profile Pengguna
                                     </label>
                                     <input type="file"
                                         class="form-control form-rounded @error('avatar') is-invalid @enderror"
-                                        name="avatar" id="avatar" placeholder="" value="{{ old('avatar') }}" required
-                                        autocomplete="avatar">
+                                        name="avatar" id="avatar" placeholder="" value="{{ old('avatar') }}">
                                     @error('avatar')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -157,15 +156,14 @@
                             </div>
                         </div>
 
-                        <div class="mt-2">
-                            <a href="javascript: void(0);" class="btn btn-primary btn-rounded waves-effect waves-light"
-                                data-bs-toggle="modal" data-bs-target=".confirmModal">Tambah Pengguna Baru
-                            </a>
-
+                        <div class="modal-footer">
                             <a href="{{ route('admin.setting-user.index') }}"
                                 class="btn btn-danger btn-rounded waves-effect waves-light">Batal
                             </a>
+                            <button type="submit" class="btn-rounded btn btn-primary waves-effect waves-light">Tambah
+                                Pengguna Baru</button>
                         </div>
+
                     </form>
                 </div>
             </div>

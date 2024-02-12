@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Tambah Pengguna Baru
+    Edit Pengguna Baru
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/twitter-bootstrap-wizard/twitter-bootstrap-wizard.min.css') }}" rel="stylesheet">
@@ -17,7 +17,7 @@
             Pengaturan
         @endslot
         @slot('title')
-            Tambah Pengguna Baru
+            Edit Pengguna Baru
         @endslot
     @endcomponent
     <div class="row">
@@ -30,9 +30,10 @@
                     </p>
                 </div>
                 <div class="card-body">
-                    <form class="needs-validation mt-0 pt-2" novalidate method="POST" action="#"
-                        enctype="multipart/form-data">
+                    <form class="needs-validation mt-0 pt-2" novalidate method="POST"
+                        action="{{ route('admin.setting-user.update', $user->id) }}" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
 
                         <div class="row">
                             <div class="col-sm-6">
@@ -42,8 +43,7 @@
                                     </label>
                                     <input type="text"
                                         class="form-control form-rounded @error('name') is-invalid @enderror" name="name"
-                                        id="name" placeholder="cth. Perum Merkuri Tengah" value="{{ old('name') }}"
-                                        required autocomplete="name">
+                                        id="name" placeholder="cth. Perum Merkuri Tengah" value="{{ $user->name }}">
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -52,12 +52,11 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="input-password" class="form-label">Password <span
-                                            class="text-danger">*</span></label>
+                                    <label for="input-password" class="form-label">Password </label>
                                     <input type="password"
                                         class="form-control form-rounded @error('password') is-invalid @enderror"
                                         name="password" id="input-password" placeholder="Masukkan Kata Sandi" required
-                                        autocomplete="new-password">
+                                        autocomplete="new-password" value="{{ $user->password }}">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -66,13 +65,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="gender" class="form-label">Jenis Kelamin <span
-                                            class="text-danger">*</span></label>
+                                    <label for="gender" class="form-label">Jenis Kelamin</label>
                                     <select class="form-select @error('gender') is-invalid @enderror" name="gender"
-                                        id="gender" required>
-                                        <option value="" selected disabled>Pilih..</option>
-                                        <option value="male">Laki-laki</option>
-                                        <option value="female">Perempuan</option>
+                                        id="gender">
+                                        <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                                        <option value="male" {{ $user->gender === 'male' ? 'selected' : '' }}>Laki-laki
+                                        </option>
+                                        <option value="female" {{ $user->gender === 'female' ? 'selected' : '' }}>
+                                            Perempuan</option>
                                     </select>
                                     @error('gender')
                                         <span class="invalid-feedback" role="alert">
@@ -88,7 +88,7 @@
                                     <input type="text"
                                         class="form-control form-rounded @error('contact') is-invalid @enderror"
                                         name="contact" id="contact" placeholder="Nama Lengkap"
-                                        value="{{ old('contact') }}">
+                                        value="{{ $user->contact }}">
                                     @error('contact')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -106,7 +106,7 @@
                                     <input type="email"
                                         class="form-control form-rounded @error('email') is-invalid @enderror"
                                         name="email" id="email" placeholder="cth. ptmpg@gmail.com"
-                                        value="{{ old('email') }}">
+                                        value="{{ $user->email }}">
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -120,8 +120,8 @@
                                     </label>
                                     <input type="file"
                                         class="form-control form-rounded @error('avatar') is-invalid @enderror"
-                                        name="avatar" id="avatar" placeholder="" value="{{ old('avatar') }}" required
-                                        autocomplete="avatar">
+                                        name="avatar" id="avatar" placeholder=""
+                                        value="{{ old('avatar') ? old('avatar') : ($user->avatar ? asset('storage/' . $user->avatar) : '') }}">
                                     @error('avatar')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -132,10 +132,11 @@
                                 <div class="mb-3">
                                     <label for="role" class="form-label">Role</label>
                                     <select class="form-select @error('role') is-invalid @enderror" name="role"
-                                        id="role" required>
-                                        <option value="" selected disabled>Pilih..</option>
-                                        <option value="user">Pengguna</option>
-                                        {{-- <option value="director">Director</option> --}}
+                                        id="role">
+                                        <option value="" disabled>Pilih..</option>
+                                        <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>Pengguna
+                                        </option>
+                                        {{-- <option value="director" {{ $user->role === 'director' ? 'selected' : '' }}>Director</option> --}}
                                     </select>
                                     @error('role')
                                         <span class="invalid-feedback" role="alert">
@@ -144,11 +145,11 @@
                                     @enderror
                                 </div>
 
+
                                 <div class="mb-3">
-                                    <label for="address" class="form-label">Alamat <span
-                                            class="text-danger">*</span></label>
+                                    <label for="address" class="form-label">Alamat </label>
                                     <textarea class="form-control form-rounded @error('address') is-invalid @enderror" name="address" id="address"
-                                        rows="2" placeholder="cth. Japanan Lor, Jombang">{{ old('address') }}</textarea>
+                                        rows="2" placeholder="cth. Japanan Lor, Jombang">{{ $user->address }}</textarea>
                                     @error('address')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -157,14 +158,12 @@
                             </div>
                         </div>
 
-                        <div class="mt-2">
-                            <a href="javascript: void(0);" class="btn btn-primary btn-rounded waves-effect waves-light"
-                                data-bs-toggle="modal" data-bs-target=".confirmModal">Tambah Pengguna Baru
-                            </a>
-
+                        <div class="modal-footer">
                             <a href="{{ route('admin.setting-user.index') }}"
                                 class="btn btn-danger btn-rounded waves-effect waves-light">Batal
                             </a>
+                            <button type="submit" class="btn-rounded btn btn-primary waves-effect waves-light">Edit
+                                Pengguna Baru</button>
                         </div>
                     </form>
                 </div>

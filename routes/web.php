@@ -139,6 +139,11 @@ Route::prefix('admin')->group(function () {
     //pengaturan-> user
     Route::get('settings/user', [Admin\Setting\UserController::class, 'index'])->name('admin.setting-user.index');
     Route::get('settings/user/create', [Admin\Setting\UserController::class, 'create'])->name('admin.setting-user.create');
+    Route::post('settungs/user/store', [Admin\Setting\UserController::class, 'store'])->name('admin.setting-user.store');
+    Route::get('settings/user/{user}/edit', [Admin\Setting\UserController::class, 'edit'])->name('admin.setting-user.edit');
+    Route::put('settings/user/{user}/update', [Admin\Setting\UserController::class, 'update'])->name('admin.setting-user.update');
+    // Route::delete('settings/user/{user}', [Admin\Setting\UserController::class, 'destroy'])->name('admin.setting-user.destroy');
+    Route::delete('settings/user/{user}', [Admin\Setting\UserController::class, 'destroy'])->name('admin.setting-user.destroy');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 

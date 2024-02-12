@@ -151,10 +151,11 @@ null
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn-rounded btn btn-secondary waves-effect"
-                                data-bs-dismiss="modal">Batal</button>
-                            <button type="submit"
-                                class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
+                            <a href="{{ route('admin.setting-admin.index') }}"
+                                class="btn btn-danger btn-rounded waves-effect waves-light">Batal
+                            </a>
+                            <button type="submit" class="btn-rounded btn btn-primary waves-effect waves-light">Edit
+                                Admin</button>
                         </div>
                     </form>
                 </div>

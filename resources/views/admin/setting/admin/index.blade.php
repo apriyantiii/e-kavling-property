@@ -157,14 +157,6 @@
                                                                             Edit
                                                                         </a>
                                                                     </li>
-                                                                    {{-- <li>
-                                                                        <a type="button" class="btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#editAdminModal{{ $admin->id }}">
-                                                                            <i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-2"></i>Edit
-                                                                        </a>
-                                                                    </li> --}}
 
                                                                     <li>
                                                                         <a href="#" class="dropdown-item"
@@ -186,71 +178,7 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                                {{-- @foreach ($validate as $purchaseValidate)
-                                                    <tr>
-                                                        <th>
-                                                            <input type="checkbox" name="products[]"
-                                                                value="{{ $purchaseValidate->id }}" class="checkbox">
-                                                        </th>
-                                                        <td>{{ $purchaseValidate->product->name }}</td>
-                                                        <td>{{ $purchaseValidate->name }}</td>
-                                                        <td>{{ $purchaseValidate->telpon }}</td>
-                                                        <td>{{ $purchaseValidate->address }}</td>
-                                                        <td>
-                                                            @if ($purchaseValidate->status == 'pending')
-                                                                <span
-                                                                    class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
-                                                            @elseif ($purchaseValidate->status == 'approved')
-                                                                <span
-                                                                    class="badge badge-pill rounded-pill bg-success font-size-14">Disetujui</span>
-                                                            @elseif ($purchaseValidate->status == 'rejected')
-                                                                <span
-                                                                    class="badge badge-pill rounded-pill bg-danger font-size-14">Ditolak</span>
-                                                            @else
-                                                                <span
-                                                                    class="badge bg-secondary">{{ $purchaseValidate->status }}</span>
-                                                            @endif
-                                                        </td>
-                                                        <td class="align-middle">
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle card-drop"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    <li><a href="{{ route('checkout.validate.show', $purchaseValidate->id) }}"
-                                                                            class="dropdown-item">
-                                                                            <i
-                                                                                class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                            Detail
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a type="button" class="btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#myModal"><i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-2"></i>Edit</a>
-                                                                    </li>
 
-                                                                    <li>
-                                                                        <a href="#" class="dropdown-item"
-                                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
-                                                                            <i
-                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                            Hapus
-                                                                        </a>
-
-                                                                        <form id="deleteProductForm" action="#"
-                                                                            method="POST" style="display: none;">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                        </form>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                     </div>
