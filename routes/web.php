@@ -131,6 +131,10 @@ Route::prefix('admin')->group(function () {
 
     //pengaturan-> admin
     Route::get('settings/admin', [Admin\Setting\AdminController::class, 'index'])->name('admin.setting-admin.index');
+    Route::post('settings/admin/store', [Admin\Setting\AdminController::class, 'store'])->name('admin.setting-admin.store');
+    Route::get('settings/{admin}/edit', [Admin\Setting\AdminController::class, 'edit'])->name('admin.setting-admin.edit');
+    Route::put('settings/{admin}/update', [Admin\Setting\AdminController::class, 'update'])->name('admin.setting-admin.update');
+    Route::delete('settings/{admin}/delete', [Admin\Setting\AdminController::class, 'destroy'])->name('admin.setting-admin.destroy');
 
     //pengaturan-> user
     Route::get('settings/user', [Admin\Setting\UserController::class, 'index'])->name('admin.setting-user.index');

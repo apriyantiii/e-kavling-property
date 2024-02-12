@@ -107,52 +107,85 @@
                                             </thead>
 
                                             <tbody>
-                                                <th>
-                                                    <input type="checkbox" name="products[]" value="#"
-                                                        class="checkbox">
-                                                </th>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="align-middle">
-                                                    <div class="dropdown">
-                                                        <a href="#" class="dropdown-toggle card-drop"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a href="#" class="dropdown-item">
-                                                                    <i
-                                                                        class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                    Detail
+                                                @foreach ($admin as $admin)
+                                                    <tr>
+                                                        <th>
+                                                            <input type="checkbox" name="products[]"
+                                                                value="{{ $admin->id }}" class="checkbox">
+                                                        </th>
+                                                        <td>{{ $admin->name }}</td>
+                                                        <td>{{ $admin->email }}</td>
+                                                        <td>
+                                                            @if ($admin->gender !== null)
+                                                                {{ $admin->gender }}
+                                                            @else
+                                                                <p class="text-danger">null</p>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $admin->level }}</td>
+                                                        <td>
+                                                            @if ($admin->contact !== null)
+                                                                {{ $admin->contact }}
+                                                            @else
+                                                                <p class="text-danger">null</p>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($admin->address !== null)
+                                                                {{ $admin->address }}
+                                                            @else
+                                                                <p class="text-danger">null</p>
+                                                            @endif
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <div class="dropdown">
+                                                                <a href="#" class="dropdown-toggle card-drop"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                                                 </a>
-                                                            </li>
-                                                            <li>
-                                                                <a type="button" class="btn" data-bs-toggle="modal"
-                                                                    data-bs-target="#editAdmin"><i
-                                                                        class="mdi mdi-pencil font-size-16 text-success me-2"></i>Edit</a>
-                                                            </li>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    {{-- <li><a href="#" class="dropdown-item">
+                                                                            <i
+                                                                                class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                                            Detail
+                                                                        </a>
+                                                                    </li> --}}
+                                                                    <li><a href="{{ route('admin.setting-admin.edit', $admin->id) }}"
+                                                                            class="dropdown-item">
+                                                                            <i
+                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                            Edit
+                                                                        </a>
+                                                                    </li>
+                                                                    {{-- <li>
+                                                                        <a type="button" class="btn"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#editAdminModal{{ $admin->id }}">
+                                                                            <i
+                                                                                class="mdi mdi-pencil font-size-16 text-success me-2"></i>Edit
+                                                                        </a>
+                                                                    </li> --}}
 
-                                                            <li>
-                                                                <a href="#" class="dropdown-item"
-                                                                    onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
-                                                                    <i
-                                                                        class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                    Hapus
-                                                                </a>
+                                                                    <li>
+                                                                        <a href="#" class="dropdown-item"
+                                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                                            <i
+                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                            Hapus
+                                                                        </a>
 
-                                                                <form id="deleteProductForm" action="#" method="POST"
-                                                                    style="display: none;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
+                                                                        <form id="deleteProductForm"
+                                                                            action="{{ route('admin.setting-admin.destroy', $admin->id) }}"
+                                                                            method="POST" style="display: none;">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                                 {{-- @foreach ($validate as $purchaseValidate)
                                                     <tr>
                                                         <th>
@@ -231,18 +264,18 @@
         </div> <!-- end col -->
     </div> <!-- end row -->
 
-    <!-- sample modal edit admin -->
-    <div id="editAdmin" class="modal fade" tabindex="-1" aria-labelledby="editAdminLabel" aria-hidden="true"
+    {{-- START:: Modal Tambah Admin Baru --}}
+    <div id="addAdmin" class="modal fade" tabindex="-1" aria-labelledby="addAdminLabel" aria-hidden="true"
         data-bs-scroll="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editAdminLabel">
-                        Edit Admin
+                    <h5 class="modal-title" id="addAdminLabel">
+                        Tambahkan Admin Baru
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="#" method="POST">
+                <form action="{{ route('admin.setting-admin.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
@@ -308,130 +341,7 @@
                                 </label>
                                 <input type="text"
                                     class="form-control form-rounded @error('contact') is-invalid @enderror"
-                                    name="contact" id="contact" placeholder="Nama Lengkap"
-                                    value="{{ old('contact') }}">
-                                @error('contact')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="col-6 mb-3">
-                                <label for="level" class="form-label">Level <span class="text-danger">*</span></label>
-                                <select class="form-select @error('level') is-invalid @enderror" name="level"
-                                    id="level" required>
-                                    <option value="" selected disabled>Pilih..</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="director">Director</option>
-                                </select>
-                                @error('level')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Alamat</label>
-                                <textarea class="form-control form-rounded @error('address') is-invalid @enderror" name="address" id="address"
-                                    rows="2" placeholder="cth. Japanan Lor, Jombang">{{ old('address') }}</textarea>
-                                @error('address')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-rounded btn btn-secondary waves-effect"
-                            data-bs-dismiss="modal">Batal</button>
-                        <button type="submit"
-                            class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div><!-- /.modal -->
-
-    {{-- START:: Modal Tambah Admin Baru --}}
-    <div id="addAdmin" class="modal fade" tabindex="-1" aria-labelledby="addAdminLabel" aria-hidden="true"
-        data-bs-scroll="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addAdminLabel">
-                        Tambahkan Admin Baru
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="#" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-6 mb-3">
-                                <label for="name" class="form-label">
-                                    Nama Lengkap <span class="text-danger">*</span>
-                                </label>
-                                <input type="text"
-                                    class="form-control form-rounded @error('name') is-invalid @enderror" name="name"
-                                    id="name" placeholder="Nama Lengkap" value="{{ old('name') }}">
-                                @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="col-6 mb-3">
-                                <label for="email" class="form-label">
-                                    Email <span class="text-danger">*</span>
-                                </label>
-                                <input type="email"
-                                    class="form-control form-rounded @error('email') is-invalid @enderror" name="email"
-                                    id="email" placeholder="cth. ptmpg@gmail.com" value="{{ old('email') }}">
-                                @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="col-6 mb-3">
-                                <label for="input-password" class="form-label">Password <span
-                                        class="text-danger">*</span></label>
-                                <input type="password"
-                                    class="form-control form-rounded @error('password') is-invalid @enderror"
-                                    name="password" id="input-password" placeholder="Masukkan Kata Sandi" required
-                                    autocomplete="new-password">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-6 mb-3">
-                                <label for="gender" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select @error('gender') is-invalid @enderror" name="gender"
-                                    id="gender" required>
-                                    <option value="" selected disabled>Pilih..</option>
-                                    <option value="male">Laki-laki</option>
-                                    <option value="female">Perempuan</option>
-                                </select>
-                                @error('gender')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-6 mb-3">
-                                <label for="contact" class="form-label">
-                                    Kontak
-                                </label>
-                                <input type="text"
-                                    class="form-control form-rounded @error('contact') is-invalid @enderror"
-                                    name="contact" id="contact" placeholder="Nama Lengkap"
+                                    name="contact" id="contact" placeholder="cth. 085......."
                                     value="{{ old('contact') }}">
                                 @error('contact')
                                     <div class="invalid-feedback">

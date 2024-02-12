@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -12,7 +14,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.setting.admin.index');
+        $admin = Admin::all();
+        return view('admin.setting.admin.index', compact('admin'));
     }
 
     /**
@@ -28,7 +31,35 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            // Validasi data yang diterima dari request
+            $validatedData = $request->validate([
+                'name' => 'required|string',
+                'email' => 'required|email|unique:admins,email',
+                'password' => 'required|string|min:8',
+                'gender' => 'nullable|in:male,female',
+                'contact' => 'nullable|string',
+                'address' => 'nullable|string',
+            ]);
+
+            // Buat admin baru
+            $admin = new Admin([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'gender' => $validatedData['gender'],
+                'contact' => $validatedData['contact'],
+                'address' => $validatedData['address'],
+            ]);
+
+            // Simpan admin ke dalam database
+            $admin->save();
+
+            // Kembalikan respons yang sesuai
+            return back()->with('success', 'Admin baru berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+        }
     }
 
     /**
@@ -42,24 +73,42 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Admin $admin)
     {
-        //
+        return view('admin.setting.admin.edit', compact('admin'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Admin $admin)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'required|string',
+                'email' => 'required|email|unique:admins,email,' . $admin->id,
+                'password' => 'nullable|string|min:8',
+                'gender' => 'nullable|in:male,female',
+                'contact' => 'nullable|string',
+                'level' => 'required|string|in:admin,director',
+                'address' => 'nullable|string',
+            ]);
+
+            $admin->update($request->all());
+
+            return redirect()->route('admin.setting-admin.index')->with('success', 'Data admin berhasil diperbarui.');
+        } catch (\Exception $e) {
+            dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Admin $admin)
     {
-        //
+        $admin->delete();
+
+        return redirect()->route('admin.setting-admin.index')->with('success', 'Data admin berhasil dihapus.');
     }
 }
