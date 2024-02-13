@@ -159,21 +159,15 @@
                                                                     </li>
 
                                                                     <li>
-                                                                        <a href="#" class="dropdown-item"
-                                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                                        <a href="#" class="dropdown-item delete-user"
+                                                                            data-id="{{ $admin->id }}"
+                                                                            onclick="deleteUser(event)">
                                                                             <i
                                                                                 class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
                                                                             Hapus
                                                                         </a>
 
-                                                                        <form id="deleteProductForm"
-                                                                            action="{{ route('admin.setting-admin.destroy', $admin->id) }}"
-                                                                            method="POST" style="display: none;">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                        </form>
                                                                     </li>
-                                                                </ul>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -331,6 +325,51 @@
     <script src="{{ URL::asset('assets/libs/choices.js/choices.js.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
+
+    <script>
+        function deleteUser(event) {
+            event.preventDefault();
+            const userId = event.currentTarget.getAttribute('data-id');
+            if (confirm('Apakah Anda yakin ingin menghapus Admin ini?')) {
+                fetch(`{{ route('admin.setting-user.destroy', ':id') }}`.replace(':id', userId), {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            _token: '{{ csrf_token() }}',
+                            _method: 'DELETE'
+                        })
+                    })
+                    .then(response => {
+                        if (response.redirected) {
+                            // Jika ada redirection, maka penghapusan berhasil
+                            const alertMessage = document.createElement('div');
+                            alertMessage.classList.add('alert', 'alert-success');
+                            alertMessage.innerHTML = 'Admin berhasil dihapus.';
+                            document.body.appendChild(alertMessage);
+
+                            // Hilangkan pesan setelah beberapa detik
+                            setTimeout(() => {
+                                alertMessage.remove();
+                            }, 3000);
+
+                            // Redirect ke halaman yang ditentukan
+                            window.location.href = response.url;
+                        } else {
+                            // Jika tidak ada redirection, berarti ada kesalahan
+                            console.error('Gagal menghapus admin');
+                        }
+                    })
+
+
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+    </script>
 
     <script>
         $(document).ready(function() {
