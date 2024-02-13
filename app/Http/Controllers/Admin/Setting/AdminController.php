@@ -15,7 +15,7 @@ class AdminController extends Controller
     public function index()
     {
         $admin = Admin::all();
-        return view('admin.setting.admin.index', compact('admin'));
+        return view('admin.setting.admin.index-admin', compact('admin'));
     }
 
     /**
@@ -96,7 +96,7 @@ class AdminController extends Controller
 
             $admin->update($request->all());
 
-            return redirect()->route('admin.setting-admin.index')->with('success', 'Data admin berhasil diperbarui.');
+            return redirect()->route('admin.setting-admin.index-admin')->with('success', 'Data admin berhasil diperbarui.');
         } catch (\Exception $e) {
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
@@ -109,6 +109,6 @@ class AdminController extends Controller
     {
         $admin->delete();
 
-        return redirect()->route('admin.setting-admin.index')->with('success', 'Data admin berhasil dihapus.');
+        return response()->json(['success' => true, 'message' => 'Data pengguna berhasil dihapus.']);
     }
 }

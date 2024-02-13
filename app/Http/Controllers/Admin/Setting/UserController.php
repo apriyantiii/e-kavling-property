@@ -70,7 +70,7 @@ class UserController extends Controller
             $user->save();
 
             // Kembalikan respons yang sesuai
-            return redirect()->route('admin.setting-user.index')->with('success', 'Data pengguna berhasil diperbarui.');
+            return redirect()->route('admin.setting-user.index')->with('success', 'Data pengguna berhasil ditambahkan.');
         } catch (\Exception $e) {
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
@@ -147,14 +147,19 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+
+    public function destroy($id)
     {
-        dd($user);
         try {
+            // Temukan pengguna berdasarkan ID
+            $user = User::findOrFail($id);
+
+            // Hapus pengguna
             $user->delete();
-            return redirect()->route('admin.setting-user.index')->with('success', 'Data User berhasil dihapus.');
+
+            return redirect()->back()->with('success', 'Pengguna berhasil dihapus.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Terjadi kesalahan saat menghapus data user: ' . $e->getMessage());
+            return response()->json(['message' => 'Gagal menghapus pengguna: ' . $e->getMessage()], 500);
         }
     }
 }

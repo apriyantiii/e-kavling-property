@@ -42,7 +42,7 @@
                                     </label>
                                     <input type="text"
                                         class="form-control form-rounded @error('name') is-invalid @enderror" name="name"
-                                        id="name" placeholder="cth. Perum Merkuri Tengah" value="{{ old('name') }}"
+                                        id="name" placeholder="Masukkan Nama Lengkap" value="{{ old('name') }}"
                                         required autocomplete="name">
                                     @error('name')
                                         <div class="invalid-feedback">
@@ -87,7 +87,7 @@
                                     </label>
                                     <input type="text"
                                         class="form-control form-rounded @error('contact') is-invalid @enderror"
-                                        name="contact" id="contact" placeholder="Nama Lengkap"
+                                        name="contact" id="contact" placeholder="cth. 085......."
                                         value="{{ old('contact') }}">
                                     @error('contact')
                                         <div class="invalid-feedback">

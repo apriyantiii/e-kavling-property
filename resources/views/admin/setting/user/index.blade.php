@@ -116,6 +116,7 @@
                                             style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                             <thead>
                                                 <tr>
+                                                    <th>Role</th>
                                                     <th>
                                                         <input type="checkbox" name="select_all" id="select_all">
                                                     </th>
@@ -123,7 +124,6 @@
                                                     <th>Nama Pengguna</th>
                                                     <th>Email</th>
                                                     <th>Gender</th>
-                                                    <th>Role</th>
                                                     <th>Kontak</th>
                                                     <th>Alamat</th>
                                                     <th>Aksi</th>
@@ -161,8 +161,8 @@
                                                                     <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                                                 </a>
                                                                 <ul class="dropdown-menu dropdown-menu-end">
+                                                                    {{-- class="mdi mdi-eye font-size-16 text-success me-1"></i> --}}
                                                                     {{-- <li><a href="#" class="dropdown-item"><i
-                                                                                class="mdi mdi-eye font-size-16 text-success me-1"></i>
                                                                             Detail</a>
                                                                     </li> --}}
                                                                     <li><a href="{{ route('admin.setting-user.edit', $user->id) }}"
@@ -174,19 +174,14 @@
                                                                     </li>
 
                                                                     <li>
-                                                                        <a href="#" class="dropdown-item"
-                                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                                        <a href="#" class="dropdown-item delete-user"
+                                                                            data-id="{{ $user->id }}"
+                                                                            onclick="deleteUser(event)">
                                                                             <i
                                                                                 class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
                                                                             Hapus
                                                                         </a>
 
-                                                                        <form id="deleteProductForm"
-                                                                            action="{{ route('admin.setting-user.destroy', $user->id) }}"
-                                                                            method="POST" style="display: none;">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                        </form>
                                                                     </li>
 
 
@@ -278,15 +273,135 @@
     <script src="{{ URL::asset('assets/libs/datatables.net-buttons-bs4/datatables.net-buttons-bs4.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/jszip/jszip.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/pdfmake/pdfmake.min.js') }}"></script>
+    {{-- form select --}}
     <script src="{{ URL::asset('assets/libs/datatables.net-responsive/datatables.net-responsive.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/datatables.net-responsive-bs4/datatables.net-responsive-bs4.min.js') }}">
     </script>
     <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
 
-    {{-- form select --}}
     <script src="{{ URL::asset('assets/libs/choices.js/choices.js.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
+
+    {{-- <script>
+        document.querySelectorAll('.delete-user').forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault();
+                const userId = item.getAttribute('data-id');
+                if (confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
+                    fetch(`{{ route('admin.setting-admin.destroy', ':id') }}`.replace(':id', userId), {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                _token: '{{ csrf_token() }}',
+                                _method: 'DELETE'
+                            })
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Handle success, like refreshing the page or updating UI
+                                window.location.reload(); // Example: reload the page
+                            } else {
+                                // Handle error response
+                                console.error('Gagal menghapus pengguna');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+            });
+        });
+    </script> --}}
+
+    {{-- <script>
+        function deleteUser(event) {
+            event.preventDefault();
+            const userId = event.target.getAttribute('data-id');
+            if (confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
+                fetch(`{{ route('admin.setting-admin.destroy', ':id') }}`.replace(':id', userId), {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            _token: '{{ csrf_token() }}',
+                            _method: 'DELETE'
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Tambahkan pesan berhasil dihapus tanpa refresh
+                            const alertMessage = document.createElement('div');
+                            alertMessage.classList.add('alert', 'alert-success');
+                            alertMessage.innerHTML = 'Pengguna berhasil dihapus.';
+                            document.body.appendChild(alertMessage);
+
+                            // Hilangkan pesan setelah beberapa detik
+                            setTimeout(() => {
+                                alertMessage.remove();
+                            }, 3000);
+                        } else {
+                            // Handle error response
+                            console.error('Gagal menghapus pengguna');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+    </script> --}}
+
+    <script>
+        function deleteUser(event) {
+            event.preventDefault();
+            const userId = event.currentTarget.getAttribute('data-id');
+            if (confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
+                fetch(`{{ route('admin.setting-admin.destroy', ':id') }}`.replace(':id', userId), {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            _token: '{{ csrf_token() }}',
+                            _method: 'DELETE'
+                        })
+                    })
+                    .then(response => {
+                        if (response.redirected) {
+                            // Jika ada redirection, maka penghapusan berhasil
+                            const alertMessage = document.createElement('div');
+                            alertMessage.classList.add('alert', 'alert-success');
+                            alertMessage.innerHTML = 'Pengguna berhasil dihapus.';
+                            document.body.appendChild(alertMessage);
+
+                            // Hilangkan pesan setelah beberapa detik
+                            setTimeout(() => {
+                                alertMessage.remove();
+                            }, 3000);
+
+                            // Redirect ke halaman yang ditentukan
+                            window.location.href = response.url;
+                        } else {
+                            // Jika tidak ada redirection, berarti ada kesalahan
+                            console.error('Gagal menghapus pengguna');
+                        }
+                    })
+
+
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+    </script>
+
 
     <script>
         $(document).ready(function() {

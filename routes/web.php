@@ -88,7 +88,7 @@ Route::prefix('/')->group(function () {
 Route::prefix('admin')->group(function () {
     // Auth Admin
     Route::get('/', [Admin\LoginController::class, 'loginForm']);
-    Route::get('/login', [Admin\LoginController::class, 'loginForm'])->name('admin.login');
+    Route::get('/login', [Admin\LoginController::class, 'loginForm'])->name('admin.login-admin');
     Route::post('/login', [Admin\LoginController::class, 'login'])->name('admin.login');
     Route::get('/home', [Admin\HomeController::class, 'index'])->name('admin.home')->middleware('is_admin');
     Route::get('logout', [Admin\LoginController::class, 'logoutAdmin'])->name('admin.logout')->middleware('is_admin');
@@ -134,7 +134,7 @@ Route::prefix('admin')->group(function () {
     Route::post('settings/admin/store', [Admin\Setting\AdminController::class, 'store'])->name('admin.setting-admin.store');
     Route::get('settings/{admin}/edit', [Admin\Setting\AdminController::class, 'edit'])->name('admin.setting-admin.edit');
     Route::put('settings/{admin}/update', [Admin\Setting\AdminController::class, 'update'])->name('admin.setting-admin.update');
-    Route::delete('settings/{admin}/delete', [Admin\Setting\AdminController::class, 'destroy'])->name('admin.setting-admin.destroy');
+    // Route::delete('settings/{admin}/delete', [Admin\Setting\AdminController::class, 'destroy'])->name('admin.setting-admin.destroy');
 
     //pengaturan-> user
     Route::get('settings/user', [Admin\Setting\UserController::class, 'index'])->name('admin.setting-user.index');
@@ -142,8 +142,10 @@ Route::prefix('admin')->group(function () {
     Route::post('settungs/user/store', [Admin\Setting\UserController::class, 'store'])->name('admin.setting-user.store');
     Route::get('settings/user/{user}/edit', [Admin\Setting\UserController::class, 'edit'])->name('admin.setting-user.edit');
     Route::put('settings/user/{user}/update', [Admin\Setting\UserController::class, 'update'])->name('admin.setting-user.update');
+    // Route::delete('settings/user/{user}/delete', [Admin\Setting\UserController::class, 'destroy'])->name('admin.setting-user.destroy');
+    Route::delete('settings/delete-user/{id}', [Admin\Setting\UserController::class, 'destroy'])->name('admin.setting-admin.destroy');
     // Route::delete('settings/user/{user}', [Admin\Setting\UserController::class, 'destroy'])->name('admin.setting-user.destroy');
-    Route::delete('settings/user/{user}', [Admin\Setting\UserController::class, 'destroy'])->name('admin.setting-user.destroy');
+    // Route::delete('settings/user/{user}', [Admin\Setting\UserController::class, 'destroy'])->name('admin.setting-user.destroy');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
