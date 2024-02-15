@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Checkout;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payments;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -12,7 +13,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('admin.checkout.transaction.index');
+        $transactions = Payments::all();
+        return view('admin.checkout.transaction.index', compact('transactions'));
     }
 
     /**

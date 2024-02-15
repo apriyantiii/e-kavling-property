@@ -120,12 +120,14 @@ Route::prefix('admin')->group(function () {
     //Validasi berkas
     Route::get('data-validate', [Admin\Checkout\DataValidateController::class, 'index'])->name('checkout.data-validate');
     Route::patch('data-validate/{purchaseValidate}', [Admin\Checkout\DataValidateController::class, 'updateStatus'])->name('data-validate.update');
-    Route::get('payments-detail/{showValidate}', [Admin\Checkout\DataValidateController::class, 'show'])->name('checkout.validate.show');
+    Route::get('data-validate-detail/{showValidate}', [Admin\Checkout\DataValidateController::class, 'show'])->name('checkout.validate.show');
+    Route::delete('data-validate/delete/{id}', [Admin\Checkout\DataValidateController::class, 'destroy'])->name('checkout.validate.delete');
 
     // payments
     Route::get('payments-validate', [Admin\Checkout\PaymentsValidateController::class, 'index'])->name('checkout.payments-validate');
     Route::get('payments-detail/{showPayment}', [Admin\Checkout\PaymentsValidateController::class, 'show'])->name('checkout.payment.show');
     Route::patch('/payments/{payment}', [Admin\Checkout\PaymentsValidateController::class, 'updateStatus'])->name('update-status');
+    Route::delete('payments/delete{id}', [Admin\Checkout\PaymentsValidateController::class, 'destroy'])->name('checkout.payment.delete');
 
     //live chat
     Route::get('chat/index', [Admin\ChatController::class, 'index'])->name('admin.chat.index');

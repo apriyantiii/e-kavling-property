@@ -181,78 +181,12 @@
                                                                                 class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
                                                                             Hapus
                                                                         </a>
-
                                                                     </li>
-
-
                                                                 </ul>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                                {{-- @foreach ($products as $product)
-                                                    <tr>
-                                                        <th>
-                                                            <input type="checkbox" value="{{ $product->id }}"
-                                                                name="products[]" id="select">
-                                                        </th>
-
-                                                        <td class="text-center align-middle">
-                                                            <img src="{{ URL::asset('storage/' . $product->photo) }}"
-                                                                width="70" alt="">
-                                                        </td>
-                                                        <td>{{ $product->name }}</td>
-                                                        <td>{{ $product->code }}</td>
-                                                        <td>
-                                                            @if ($product->productCategory && $product->productCategory->name)
-                                                                {{ $product->productCategory->name }}
-                                                            @else
-                                                                <span class="text-danger">Tidak Masuk Kategori</span>
-                                                            @endif
-                                                        </td>
-                                                        <td>{{ $product->location }}</td>
-                                                        <td>{{ $product->size }}</td>
-                                                        <td>{{ $product->price }}</td>
-                                                        <td class="align-middle">
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle card-drop"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    <li><a href="{{ route('detail.product.admin', $product->id) }}"
-                                                                            class="dropdown-item"><i
-                                                                                class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                            Detail</a>
-                                                                    </li>
-                                                                    <li><a href="{{ route('product.edit', $product->id) }}"
-                                                                            class="dropdown-item">
-                                                                            <i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                            Edit
-                                                                        </a>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <a href="#" class="dropdown-item"
-                                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
-                                                                            <i
-                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                            Hapus
-                                                                        </a>
-
-                                                                        <form id="deleteProductForm"
-                                                                            action="{{ route('product.destroy', $product->id) }}"
-                                                                            method="POST" style="display: none;">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                        </form>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -283,6 +217,7 @@
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
 
+    {{-- delete --}}
     <script>
         function deleteUser(event) {
             event.preventDefault();

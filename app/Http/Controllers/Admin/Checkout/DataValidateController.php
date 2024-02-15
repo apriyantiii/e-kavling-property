@@ -74,8 +74,18 @@ class DataValidateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        try {
+            // Temukan pengguna berdasarkan ID
+            $validate = PurchaseValidation::findOrFail($id);
+
+            // Hapus pengguna
+            $validate->delete();
+
+            return redirect()->back()->with('success', 'Berkas Validasi berhasil dihapus.');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal menghapus Berkas Validasi: ' . $e->getMessage()], 500);
+        }
     }
 }

@@ -73,8 +73,18 @@ class PaymentsValidateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        try {
+            // Temukan pengguna berdasarkan ID
+            $payments = Payments::findOrFail($id);
+
+            // Hapus pengguna
+            $payments->delete();
+
+            return redirect()->back()->with('success', 'Pembayaran berhasil dihapus.');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal menghapus Pembayaran: ' . $e->getMessage()], 500);
+        }
     }
 }

@@ -119,18 +119,13 @@
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="#" class="dropdown-item"
-                                                                        onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                                    <a href="#" class="dropdown-item delete-user"
+                                                                        data-id="{{ $payment->id }}"
+                                                                        onclick="deleteUser(event)">
                                                                         <i
                                                                             class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
                                                                         Hapus
                                                                     </a>
-
-                                                                    <form id="deleteProductForm" action="#"
-                                                                        method="POST" style="display: none;">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                    </form>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -162,7 +157,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Default Modal Heading</h5>
+                        <h5 class="modal-title" id="myModalLabel">Update Status Pembayaran</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -228,7 +223,9 @@
             $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
         });
     </script>
+
     <script src="{{ URL::asset('assets/js/pages/modal.init.js') }}"></script>
+
     <script>
         var myModal = document.getElementById('myModal')
         var myInput = document.getElementById('myInput')
@@ -236,5 +233,51 @@
         myModal.addEventListener('shown.bs.modal', function() {
             myInput.focus()
         })
+    </script>
+
+    {{-- delete --}}
+    <script>
+        function deleteUser(event) {
+            event.preventDefault();
+            const userId = event.currentTarget.getAttribute('data-id');
+            if (confirm('Apakah Anda yakin ingin menghapus pembayaran ini?')) {
+                fetch(`{{ route('checkout.payment.delete', ':id') }}`.replace(':id', userId), {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            _token: '{{ csrf_token() }}',
+                            _method: 'DELETE'
+                        })
+                    })
+                    .then(response => {
+                        if (response.redirected) {
+                            // Jika ada redirection, maka penghapusan berhasil
+                            const alertMessage = document.createElement('div');
+                            alertMessage.classList.add('alert', 'alert-success');
+                            alertMessage.innerHTML = 'Pembayaran berhasil dihapus.';
+                            document.body.appendChild(alertMessage);
+
+                            // Hilangkan pesan setelah beberapa detik
+                            setTimeout(() => {
+                                alertMessage.remove();
+                            }, 3000);
+
+                            // Redirect ke halaman yang ditentukan
+                            window.location.href = response.url;
+                        } else {
+                            // Jika tidak ada redirection, berarti ada kesalahan
+                            console.error('Gagal menghapus Pembayaran');
+                        }
+                    })
+
+
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
     </script>
 @endsection
