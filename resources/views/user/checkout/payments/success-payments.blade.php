@@ -45,7 +45,7 @@
                                         @endif
                                         <div class="p-4 border mt-4"
                                             style="background-color: rgb(210, 210, 210); border-radius: 20px; width: 45%; margin: auto;">
-                                            <h3 class="card-title text-center mt-4"><strong>Pembelianmu sedang
+                                            <h3 class="card-title text-center mt-4"><strong>Pembayaran sedang
                                                     diproses!</strong></h3><br>
                                             <h4 class="card-title-desc text-center mb-2">Silahkan hubungi admin melalui live
                                                 chat apabila terdapat suatu hal yang kurang jelas. Jangan lupa cek website

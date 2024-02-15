@@ -62,12 +62,6 @@
 
                         </div>
                     </div> <!-- end col -->
-                    {{-- <div class="col-sm-6">
-                                    <div class="text-end">
-                                        <a href="{{ url('ecommerce-checkout') }}" class="btn btn-success">
-                                            <i class="mdi mdi-truck-fast me-1"></i> Proceed to Shipping </a>
-                                    </div>
-                                </div> <!-- end col --> --}}
                 </div> <!-- end row -->
             </div>
         </div>

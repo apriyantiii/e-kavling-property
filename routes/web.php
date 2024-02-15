@@ -114,6 +114,9 @@ Route::prefix('admin')->group(function () {
     // Wishlist
     Route::get('wishlist', [Admin\WishlistController::class, 'index'])->name('admin.wishlist.index');
 
+    //Transasksi
+    Route::get('transaction', [Admin\Checkout\TransactionController::class, 'index'])->name('admin.transaction');
+
     //Validasi berkas
     Route::get('data-validate', [Admin\Checkout\DataValidateController::class, 'index'])->name('checkout.data-validate');
     Route::patch('data-validate/{purchaseValidate}', [Admin\Checkout\DataValidateController::class, 'updateStatus'])->name('data-validate.update');

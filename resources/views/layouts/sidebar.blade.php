@@ -33,6 +33,7 @@
                         <span>Penjualan</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('admin.transaction') }}">Transaksi</a></li>
                         <li><a href="{{ route('checkout.data-validate') }}">Validasi Berkas</a></li>
                         <li><a href="{{ route('checkout.payments-validate') }}">Validasi Pembayaran</a></li>
                     </ul>
