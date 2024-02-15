@@ -116,29 +116,21 @@
                                             style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>Role</th>
-                                                    <th>
-                                                        <input type="checkbox" name="select_all" id="select_all">
-                                                    </th>
                                                     <th>Foto</th>
+                                                    <th>User ID</th>
                                                     <th>Nama Pengguna</th>
                                                     <th>Email</th>
                                                     <th>Gender</th>
+                                                    <th>Role</th>
                                                     <th>Kontak</th>
                                                     <th>Alamat</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
 
-
                                             <tbody>
                                                 @foreach ($user as $user)
                                                     <tr>
-                                                        <th>
-
-                                                            <input type="checkbox" value="{{ $user->id }}"
-                                                                name="products[]" id="select">
-                                                        </th>
                                                         <td class="text-center align-middle">
                                                             @if ($user->avatar !== null)
                                                                 <img src="{{ URL::asset('storage/' . $user->avatar) }}"
@@ -148,6 +140,7 @@
                                                                 <span class="text-danger">null</span>
                                                             @endif
                                                         </td>
+                                                        <td>{{ $user->id }}</td>
                                                         <td>{{ $user->name }}</td>
                                                         <td>{{ $user->email }}</td>
                                                         <td>{{ $user->gender }}</td>

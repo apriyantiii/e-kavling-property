@@ -68,12 +68,20 @@
                                         <tbody>
                                             @foreach ($transactions as $transaction)
                                                 <tr>
-                                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                                    <td class="text-center">{{ $transaction->user_id }}</td>
-                                                    <td class="text-center">{{ $transaction->product_id }}</td>
-                                                    <td class="text-center">{{ $transaction->purchase_validation_id }}</td>
-                                                    <td class="text-center">{{ $transaction->id }}</td>
-
+                                                    <td class="text-center">{{ $loop->iteration }}
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('admin.setting-user.index') }}">{{ $transaction->user_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('product.index') }}">{{ $transaction->product_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('checkout.data-validate') }}">{{ $transaction->purchase_validation_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('checkout.payments-validate') }}">{{ $transaction->id }}</a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
 

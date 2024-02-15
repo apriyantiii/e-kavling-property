@@ -54,9 +54,7 @@
                                             style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>
-                                                        <input type="checkbox" id="select_all">
-                                                    </th>
+                                                    <th>ID</th>
                                                     <th>Nama Produk</th>
                                                     <th>Nama Pembeli</th>
                                                     <th>No. Telp</th>
@@ -70,11 +68,7 @@
                                             <tbody>
                                                 @foreach ($validate as $purchaseValidate)
                                                     <tr>
-                                                        <th>
-                                                            {{-- value nya nanti diisi {{ $product->id }} --}}
-                                                            <input type="checkbox" name="products[]"
-                                                                value="{{ $purchaseValidate->id }}" class="checkbox">
-                                                        </th>
+                                                        <td>{{ $purchaseValidate->id }}</td>
                                                         <td>{{ $purchaseValidate->product->name }}</td>
                                                         <td>{{ $purchaseValidate->name }}</td>
                                                         <td>{{ $purchaseValidate->telpon }}</td>

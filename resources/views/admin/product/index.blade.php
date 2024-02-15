@@ -107,10 +107,8 @@
                                             style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>
-                                                        <input type="checkbox" name="select_all" id="select_all">
-                                                    </th>
                                                     <th>Foto</th>
+                                                    <th>ID Produk</th>
                                                     <th>Nama Produk</th>
                                                     <th>Kode Produk</th>
                                                     <th>Nama Kategori</th>
@@ -125,16 +123,11 @@
                                             <tbody>
                                                 @foreach ($products as $product)
                                                     <tr>
-                                                        <th>
-                                                            {{-- value nya nanti diisi {{ $product->id }} --}}
-                                                            <input type="checkbox" value="{{ $product->id }}"
-                                                                name="products[]" id="select">
-                                                        </th>
-
                                                         <td class="text-center align-middle">
                                                             <img src="{{ URL::asset('storage/' . $product->photo) }}"
                                                                 width="70" alt="">
                                                         </td>
+                                                        <td>{{ $product->id }}</td>
                                                         <td>{{ $product->name }}</td>
                                                         <td>{{ $product->code }}</td>
                                                         <td>

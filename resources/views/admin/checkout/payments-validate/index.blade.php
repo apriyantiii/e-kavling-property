@@ -56,9 +56,7 @@
                                         style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>
-                                                    <input type="checkbox" id="select_all">
-                                                </th>
+                                                <td>ID Pembayaran</td>
                                                 <th>Nama Produk</th>
                                                 <th>Nama Pembeli</th>
                                                 <th>Tanggal Pembayaran</th>
@@ -71,14 +69,16 @@
 
 
                                         <tbody>
-                                            @foreach ($payments as $payment)
+                                            @forelse ($payments as $payment)
                                                 <tr>
-                                                    <th>
-                                                        {{-- value nya nanti diisi {{ $product->id }} --}}
-                                                        <input type="checkbox" name="products[]" value="{{ $payment->id }}"
-                                                            class="checkbox">
-                                                    </th>
-                                                    <td>{{ $payment->product->name }}</td>
+                                                    <td class="text-center">{{ $payment->id }}</td>
+                                                    <td>
+                                                        @if ($payment->product)
+                                                            {{ $payment->product->name }}
+                                                        @else
+                                                            Produk tidak tersedia
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $payment->name }}</td>
                                                     <td>{{ $payment->payment_date }}</td>
                                                     <td>{{ $payment->type }}</td>
@@ -131,12 +131,11 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            @endforeach
-
-                                            {{-- Model KK --}}
-
-
-                                            {{-- Model KTP --}}
+                                            @empty
+                                                <tr>
+                                                    <td colspan="7" class="text-center">Data masih kosong</td>
+                                                </tr>
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>
