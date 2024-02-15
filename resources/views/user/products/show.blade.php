@@ -122,9 +122,14 @@
                                             class="btn btn-outline-danger py-3 px-4 me-2" style="margin-right: 3px"><span
                                                 class="fab fa-rocketchat pr-2"></span>Live
                                             Chat</a>
-                                        <a href="{{ route('checkout.purchase', $products->id) }}"
+                                        <a href="{{ !$isProductPurchased ? route('checkout.purchase', $products->id) : '#' }}"
+                                            class="btn btn-secondary py-3 px-4 {{ $isProductPurchased ? 'disabled' : '' }}"
+                                            {{ $isProductPurchased ? 'disabled' : '' }}>
+                                            Beli Properti
+                                        </a>
+                                        {{-- <a href="{{ route('checkout.purchase', $products->id) }}"
                                             class="btn btn-secondary py-3 px-4">Beli
-                                            Properti</a>
+                                            Properti</a> --}}
                                     </div>
                                 </div>
                             </div>

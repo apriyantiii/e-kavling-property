@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payments;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -78,7 +79,18 @@ class ProductController extends Controller
             $products->formatted_price = formatPrice($products->price);
 
             $allProducts = Product::all();
-            return view('user.products.show', compact('products', 'allProducts'));
+
+            // Periksa jika produk sudah terdata di tabel payments dengan status approved
+            $payment = Payments::where(
+                'product_id',
+                $id
+            )
+                ->where('status', 'approved')
+                ->first();
+
+            // Mengirimkan informasi ke tampilan
+            $isProductPurchased = $payment ? true : false;
+            return view('user.products.show', compact('products', 'allProducts', 'isProductPurchased'));
         } catch (ModelNotFoundException $e) {
             // Produk tidak ditemukan, redirect atau tampilkan pesan error
             return redirect()->route('user.products.show')->with('error', 'Produk tidak ditemukan.');
