@@ -26,11 +26,16 @@ class PurchaseValidationController extends Controller
     //     $purchaseValidation = PurchaseValidation::all();
     //     return view('user.checkout.purchase-validation.waiting-validation', compact('purchaseValidation'));
     // }
-    public function waitingValidate()
+    public function waitingValidate($id)
     {
-        return view('user.checkout.purchase-validation.waiting-validate');
+        $waitingValidate = PurchaseValidation::findOrFail($id); // Mengambil data validasi berdasarkan ID
+        return view('user.checkout.purchase-validation.waiting-validate', compact('waitingValidate'));
     }
 
+    public function rejectedValidate()
+    {
+        return view('user.checkout.purchase-validation.waiting-rejected');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -79,7 +84,7 @@ class PurchaseValidationController extends Controller
             }
 
             // Simpan data pembelian ke dalam tabel purchase_validations
-            PurchaseValidation::create([
+            $purchaseValidation = PurchaseValidation::create([
                 'user_id' => $userId,
                 'product_id' => $product->id, // Menggunakan $product->id untuk mendapatkan ID produk
                 'name' => $request->input('name'),
@@ -96,15 +101,13 @@ class PurchaseValidationController extends Controller
             // Simpan status pembelian ke dalam session
             session()->put('purchase_status', 'waiting_confirmation');
 
-            // Menggunakan redirect biasa
-            $redirect = redirect()->route('waiting-validate')->with('success', 'Berkas validasi berhasil dikirimkan!');
-            // dd(session('success'), $redirect);
-
-            return $redirect;
+            // Menggunakan redirect dengan route 'waiting-validate' dan ID dari pembelian yang baru dibuat
+            return redirect()->route('waiting-validate', $purchaseValidation->id)->with('success', 'Berkas validasi berhasil dikirimkan!');
         } catch (\Exception $e) {
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
+
 
 
     /**
@@ -194,7 +197,7 @@ class PurchaseValidationController extends Controller
             ]);
 
             // Redirect atau tampilkan pesan sukses
-            return redirect()->route('waiting-validate')->with('success', 'Validasi data berhasil diperbarui!');
+            return redirect()->route('waiting-validate', $purchaseValidation->id)->with('success', 'Validasi data berhasil diperbarui!');
         } catch (\Exception $e) {
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }

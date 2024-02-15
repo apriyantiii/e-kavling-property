@@ -79,8 +79,7 @@
                                                         <input type="file"
                                                             class="form-control form-rounded @error('ktp_file') is-invalid @enderror"
                                                             name="ktp_file" id="ktp_file" placeholder=""
-                                                            value="{{ $purchaseValidation->ktp_file }}" required
-                                                            autocomplete="ktp_file">
+                                                            value="{{ $purchaseValidation->ktp_file }}">
                                                         @error('ktp_file')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -138,48 +137,6 @@
                                                         @enderror
                                                     </div>
 
-                                                    {{-- <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group mb-3">
-                                                                <label for="place_of_birth" class="form-label">
-                                                                    Tempat Lahir
-                                                                </label>
-                                                                <input type="text"
-                                                                    class="form-control form-rounded @error('place_of_birth') is-invalid @enderror"
-                                                                    name="place_of_birth" id="place_of_birth"
-                                                                    placeholder="Masukkan Tempat Lahir"
-                                                                    value="{{ old('place_of_birth') }}" required
-                                                                    autocomplete="place_of_birth">
-                                                                @error('place_of_birth')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="form-group mb-3">
-                                                                <label for="date_of_birth" class="form-label">Tanggal
-                                                                    Lahi</label>
-                                                                <input
-                                                                    class="form-control form-rounded @error('date_of_birth') is-invalid @enderror"
-                                                                    type="date" value="2019-08-19"
-                                                                    name="date_of_birth" id="date_of_birth"
-                                                                    value="{{ old('date_of_birth') }}" required
-                                                                    autocomplete="date_of_birth">
-                                                                @error('date_of_birth')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
-
-                                                    {{-- <label for="billing-address"
-                                                            class="col-form-label">Address</label>
-                                                        <textarea class="form-control" id="billing-address" rows="3" placeholder="Enter full address"></textarea> --}}
-
                                                     <div class="form-group mb-3">
                                                         <label for="kk_file" class="form-label">
                                                             Upload KK
@@ -187,8 +144,7 @@
                                                         <input type="file"
                                                             class="form-control form-rounded @error('kk_file') is-invalid @enderror"
                                                             name="kk_file" id="kk_file" placeholder=""
-                                                            value="{{ $purchaseValidation->kk_file }}" required
-                                                            autocomplete="kk_file">
+                                                            value="{{ $purchaseValidation->kk_file }}">
                                                         @error('kk_file')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -215,7 +171,7 @@
                                             </div>
                                             <div class="row my-4">
                                                 <div class="col-sm-6">
-                                                    <a href="{{ route('waiting-validate') }}"
+                                                    <a href="{{ route('waiting-validate', $purchaseValidation->id) }}"
                                                         class="btn text-muted d-none d-sm-inline-block btn-link">
                                                         <i class="mdi mdi-arrow-left me-1"></i> Kembali Tunggu Validasi
                                                     </a>

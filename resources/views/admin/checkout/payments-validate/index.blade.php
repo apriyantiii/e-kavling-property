@@ -155,46 +155,48 @@
     </div> <!-- end col -->
     </div> <!-- end row -->
 
-
     <!-- sample modal content -->
-    <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-        data-bs-scroll="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Default Modal Heading</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('update-status', $payment->id) }}" method="post">
-                        @csrf
-                        @method('patch')
+    @if ($payments->isNotEmpty())
+        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+            data-bs-scroll="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Default Modal Heading</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('update-status', $payment->id) }}" method="post">
+                            @csrf
+                            @method('patch')
 
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="nice-select default-select wide form-control solid" name="status"
-                                onchange="this.form.submit()">
-                                <option value="pending" {{ $payment->status === 'pending' ? 'selected' : '' }}>Pending
-                                </option>
-                                <option value="approved" {{ $payment->status === 'approved' ? 'selected' : '' }}>
-                                    Disetujui
-                                </option>
-                                <option value="rejected" {{ $payment->status === 'rejected' ? 'selected' : '' }}>
-                                    Ditolak</option>
-                            </select>
-                        </div>
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="nice-select default-select wide form-control solid" name="status"
+                                    onchange="this.form.submit()">
+                                    <option value="pending" {{ $payment->status === 'pending' ? 'selected' : '' }}>Pending
+                                    </option>
+                                    <option value="approved" {{ $payment->status === 'approved' ? 'selected' : '' }}>
+                                        Disetujui
+                                    </option>
+                                    <option value="rejected" {{ $payment->status === 'rejected' ? 'selected' : '' }}>
+                                        Ditolak</option>
+                                </select>
+                            </div>
 
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light">Save
-                        changes</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light">Save
+                            changes</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    @endif
+    <!-- /.modal -->
 @endsection
 @section('script')
     <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>

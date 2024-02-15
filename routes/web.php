@@ -60,7 +60,8 @@ Route::prefix('/')->group(function () {
 
     // checkout-validasi berkas
     Route::get('edit-validation', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('edit-validate');
-    Route::get('validation', [User\Checkout\PurchaseValidationController::class, 'waitingValidate'])->name('waiting-validate');
+    Route::get('validation/{id}', [User\Checkout\PurchaseValidationController::class, 'waitingValidate'])->name('waiting-validate');
+    Route::get('validation-rejected', [User\Checkout\PurchaseValidationController::class, 'rejectedValidate'])->name('rejected-validate');
 
     // checkout-konfirmasi pembelian
     Route::get('confirmation', [User\Checkout\ConfirmationController::class, 'index'])->name('checkout.confirmation');

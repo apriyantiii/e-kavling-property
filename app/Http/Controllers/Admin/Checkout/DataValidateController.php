@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Checkout;
 use App\Http\Controllers\Controller;
 use App\Models\PurchaseValidation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class DataValidateController extends Controller
 {
@@ -18,22 +19,6 @@ class DataValidateController extends Controller
         return view('admin.checkout.data-validate.index', compact('validate'));
     }
 
-    // public function update(Request $request, PurchaseValidation $purchaseValidate)
-    // {
-
-    //     $request->validate([
-    //         'status' => 'required|in:approved,pending',
-    //     ]);
-
-    //     $purchaseValidate->status = $request->input('status');
-
-    //     // Perbarui status pembelian pada session
-    //     session()->put('purchase_status', $request->input('status'));
-
-    //     $purchaseValidate->save();
-    //     return redirect()->route('checkout.data-validate')->with('success', 'Status validasi berkas berhasil di update!');
-    // }
-
     public function updateStatus(Request $request, PurchaseValidation $purchaseValidate)
     {
         $request->validate([
@@ -41,6 +26,9 @@ class DataValidateController extends Controller
         ]);
 
         $purchaseValidate->update(['status' => $request->status]);
+
+        // Set session 'purchase_status' sesuai dengan status pembelian yang baru
+        Session::put('purchase_status', $request->status);
 
         return redirect()->back()->with('success', 'Status berkas berhasil diubah!');
     }

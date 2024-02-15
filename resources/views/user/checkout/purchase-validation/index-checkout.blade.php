@@ -84,7 +84,7 @@
                                                         <input type="file"
                                                             class="form-control form-rounded @error('ktp_file') is-invalid @enderror"
                                                             name="ktp_file" id="ktp_file" placeholder=""
-                                                            value="{{ old('ktp_file') }}" required autocomplete="ktp_file">
+                                                            value="{{ old('ktp_file') }}">
                                                         @error('ktp_file')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -100,7 +100,7 @@
                                                             class="form-control form-rounded @error('telpon') is-invalid @enderror"
                                                             name="telpon" id="telpon"
                                                             placeholder="Masukkan Telepon Pihak Kedua"
-                                                            value="{{ old('telpon') }}" required autocomplete="telpon">
+                                                            value="{{ old('telpon') }}">
                                                         @error('telpon')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}

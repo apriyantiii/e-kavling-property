@@ -44,42 +44,21 @@
                                             ])
                                         @endif
                                         <h3 class="card-title text-center mt-5"><strong>Validasi Data Pembelian
-                                                Diterima!</strong></h3><br>
-                                        <h4 class="card-title-desc text-center mb-2">Pembelianmu sedang di konfirmasi
-                                            oleh
-                                            admin.</h4>
-                                        <h4 class="card-title-desc text-center mb-4">Tunggu dan refresh website secara
-                                            berkala untuk lanjut ke tahap
-                                            pembayaran!</h4>
-                                        <i class='bx bxs-time text-center'
-                                            style='font-size: 4rem; display: block; margin: 0 auto;'></i>
+                                                <b class="text-danger">Ditolak!</b></strong></h3><br>
+                                        <h4 class="card-title-desc text-center mb-2">Kembali ke halaman properti untuk
+                                            memilih properti yang lain.</h4>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="row my-4">
                                 <div class="col-sm-6">
-                                    <a href="{{ route('edit-validate') }}"
+                                    <a href="{{ route('home.properti') }}"
                                         class="btn text-muted d-none d-sm-inline-block btn-link">
                                         <i class="mdi mdi-arrow-left me-1"></i> Kembali
                                     </a>
                                 </div>
-                                @if (session('purchase_status') == 'approved')
-                                    <div class="col-sm-6">
-                                        <div class="text-end">
-                                            <a href="{{ route('checkout.confirmation') }}" class="btn btn-success">
-                                                <i class="mdi mdi-briefcase-check me-1"></i> Konfirmasi Pembelian </a>
-                                        </div>
-                                    </div>
-                                @elseif (session('purchase_status') == 'rejected')
-                                    <div class="col-sm-6">
-                                        <div class="text-end">
-                                            <a href="{{ route('rejected-validate') }}" class="btn btn-danger">
-                                                <i class="mdi mdi-alert-outline me-1"></i> Pembelian Ditolak </a>
-                                        </div>
-                                    </div>
-                                @endif
                             </div>
-
 
                         </div>
                     </div> <!-- end col -->

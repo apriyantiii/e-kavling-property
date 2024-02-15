@@ -50,146 +50,141 @@
             <!-- Tab panes -->
             <div class="tab-content text-muted">
                 <div class="tab-pane active" id="products" role="tabpanel">
-                    @foreach ($purchaseValidation as $validation)
-                        <div class="card" style="border-radius: 20px">
+                    @if ($purchaseValidation->isEmpty())
+                        <div class="card" style="border-radius: 10px">
                             <div class="card-body">
-                                <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
-                                    <strong>Status Berkas:
-                                        @if ($validation->status == 'pending')
-                                            <span
-                                                class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
-                                        @elseif ($validation->status == 'approved')
-                                            <span
-                                                class="badge badge-pill rounded-pill bg-success font-size-14">Approved</span>
-                                        @elseif ($validation->status == 'rejected')
-                                            <span
-                                                class="badge badge-pill rounded-pill bg-danger font-size-14">Approved</span>
-                                        @else
-                                            <span class="badge bg-secondary">{{ $validation->status }}</span>
-                                        @endif
-                                    </strong>
-                                </h3>
-                                <hr style="border-top: 2px solid #000000; margin-top: 0px;">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img src="{{ URL::asset('storage/' . $validation->product->photo) }}"
-                                            alt="product-img" title="product-img" class="avatar-xxl" />
+                                <h3 class="card-title mt-0 text-center" style="margin-bottom: 10px">
+
+                                    Data validasi berkas masih kosong.</h3>
+                            </div>
+                        </div>
+                    @else
+                        @foreach ($purchaseValidation as $validation)
+                            <div class="card" style="border-radius: 20px">
+                                <div class="card-body">
+                                    <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
+                                        <strong>Status Berkas:
+                                            @if ($validation->status == 'pending')
+                                                <span
+                                                    class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
+                                            @elseif ($validation->status == 'approved')
+                                                <span
+                                                    class="badge badge-pill rounded-pill bg-success font-size-14">Approved</span>
+                                            @elseif ($validation->status == 'rejected')
+                                                <span
+                                                    class="badge badge-pill rounded-pill bg-danger font-size-14">Rejected</span>
+                                            @else
+                                                <span class="badge bg-secondary">{{ $validation->status }}</span>
+                                            @endif
+                                        </strong>
+                                    </h3>
+                                    <hr style="border-top: 2px solid #000000; margin-top: 0px;">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img src="{{ URL::asset('storage/' . $validation->product->photo) }}"
+                                                alt="product-img" title="product-img" class="avatar-xxl" />
+                                        </div>
+
+                                        <div class="col-md-6 text-start">
+                                            <h5>{{ $validation->product->name }}</h5>
+                                            <p>{{ $validation->product->location }}</p>
+                                            <br>
+                                            <h6><strong>Atas Nama: {{ $validation->name }}</strong></h6>
+                                        </div>
+
+                                        <div class="col-md-4 text-end">
+                                            @if ($validation->product)
+                                                <h4>{{ $validation->product->formatted_price }}</h4>
+                                            @endif
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-6 text-start">
-                                        <h5>{{ $validation->product->name }}</h5>
-                                        <p>{{ $validation->product->location }}</p>
-                                        <br>
-                                        <h6><strong>Atas Nama: {{ $validation->name }}</strong></h6>
-                                    </div>
-
-                                    <div class="col-md-4 text-end">
-                                        @if ($validation->product)
-                                            <h4>{{ $validation->product->formatted_price }}</h4>
-                                        @endif
+                                    {{-- <div class="row mt-4">
+                                        <div class="col-md-12 text-end">
+                                            <h5><a href="{{ route('checkout.invoice.validate', $validation->id) }}">
+                                                    Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row--> --}}
+                                    <div class="row mt-4">
+                                        <div class="col-md-12 text-end">
+                                            @if ($validation->status === 'pending')
+                                                <h5><a href="{{ route('waiting-validate', $validation->id) }}">
+                                                        Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
+                                            @else
+                                                <h5><a href="{{ route('checkout.invoice.validate', $validation->id) }}">
+                                                        Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="row mt-4">
-                                    <div class="col-md-12 text-end">
-                                        <h5><a href="{{ route('checkout.invoice.validate', $validation->id) }}">
-                                                Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
-                                    </div> <!-- end col -->
-                                </div> <!-- end row-->
-                            </div>
-                        </div> <!-- end card -->
-                    @endforeach
+                            </div> <!-- end card -->
+                        @endforeach
+                    @endif
                 </div>
-
 
                 {{-- payments --}}
                 <div class="tab-pane" id="product-categories" role="tabpanel">
-                    @foreach ($payments as $payment)
-                        <div class="card" style="border-radius: 20px">
+                    @if ($payments->isEmpty())
+                        <div class="card" style="border-radius: 10px">
                             <div class="card-body">
-                                <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
-                                    <strong>Status Berkas:
-                                        @if ($payment->status == 'pending')
-                                            <span
-                                                class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
-                                        @elseif ($payment->status == 'approved')
-                                            <span
-                                                class="badge badge-pill rounded-pill bg-success font-size-14">Approved</span>
-                                        @elseif ($payment->status == 'rejected')
-                                            <span
-                                                class="badge badge-pill rounded-pill bg-danger font-size-14">Approved</span>
-                                        @else
-                                            <span class="badge bg-secondary">{{ $payment->status }}</span>
-                                        @endif
-                                    </strong>
-                                </h3>
-                                <hr style="border-top: 2px solid #000000; margin-top: 0px;">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img src="{{ URL::asset('storage/' . $payment->product->photo) }}"
-                                            alt="product-img" title="product-img" class="avatar-xxl" />
-                                    </div>
-
-                                    <div class="col-md-6 text-start">
-                                        <h5>{{ $payment->product->name }}</h5>
-                                        <p>{{ $payment->product->location }}</p>
-                                        <br>
-                                        <h6><strong>Atas Nama: {{ $payment->name }}</strong></h6>
-                                    </div>
-
-                                    <div class="col-md-4 text-end">
-                                        @if ($payment->product)
-                                            <h4>{{ $payment->product->formatted_price }}</h4>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="row mt-4">
-                                    <div class="col-md-12 text-end">
-                                        <h5><a href="{{ route('checkout.invoice.payment', $payment->id) }}">
-                                                Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
-                                    </div> <!-- end col -->
-                                </div> <!-- end row-->
+                                <h3 class="card-title mt-0 text-center" style="margin-bottom: 10px">
+                                    Data pembayaran masih kosong.</h3>
                             </div>
-                        </div> <!-- end card -->
-                    @endforeach
+                        </div>
+                    @else
+                        @foreach ($payments as $payment)
+                            <div class="card" style="border-radius: 20px">
+                                <div class="card-body">
+                                    <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
+                                        <strong>Status Berkas:
+                                            @if ($payment->status == 'pending')
+                                                <span
+                                                    class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
+                                            @elseif ($payment->status == 'approved')
+                                                <span
+                                                    class="badge badge-pill rounded-pill bg-success font-size-14">Approved</span>
+                                            @elseif ($payment->status == 'rejected')
+                                                <span
+                                                    class="badge badge-pill rounded-pill bg-danger font-size-14">Approved</span>
+                                            @else
+                                                <span class="badge bg-secondary">{{ $payment->status }}</span>
+                                            @endif
+                                        </strong>
+                                    </h3>
+                                    <hr style="border-top: 2px solid #000000; margin-top: 0px;">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img src="{{ URL::asset('storage/' . $payment->product->photo) }}"
+                                                alt="product-img" title="product-img" class="avatar-xxl" />
+                                        </div>
+
+                                        <div class="col-md-6 text-start">
+                                            <h5>{{ $payment->product->name }}</h5>
+                                            <p>{{ $payment->product->location }}</p>
+                                            <br>
+                                            <h6><strong>Atas Nama: {{ $payment->name }}</strong></h6>
+                                        </div>
+
+                                        <div class="col-md-4 text-end">
+                                            @if ($payment->product)
+                                                <h4>{{ $payment->product->formatted_price }}</h4>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                        <div class="col-md-12 text-end">
+                                            <h5><a href="{{ route('checkout.invoice.payment', $payment->id) }}">
+                                                    Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row-->
+                                </div>
+                            </div> <!-- end card -->
+                        @endforeach
+                    @endif
                 </div>
             </div>
 
-
-            {{-- <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px"><strong>Status Pembelian:
-                            </strong>
-                        </h3>
-                        <hr style="border-top: 2px solid #000000; margin-top: 0px;">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="" alt="product-img" title="product-img" class="avatar-xl" />
-                            </div>
-                            <div class="col-md-5">
-                                <h4>
-                                    @if (isset($product))
-                                        <p>Nama Produk: {{ $product->name }}</p>
-                                    @endif
-                                </h4>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <img src="" alt="product-img" title="product-img" class="avatar-xl" />
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-                            <div class="col-md-12 text-end">
-                                <a href="{{ route('home.properti') }}">
-                                    Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a>
-                            </div> <!-- end col -->
-
-                        </div> <!-- end row-->
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
 @endsection
