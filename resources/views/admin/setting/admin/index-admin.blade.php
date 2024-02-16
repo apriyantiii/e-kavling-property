@@ -273,7 +273,7 @@
                             </div>
 
                             <div class="col-6 mb-3">
-                                <label for="level" class="form-label">Level <span class="text-danger">*</span></label>
+                                <label for="level" class="form-label">Level</label>
                                 <select class="form-select @error('level') is-invalid @enderror" name="level"
                                     id="level" required>
                                     <option value="" selected disabled>Pilih..</option>
@@ -286,6 +286,21 @@
                                     </span>
                                 @enderror
                             </div>
+
+                            {{-- <div class="col-6 mb-3">
+                                <label for="level" class="form-label">Level <span class="text-danger">*</span></label>
+                                <select class="form-select @error('level') is-invalid @enderror" name="level"
+                                    id="level" required>
+                                    <option value="" selected disabled>Pilih..</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="director">Director</option>
+                                </select>
+                                @error('level')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div> --}}
 
                             <div class="mb-3">
                                 <label for="address" class="form-label">Alamat</label>

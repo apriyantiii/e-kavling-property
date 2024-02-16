@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('contact')->nullable();
             $table->text('address')->nullable();
-            $table->string('level')->default('admin');
+            $table->enum('level', ['admin', 'director'])->nullable();
             $table->timestamps();
         });
     }

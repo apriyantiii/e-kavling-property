@@ -39,6 +39,7 @@ class AdminController extends Controller
                 'password' => 'required|string|min:8',
                 'gender' => 'nullable|in:male,female',
                 'contact' => 'nullable|string',
+                'level' => 'nullable|in:admin,director',
                 'address' => 'nullable|string',
             ]);
 
@@ -49,6 +50,7 @@ class AdminController extends Controller
                 'password' => Hash::make($validatedData['password']),
                 'gender' => $validatedData['gender'],
                 'contact' => $validatedData['contact'],
+                'level' => $validatedData['level'],
                 'address' => $validatedData['address'],
             ]);
 
@@ -90,7 +92,7 @@ class AdminController extends Controller
                 'password' => 'nullable|string|min:8',
                 'gender' => 'nullable|in:male,female',
                 'contact' => 'nullable|string',
-                'level' => 'required|string|in:admin,director',
+                'level' => 'required|in:admin,director',
                 'address' => 'nullable|string',
             ]);
 
