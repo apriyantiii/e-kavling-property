@@ -71,11 +71,16 @@
 
                                                 </div>
                                             </div> --}}
+
                                             <div>
-                                                <a href="{{ route('admin.setting-user.create') }}"
+                                                <a href="{{ !$isDirector ? route('admin.setting-user.create') : '#' }}"
+                                                    class="btn btn-success btn-rounded waves-effect waves-light{{ $isDirector ? ' disabled' : '' }}">
+                                                    <i class="bx bx-plus me-1"></i> Tambah Pengguna Baru
+                                                </a>
+                                                {{-- <a href="{{ route('admin.setting-user.create') }}"
                                                     class="btn btn-success btn-rounded waves-effect waves-light"><i
                                                         class="bx bx-plus me-1"></i> Tambah
-                                                    Pengguna Baru</a>
+                                                    Pengguna Baru</a> --}}
                                             </div>
 
                                             <div class="dropdown">

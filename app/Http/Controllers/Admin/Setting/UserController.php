@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Setting;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +17,8 @@ class UserController extends Controller
     public function index()
     {
         $user = User::all();
-        return view('admin.setting.user.index', compact('user'));
+        $isDirector = Auth::guard('is_admin')->user()->level === 'director';
+        return view('admin.setting.user.index', compact('user', 'isDirector'));
     }
 
     /**

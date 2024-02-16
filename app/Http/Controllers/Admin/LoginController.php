@@ -45,12 +45,20 @@ class LoginController extends Controller
         ]);
 
         if (auth()->guard('is_admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            // $admin = auth()->guard('is_admin')->user();
-            \Session::put('success', 'Anda berhasil login!');
-            return redirect()->route('admin.home');
+            $user = auth()->guard('is_admin')->user();
+            $level = $user->level == 'admin' ? 'Admin' : 'Direktur';
+            return redirect()->route('admin.home')->with('success', 'Anda berhasil login sebagai ' . $level);
         } else {
-            return back()->with('error', 'email atau password salah');
+            return back()->with('error', 'Email atau password salah');
         }
+
+        // if (auth()->guard('is_admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        //     // $admin = auth()->guard('is_admin')->user();
+        //     // \Session::put('success', 'Anda berhasil login!');
+        //     return redirect()->route('admin.home')->with('success', 'Anda berhasil Login');
+        // } else {
+        //     return back()->with('error', 'email atau password salah');
+        // }
     }
 
     public function logoutAdmin(Request $request)
@@ -60,8 +68,8 @@ class LoginController extends Controller
         // \Session::flush();
         // Saat admin logout
         Session::forget('admin_name');
-        \Session::put('success', 'Anda berhasil keluar dari halaman Admin');
-        return redirect(url('admin/login'));
+        // \Session::put('success', 'Anda berhasil keluar dari halaman Admin');
+        return redirect(url('admin/login'))->with('success', 'Anda berhasil keluar dari halaman Admin');
     }
     public function index()
     {
