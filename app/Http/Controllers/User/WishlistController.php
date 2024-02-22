@@ -25,10 +25,15 @@ class WishlistController extends Controller
         // Mendapatkan user yang sedang login
         $user = Auth::user();
 
-        // Menampilkan wishlist berdasarkan user_id yang sedang login
+        // Menampilkan wishlist berdasarkan user_id yang sedang login dan yang tidak ada di tabel pembayaran
         $wishlist = Wishlist::with('product')
             ->where('user_id', $user->id)
+            ->whereNotIn('product_id', function ($query) {
+                $query->select('product_id')
+                    ->from('payments');
+            })
             ->get();
+
 
         // Menambahkan formatted_price untuk setiap item di koleksi
         $wishlist->each(function ($item) {
@@ -36,6 +41,16 @@ class WishlistController extends Controller
         });
 
         return view('user.wishlist.index', compact('wishlist'));
+    }
+
+    public function destroy(Wishlist $wishlist)
+    {
+        // Hapus kategori produk dari database
+        $wishlist->delete();
+
+        return redirect()->route('wishlist.index')->with('success', 'Produk berhasil dihapus dari wishlist!');
+        // set flash message
+        return with(['type' => 'success', 'delay' => 2500, 'message' => 'Produk berhasil dihapus dari wishlist!']);
     }
 
     /**
@@ -63,7 +78,7 @@ class WishlistController extends Controller
             'product_id' => $request->product_id,
         ]);
 
-        return redirect()->back()->with('success', 'Produk berhasil ditambahkan ke wishlist!');
+        return redirect()->route('wishlist.index')->with('success', 'Produk berhasil ditambahkan ke wishlist!');
     }
 
     /**
@@ -93,13 +108,4 @@ class WishlistController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Wishlist $wishlist)
-    {
-        // Hapus kategori produk dari database
-        $wishlist->delete();
-
-        return redirect()->route('wishlist.index')->with('success', 'Produk berhasil dihapus dari wishlist!');
-        // set flash message
-        return with(['type' => 'success', 'delay' => 2500, 'message' => 'Produk berhasil dihapus dari wishlist!']);
-    }
 }

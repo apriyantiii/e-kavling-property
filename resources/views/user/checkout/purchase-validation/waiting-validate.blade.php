@@ -79,8 +79,6 @@
                                     </div>
                                 @endif
                             </div>
-
-
                         </div>
                     </div> <!-- end col -->
                     {{-- <div class="col-sm-6">

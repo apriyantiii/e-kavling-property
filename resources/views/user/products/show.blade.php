@@ -127,9 +127,6 @@
                                             {{ $isProductPurchased ? 'disabled' : '' }}>
                                             Beli Properti
                                         </a>
-                                        {{-- <a href="{{ route('checkout.purchase', $products->id) }}"
-                                            class="btn btn-secondary py-3 px-4">Beli
-                                            Properti</a> --}}
                                     </div>
                                 </div>
                             </div>

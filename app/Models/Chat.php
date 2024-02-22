@@ -15,17 +15,17 @@ class Chat extends Model
         'product_id',
         'message',
     ];
-
+    // one to many
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
+    // one to many
     public function admin()
     {
         return $this->belongsTo(Admin::class);
     }
-
+    // one to many
     public function product()
     {
         return $this->belongsTo(Product::class);

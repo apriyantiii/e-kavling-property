@@ -22,9 +22,8 @@ return new class extends Migration
             $table->string('telpon');
             $table->text('address');
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
-            // Menambahkan kolom untuk Kartu Keluarga (KK) dan Kartu Tanda Penduduk (KTP)
-            $table->string('kk_file')->nullable(); // Kolom untuk KK, bisa berupa path file atau nama file
-            $table->string('ktp_file')->nullable(); // Kolom untuk KTP, bisa berupa path file atau nama file
+            $table->string('kk_file')->nullable(); 
+            $table->string('ktp_file')->nullable(); 
 
             $table->timestamps();
 
@@ -32,10 +31,6 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('purchase_validations');

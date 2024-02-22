@@ -63,8 +63,7 @@
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
-
-
+                                            
                                             <tbody>
                                                 @foreach ($validate as $purchaseValidate)
                                                     <tr>

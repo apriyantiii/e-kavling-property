@@ -61,7 +61,6 @@
                                                 </tr>
                                             </thead>
 
-
                                             <tbody>
                                                 @foreach ($userCounts as $userCount)
                                                     <tr>

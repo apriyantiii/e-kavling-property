@@ -14,7 +14,7 @@ class DataValidateController extends Controller
      */
     public function index()
     {
-        $validate = PurchaseValidation::all();
+        $validate = PurchaseValidation::orderBy('created_at', 'desc')->get();
 
         return view('admin.checkout.data-validate.index', compact('validate'));
     }
@@ -36,6 +36,21 @@ class DataValidateController extends Controller
     public function show(PurchaseValidation $showValidate)
     {
         return view('admin.checkout.data-validate.show', compact('showValidate'));
+    }
+
+    public function destroy($id)
+    {
+        try {
+            // Temukan pengguna berdasarkan ID
+            $validate = PurchaseValidation::findOrFail($id);
+
+            // Hapus pengguna
+            $validate->delete();
+
+            return redirect()->back()->with('success', 'Berkas Validasi berhasil dihapus.');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal menghapus Berkas Validasi: ' . $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -74,18 +89,4 @@ class DataValidateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {
-        try {
-            // Temukan pengguna berdasarkan ID
-            $validate = PurchaseValidation::findOrFail($id);
-
-            // Hapus pengguna
-            $validate->delete();
-
-            return redirect()->back()->with('success', 'Berkas Validasi berhasil dihapus.');
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Gagal menghapus Berkas Validasi: ' . $e->getMessage()], 500);
-        }
-    }
 }

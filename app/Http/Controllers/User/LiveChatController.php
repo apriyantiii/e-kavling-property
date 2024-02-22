@@ -31,13 +31,10 @@ class LiveChatController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
 
-
         $allChats = $userChats->merge($adminChats)->sortBy('created_at');
 
         return view('user.live-chat.index', compact('allChats'));
     }
-
-
     /**
      * Show the form for creating a new resource.
      */

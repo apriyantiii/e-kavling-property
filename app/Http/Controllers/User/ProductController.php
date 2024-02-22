@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Payments;
 use App\Models\Product;
+use App\Models\PurchaseValidation;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -65,10 +66,7 @@ class ProductController extends Controller
                     return 'Rp ' . number_format($price, 0, ',', '.');
                 }
             }
-
             $products = Product::findOrFail($id);
-
-            // $products = Product::find($id);
             // Memisahkan fitur menjadi kalimat-kalimat
             $products->feature_sentences = nl2br($products->feature);
 
@@ -80,16 +78,13 @@ class ProductController extends Controller
 
             $allProducts = Product::all();
 
-            // Periksa jika produk sudah terdata di tabel payments dengan status approved
-            $payment = Payments::where(
-                'product_id',
-                $id
-            )
+            // Periksa jika produk sudah terdata di tabel purchaseValidation dengan status approved
+            $purchaseValidation = PurchaseValidation::where('product_id', $id)
                 ->where('status', 'approved')
                 ->first();
 
             // Mengirimkan informasi ke tampilan
-            $isProductPurchased = $payment ? true : false;
+            $isProductPurchased = $purchaseValidation ? true : false;
             return view('user.products.show', compact('products', 'allProducts', 'isProductPurchased'));
         } catch (ModelNotFoundException $e) {
             // Produk tidak ditemukan, redirect atau tampilkan pesan error

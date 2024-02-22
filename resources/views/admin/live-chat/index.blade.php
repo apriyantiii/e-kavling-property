@@ -33,7 +33,6 @@
                         </div>
                     </div>
 
-
                     {{-- form for checkbox --}}
                     <form action="" method="POST" class="form-product">
                         @csrf
@@ -83,7 +82,6 @@
                                                         Lihat Chat
                                                     </a>
                                                 </td>
-
                                             </tr>
                                         @endforeach
 

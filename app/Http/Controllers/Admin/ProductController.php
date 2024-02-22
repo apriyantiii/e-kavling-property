@@ -16,8 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productCategories = ProductCategory::all();
-        $products = Product::all();
+        $productCategories = ProductCategory::orderBy('created_at', 'desc')->get();
+        $products = Product::orderBy('created_at', 'desc')->get();
 
         return view('admin.product.index', compact('productCategories', 'products'));
     }
@@ -29,7 +29,7 @@ class ProductController extends Controller
 
         return view('admin.product.create', compact('productCategories'));
     }
-    
+
     public function store(Request $request)
     {
         try {
@@ -187,8 +187,8 @@ class ProductController extends Controller
 
     public function indexCategory()
     {
-        $productCategories = ProductCategory::all();
-        $products = Product::all();
+        $productCategories = ProductCategory::orderBy('created_at', 'desc')->get();
+        $products = Product::orderBy('created_at', 'desc')->get();
 
         return view('admin.product.index-category', compact('productCategories', 'products'));
     }

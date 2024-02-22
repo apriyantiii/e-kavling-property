@@ -41,7 +41,7 @@ Route::prefix('/')->group(function () {
     Route::get('/search', [User\ProductController::class, 'search'])->name('product.search');
 
     //product-categories
-    Route::get('categories', [User\ProductController::class, 'indexCategories'])->name('categories.index')->middleware('auth');
+    Route::get('categories', [User\ProductController::class, 'indexCategories'])->name('categories.index');
 
     //profile route
     Route::get('profile', [User\ProfileController::class, 'index'])->name('profile.index');
@@ -56,7 +56,6 @@ Route::prefix('/')->group(function () {
     Route::get('checkout/{product}', [User\Checkout\PurchaseValidationController::class, 'index'])->name('checkout.purchase');
     Route::post('checkout/store', [User\Checkout\PurchaseValidationController::class, 'store'])->name('purchase.validation.store');
     Route::put('checkout/update-purchase-validation', [User\Checkout\PurchaseValidationController::class, 'update'])->name('purchase.updatePurchaseValidation');
-    // Route::get('checkout/edit-purchase-validation', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('purchase.editPurchaseValidation');
 
     // checkout-validasi berkas
     Route::get('edit-validation', [User\Checkout\PurchaseValidationController::class, 'edit'])->name('edit-validate');

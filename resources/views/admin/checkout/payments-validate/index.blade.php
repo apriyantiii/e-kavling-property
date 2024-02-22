@@ -61,7 +61,6 @@
                                                 <th>Nama Pembeli</th>
                                                 <th>Tanggal Pembayaran</th>
                                                 <th>Type</th>
-                                                <th>Nominal</th>
                                                 <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -82,7 +81,6 @@
                                                     <td>{{ $payment->name }}</td>
                                                     <td>{{ $payment->payment_date }}</td>
                                                     <td>{{ $payment->type }}</td>
-                                                    <td>{{ $payment->nominal }}</td>
                                                     <td>
                                                         @if ($payment->status == 'pending')
                                                             <span

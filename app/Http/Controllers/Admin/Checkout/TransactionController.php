@@ -13,7 +13,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Payments::all();
+        $transactions = Payments::orderBy('created_at', 'desc')->get();
         return view('admin.checkout.transaction.index', compact('transactions'));
     }
 

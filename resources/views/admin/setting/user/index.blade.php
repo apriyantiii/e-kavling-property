@@ -45,42 +45,19 @@
                                     <div class="col-md-6">
                                         <div>
                                             <h5 class="card-title">Semua Pengguna
-                                                <span class="text-muted fw-normal"></span>
-                                                {{-- ({{ $products->count() }}) --}}
+                                                <span class="text-muted fw-normal">({{ $user->count() }})</span>
                                             </h5>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
-                                            {{-- <div class="btn-group">
-                                                <button type="button"
-                                                    class="btn btn-outline-secondary btn-rounded dropdown-toggle waves-effect waves-light"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">Import & Download
-                                                    <i class="fas fa-angle-down "></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">
-                                                        <i class="fa fa-plus me-1 text-success"></i>
-                                                        Import Data Produk
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <i class="fa fa-file-excel me-1 text-success"></i>
-                                                        Unduh Data Produk
-                                                    </a>
-
-                                                </div>
-                                            </div> --}}
 
                                             <div>
                                                 <a href="{{ !$isDirector ? route('admin.setting-user.create') : '#' }}"
                                                     class="btn btn-success btn-rounded waves-effect waves-light{{ $isDirector ? ' disabled' : '' }}">
                                                     <i class="bx bx-plus me-1"></i> Tambah Pengguna Baru
                                                 </a>
-                                                {{-- <a href="{{ route('admin.setting-user.create') }}"
-                                                    class="btn btn-success btn-rounded waves-effect waves-light"><i
-                                                        class="bx bx-plus me-1"></i> Tambah
-                                                    Pengguna Baru</a> --}}
                                             </div>
 
                                             <div class="dropdown">
@@ -106,7 +83,6 @@
                                             </div>
 
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

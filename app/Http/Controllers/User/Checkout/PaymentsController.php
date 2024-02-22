@@ -35,33 +35,13 @@ class PaymentsController extends Controller
 
         // Kirim data pesanan dan relasi ke view
         return view('user.checkout.payments.index', compact('purchaseValidation', 'user', 'product'));
-
-        // // Pastikan data pesanan tersedia
-        // if ($purchaseValidation) {
-
-        // }
-
-        // // Handle jika data pesanan tidak ditemukan
-        // return redirect()->route('waiting-validate');
-        // return view('user.checkout.payments.index');
     }
 
     public function paymentSuccess()
     {
         return view('user.checkout.payments.success-payments');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         try {
@@ -119,6 +99,18 @@ class PaymentsController extends Controller
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+
 
 
     /**

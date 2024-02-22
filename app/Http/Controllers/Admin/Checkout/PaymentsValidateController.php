@@ -14,7 +14,7 @@ class PaymentsValidateController extends Controller
      */
     public function index()
     {
-        $payments = Payments::all();
+        $payments = Payments::orderBy('created_at', 'desc')->get();
         return view('admin.checkout.payments-validate.index', compact('payments'));
     }
 

@@ -111,7 +111,7 @@
                                                     <th>ID Produk</th>
                                                     <th>Nama Produk</th>
                                                     <th>Kode Produk</th>
-                                                    <th>Nama Kategori</th>
+                                                    {{-- <th>Nama Kategori</th> --}}
                                                     <th>Lokasi</th>
                                                     <th>Ukuran</th>
                                                     <th>Harga</th>
@@ -130,13 +130,13 @@
                                                         <td>{{ $product->id }}</td>
                                                         <td>{{ $product->name }}</td>
                                                         <td>{{ $product->code }}</td>
-                                                        <td>
+                                                        {{-- <td>
                                                             @if ($product->productCategory && $product->productCategory->name)
                                                                 {{ $product->productCategory->name }}
                                                             @else
                                                                 <span class="text-danger">Tidak Masuk Kategori</span>
                                                             @endif
-                                                        </td>
+                                                        </td> --}}
                                                         <td>{{ $product->location }}</td>
                                                         <td>{{ $product->size }}</td>
                                                         <td>{{ $product->price }}</td>

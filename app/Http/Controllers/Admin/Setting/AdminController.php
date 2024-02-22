@@ -14,21 +14,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = Admin::all();
+        $admin = Admin::orderBy('created_at', 'desc')->get();
         return view('admin.setting.admin.index-admin', compact('admin'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
@@ -63,26 +51,12 @@ class AdminController extends Controller
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(Admin $admin)
     {
         return view('admin.setting.admin.edit', compact('admin'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Admin $admin)
     {
         try {
@@ -104,9 +78,6 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         try {
@@ -121,4 +92,34 @@ class AdminController extends Controller
             return response()->json(['message' => 'Gagal menghapus admin: ' . $e->getMessage()], 500);
         }
     }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+
+
+    /**
+     * Update the specified resource in storage.
+     */
+
 }

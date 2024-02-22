@@ -21,11 +21,6 @@ class PurchaseValidationController extends Controller
         return view('user.checkout.purchase-validation.index-checkout', compact('product'));
     }
 
-    // public function indexWaitingValidation()
-    // {
-    //     $purchaseValidation = PurchaseValidation::all();
-    //     return view('user.checkout.purchase-validation.waiting-validation', compact('purchaseValidation'));
-    // }
     public function waitingValidate($id)
     {
         $waitingValidate = PurchaseValidation::findOrFail($id); // Mengambil data validasi berdasarkan ID
@@ -36,15 +31,6 @@ class PurchaseValidationController extends Controller
     {
         return view('user.checkout.purchase-validation.waiting-rejected');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
 
     public function store(Request $request)
     {
@@ -108,19 +94,6 @@ class PurchaseValidationController extends Controller
         }
     }
 
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit()
     {
         // Mendapatkan ID pengguna yang sedang login
@@ -132,9 +105,6 @@ class PurchaseValidationController extends Controller
         return view('user.checkout.purchase-validation.edit', compact('purchaseValidation'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request)
     {
         try {
@@ -202,6 +172,26 @@ class PurchaseValidationController extends Controller
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+
     // public function update(Request $request)
     // {
     //     // Validasi form jika diperlukan

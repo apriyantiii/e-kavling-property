@@ -13,7 +13,6 @@
         <div class="checkout-tabs">
             <div class="row">
                 <div class="col-xl-12">
-
                     <div class="nav nav-pills flex-column flex-sm-row nav-justified" id="v-pills-tab" role="tablist"
                         aria-orientation="vertical">
                         <a class="nav-link" id="v-pills-payment-tab" data-bs-toggle="pill" href="#v-pills-payment"
@@ -21,13 +20,10 @@
                             <i class= "bx bx-money d-block check-nav-icon mt-4 mb-2"></i>
                             <p class="fw-bold mb-4">Validasi Pembayaran</p>
                         </a>
-
                     </div>
-
                     <div class="card">
                         <div class="card-body">
                             <div class="tab-content" id="v-pills-tabContent">
-
                                 <div class="tab-pane fade show active" id="v-pills-payment" role="tabpanel"
                                     aria-labelledby="v-pills-payment-tab">
                                     <div>
@@ -35,29 +31,6 @@
                                         <p class="card-title-desc mb-0">Masukkan Bukti pembayaran yang valid!</p>
                                         <p class="card-title-desc text-danger mb-2">Pembayaran Selain ke No. Rekening di
                                             Bawah Merupakan PENIPUAN dan diluar Tanggung Jawab Kami!</p>
-
-                                        {{-- <div>
-                                            <div class="form-check form-check-inline font-size-16">
-                                                <input class="form-check-input" type="radio" name="paymentoptionsRadio"
-                                                    id="paymentoptionsRadio1" checked>
-                                                <label class="form-check-label font-size-13" for="paymentoptionsRadio1"><i
-                                                        class="fab fa-cc-mastercard me-1 font-size-20 align-top"></i>
-                                                    Credit / Debit Card</label>
-                                            </div>
-                                            <div class="form-check form-check-inline font-size-16">
-                                                <input class="form-check-input" type="radio" name="paymentoptionsRadio"
-                                                    id="paymentoptionsRadio2">
-                                                <label class="form-check-label font-size-13" for="paymentoptionsRadio2"><i
-                                                        class="fab fa-cc-paypal me-1 font-size-20 align-top"></i>
-                                                    Paypal</label>
-                                            </div>
-                                            <div class="form-check form-check-inline font-size-16">
-                                                <input class="form-check-input" type="radio" name="paymentoptionsRadio"
-                                                    id="paymentoptionsRadio3">
-                                                <label class="form-check-label font-size-13" for="paymentoptionsRadio3"><i
-                                                        class="far fa-money-bill-alt me-1 font-size-20 align-top"></i> Cash
-                                                    on Delivery</label>
-                                            </div> --}}
                                     </div>
 
                                     <div class="row">

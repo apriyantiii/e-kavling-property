@@ -54,12 +54,15 @@
                         <div class="card" style="border-radius: 10px">
                             <div class="card-body">
                                 <h3 class="card-title mt-0 text-center" style="margin-bottom: 10px">
-
-                                    Data validasi berkas masih kosong.</h3>
+                                    Data validasi berkas masih kosong.
+                                </h3>
                             </div>
                         </div>
                     @else
                         @foreach ($purchaseValidation as $validation)
+                            @php
+                                $isPaid = \App\Models\Payments::where('product_id', $validation->product_id)->exists();
+                            @endphp
                             <div class="card" style="border-radius: 20px">
                                 <div class="card-body">
                                     <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
@@ -96,17 +99,19 @@
                                             @if ($validation->product)
                                                 <h4>{{ $validation->product->formatted_price }}</h4>
                                             @endif
+                                            @if (!$isPaid)
+                                                <h5>
+                                                    <a href="{{ route('checkout.payments', ['product_id' => $validation->product_id]) }}"
+                                                        class="btn btn-warning mt-5">
+                                                        <i class="mdi mdi-cash me-1"></i>Bayar Sekarang
+                                                    </a>
+                                                </h5>
+                                            @endif
                                         </div>
                                     </div>
-
-                                    {{-- <div class="row mt-4">
-                                        <div class="col-md-12 text-end">
-                                            <h5><a href="{{ route('checkout.invoice.validate', $validation->id) }}">
-                                                    Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
-                                        </div> <!-- end col -->
-                                    </div> <!-- end row--> --}}
                                     <div class="row mt-4">
                                         <div class="col-md-12 text-end">
+
                                             @if ($validation->status === 'pending')
                                                 <h5><a href="{{ route('waiting-validate', $validation->id) }}">
                                                         Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
@@ -120,6 +125,7 @@
                             </div> <!-- end card -->
                         @endforeach
                     @endif
+
                 </div>
 
                 {{-- payments --}}

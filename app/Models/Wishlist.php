@@ -10,7 +10,6 @@ class Wishlist extends Model
     use HasFactory;
     protected $fillable = ['user_id', 'product_id'];
 
-    // Relasi dengan user dan product
     // Relasi many-to-many dengan products
     public function product()
     {

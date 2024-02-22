@@ -16,22 +16,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
+        $user = User::orderBy('created_at', 'desc')->get();
         $isDirector = Auth::guard('is_admin')->user()->level === 'director';
         return view('admin.setting.user.index', compact('user', 'isDirector'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.setting.user.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
@@ -77,30 +71,6 @@ class UserController extends Controller
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        return view('admin.setting.user.edit', compact('user'));
-    }
-    // public function edit(User $users)
-    // {
-    //     return view('admin.setting.user.edit', compact('users'));
-    // }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, User $user)
     {
         try {
@@ -144,12 +114,6 @@ class UserController extends Controller
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
-
     public function destroy($id)
     {
         try {
@@ -164,4 +128,25 @@ class UserController extends Controller
             return response()->json(['message' => 'Gagal menghapus pengguna: ' . $e->getMessage()], 500);
         }
     }
+
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(User $user)
+    {
+        return view('admin.setting.user.edit', compact('user'));
+    }
+    // public function edit(User $users)
+    // {
+    //     return view('admin.setting.user.edit', compact('users'));
+    // }
+
+    /**
+     * Update the specified resource in storage.
+     */
 }

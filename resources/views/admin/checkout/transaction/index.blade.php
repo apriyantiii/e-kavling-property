@@ -45,7 +45,6 @@
                             </div>
                         </div>
 
-
                         {{-- form for checkbox --}}
                         <form action="" method="POST" class="form-product">
                             @csrf
@@ -63,7 +62,6 @@
                                                 <th class="text-center">ID Pembayaran</th>
                                             </tr>
                                         </thead>
-
 
                                         <tbody>
                                             @foreach ($transactions as $transaction)
@@ -84,7 +82,6 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-
                                         </tbody>
                                     </table>
                                 </div>
