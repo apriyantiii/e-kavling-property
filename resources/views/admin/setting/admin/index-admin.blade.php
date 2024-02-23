@@ -360,8 +360,6 @@
                             console.error('Gagal menghapus admin');
                         }
                     })
-
-
                     .catch(error => {
                         console.error('Error:', error);
                     });

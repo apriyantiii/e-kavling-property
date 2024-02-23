@@ -108,13 +108,13 @@
                                             <thead>
                                                 <tr>
                                                     <th>Foto</th>
-                                                    <th>ID Produk</th>
+                                                    <th class="text-center">ID</th>
                                                     <th>Nama Produk</th>
                                                     <th>Kode Produk</th>
                                                     {{-- <th>Nama Kategori</th> --}}
                                                     <th>Lokasi</th>
                                                     <th>Ukuran</th>
-                                                    <th>Harga</th>
+                                                    {{-- <th>Harga</th> --}}
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -127,7 +127,7 @@
                                                             <img src="{{ URL::asset('storage/' . $product->photo) }}"
                                                                 width="70" alt="">
                                                         </td>
-                                                        <td>{{ $product->id }}</td>
+                                                        <td class="text-center">{{ $product->id }}</td>
                                                         <td>{{ $product->name }}</td>
                                                         <td>{{ $product->code }}</td>
                                                         {{-- <td>
@@ -139,7 +139,7 @@
                                                         </td> --}}
                                                         <td>{{ $product->location }}</td>
                                                         <td>{{ $product->size }}</td>
-                                                        <td>{{ $product->price }}</td>
+                                                        {{-- <td>{{ $product->price }}</td> --}}
                                                         <td class="align-middle">
                                                             <div class="dropdown">
                                                                 <a href="#" class="dropdown-toggle card-drop"

@@ -79,7 +79,8 @@
                                     style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>No.</th>
+                                            <th class="text-center">No.</th>
+                                            <th>Foto</th>
                                             <th>Nama Kategori</th>
                                             <th>Lokasi</th>
                                             <th>Tindakan</th>
@@ -89,7 +90,11 @@
                                     <tbody>
                                         @foreach ($productCategories as $productCategory)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center align-middle">
+                                                    <img src="{{ URL::asset('storage/' . $productCategory->photo) }}"
+                                                        width="70" alt="">
+                                                </td>
                                                 <td>{{ $productCategory->name }}</td>
                                                 <td>{{ $productCategory->location }}</td>
                                                 <td class="align-middle">
@@ -108,19 +113,14 @@
                                                             </li>
 
                                                             <li>
-                                                                <a href="#" class="dropdown-item"
-                                                                    onclick="event.preventDefault(); document.getElementById('deleteCategoryForm').submit();">
+                                                                <a href="#" class="dropdown-item delete-user"
+                                                                    data-id="{{ $productCategory->id }}"
+                                                                    onclick="deleteCategory(event)">
                                                                     <i
                                                                         class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
                                                                     Hapus
                                                                 </a>
 
-                                                                <form id="deleteCategoryForm"
-                                                                    action="{{ route('category.destroy', $productCategory->id) }}"
-                                                                    method="POST" style="display: none;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                </form>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -137,7 +137,7 @@
         </div><!-- end card -->
         <!-- end col -->
     </div> <!-- end row -->
-    
+
     {{-- START:: Modal Tambah Kategori Baru --}}
     <div id="addCategory" class="modal fade" tabindex="-1" aria-labelledby="addCategoryLabel" aria-hidden="true"
         data-bs-scroll="true">
@@ -149,7 +149,8 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('category.store') }}" method="POST">
+                <form class="needs-validation mt-0 pt-2" novalidate method="POST" action="{{ route('category.store') }}"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
@@ -197,7 +198,19 @@
                                 @enderror
                             </div>
 
-
+                            <div class="mb-3">
+                                <label for="photo" class="form-label">
+                                    Upload Foto
+                                </label>
+                                <input type="file"
+                                    class="form-control form-rounded @error('photo') is-invalid @enderror" name="photo"
+                                    id="photo" placeholder="" value="{{ old('photo') }}">
+                                @error('photo')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -228,6 +241,50 @@
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
 
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
+
+    {{-- delete --}}
+    <script>
+        function deleteCategory(event) {
+            event.preventDefault();
+            const userId = event.currentTarget.getAttribute('data-id');
+            if (confirm('Apakah Anda yakin ingin menghapus Kategori ini?')) {
+                fetch(`{{ route('category.destroy', ':id') }}`.replace(':id', userId), {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            _token: '{{ csrf_token() }}',
+                            _method: 'DELETE'
+                        })
+                    })
+                    .then(response => {
+                        if (response.redirected) {
+                            // Jika ada redirection, maka penghapusan berhasil
+                            const alertMessage = document.createElement('div');
+                            alertMessage.classList.add('alert', 'alert-success');
+                            alertMessage.innerHTML = 'Kategori berhasil dihapus.';
+                            document.body.appendChild(alertMessage);
+
+                            // Hilangkan pesan setelah beberapa detik
+                            setTimeout(() => {
+                                alertMessage.remove();
+                            }, 3000);
+
+                            // Redirect ke halaman yang ditentukan
+                            window.location.href = response.url;
+                        } else {
+                            // Jika tidak ada redirection, berarti ada kesalahan
+                            console.error('Gagal menghapus Kategori');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+    </script>
 
     <script>
         $(document).ready(function() {

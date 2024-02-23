@@ -16,8 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productCategories = ProductCategory::orderBy('created_at', 'desc')->get();
-        $products = Product::orderBy('created_at', 'desc')->get();
+        $productCategories = ProductCategory::orderBy('created_at', 'asc')->get();
+        $products = Product::orderBy('created_at', 'asc')->get();
 
         return view('admin.product.index', compact('productCategories', 'products'));
     }
@@ -195,18 +195,63 @@ class ProductController extends Controller
 
     public function storeCategory(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'code' => 'required|string',
-            'location' => 'required|string',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string',
+                'code' => 'required|string',
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+                'location' => 'required|string',
+            ]);
 
-        ProductCategory::create($validatedData);
+            // // Tampilkan informasi tentang permintaan
+            // dd($request->all());
 
-        return redirect()->route('category.index')->with('success', 'Data kategori produk berhasil ditambahkan!');
-        // set flash message
-        return with(['type' => 'success', 'delay' => 2500, 'message' => 'Data kategori produk berhasil ditambahkan!']);
+            $photoPath = $request->hasFile('photo') ? $request->file('photo')->store('categories', 'public') : null;
+
+            $productCategory = new ProductCategory([
+                'name' => $request->input('name'),
+                'code' => $request->input('code'),
+                'photo' => $photoPath,
+                'location' => $request->input('location'),
+            ]);
+
+            $productCategory->save();
+
+            return redirect()->route('category.index')->with('success', 'Data kategori produk baru berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+        }
     }
+
+
+    // public function storeCategory(Request $request)
+    // {
+    //     try {
+    //         $request->validate([
+    //             'name' => 'required|string',
+    //             'code' => 'required|string',
+    //             'location' => 'required|string',
+    //             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+    //         ]);
+
+    //         dd($request->file('photo')->getMimeType(), $request->file('photo')->getClientOriginalExtension());
+
+
+    //         $productCategory = new ProductCategory([
+    //             'name' => $request->input('name'),
+    //             'code' => $request->input('code'),
+    //             'location' => $request->input('location'),
+    //             'photo' => $request->hasFile('photo') ? $request->file('photo')->store('productCategories', 'public') : null,
+    //         ]);
+
+    //         $productCategory->save();
+
+    //         // Menggunakan redirect biasa
+    //         return redirect()->route('category.index')->with('success', 'Data kategori produk berhasil ditambahkan!');
+    //     } catch (\Exception $e) {
+    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+    //     }
+    // }
 
     public function editCategory(ProductCategory $productCategory)
     {
