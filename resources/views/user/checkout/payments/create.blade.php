@@ -43,11 +43,11 @@
                                                 <p>Mohon lanjutkan pembayaran melalui nomor rekening berikut</p>
 
                                                 <h5 class="mt-0 mb-3 font-size-15 text-center">
-                                                    <strong>1345513457</strong>
+                                                    <strong>{{ $bank->rekening }}</strong>
                                                 </h5>
 
                                                 <h5 class="mt-0 mb-3 font-size-15 text-center">
-                                                    <strong>BNI a.n Narti Apriyanti</strong>
+                                                    <strong>{{ $bank->bank }} a.n {{ $bank->name }}</strong>
                                                 </h5>
                                                 <hr style="border-top: 4px solid #000000; width: 50%;margin: auto;">
 
@@ -63,8 +63,6 @@
                                                         </h5>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                         <div class="col-md-8">

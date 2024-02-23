@@ -69,9 +69,11 @@
                                     <select class="form-select @error('gender') is-invalid @enderror" name="gender"
                                         id="gender">
                                         <option value="" disabled selected>Pilih Jenis Kelamin</option>
-                                        <option value="male" {{ $user->gender === 'male' ? 'selected' : '' }}>Laki-laki
+                                        <option value="male"
+                                            {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>Laki-laki
                                         </option>
-                                        <option value="female" {{ $user->gender === 'female' ? 'selected' : '' }}>
+                                        <option value="female"
+                                            {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>
                                             Perempuan</option>
                                     </select>
                                     @error('gender')

@@ -27,4 +27,10 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Chat::class, 'admin_id');
     }
+
+    // Relasi dengan tabel 'banks'
+    public function banks()
+    {
+        return $this->hasMany(Bank::class);
+    }
 }

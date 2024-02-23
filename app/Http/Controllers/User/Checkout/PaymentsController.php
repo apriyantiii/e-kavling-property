@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Checkout;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Payments;
 use App\Models\PurchaseValidation;
 use Illuminate\Http\Request;
@@ -26,6 +27,8 @@ class PaymentsController extends Controller
         // Ambil data pesanan berdasarkan status pembelian yang disetujui
         $purchaseValidation = PurchaseValidation::where('status', 'approved')->first();
 
+        $bank = Bank::first();
+
         // Ambil data relasi user dan product
         $user = $purchaseValidation->user;
         $product = $purchaseValidation->product;
@@ -34,7 +37,7 @@ class PaymentsController extends Controller
         $product->formatted_price = formatPrice($product->price);
 
         // Kirim data pesanan dan relasi ke view
-        return view('user.checkout.payments.create', compact('purchaseValidation', 'user', 'product'));
+        return view('user.checkout.payments.create', compact('purchaseValidation', 'user', 'product', 'bank'));
     }
 
     public function paymentSuccess()

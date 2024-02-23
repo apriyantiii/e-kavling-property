@@ -51,7 +51,7 @@ class AdminController extends Controller
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
-    
+
     public function edit(Admin $admin)
     {
         return view('admin.setting.admin.edit', compact('admin'));
@@ -72,7 +72,7 @@ class AdminController extends Controller
 
             $admin->update($request->all());
 
-            return redirect()->route('admin.setting-admin.index-admin')->with('success', 'Data admin berhasil diperbarui.');
+            return redirect()->route('admin.setting-admin.index')->with('success', 'Data admin berhasil diperbarui.');
         } catch (\Exception $e) {
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
@@ -121,5 +121,4 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-
 }

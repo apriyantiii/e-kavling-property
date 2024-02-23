@@ -159,6 +159,12 @@ Route::prefix('admin')->group(function () {
     Route::get('settings/user/{user}/edit', [Admin\Setting\UserController::class, 'edit'])->name('admin.setting-user.edit');
     Route::put('settings/user/{user}/update', [Admin\Setting\UserController::class, 'update'])->name('admin.setting-user.update');
     Route::delete('settings/delete-user/{id}', [Admin\Setting\UserController::class, 'destroy'])->name('admin.setting-admin.destroy');
+
+    // Bank
+    Route::get('bank', [Admin\BankController::class, 'index'])->name('admin.bank');
+    Route::post('bank/store', [Admin\BankController::class, 'store'])->name('admin.bank.store');
+    Route::put('bank/{bank}/update', [Admin\BankController::class, 'update'])->name('admin.bank.update');
+    Route::delete('bank/delete/{id}', [Admin\BankController::class, 'destroy'])->name('admin.bank.destroy');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 

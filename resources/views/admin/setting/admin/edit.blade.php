@@ -78,14 +78,17 @@
                                     @enderror
                                 </div>
 
+
                                 <div class="col-6 mb-3">
                                     <label for="gender" class="form-label">Jenis Kelamin</label>
                                     <select class="form-select @error('gender') is-invalid @enderror" name="gender"
                                         id="gender">
                                         <option value="" disabled selected>Pilih Jenis Kelamin</option>
-                                        <option value="male" {{ $admin->gender === 'male' ? 'selected' : '' }}>Laki-laki
+                                        <option value="male"
+                                            {{ old('gender', $admin->gender) == 'male' ? 'selected' : '' }}>Laki-laki
                                         </option>
-                                        <option value="female" {{ $admin->gender === 'female' ? 'selected' : '' }}>
+                                        <option value="female"
+                                            {{ old('gender', $admin->gender) == 'female' ? 'selected' : '' }}>
                                             Perempuan</option>
                                     </select>
                                     @error('gender')
