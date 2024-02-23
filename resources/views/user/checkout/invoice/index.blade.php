@@ -175,11 +175,20 @@
                                             @if ($payment->product)
                                                 <h4>{{ $payment->product->formatted_price }}</h4>
                                             @endif
+                                            @if ($payment->tenor !== null)
+                                                <h5>
+                                                    <a href="{{ route('checkout.payments', ['product_id' => $payment->product_id]) }}"
+                                                        class="btn btn-warning mt-5">
+                                                        <i class="mdi mdi-cash me-1"></i>Bayar Sekarang
+                                                    </a>
+                                                </h5>
+                                            @endif
                                         </div>
                                     </div>
 
                                     <div class="row mt-4">
                                         <div class="col-md-12 text-end">
+
                                             <h5><a href="{{ route('checkout.invoice.payment', $payment->id) }}">
                                                     Selengkapnya <i class="mdi mdi-arrow-right me-1"></i></a></h5>
                                         </div> <!-- end col -->

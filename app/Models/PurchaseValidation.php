@@ -27,4 +27,9 @@ class PurchaseValidation extends Model
     {
         return $this->hasMany(Payments::class, 'purchase_validation_id');
     }
+    // one to many
+    public function inhousePayments()
+    {
+        return $this->hasMany(InhousePayment::class);
+    }
 }

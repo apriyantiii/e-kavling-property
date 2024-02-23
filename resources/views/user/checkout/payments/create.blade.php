@@ -110,7 +110,6 @@
                                                                     <option value="" selected disabled>Pilih Tipe
                                                                     </option>
                                                                     <option value="cash">Cash/Penuh</option>
-                                                                    <option value="inhouse">Inhouse</option>
                                                                     <option value="kpr">KPR</option>
                                                                 </select>
 
@@ -188,7 +187,7 @@
                                                                     </div>
                                                                 @enderror
                                                             </div>
-
+                                                            {{-- 
                                                             <div class="form-group mb-3">
                                                                 <label for="tenor" class="form-label">
                                                                     Pilih Tenor <p class="text-danger">(opsional, isi
@@ -200,6 +199,19 @@
                                                                     placeholder="Maksimal 5 Tahun cth. 5 Tahun"
                                                                     value="{{ old('tenor') }}" nullable>
                                                                 @error('tenor')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div> --}}
+                                                            <div class="form-group mb-3">
+                                                                <label for="payment_description" class="form-label mb-1">
+                                                                    Keterangan Pembayaran
+                                                                </label>
+                                                                <textarea class="form-control form-rounded @error('payment_description') is-invalid @enderror"
+                                                                    name="payment_description" id="payment_description" placeholder="cth. Pembayaran inhouse tanah 50%"
+                                                                    value="{{ old('payment_description') }}" rows="3"></textarea>
+                                                                @error('payment_description')
                                                                     <div class="invalid-feedback">
                                                                         {{ $message }}
                                                                     </div>
@@ -240,19 +252,7 @@
                                                                 @enderror
                                                             </div>
 
-                                                            <div class="form-group mb-3">
-                                                                <label for="payment_description" class="form-label">
-                                                                    Keterangan Pembayaran
-                                                                </label>
-                                                                <textarea class="form-control form-rounded @error('payment_description') is-invalid @enderror"
-                                                                    name="payment_description" id="payment_description" placeholder="cth. Pembayaran inhouse tanah 50%"
-                                                                    value="{{ old('payment_description') }}" rows="2"></textarea>
-                                                                @error('payment_description')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
+
 
                                                         </div>
 

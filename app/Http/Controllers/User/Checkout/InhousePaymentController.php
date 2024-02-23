@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\User\Checkout;
 
 use App\Http\Controllers\Controller;
-use App\Models\Payments;
+use App\Models\InhousePayment;
 use App\Models\PurchaseValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PaymentsController extends Controller
+class InhousePaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,24 +34,20 @@ class PaymentsController extends Controller
         $product->formatted_price = formatPrice($product->price);
 
         // Kirim data pesanan dan relasi ke view
-        return view('user.checkout.payments.create', compact('purchaseValidation', 'user', 'product'));
-    }
-
-    public function paymentSuccess()
-    {
-        return view('user.checkout.payments.success-payments');
+        return view('user.checkout.inhouse-payment.create', compact('purchaseValidation', 'user', 'product'));
     }
 
     public function store(Request $request)
     {
         try {
-            // Validasi form jika diperlukan
-            $request->validate([
+            // Validasi form
+            $validatedData = $request->validate([
                 'purchase_validation_id' => 'required|exists:purchase_validations,id',
                 'product_id' => 'required|exists:products,id',
                 'name' => 'required|string|max:255',
                 'payment_date' => 'required|date',
-                'type' => 'required|in:cash,inhouse,kpr',
+                'type' => 'required|string',
+                'tenor' => 'required|string',
                 'home_bank' => 'required|string|max:255',
                 'destination_bank' => 'required|string|max:255',
                 'rekening_name' => 'required|string|max:255',
@@ -60,11 +56,20 @@ class PaymentsController extends Controller
                 'payment_description' => 'nullable|string',
             ]);
 
-            // $purchaseValidationID = $request->input('purchase_validation_id');
-            // $purchaseValidation = PurchaseValidation::find($purchaseValidationID);
+            // Jika opsi "lainnya" dipilih pada dropdown tenor, ganti nilai tenor dengan nilai dari input tambahan
+            if ($request->tenor == 'lainnya') {
+                $validatedData['tenor'] = $request->tenor_lainnya;
+            }
 
+            // Jika opsi "lainnya" dipilih pada dropdown type, ganti nilai type dengan nilai dari input tambahan
+            if ($request->type == 'lainnya') {
+                $validatedData['type'] = $request->type_lainnya;
+            }
+
+            // Mendapatkan ID user yang sedang login
             $userId = Auth::id();
 
+            // Mengelola file transfer
             $tfFileName = null;
             if ($request->hasFile('transfer')) {
                 $transferFile = $request->file('transfer');
@@ -72,31 +77,36 @@ class PaymentsController extends Controller
                 $transferFile->storeAs('public/uploads', $tfFileName);
             }
 
-            // Simpan data pembayaran ke dalam tabel payments
-            Payments::create([
-                'purchase_validation_id' => $request->input('purchase_validation_id'),
+            // Simpan data pembayaran ke dalam tabel inhouse_payments
+            InhousePayment::create([
+                'purchase_validation_id' => $validatedData['purchase_validation_id'],
                 'user_id' => $userId,
-                'product_id' => $request->input('product_id'),
-                'name' => $request->input('name'),
-                'payment_date' => $request->input('payment_date'),
-                'type' => $request->input('type'),
-                'home_bank' => $request->input('home_bank'),
-                'destination_bank' => $request->input('destination_bank'),
-                'rekening_name' => $request->input('rekening_name'),
-                'nominal' => $request->input('nominal'),
+                'product_id' => $validatedData['product_id'],
+                'name' => $validatedData['name'],
+                'payment_date' => $validatedData['payment_date'],
+                'type' => $validatedData['type'],
+                'tenor' => $validatedData['tenor'],
+                'home_bank' => $validatedData['home_bank'],
+                'destination_bank' => $validatedData['destination_bank'],
+                'rekening_name' => $validatedData['rekening_name'],
+                'nominal' => $validatedData['nominal'],
                 'transfer' => $tfFileName,
-                'payment_description' => $request->input('payment_description'),
+                'payment_description' => $validatedData['payment_description'],
             ]);
 
-            // Menggunakan redirect biasa
-            $redirect = redirect()->route('checkout.payments-success')->with('success', 'Data konfirmasi pembayaran berhasil disimpan!');
-            // dd(session('success'), $redirect);
-
-            return $redirect;
+            // Redirect ke halaman sukses pembayaran
+            return redirect()->route('checkout.payments-success')->with('success', 'Data konfirmasi pembayaran berhasil disimpan!');
         } catch (\Exception $e) {
-            dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+            // Tangkap exception dan tampilkan pesan untuk debugging
+            dd($e->getMessage());
         }
     }
+
+    public function index()
+    {
+        //
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -108,7 +118,6 @@ class PaymentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
 
 
     /**

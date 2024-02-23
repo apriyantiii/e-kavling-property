@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('inhouse_payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('purchase_validation_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
 
             $table->string('name');
+            $table->string('tenor'); //12 bulan, 6 bulan dst
+            $table->string('type'); //pembayaran pertama kedua dst
             $table->date('payment_date');
-            $table->enum('type', ['cash', 'kpr']);
-            // $table->string('tenor')->nullable();
             $table->string('home_bank');
             $table->string('destination_bank');
             $table->string('rekening_name');
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('inhouse_payments');
     }
 };

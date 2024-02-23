@@ -52,4 +52,9 @@ class Product extends Model
     {
         return $this->hasMany(Chat::class);
     }
+
+    public function inhousePayments()
+    {
+        return $this->hasMany(InhousePayment::class);
+    }
 }

@@ -93,8 +93,35 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-
                                             </div>
+                                            <p class="mt-3">Pilih tipe pembayaran di bawah untuk <b
+                                                    class="text-success">KPR atau Cash tekan
+                                                    tombol hijau</b> dan untuk <b class="text-primary">Inhouse tekan tombol
+                                                    kuning</b></p>
+                                            <div class="row my-4">
+
+                                                <div class="col-sm-12">
+                                                    <div class="row justify-content-end">
+                                                        <div class="col-auto">
+                                                            <div class="text-end mb-0"> <!-- Menambahkan margin bawah -->
+                                                                <a href="{{ route('checkout.payments') }}"
+                                                                    class="btn btn-success">
+                                                                    <i class="mdi mdi-cash me-1"></i> Pembayaran KPR/Cash
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="text-center">
+                                                                <a href="{{ route('checkout.inhouse-payments') }}"
+                                                                    class="btn btn-primary">
+                                                                    <i class="mdi mdi-cash me-1"></i> Pembayaran Inhouse
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div> <!-- end row -->
                                         </div>
                                     </div>
                                 </div>
@@ -107,12 +134,7 @@
                                 class="btn text-muted d-none d-sm-inline-block btn-link">
                                 <i class="mdi mdi-arrow-left me-1"></i> Kembali</a>
                         </div> <!-- end col -->
-                        <div class="col-sm-6">
-                            <div class="text-end">
-                                <a href="{{ route('checkout.payments') }}" class="btn btn-success">
-                                    <i class="mdi mdi-cash me-1"></i> Lanjutkan Pembayaran </a>
-                            </div>
-                        </div> <!-- end col -->
+
                     </div> <!-- end row -->
                 </div>
             </div>

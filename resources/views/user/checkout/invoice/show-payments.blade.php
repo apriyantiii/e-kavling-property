@@ -486,7 +486,7 @@
                                                         </div>
                                                     </div>
                                                 </article>
-                                                @if ($payments->updated_at != $payments->created_at)
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
