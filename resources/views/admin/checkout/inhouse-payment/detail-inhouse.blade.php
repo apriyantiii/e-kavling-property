@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Detail Pembayaran
+    Detail Pembayaran Inhouse
 @endsection
 @section('css')
 @endsection
@@ -11,7 +11,7 @@
             Penjualan
         @endslot
         @slot('title')
-            Validasi Pembayaran
+            Detail Pembayaran Inhouse
         @endslot
     @endcomponent
     <div class="row">
@@ -23,7 +23,7 @@
                             <div class="row my-4">
                                 <div class="col-lg-12 d-flex justify-content-center">
                                     <div class="img mx-5">
-                                        <img src="{{ URL::asset('storage/' . $showPayment->product->photo) }}"
+                                        <img src="{{ URL::asset('storage/' . $inhousePayments->product->photo) }}"
                                             alt="" class="img-fluid" width="500" height="250">
                                     </div>
                                 </div>
@@ -35,11 +35,11 @@
                                     <div class="mb-4">
                                         <h5>Informasi Pembeli</h5>
                                         <hr class="mt-1 mb-1">
-                                        <a class="text-primary font-size-16">{{ $showPayment->name }}</a>
+                                        <a class="text-primary font-size-16">{{ $inhousePayments->name }}</a>
                                         <br>
-                                        <span> Telp: {{ $showPayment->purchaseValidation->telpon }}</span>
+                                        <span> Telp: {{ $inhousePayments->purchaseValidation->telpon }}</span>
                                         <br>
-                                        <span> Alamat: {{ $showPayment->purchaseValidation->address }}
+                                        <span> Alamat: {{ $inhousePayments->purchaseValidation->address }}
                                     </div>
                                 </div>
                                 <!-- Stop left col -->
@@ -81,51 +81,51 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    {{ $showPayment->product->name }}
+                                                    {{ $inhousePayments->product->name }}
                                                 </td>
                                                 <td>
-                                                    {{ $showPayment->product->price }}
+                                                    {{ $inhousePayments->product->price }}
                                                 </td>
                                                 <td>
-                                                    {{ \Carbon\Carbon::parse($showPayment->payment_date)->format('d M Y') }}
+                                                    {{ \Carbon\Carbon::parse($inhousePayments->payment_date)->format('d M Y') }}
                                                 </td>
                                                 <td>
-                                                    {{ $showPayment->type }}
+                                                    {{ $inhousePayments->type }}
                                                 </td>
                                                 <td>
-                                                    @if ($showPayment->tenor !== null)
-                                                        {{ $showPayment->tenor }}
+                                                    @if ($inhousePayments->tenor !== null)
+                                                        {{ $inhousePayments->tenor }}
                                                     @else
                                                         <span class="text-danger">Null</span>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    {{ $showPayment->home_bank }}
+                                                    {{ $inhousePayments->home_bank }}
                                                 </td>
                                                 <td>
-                                                    {{ $showPayment->destination_bank }}
+                                                    {{ $inhousePayments->destination_bank }}
                                                 </td>
                                                 <td>
-                                                    {{ $showPayment->rekening_name }}
+                                                    {{ $inhousePayments->rekening_name }}
                                                 </td>
                                                 <td>
-                                                    {{ $showPayment->nominal }}
+                                                    {{ $inhousePayments->nominal }}
                                                 </td>
-                                                <td><a href="{{ asset('storage/uploads/' . $showPayment->transfer) }}"
+                                                <td><a href="{{ asset('storage/uploads/' . $inhousePayments->transfer) }}"
                                                         target="_blank">Bukti Transfer</a>
                                                 </td>
                                                 <td>
-                                                    @if ($showPayment->payment_description !== null)
-                                                        {{ $showPayment->payment_description }}
+                                                    @if ($inhousePayments->payment_description !== null)
+                                                        {{ $inhousePayments->payment_description }}
                                                     @else
                                                         <span class="text-danger">Tidak ada deskripsi</span>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    {{ $showPayment->status }}
+                                                    {{ $inhousePayments->status }}
                                                 </td>
                                                 <td>
-                                                    {{ $showPayment->created_at }}
+                                                    {{ $inhousePayments->created_at }}
                                                 </td>
                                             </tr>
                                         </tbody>

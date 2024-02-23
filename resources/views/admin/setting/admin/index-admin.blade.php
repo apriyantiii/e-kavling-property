@@ -324,6 +324,7 @@
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
 
+    {{-- delete --}}
     <script>
         function deleteUser(event) {
             event.preventDefault();

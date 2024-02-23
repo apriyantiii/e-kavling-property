@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Checkout;
 
 use App\Http\Controllers\Controller;
+use App\Models\InhousePayment;
 use App\Models\Payments;
 use App\Models\PurchaseValidation;
 use Faker\Provider\ar_EG\Payment;
@@ -46,6 +47,15 @@ class InvoiceController extends Controller
             ->where('user_id', $currentUserId)
             ->get();
 
+        $inhousePayments = InhousePayment::with('product')
+            ->where(function ($query) use ($currentUserId) {
+                $query->where('status', 'approved')
+                    ->orWhere('status', 'process')
+                    ->orWhere('status', 'pending');
+            })
+            ->where('user_id', $currentUserId)
+            ->get();
+
         // Tambahkan formatted_price ke objek product
         foreach ($purchaseValidation as $validation) {
             if ($validation->product) {
@@ -60,8 +70,16 @@ class InvoiceController extends Controller
             }
         }
 
+        // Tambahkan formatted_price ke objek product
+        foreach ($inhousePayments as $inhousePayment) {
+            if ($inhousePayment->product) {
+                $inhousePayment->product->formatted_price = formatPrice($inhousePayment->product->price);
+            }
+        }
+
+
         // Kirim data pembelian ke view
-        return view('user.checkout.invoice.index', compact('purchaseValidation', 'payments'));
+        return view('user.checkout.invoice.index', compact('purchaseValidation', 'payments', 'inhousePayments'));
     }
 
     public function showValidate(PurchaseValidation $purchaseValidationShow)

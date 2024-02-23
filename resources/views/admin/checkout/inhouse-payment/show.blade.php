@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Data Validasi Berkas Pembelian
+    Data Pembayaran Inhouse {{ $user->name }}
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
@@ -9,6 +9,14 @@
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @component('components.breadcrumb')
+        @slot('li_1')
+            Penjualan
+        @endslot
+        @slot('title')
+            Data Pembayaran Inhouse
+        @endslot
+    @endcomponent
     <div class="row">
         <div class="col-12">
 
@@ -37,14 +45,13 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6">
                                     <div>
-                                        <h5 class="card-title">Semua Berkas
+                                        <p class="card-title">Atas Nama <b>{{ $user->name }}</b>
                                             <span class="text-muted fw-normal"></span>
-                                        </h5>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                         {{-- form for checkbox --}}
                         <form action="" method="POST" class="form-product">
@@ -56,46 +63,41 @@
                                         style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <td>ID</td>
-                                                <th>Nama Produk</th>
+                                                <th>Pembayaran ke</th>
+                                                <th>Kode Produk</th>
                                                 <th>Nama Pembeli</th>
                                                 <th>Tanggal Pembayaran</th>
-                                                <th>Type</th>
+                                                <th>Tenor</th>
+
                                                 <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
 
-
                                         <tbody>
-                                            @forelse ($payments as $payment)
+                                            @foreach ($inhousePayments as $inhousePayment)
                                                 <tr>
-                                                    <td class="text-center">{{ $payment->id }}</td>
+                                                    <td>{{ $inhousePayment->type }}</td>
+                                                    <td>{{ $inhousePayment->product->code }}</td>
+                                                    <td>{{ $inhousePayment->user->name }}</td>
+                                                    <td>{{ $inhousePayment->payment_date }}</td>
+                                                    <td>{{ $inhousePayment->tenor }}</td>
+
                                                     <td>
-                                                        @if ($payment->product)
-                                                            {{ $payment->product->name }}
-                                                        @else
-                                                            Produk tidak tersedia
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $payment->name }}</td>
-                                                    <td>{{ $payment->payment_date }}</td>
-                                                    <td>{{ $payment->type }}</td>
-                                                    <td>
-                                                        @if ($payment->status == 'pending')
+                                                        @if ($inhousePayment->status == 'pending')
                                                             <span
                                                                 class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
-                                                        @elseif ($payment->status == 'approved')
+                                                        @elseif ($inhousePayment->status == 'approved')
                                                             <span
                                                                 class="badge badge-pill rounded-pill bg-success font-size-14">Disetujui</span>
-                                                        @elseif ($payment->status == 'rejected')
+                                                        @elseif ($inhousePayment->status == 'rejected')
                                                             <span
                                                                 class="badge badge-pill rounded-pill bg-danger font-size-14">Ditolak</span>
                                                         @else
-                                                            <span class="badge bg-secondary">{{ $payment->status }}</span>
+                                                            <span
+                                                                class="badge bg-secondary">{{ $inhousePayment->status }}</span>
                                                         @endif
                                                     </td>
-
                                                     <td class="align-middle">
                                                         <div class="dropdown">
                                                             <a href="#" class="dropdown-toggle card-drop"
@@ -103,7 +105,7 @@
                                                                 <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                                             </a>
                                                             <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a href="{{ route('checkout.payment.show', $payment->id) }}"
+                                                                <li><a href="{{ route('admin.checkout.inhouse-payments.detail', $inhousePayment->id) }}"
                                                                         class="dropdown-item">
                                                                         <i
                                                                             class="mdi mdi-eye font-size-16 text-success me-1"></i>
@@ -111,15 +113,19 @@
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a type="button" class="btn" data-bs-toggle="modal"
-                                                                        data-bs-target="#myModal"><i
-                                                                            class="mdi mdi-pencil font-size-16 text-success me-2"></i>Edit</a>
+                                                                    <a href="#"
+                                                                        class="dropdown-item edit-inhouse-payment"
+                                                                        data-id="{{ $inhousePayment->id }}">
+                                                                        <i
+                                                                            class="mdi mdi-pencil font-size-16 text-success me-2"></i>
+                                                                        Edit
+                                                                    </a>
                                                                 </li>
 
                                                                 <li>
                                                                     <a href="#" class="dropdown-item delete-user"
-                                                                        data-id="{{ $payment->id }}"
-                                                                        onclick="deleteUser(event)">
+                                                                        data-id="{{ $inhousePayment->id }}"
+                                                                        onclick="deleteInhousePayment(event)">
                                                                         <i
                                                                             class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
                                                                         Hapus
@@ -128,12 +134,21 @@
                                                             </ul>
                                                         </div>
                                                     </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="7" class="text-center">Data masih kosong</td>
-                                                </tr>
-                                            @endforelse
+                                                    {{-- </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('admin.setting-user.index') }}">{{ $inhousePayment->user_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('product.index') }}">{{ $inhousePayment->product_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('checkout.data-validate') }}">{{ $inhousePayment->purchase_validation_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('checkout.payments-validate') }}">{{ $inhousePayment->id }}</a>
+                                                    </td>
+                                                </tr> --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -143,52 +158,46 @@
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->
-
-    </div> <!-- end col -->
     </div> <!-- end row -->
 
     <!-- sample modal content -->
-    @if ($payments->isNotEmpty())
-        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-            data-bs-scroll="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Update Status Pembayaran</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('update-status', $payment->id) }}" method="post">
-                            @csrf
-                            @method('patch')
-
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label>
-                                <select class="nice-select default-select wide form-control solid" name="status"
-                                    onchange="this.form.submit()">
-                                    <option value="pending" {{ $payment->status === 'pending' ? 'selected' : '' }}>Pending
-                                    </option>
-                                    <option value="approved" {{ $payment->status === 'approved' ? 'selected' : '' }}>
-                                        Disetujui
-                                    </option>
-                                    <option value="rejected" {{ $payment->status === 'rejected' ? 'selected' : '' }}>
-                                        Ditolak</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary waves-effect waves-light">Save
-                            changes</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-    @endif
-    <!-- /.modal -->
+    <div id="myModal{{ $inhousePayment->id }}" class="modal fade" tabindex="-1"
+        aria-labelledby="myModalLabel{{ $inhousePayment->id }}" aria-hidden="true" data-bs-scroll="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Konten modal -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel{{ $inhousePayment->id }}">Edit Status Pembayaran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm{{ $inhousePayment->id }}"
+                        action="{{ route('admin.checkout.inhouse-payment.update-status', $inhousePayment->id) }}"
+                        method="post">
+                        @csrf
+                        @method('patch')
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="nice-select default-select wide form-control solid" name="status">
+                                <option value="pending" {{ $inhousePayment->status === 'pending' ? 'selected' : '' }}>
+                                    Pending</option>
+                                <option value="approved" {{ $inhousePayment->status === 'approved' ? 'selected' : '' }}>
+                                    Disetujui</option>
+                                <option value="rejected" {{ $inhousePayment->status === 'rejected' ? 'selected' : '' }}>
+                                    Ditolak</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEditForm({{ $inhousePayment->id }})">Save
+                        changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
@@ -207,38 +216,36 @@
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
 
+    {{-- modal --}}
     <script>
-        $(document).ready(function() {
-            // error message validation modal
-            @if ($errors->has('category_name') || $errors->has('category_parent') || $errors->has('category_description'))
-                $('#addCategory').modal('show');
-            @endif
+        // Fungsi untuk menampilkan modal dengan status yang sesuai ketika tombol "Edit" diklik
+        function submitEditForm(paymentId) {
+            var form = document.getElementById('editForm' + paymentId);
+            var status = form.querySelector('select[name="status"]').value;
+            // Disini Anda bisa menambahkan logika untuk melakukan pengiriman form
+            console.log('ID Pembayaran:', paymentId, 'Status:', status);
+            // Untuk contoh, saya hanya mencetak ID pembayaran dan status ke konsol
+        }
+
+        // Tambahkan event listener untuk tombol "Edit"
+        var editButtons = document.querySelectorAll('.edit-inhouse-payment');
+        editButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                var paymentId = this.getAttribute('data-id');
+                var myModal = new bootstrap.Modal(document.getElementById('myModal' + paymentId));
+                myModal.show();
+            });
         });
-
-        // check box selected all
-        $('#select_all').click(function() {
-            $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
-        });
-    </script>
-
-    <script src="{{ URL::asset('assets/js/pages/modal.init.js') }}"></script>
-
-    <script>
-        var myModal = document.getElementById('myModal')
-        var myInput = document.getElementById('myInput')
-
-        myModal.addEventListener('shown.bs.modal', function() {
-            myInput.focus()
-        })
     </script>
 
     {{-- delete --}}
     <script>
-        function deleteUser(event) {
+        function deleteInhousePayment(event) {
             event.preventDefault();
             const userId = event.currentTarget.getAttribute('data-id');
-            if (confirm('Apakah Anda yakin ingin menghapus pembayaran ini?')) {
-                fetch(`{{ route('checkout.payment.delete', ':id') }}`.replace(':id', userId), {
+            if (confirm('Apakah Anda yakin ingin menghapus Admin ini?')) {
+                fetch(`{{ route('admin.checkout.inhouse-payment.destroy', ':id') }}`.replace(':id', userId), {
                         method: 'DELETE',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -254,7 +261,7 @@
                             // Jika ada redirection, maka penghapusan berhasil
                             const alertMessage = document.createElement('div');
                             alertMessage.classList.add('alert', 'alert-success');
-                            alertMessage.innerHTML = 'Pembayaran berhasil dihapus.';
+                            alertMessage.innerHTML = 'Admin berhasil dihapus.';
                             document.body.appendChild(alertMessage);
 
                             // Hilangkan pesan setelah beberapa detik
@@ -266,15 +273,36 @@
                             window.location.href = response.url;
                         } else {
                             // Jika tidak ada redirection, berarti ada kesalahan
-                            console.error('Gagal menghapus Pembayaran');
+                            console.error('Gagal menghapus admin');
                         }
                     })
-
-
                     .catch(error => {
                         console.error('Error:', error);
                     });
             }
         }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // error message validation modal
+            @if ($errors->has('category_name') || $errors->has('category_parent') || $errors->has('category_description'))
+                $('#addCategory').modal('show');
+            @endif
+        });
+
+        // check box selected all
+        $('#select_all').click(function() {
+            $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+        });
+    </script>
+    <script src="{{ URL::asset('assets/js/pages/modal.init.js') }}"></script>
+    <script>
+        var myModal = document.getElementById('myModal')
+        var myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', function() {
+            myInput.focus()
+        })
     </script>
 @endsection

@@ -132,6 +132,13 @@ Route::prefix('admin')->group(function () {
     Route::patch('/payments/{payment}', [Admin\Checkout\PaymentsValidateController::class, 'updateStatus'])->name('update-status');
     Route::delete('payments/delete{id}', [Admin\Checkout\PaymentsValidateController::class, 'destroy'])->name('checkout.payment.delete');
 
+    // inhouse-payments
+    Route::get('inhouse-payments', [Admin\Checkout\InhousePaymentController::class, 'index'])->name('admin.checkout.inhouse-payments');
+    Route::get('inhouse-payments/{userId}', [Admin\Checkout\InhousePaymentController::class, 'show'])->name('admin.checkout.inhouse-payment.show');
+    Route::delete('inhouse-payments/delete/{id}', [Admin\Checkout\InhousePaymentController::class, 'destroy'])->name('admin.checkout.inhouse-payment.destroy');
+    Route::patch('inhouse-payments/{id}/update-status', [Admin\Checkout\InhousePaymentController::class, 'updateStatus'])->name('admin.checkout.inhouse-payment.update-status');
+    Route::get('inhouse-payments/detail/{id}', [Admin\Checkout\InhousePaymentController::class, 'showInhouse'])->name('admin.checkout.inhouse-payments.detail');
+
     //live chat
     Route::get('chat/index', [Admin\ChatController::class, 'index'])->name('admin.chat.index');
     Route::get('chat/show/{userID}', [Admin\ChatController::class, 'show'])->name('admin.chat.show');

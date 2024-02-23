@@ -9,6 +9,14 @@
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @component('components.breadcrumb')
+        @slot('li_1')
+            Penjualan
+        @endslot
+        @slot('title')
+            Daftar Pembayaran Inhouse
+        @endslot
+    @endcomponent
     <div class="row">
         <div class="col-12">
 
@@ -45,7 +53,6 @@
                             </div>
                         </div>
 
-
                         {{-- form for checkbox --}}
                         <form action="" method="POST" class="form-product">
                             @csrf
@@ -56,54 +63,35 @@
                                         style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <td>ID</td>
-                                                <th>Nama Produk</th>
+                                                <td class="text-center">ID</td>
+                                                <th>Kode Produk</th>
                                                 <th>Nama Pembeli</th>
-                                                <th>Tanggal Pembayaran</th>
-                                                <th>Type</th>
-                                                <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
 
-
                                         <tbody>
-                                            @forelse ($payments as $payment)
+                                            @foreach ($allInhousePayments as $allInhousePayment)
                                                 <tr>
-                                                    <td class="text-center">{{ $payment->id }}</td>
-                                                    <td>
-                                                        @if ($payment->product)
-                                                            {{ $payment->product->name }}
-                                                        @else
-                                                            Produk tidak tersedia
-                                                        @endif
+                                                    <td class="text-center">{{ $allInhousePayment->id }}</td>
+                                                    <td><a
+                                                            href="{{ route('product.index') }}">{{ $allInhousePayment->product->code }}</a>
                                                     </td>
-                                                    <td>{{ $payment->name }}</td>
-                                                    <td>{{ $payment->payment_date }}</td>
-                                                    <td>{{ $payment->type }}</td>
-                                                    <td>
-                                                        @if ($payment->status == 'pending')
-                                                            <span
-                                                                class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
-                                                        @elseif ($payment->status == 'approved')
-                                                            <span
-                                                                class="badge badge-pill rounded-pill bg-success font-size-14">Disetujui</span>
-                                                        @elseif ($payment->status == 'rejected')
-                                                            <span
-                                                                class="badge badge-pill rounded-pill bg-danger font-size-14">Ditolak</span>
-                                                        @else
-                                                            <span class="badge bg-secondary">{{ $payment->status }}</span>
-                                                        @endif
-                                                    </td>
-
+                                                    <td>{{ $allInhousePayment->user->name }}</td>
                                                     <td class="align-middle">
+                                                        <a
+                                                            href="{{ route('admin.checkout.inhouse-payment.show', $allInhousePayment->user->id) }}">
+                                                            <i class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                        </a>
+                                                    </td>
+                                                    {{-- <td class="align-middle">
                                                         <div class="dropdown">
                                                             <a href="#" class="dropdown-toggle card-drop"
                                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                                 <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                                             </a>
                                                             <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a href="{{ route('checkout.payment.show', $payment->id) }}"
+                                                                <li><a href="{{ route('admin.checkout.inhouse-payment.show', $allInhousePayment->user->id) }}"
                                                                         class="dropdown-item">
                                                                         <i
                                                                             class="mdi mdi-eye font-size-16 text-success me-1"></i>
@@ -118,7 +106,7 @@
 
                                                                 <li>
                                                                     <a href="#" class="dropdown-item delete-user"
-                                                                        data-id="{{ $payment->id }}"
+                                                                        data-id="{{ $allInhousePayment->id }}"
                                                                         onclick="deleteUser(event)">
                                                                         <i
                                                                             class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
@@ -127,13 +115,22 @@
                                                                 </li>
                                                             </ul>
                                                         </div>
+                                                    </td> --}}
+                                                    {{-- </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('admin.setting-user.index') }}">{{ $inhousePayment->user_id }}</a>
                                                     </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="7" class="text-center">Data masih kosong</td>
-                                                </tr>
-                                            @endforelse
+                                                    <td class="text-center"><a
+                                                            href="{{ route('product.index') }}">{{ $inhousePayment->product_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('checkout.data-validate') }}">{{ $inhousePayment->purchase_validation_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('checkout.payments-validate') }}">{{ $inhousePayment->id }}</a>
+                                                    </td>
+                                                </tr> --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -146,49 +143,6 @@
 
     </div> <!-- end col -->
     </div> <!-- end row -->
-
-    <!-- sample modal content -->
-    @if ($payments->isNotEmpty())
-        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-            data-bs-scroll="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Update Status Pembayaran</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('update-status', $payment->id) }}" method="post">
-                            @csrf
-                            @method('patch')
-
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label>
-                                <select class="nice-select default-select wide form-control solid" name="status"
-                                    onchange="this.form.submit()">
-                                    <option value="pending" {{ $payment->status === 'pending' ? 'selected' : '' }}>Pending
-                                    </option>
-                                    <option value="approved" {{ $payment->status === 'approved' ? 'selected' : '' }}>
-                                        Disetujui
-                                    </option>
-                                    <option value="rejected" {{ $payment->status === 'rejected' ? 'selected' : '' }}>
-                                        Ditolak</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary waves-effect waves-light">Save
-                            changes</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-    @endif
-    <!-- /.modal -->
 @endsection
 @section('script')
     <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
@@ -220,9 +174,7 @@
             $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
         });
     </script>
-
     <script src="{{ URL::asset('assets/js/pages/modal.init.js') }}"></script>
-
     <script>
         var myModal = document.getElementById('myModal')
         var myInput = document.getElementById('myInput')
@@ -230,51 +182,5 @@
         myModal.addEventListener('shown.bs.modal', function() {
             myInput.focus()
         })
-    </script>
-
-    {{-- delete --}}
-    <script>
-        function deleteUser(event) {
-            event.preventDefault();
-            const userId = event.currentTarget.getAttribute('data-id');
-            if (confirm('Apakah Anda yakin ingin menghapus pembayaran ini?')) {
-                fetch(`{{ route('checkout.payment.delete', ':id') }}`.replace(':id', userId), {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            _token: '{{ csrf_token() }}',
-                            _method: 'DELETE'
-                        })
-                    })
-                    .then(response => {
-                        if (response.redirected) {
-                            // Jika ada redirection, maka penghapusan berhasil
-                            const alertMessage = document.createElement('div');
-                            alertMessage.classList.add('alert', 'alert-success');
-                            alertMessage.innerHTML = 'Pembayaran berhasil dihapus.';
-                            document.body.appendChild(alertMessage);
-
-                            // Hilangkan pesan setelah beberapa detik
-                            setTimeout(() => {
-                                alertMessage.remove();
-                            }, 3000);
-
-                            // Redirect ke halaman yang ditentukan
-                            window.location.href = response.url;
-                        } else {
-                            // Jika tidak ada redirection, berarti ada kesalahan
-                            console.error('Gagal menghapus Pembayaran');
-                        }
-                    })
-
-
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            }
-        }
     </script>
 @endsection

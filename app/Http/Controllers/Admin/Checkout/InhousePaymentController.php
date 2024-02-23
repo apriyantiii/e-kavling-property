@@ -1,0 +1,163 @@
+<?php
+
+namespace App\Http\Controllers\Admin\Checkout;
+
+use App\Http\Controllers\Controller;
+use App\Models\InhousePayment;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class InhousePaymentController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        // Subquery untuk mendapatkan entri terbaru untuk setiap user_id
+        $latestInhousePayments = InhousePayment::select('user_id', DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('user_id');
+
+        // Query utama untuk mendapatkan entri terbaru untuk setiap user_id
+        $allInhousePayments = InhousePayment::joinSub($latestInhousePayments, 'latest_payments', function ($join) {
+            $join->on('inhouse_payments.user_id', '=', 'latest_payments.user_id')
+                ->on('inhouse_payments.created_at', '=', 'latest_payments.latest_created_at');
+        })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('admin.checkout.inhouse-payment.index', compact('allInhousePayments'));
+    }
+
+    public function show($userId)
+    {
+        // Cari pembayaran in-house berdasarkan ID pengguna (user)
+        $inhousePayments = InhousePayment::where('user_id', $userId)->get();
+
+        // Periksa apakah pembayaran in-house ditemukan
+        if ($inhousePayments) {
+            // Jika ditemukan, ambil data pengguna terkait
+            $user = User::find($userId);
+
+            // Jika ditemukan, tampilkan halaman detail pembayaran in-house
+            return view('admin.checkout.inhouse-payment.show', compact('inhousePayments', 'user'));
+        } else {
+            // Jika tidak ditemukan, redirect atau tampilkan pesan kesalahan
+            return redirect()->back()->with('error', 'Pembayaran in-house tidak ditemukan untuk pengguna ini.');
+        }
+    }
+
+    public function showInhouse($id)
+    {
+        // Cari pembayaran in-house berdasarkan ID pengguna (user)
+        $inhousePayments = InhousePayment::findOrFail($id);
+        return view('admin.checkout.inhouse-payment.detail-inhouse', compact('inhousePayments'));
+    }
+
+    public function destroy($id)
+    {
+        try {
+            // Temukan pembayaran in-house berdasarkan ID
+            $inhousePayments = InhousePayment::findOrFail($id);
+
+            // Simpan tipe pembayaran in-house sebelum dihapus
+            $paymentType = $inhousePayments->type;
+
+            // Hapus pembayaran in-house
+            $inhousePayments->delete();
+
+            return redirect()->back()->with('success', 'Pembayaran inhouse dengan pembayaran ' . $paymentType . ' berhasil dihapus.');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal menghapus pembayaran inhouse: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            // Temukan pembayaran in-house berdasarkan ID
+            $inhousePayment = InhousePayment::findOrFail($id);
+
+            // Validasi request
+            $request->validate([
+                'status' => 'required|in:pending,approved,rejected'
+            ]);
+
+            // Perbarui status pembayaran in-house
+            $inhousePayment->status = $request->status;
+            $inhousePayment->save();
+
+            return redirect()->back()->with('success', 'Status pembayaran in-house berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('failure', 'Gagal memperbarui status pembayaran in-house: ' . $e->getMessage());
+        }
+    }
+
+    // public function destroy($id)
+    // {
+    //     try {
+    //         // Temukan pengguna berdasarkan ID
+    //         $inhousePayments = InhousePayment::findOrFail($id);
+
+    //         // Hapus pengguna
+    //         $inhousePayments->delete();
+
+    //         return redirect()->back()->with('success', 'Pembayaran inhouse yang (ini tampilin type) berhasil dihapus.');
+    //     } catch (\Exception $e) {
+    //         return response()->json(['message' => 'Gagal menghapus admin: ' . $e->getMessage()], 500);
+    //     }
+    // }
+
+    // public function show($id)
+    // {
+    //     $inhousePayments = InhousePayment::findOrFail($id);
+    //     // dd($inhousePayments);
+    //     return view('admin.checkout.inhouse-payment.show', compact('inhousePayments'));
+    // }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    // public function destroy(string $id)
+    // {
+    //     //
+    // }
+}

@@ -106,12 +106,12 @@
                                                                     name="tenor" id="tenor" required>
                                                                     <option value="" selected disabled>Pilih Tenor
                                                                     </option>
-                                                                    <option value="6bln">6 bulan</option>
-                                                                    <option value="1thn">1 tahun</option>
-                                                                    <option value="2thn">2 tahun</option>
-                                                                    <option value="3thn">3 tahun</option>
-                                                                    <option value="4thn">4 tahun</option>
-                                                                    <option value="5thn">5 tahun</option>
+                                                                    <option value="6 bln">6 bulan</option>
+                                                                    <option value="1 thn">1 tahun</option>
+                                                                    <option value="2 thn">2 tahun</option>
+                                                                    <option value="3 thn">3 tahun</option>
+                                                                    <option value="4 thn">4 tahun</option>
+                                                                    <option value="5 thn">5 tahun</option>
                                                                     <option value="lainnya">Lainnya</option>
                                                                 </select>
                                                                 <div id="lainnyaInputTenor" style="display: none;">
