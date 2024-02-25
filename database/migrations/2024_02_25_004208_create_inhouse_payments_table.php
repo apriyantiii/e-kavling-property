@@ -19,12 +19,13 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('tenor'); //12 bulan, 6 bulan dst
-            $table->string('type'); //pembayaran pertama kedua dst
+            $table->string('payment_type'); //pembayaran pertama kedua dst
             $table->date('payment_date');
             $table->string('home_bank');
             $table->string('destination_bank');
             $table->string('rekening_name');
             $table->integer('nominal');
+            $table->integer('remaining_amount');
             $table->string('transfer');
             $table->text('payment_description')->nullable();
             $table->enum('status', ['pending', 'rejected', 'approved'])->default('pending');

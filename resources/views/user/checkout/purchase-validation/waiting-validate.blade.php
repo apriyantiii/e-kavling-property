@@ -66,7 +66,8 @@
                                 @if (session('purchase_status') == 'approved')
                                     <div class="col-sm-6">
                                         <div class="text-end">
-                                            <a href="{{ route('checkout.confirmation') }}" class="btn btn-success">
+                                            <a href="{{ route('checkout.confirmation', ['productId' => $waitingValidate->product->id]) }}"
+                                                class="btn btn-success">
                                                 <i class="mdi mdi-briefcase-check me-1"></i> Konfirmasi Pembelian </a>
                                         </div>
                                     </div>

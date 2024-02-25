@@ -257,7 +257,7 @@
                                                     </div>
                                                     <div class="row my-4">
                                                         <div class="col-sm-6">
-                                                            <a href="{{ route('checkout.confirmation') }}"
+                                                            <a href="{{ route('checkout.confirmation', ['productId' => $product->id]) }}"
                                                                 class="btn text-muted d-none d-sm-inline-block btn-link">
                                                                 <i class="mdi mdi-arrow-left me-1"></i> Kembali</a>
                                                         </div> <!-- end col -->

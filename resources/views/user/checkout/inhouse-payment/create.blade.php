@@ -196,11 +196,11 @@
                                                             </div>
 
                                                             <div class="form-group mb-3">
-                                                                <label for="type" class="form-label">Pembayaran
+                                                                <label for="payment_type" class="form-label">Pembayaran
                                                                     Ke<span class="text-danger">*</span></label>
                                                                 <select
-                                                                    class="form-select @error('type') is-invalid @enderror"
-                                                                    name="type" id="type" required>
+                                                                    class="form-select @error('payment_type') is-invalid @enderror"
+                                                                    name="payment_type" id="payment_type" required>
                                                                     <option value="" selected disabled>Pilih
                                                                         Pembayaran</option>
                                                                     <option value="ke-1">Pembayaran ke-1</option>
@@ -216,7 +216,7 @@
                                                                         name="type_lainnya" id="type_lainnya"
                                                                         placeholder="Masukkan type lainnya">
                                                                 </div>
-                                                                @error('type')
+                                                                @error('payment_type')
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
@@ -276,7 +276,7 @@
                                                     </div>
                                                     <div class="row my-4">
                                                         <div class="col-sm-6">
-                                                            <a href="{{ route('checkout.confirmation') }}"
+                                                            <a href="{{ route('checkout.confirmation', ['productId' => $product->id]) }}"
                                                                 class="btn text-muted d-none d-sm-inline-block btn-link">
                                                                 <i class="mdi mdi-arrow-left me-1"></i> Kembali</a>
                                                         </div> <!-- end col -->

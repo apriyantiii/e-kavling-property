@@ -77,7 +77,7 @@
                                         <tbody>
                                             @foreach ($inhousePayments as $inhousePayment)
                                                 <tr>
-                                                    <td>{{ $inhousePayment->type }}</td>
+                                                    <td>{{ $inhousePayment->payment_type }}</td>
                                                     <td>{{ $inhousePayment->product->code }}</td>
                                                     <td>{{ $inhousePayment->user->name }}</td>
                                                     <td>{{ $inhousePayment->payment_date }}</td>

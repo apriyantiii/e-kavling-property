@@ -63,15 +63,15 @@ Route::prefix('/')->group(function () {
     Route::get('validation-rejected', [User\Checkout\PurchaseValidationController::class, 'rejectedValidate'])->name('rejected-validate');
 
     // checkout-konfirmasi pembelian
-    Route::get('confirmation', [User\Checkout\ConfirmationController::class, 'index'])->name('checkout.confirmation');
+    Route::get('confirmation/{productId}', [User\Checkout\ConfirmationController::class, 'index'])->name('checkout.confirmation');
 
     // Checkout-pembayaran
-    Route::get('payments', [User\Checkout\PaymentsController::class, 'create'])->name('checkout.payments');
+    Route::get('payments/{productId}', [User\Checkout\PaymentsController::class, 'create'])->name('checkout.payments');
     Route::post('payments/store', [User\Checkout\PaymentsController::class, 'store'])->name('checkout.payments.store');
     Route::get('payments-success', [User\Checkout\PaymentsController::class, 'paymentSuccess'])->name('checkout.payments-success');
 
     //checkout-pembayaran inhouse
-    Route::get('payments/inhouse', [User\Checkout\InhousePaymentController::class, 'create'])->name('checkout.inhouse-payments');
+    Route::get('payments/inhouse/{productId}', [User\Checkout\InhousePaymentController::class, 'create'])->name('checkout.inhouse-payments');
     Route::post('payments/inhouse/store', [User\Checkout\InhousePaymentController::class, 'store'])->name('checkout.inhouse-payments.store');
 
     // Checkout-rincian pembelian

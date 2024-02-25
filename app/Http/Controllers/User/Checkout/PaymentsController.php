@@ -14,7 +14,7 @@ class PaymentsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function create()
+    public function create($productId)
     {
         // Fungsi formatPrice 
         if (!function_exists('formatPrice')) {
@@ -31,7 +31,8 @@ class PaymentsController extends Controller
 
         // Ambil data relasi user dan product
         $user = $purchaseValidation->user;
-        $product = $purchaseValidation->product;
+
+        $product = \App\Models\Product::findOrFail($productId);
 
         // Tambahkan formatted_price ke objek product
         $product->formatted_price = formatPrice($product->price);
@@ -39,6 +40,44 @@ class PaymentsController extends Controller
         // Kirim data pesanan dan relasi ke view
         return view('user.checkout.payments.create', compact('purchaseValidation', 'user', 'product', 'bank'));
     }
+
+    // public function create($productId)
+    // {
+    //     // Fungsi formatPrice 
+    //     if (!function_exists('formatPrice')) {
+    //         function formatPrice($productId)
+    //         {
+    //             // Cari produk berdasarkan ID
+    //             $product = \App\Models\Product::find($productId);
+    //             if ($product) {
+    //                 // Jika produk ditemukan, format dan kembalikan harga
+    //                 return 'Rp ' . number_format($product->price, 0, ',', '.');
+    //             }
+    //             // Jika produk tidak ditemukan, kembalikan string kosong
+    //             return '';
+    //         }
+    //     }
+
+    //     // Ambil data pesanan berdasarkan status pembelian yang disetujui
+    //     $purchaseValidation = PurchaseValidation::where('status', 'approved')->first();
+
+    //     $bank = Bank::first();
+
+    //     // Ambil data relasi user dan product
+    //     $user = $purchaseValidation->user;
+    //     // Ambil produk berdasarkan ID yang ditekan
+    //     $product = \App\Models\Product::findOrFail($productId);
+
+    //     // Kirim data pesanan, relasi, dan harga yang diformat ke view
+    //     return view('user.checkout.payments.create', [
+    //         'purchaseValidation' => $purchaseValidation,
+    //         'user' => $user,
+    //         'product' => $product,
+    //         'formatted_price' => formatPrice($product->id), // Menggunakan formatPrice dengan ID produk
+    //         'bank' => $bank,
+    //     ]);
+    // }
+
 
     public function paymentSuccess()
     {

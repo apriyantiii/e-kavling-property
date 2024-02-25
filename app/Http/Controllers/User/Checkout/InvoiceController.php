@@ -9,6 +9,7 @@ use App\Models\PurchaseValidation;
 use Faker\Provider\ar_EG\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -35,8 +36,8 @@ class InvoiceController extends Controller
                     ->orWhere('status', 'pending');
             })
             ->where('user_id', $currentUserId)
+            ->orderBy('created_at', 'desc') // Tambahkan orderBy untuk mengurutkan berdasarkan created_at terbaru
             ->get();
-
 
         $payments = Payments::with('product')
             ->where(function ($query) use ($currentUserId) {
@@ -45,16 +46,30 @@ class InvoiceController extends Controller
                     ->orWhere('status', 'pending');
             })
             ->where('user_id', $currentUserId)
+            ->orderBy('created_at', 'desc') // Tambahkan orderBy untuk mengurutkan berdasarkan created_at terbaru
             ->get();
 
-        $inhousePayments = InhousePayment::with('product')
-            ->where(function ($query) use ($currentUserId) {
-                $query->where('status', 'approved')
-                    ->orWhere('status', 'process')
-                    ->orWhere('status', 'pending');
-            })
-            ->where('user_id', $currentUserId)
+
+        // $inhousePayments = InhousePayment::with('product')
+        //     ->where(function ($query) use ($currentUserId) {
+        //         $query->where('status', 'approved')
+        //             ->orWhere('status', 'process')
+        //             ->orWhere('status', 'pending');
+        //     })
+        //     ->where('user_id', $currentUserId)
+        //     ->get();
+        // Subquery untuk mendapatkan entri terbaru untuk setiap product_id
+        $latestInhousePayments = InhousePayment::select('product_id', DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('product_id');
+
+        // Query utama untuk mendapatkan entri terbaru untuk setiap product_id
+        $allInhousePayments = InhousePayment::joinSub($latestInhousePayments, 'latest_payments', function ($join) {
+            $join->on('inhouse_payments.product_id', '=', 'latest_payments.product_id')
+                ->on('inhouse_payments.created_at', '=', 'latest_payments.latest_created_at');
+        })
+            ->orderBy('created_at', 'desc')
             ->get();
+
 
         // Tambahkan formatted_price ke objek product
         foreach ($purchaseValidation as $validation) {
@@ -71,15 +86,20 @@ class InvoiceController extends Controller
         }
 
         // Tambahkan formatted_price ke objek product
-        foreach ($inhousePayments as $inhousePayment) {
-            if ($inhousePayment->product) {
-                $inhousePayment->product->formatted_price = formatPrice($inhousePayment->product->price);
+        foreach ($allInhousePayments as $allInhousePayment) {
+            if ($allInhousePayment->product) {
+                $allInhousePayment->product->formatted_price = formatPrice($allInhousePayment->product->price);
             }
         }
 
+        foreach ($allInhousePayments as $allInhousePayment) {
+            $allInhousePayment->formatted_remaining_amount = formatPrice($allInhousePayment->remaining_amount);
+        }
+
+
 
         // Kirim data pembelian ke view
-        return view('user.checkout.invoice.index', compact('purchaseValidation', 'payments', 'inhousePayments'));
+        return view('user.checkout.invoice.index', compact('purchaseValidation', 'payments', 'allInhousePayments'));
     }
 
     public function showValidate(PurchaseValidation $purchaseValidationShow)

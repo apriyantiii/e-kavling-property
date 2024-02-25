@@ -104,7 +104,7 @@
                                                     <div class="row justify-content-end">
                                                         <div class="col-auto">
                                                             <div class="text-end mb-0"> <!-- Menambahkan margin bawah -->
-                                                                <a href="{{ route('checkout.payments') }}"
+                                                                <a href="{{ route('checkout.payments', ['productId' => $product->id]) }}"
                                                                     class="btn btn-success">
                                                                     <i class="mdi mdi-cash me-1"></i> Pembayaran KPR/Cash
                                                                 </a>
@@ -112,7 +112,7 @@
                                                         </div>
                                                         <div class="col-auto">
                                                             <div class="text-center">
-                                                                <a href="{{ route('checkout.inhouse-payments') }}"
+                                                                <a href="{{ route('checkout.inhouse-payments', ['productId' => $product->id]) }}"
                                                                     class="btn btn-primary">
                                                                     <i class="mdi mdi-cash me-1"></i> Pembayaran Inhouse
                                                                 </a>

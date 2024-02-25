@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Checkout;
 
 use App\Http\Controllers\Controller;
 use App\Models\InhousePayment;
+use App\Models\Product;
 use App\Models\PurchaseValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class InhousePaymentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function create()
+    public function create($productId)
     {
         // Fungsi formatPrice 
         if (!function_exists('formatPrice')) {
@@ -28,7 +29,8 @@ class InhousePaymentController extends Controller
 
         // Ambil data relasi user dan product
         $user = $purchaseValidation->user;
-        $product = $purchaseValidation->product;
+
+        $product = \App\Models\Product::findOrFail($productId);
 
         // Tambahkan formatted_price ke objek product
         $product->formatted_price = formatPrice($product->price);
@@ -46,7 +48,7 @@ class InhousePaymentController extends Controller
                 'product_id' => 'required|exists:products,id',
                 'name' => 'required|string|max:255',
                 'payment_date' => 'required|date',
-                'type' => 'required|string',
+                'payment_type' => 'required|string',
                 'tenor' => 'required|string',
                 'home_bank' => 'required|string|max:255',
                 'destination_bank' => 'required|string|max:255',
@@ -63,11 +65,14 @@ class InhousePaymentController extends Controller
 
             // Jika opsi "lainnya" dipilih pada dropdown type, ganti nilai type dengan nilai dari input tambahan
             if ($request->type == 'lainnya') {
-                $validatedData['type'] = $request->type_lainnya;
+                $validatedData['payment_type'] = $request->type_lainnya;
             }
 
             // Mendapatkan ID user yang sedang login
             $userId = Auth::id();
+
+            // Ambil data produk
+            $product = Product::findOrFail($request->product_id);
 
             // Mengelola file transfer
             $tfFileName = null;
@@ -77,25 +82,41 @@ class InhousePaymentController extends Controller
                 $transferFile->storeAs('public/uploads', $tfFileName);
             }
 
+            // Mendapatkan pembayaran terakhir untuk produk tertentu
+            $lastPayment = InhousePayment::where('product_id', $product->id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            // Menghitung sisa pembayaran baru
+            if ($lastPayment) {
+                $newRemainingAmount = $lastPayment->remaining_amount - $validatedData['nominal'];
+            } else {
+                // Jika belum ada pembayaran sebelumnya, langsung kurangi dari total harga produk
+                $newRemainingAmount = $product->price - $validatedData['nominal'];
+            }
+
             // Simpan data pembayaran ke dalam tabel inhouse_payments
-            InhousePayment::create([
+            $inhousePayment = InhousePayment::create([
                 'purchase_validation_id' => $validatedData['purchase_validation_id'],
                 'user_id' => $userId,
-                'product_id' => $validatedData['product_id'],
+                'product_id' => $product->id,
                 'name' => $validatedData['name'],
                 'payment_date' => $validatedData['payment_date'],
-                'type' => $validatedData['type'],
+                'payment_type' => $validatedData['payment_type'],
                 'tenor' => $validatedData['tenor'],
                 'home_bank' => $validatedData['home_bank'],
                 'destination_bank' => $validatedData['destination_bank'],
                 'rekening_name' => $validatedData['rekening_name'],
                 'nominal' => $validatedData['nominal'],
+                'remaining_amount' => $newRemainingAmount,
                 'transfer' => $tfFileName,
                 'payment_description' => $validatedData['payment_description'],
             ]);
 
+            // dd($inhousePayment);
+
             // Redirect ke halaman sukses pembayaran
-            return redirect()->route('checkout.payments-success')->with('success', 'Data konfirmasi pembayaran berhasil disimpan!');
+            return redirect()->route('checkout.payments-success')->with('success', 'Inhouse Payment disimpan!');
         } catch (\Exception $e) {
             // Tangkap exception dan tampilkan pesan untuk debugging
             dd($e->getMessage());

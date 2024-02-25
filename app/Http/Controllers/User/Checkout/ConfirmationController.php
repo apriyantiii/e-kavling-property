@@ -17,7 +17,7 @@ class ConfirmationController extends Controller
 
     //     return view('user.checkout.confirmation.index', compact('confirmation'));
     // }
-    public function index()
+    public function index($productId)
     {
         // Fungsi formatPrice 
         if (!function_exists('formatPrice')) {
@@ -34,7 +34,9 @@ class ConfirmationController extends Controller
         if ($purchaseValidation) {
             // Ambil data relasi user dan product
             $user = $purchaseValidation->user;
-            $product = $purchaseValidation->product;
+            // $product = $purchaseValidation->product;
+            // Ambil produk berdasarkan ID yang ditekan
+            $product = \App\Models\Product::findOrFail($productId);
 
             // Tambahkan formatted_price ke objek product
             $product->formatted_price = formatPrice($product->price);
