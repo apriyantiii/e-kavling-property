@@ -63,7 +63,7 @@
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
-                                            
+
                                             <tbody>
                                                 @foreach ($validate as $purchaseValidate)
                                                     <tr>
@@ -101,11 +101,13 @@
                                                                             Detail
                                                                         </a>
                                                                     </li>
-                                                                    <li>
-                                                                        <a type="button" class="btn"
+                                                                    <li><a href="#" class="dropdown-item"
                                                                             data-bs-toggle="modal"
-                                                                            data-bs-target="#myModal"><i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-2"></i>Edit</a>
+                                                                            data-bs-target="#myModal{{ $purchaseValidate->id }}">
+                                                                            <i
+                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                            Edit
+                                                                        </a>
                                                                     </li>
 
                                                                     <li>
@@ -135,49 +137,54 @@
         </div> <!-- end col -->
     </div> <!-- end row -->
 
-    <!-- sample modal content -->
-    @isset($purchaseValidate)
-        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-            data-bs-scroll="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Default Modal Heading</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('data-validate.update', $purchaseValidate->id) }}" method="post">
-                            @csrf
-                            @method('patch')
-
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label>
-                                <select class="nice-select default-select wide form-control solid" name="status"
-                                    onchange="this.form.submit()">
-                                    <option value="pending" {{ $purchaseValidate->status === 'pending' ? 'selected' : '' }}>
+    @if ($validate->isNotEmpty())
+        @foreach ($validate as $purchaseValidate)
+            <!-- Modal untuk update status pembayaran -->
+            <div id="myModal{{ $purchaseValidate->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel"
+                aria-hidden="true" data-bs-scroll="true">
+                <!-- Konten modal -->
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Header modal -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">Update Status Pembayaran</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Body modal -->
+                        <div class="modal-body">
+                            <form action="{{ route('data-validate.update', $purchaseValidate->id) }}" method="post">
+                                @csrf
+                                @method('patch')
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="nice-select default-select wide form-control solid" name="status">
+                                        //onchange="this.form.submit()
+                                        <option value="pending"
+                                        {{ $purchaseValidate->status === 'pending' ? 'selected' : '' }}>
                                         Pending
-                                    </option>
-                                    <option value="approved" {{ $purchaseValidate->status === 'approved' ? 'selected' : '' }}>
-                                        Disetujui
-                                    </option>
-                                    <option value="rejected" {{ $purchaseValidate->status === 'rejected' ? 'selected' : '' }}>
-                                        Ditolak</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary waves-effect waves-light">Save
-                            changes</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-    @endisset
-    <!-- /.modal -->
+                                        </option>
+                                        <option value="approved"
+                                            {{ $purchaseValidate->status === 'approved' ? 'selected' : '' }}>
+                                            Disetujui
+                                        </option>
+                                        <option value="rejected"
+                                            {{ $purchaseValidate->status === 'rejected' ? 'selected' : '' }}>
+                                            Ditolak</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger waves-effect"
+                                        data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit"
+                                        class="btn btn-primary waves-effect waves-light float-end">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        @endforeach
+    @endif
 @endsection
 @section('script')
     <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>

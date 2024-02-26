@@ -187,13 +187,13 @@
                                     Ditolak</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger waves-effect"
+                                data-bs-dismiss="modal">Batal</button>
+                            <button type="submit"
+                                class="btn btn-primary waves-effect waves-light float-end">Update</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="submitEditForm({{ $inhousePayment->id }})">Save
-                        changes</button>
                 </div>
             </div>
         </div>

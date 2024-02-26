@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\InhousePayment;
 use App\Models\Payments;
 use App\Models\PurchaseValidation;
+use App\Models\User;
 use Faker\Provider\ar_EG\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,8 +97,6 @@ class InvoiceController extends Controller
             $allInhousePayment->formatted_remaining_amount = formatPrice($allInhousePayment->remaining_amount);
         }
 
-
-
         // Kirim data pembelian ke view
         return view('user.checkout.invoice.index', compact('purchaseValidation', 'payments', 'allInhousePayments'));
     }
@@ -119,6 +118,47 @@ class InvoiceController extends Controller
     {
         return view('user.checkout.invoice.show-payments', compact('payments'));
     }
+
+    public function showInhouse($userId)
+    {
+        // Fungsi formatPrice 
+        if (!function_exists('formatPrice')) {
+            function formatPrice($price)
+            {
+                return 'Rp ' . number_format($price, 0, ',', '.');
+            }
+        }
+        // Cari pembayaran in-house berdasarkan ID pengguna (user)
+        $inhousePayments = InhousePayment::where('user_id', $userId)->get();
+
+        // Periksa apakah pembayaran in-house ditemukan
+        if ($inhousePayments) {
+            // Jika ditemukan, ambil data pengguna terkait
+            $user = User::find($userId);
+
+            // Tambahkan formatted_price ke objek product
+            foreach ($inhousePayments as $inhousePayment) {
+                // Mengecek apakah objek InhousePayment memiliki properti product
+                if ($inhousePayment->product) {
+                    // Menambahkan formatted_nominal dan formatted_remaining_amount ke objek InhousePayment
+                    $inhousePayment->formatted_nominal = formatPrice($inhousePayment->nominal);
+                    $inhousePayment->formatted_remaining_amount = formatPrice($inhousePayment->remaining_amount);
+                }
+            }
+            // Jika ditemukan, tampilkan halaman detail pembayaran in-house
+            return view('user.checkout.invoice.show-inhouse-payments', compact('inhousePayments', 'user'));
+        } else {
+            // Jika tidak ditemukan, redirect atau tampilkan pesan kesalahan
+            return redirect()->back()->with('error', 'Pembayaran in-house tidak ditemukan untuk pengguna ini.');
+        }
+    }
+
+    // public function showInhouse($id)
+    // {
+    //     // Cari pembayaran in-house berdasarkan ID pengguna (user)
+    //     $inhousePayments = InhousePayment::findOrFail($id);
+    //     return view('user.checkout.invoice.show-inhouse-payments', compact('inhousePayments'));
+    // }
 
     /**
      * Show the form for creating a new resource.

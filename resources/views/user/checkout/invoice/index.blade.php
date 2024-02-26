@@ -268,7 +268,8 @@
                                                     <td>{{ $allInhousePayment->product->formatted_price }}</td>
                                                     <td>{{ $allInhousePayment->formatted_remaining_amount }}</td>
                                                     <td class="align-middle">
-                                                        <h5><a href="#">
+                                                        <h5><a
+                                                                href="{{ route('checkout.invoice.inhouse-payment', $allInhousePayment->user->id) }}">
                                                                 Selengkapnya <i class="mdi mdi-arrow-right me-1"></i>
                                                             </a></h5>
                                                     </td>
