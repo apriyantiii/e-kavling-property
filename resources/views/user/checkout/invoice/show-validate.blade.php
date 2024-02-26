@@ -433,12 +433,11 @@
                                                     <span>{{ $purchaseValidation->created_at? \Carbon\Carbon::parse($purchaseValidation->created_at)->locale('id')->isoFormat('DD MMMM YYYY'): 'Unknown' }}
                                                     </span></time>
                                                 <div class="timeline-icon bg-green"><i
-                                                        class="fa fa-group"style="margin-top: 16px"></i></div>
+                                                        class="fas fa-file-download"style="margin-top: 16px"></i></div>
                                                 <div class="timeline-label bg-green">
                                                     <h4 class="timeline-title">Validasi Berkas Dibuat</h4>
 
-                                                    <p>Caulie dandelion maize lentil collard greens radish arugula sweet
-                                                        pepper water spinach kombu courgette.</p>
+                                                    <p>Berkas diterima dan sedang diverifikasi oleh tim</p>
                                                 </div>
                                             </div>
                                         </article>
@@ -450,16 +449,11 @@
                                                         <span>{{ $purchaseValidation->updated_at? \Carbon\Carbon::parse($purchaseValidation->updated_at)->locale('id')->isoFormat('HH:mm'): 'Unknown' }}</span>
                                                         <span>{{ $purchaseValidation->updated_at? \Carbon\Carbon::parse($purchaseValidation->updated_at)->locale('id')->isoFormat('DD MMMM YYYY'): 'Unknown' }}</span>
                                                     </time>
-                                                    <div class="timeline-icon bg-orange"><i class="fa fa-paper-plane"
+                                                    <div class="timeline-icon bg-orange"><i class="fas fa-clipboard-check"
                                                             style="margin-top: 16px"></i></div>
                                                     <div class="timeline-label bg-orange">
                                                         <h4 class="timeline-title">Validasi Berkas Disetujui</h4>
-                                                        <p>Parsley amaranth tigernut
-                                                            silver
-                                                            beet maize fennel spinach ricebean black-eyed. Tolerably
-                                                            earnestly
-                                                            middleton extremely distrusts she boy now not. Add and offered
-                                                            prepare how cordial.</p>
+                                                        <p>Berkas disetujui, pembeli dapat melanjutkan proses pembayaran</p>
                                                     </div>
                                                 </div>
                                             </article>

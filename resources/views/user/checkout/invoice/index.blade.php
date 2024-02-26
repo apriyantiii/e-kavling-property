@@ -93,16 +93,17 @@
                                     </h3>
                                     <hr style="border-top: 2px solid #000000; margin-top: 0px;">
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        {{-- <div class="col-md-2">
                                             <img src="{{ URL::asset('storage/' . $validation->product->photo) }}"
                                                 alt="product-img" title="product-img" class="avatar-xxl" />
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-md-6 text-start">
-                                            <h5>{{ $validation->product->name }}</h5>
+                                        <div class="col-md-8 text-start">
+                                            <h4>{{ $validation->product->name }}</h4>
                                             <p>{{ $validation->product->location }}</p>
                                             <br>
-                                            <h6><strong>Atas Nama: {{ $validation->name }}</strong></h6>
+                                            <h6><strong>Atas nama: {{ $validation->name }}</strong></h6>
+                                            <p>{{ $validation->job }}</p>
                                         </div>
 
                                         <div class="col-md-4 text-end">
@@ -149,7 +150,7 @@
                         </div>
                     @else
                         @foreach ($payments as $payment)
-                            <div class="card" style="border-radius: 20px">
+                            <div class="card">
                                 <div class="card-body">
                                     <h3 class="card-title mt-0 text-end" style="margin-bottom: 10px">
                                         <strong>Status Berkas:

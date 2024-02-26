@@ -431,15 +431,14 @@
                                                         </span>
                                                         <span>{{ $payments->payment_date? \Carbon\Carbon::parse($payments->payment_date)->locale('id')->isoFormat('DD MMMM YYYY'): 'Unknown' }}
                                                         </span></time>
-                                                    <div class="timeline-icon bg-violet"><i class="fa fa-exclamation"
+                                                    <div class="timeline-icon bg-violet"><i class="fas fa-calendar-alt"
                                                             style="margin-top: 18px"></i>
                                                     </div>
                                                     <div class="timeline-label bg-violet">
                                                         <h4 class="timeline-title">Tanggal Transfer</h4>
 
-                                                        <p>Tolerably earnestly middleton extremely distrusts she boy now
-                                                            not.
-                                                            Add and offered prepare how cordial.</p>
+                                                        <p>Tanggal transfer didapatkan dari keterangan pembeli ketika
+                                                            memasukkan tanggal tersebut.</p>
                                                     </div>
                                                 </div>
                                             </article>
@@ -452,12 +451,12 @@
                                                         <span>{{ $payments->created_at? \Carbon\Carbon::parse($payments->created_at)->locale('id')->isoFormat('DD MMMM YYYY'): 'Unknown' }}
                                                         </span></time>
                                                     <div class="timeline-icon bg-green"><i
-                                                            class="fa fa-group"style="margin-top: 16px"></i></div>
+                                                            class="fas fa-calendar-check"style="margin-top: 16px"></i></div>
                                                     <div class="timeline-label bg-green">
                                                         <h4 class="timeline-title">Pembayaran Diterima</h4>
 
-                                                        <p>Caulie dandelion maize lentil collard greens radish arugula sweet
-                                                            pepper water spinach kombu courgette.</p>
+                                                        <p>Data konfirmasi pembayaran diterima dan diproses tim verifikator
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </article>
@@ -468,21 +467,14 @@
                                                             <span>{{ $payments->updated_at? \Carbon\Carbon::parse($payments->updated_at)->locale('id')->isoFormat('HH:mm'): 'Unknown' }}</span>
                                                             <span>{{ $payments->updated_at? \Carbon\Carbon::parse($payments->updated_at)->locale('id')->isoFormat('DD MMMM YYYY'): 'Unknown' }}</span>
                                                         </time>
-                                                        <div class="timeline-icon bg-orange"><i class="fa fa-paper-plane"
+                                                        <div class="timeline-icon bg-orange"><i class="fas fa-check-circle"
                                                                 style="margin-top: 16px"></i>
                                                         </div>
                                                         <div class="timeline-label bg-orange">
                                                             <h4 class="timeline-title">Pembayaran Disetujui</h4>
 
-                                                            <p><img src="https://www.bootdey.com/image/45x45/"
-                                                                    alt="" class="timeline-img pull-left">Parsley
-                                                                amaranth tigernut
-                                                                silver
-                                                                beet maize fennel spinach ricebean black-eyed. Tolerably
-                                                                earnestly
-                                                                middleton extremely distrusts she boy now not. Add and
-                                                                offered
-                                                                prepare how cordial.</p>
+                                                            <p>Pembayaran disetujui, harap konfirmasi melalui chat untuk
+                                                                melakukan akad jual beli dan legalisasi.</p>
                                                         </div>
                                                     </div>
                                                 </article>
@@ -492,7 +484,7 @@
                                 </div>
 
                             </div>
-                            <div class="row mt-5">
+                            <div class="row mt-2">
                                 <!-- Start left col -->
                                 <div class="col-lg-6">
                                     <div class="mb-4">
@@ -532,7 +524,6 @@
                                                 <th class="fw-bold">Harga</th>
                                                 <th class="fw-bold">Tanggal Bayar</th>
                                                 <th class="fw-bold">Tipe Pembelian</th>
-                                                <th class="fw-bold">Tenor</th>
                                                 <th class="fw-bold">Ditransfer Dari</th>
                                                 <th class="fw-bold">Bank Tujuan</th>
                                                 <th class="fw-bold">Nama Rekening</th>
@@ -561,13 +552,7 @@
                                                 <td>
                                                     {{ $payments->type }}
                                                 </td>
-                                                <td>
-                                                    @if ($payments->tenor !== null)
-                                                        {{ $payments->tenor }}
-                                                    @else
-                                                        <span class="text-danger">Null</span>
-                                                    @endif
-                                                </td>
+
                                                 <td>
                                                     {{ $payments->home_bank }}
                                                 </td>
@@ -593,9 +578,9 @@
                                                 <td>
                                                     {{ $payments->status }}
                                                 </td>
-                                                <td>
-                                                    {{ $payments->created_at }}
-                                                </td>
+
+                                                <td>{{ \Carbon\Carbon::parse($payments->created_at)->format('d-m-Y h:i A') }}
+
                                             </tr>
                                         </tbody>
                                     </table>
