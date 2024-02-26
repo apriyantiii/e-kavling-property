@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin\Checkout;
 
 use App\Http\Controllers\Controller;
 use App\Models\PurchaseValidation;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class DataValidateController extends Controller
 {
@@ -53,6 +56,74 @@ class DataValidateController extends Controller
         }
     }
 
+    public function edit(PurchaseValidation $validateId)
+    {
+        return view('admin.checkout.data-validate.edit', compact('validateId'));
+    }
+
+    public function update(Request $request, PurchaseValidation $purchaseValidation)
+    {
+        try {
+            // Validasi form jika diperlukan
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'nik' => 'required|integer',
+                'job' => 'required|string|max:255',
+                'age' => 'required|integer',
+                'telpon' => 'required|string|max:255',
+                'address' => 'required|string',
+                'kk_file' => 'nullable|mimes:jpeg,png,jpg,pdf|max:2048',
+                'ktp_file' => 'nullable|mimes:jpeg,png,jpg,pdf|max:2048',
+                'status' => ['required', 'in:pending,approved,rejected'],
+                // tambahkan validasi lain sesuai kebutuhan
+            ]);
+            // Hapus file KK yang lama jika ada file KK baru diunggah
+            if ($request->hasFile('kk_file') && $purchaseValidation->kk_file) {
+                Storage::delete('public/uploads/' . $purchaseValidation->kk_file);
+            }
+
+            // Hapus file KTP yang lama jika ada file KTP baru diunggah
+            if ($request->hasFile('ktp_file') && $purchaseValidation->ktp_file) {
+                Storage::delete('public/uploads/' . $purchaseValidation->ktp_file);
+            }
+
+            // Simpan file KK yang baru
+            $kkFileName = null;
+            if ($request->hasFile('kk_file')) {
+                $kkFile = $request->file('kk_file');
+                $kkFileName = 'kk_' . time() . '.' . $kkFile->getClientOriginalExtension();
+                $kkFile->storeAs('public/uploads', $kkFileName);
+            }
+
+            // Simpan file KTP yang baru
+            $ktpFileName = null;
+            if ($request->hasFile('ktp_file')) {
+                $ktpFile = $request->file('ktp_file');
+                $ktpFileName = 'ktp_' . time() . '.' . $ktpFile->getClientOriginalExtension();
+                $ktpFile->storeAs('public/uploads', $ktpFileName);
+            }
+
+            // Update data PurchaseValidation
+            $purchaseValidation->update([
+                'name' => $request->input('name'),
+                'nik' => $request->input('nik'),
+                'job' => $request->input('job'),
+                'age' => $request->input('age'),
+                'telpon' => $request->input('telpon'),
+                'address' => $request->input('address'),
+                'kk_file' => $kkFileName,
+                'ktp_file' => $ktpFileName,
+                'status' => $request->input('status'),
+                // tambahkan field lain yang perlu diupdate
+            ]);
+            // Redirect atau tampilkan pesan sukses
+            return redirect()->route('checkout.validate.show', $purchaseValidation->id)->with('success', 'Validasi data berhasil diperbarui!');
+        } catch (\Exception $e) {
+            dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+        }
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -77,10 +148,6 @@ class DataValidateController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

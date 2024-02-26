@@ -112,13 +112,13 @@
                                                                         Detail
                                                                     </a>
                                                                 </li>
-                                                                <li>
-                                                                    <a href="#"
-                                                                        class="dropdown-item edit-inhouse-payment"
-                                                                        data-id="{{ $inhousePayment->id }}">
+
+                                                                <li><a href="#" class="dropdown-item"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#myModal{{ $inhousePayment->id }}">
                                                                         <i
-                                                                            class="mdi mdi-pencil font-size-16 text-success me-2"></i>
-                                                                        Edit
+                                                                            class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                        Edit Status
                                                                     </a>
                                                                 </li>
 
@@ -160,44 +160,55 @@
         </div><!-- end card -->
     </div> <!-- end row -->
 
-    <!-- sample modal content -->
-    <div id="myModal{{ $inhousePayment->id }}" class="modal fade" tabindex="-1"
-        aria-labelledby="myModalLabel{{ $inhousePayment->id }}" aria-hidden="true" data-bs-scroll="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+    @if ($inhousePayments->isNotEmpty())
+        @foreach ($inhousePayments as $inhousePayment)
+            <!-- Modal untuk update status pembayaran -->
+            <div id="myModal{{ $inhousePayment->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel"
+                aria-hidden="true" data-bs-scroll="true">
                 <!-- Konten modal -->
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel{{ $inhousePayment->id }}">Edit Status Pembayaran</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editForm{{ $inhousePayment->id }}"
-                        action="{{ route('admin.checkout.inhouse-payment.update-status', $inhousePayment->id) }}"
-                        method="post">
-                        @csrf
-                        @method('patch')
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="nice-select default-select wide form-control solid" name="status">
-                                <option value="pending" {{ $inhousePayment->status === 'pending' ? 'selected' : '' }}>
-                                    Pending</option>
-                                <option value="approved" {{ $inhousePayment->status === 'approved' ? 'selected' : '' }}>
-                                    Disetujui</option>
-                                <option value="rejected" {{ $inhousePayment->status === 'rejected' ? 'selected' : '' }}>
-                                    Ditolak</option>
-                            </select>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Header modal -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">Update Status Pembayaran</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger waves-effect"
-                                data-bs-dismiss="modal">Batal</button>
-                            <button type="submit"
-                                class="btn btn-primary waves-effect waves-light float-end">Update</button>
+                        <!-- Body modal -->
+                        <div class="modal-body">
+                            <form action="{{ route('admin.checkout.inhouse-payment.update-status', $inhousePayment->id) }}"
+                                method="post">
+                                @csrf
+                                @method('patch')
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="nice-select default-select wide form-control solid" name="status">
+                                        //onchange="this.form.submit()
+                                        <option value="pending"
+                                        {{ $inhousePayment->status === 'pending' ? 'selected' : '' }}>
+                                        Pending
+                                        </option>
+                                        <option value="approved"
+                                            {{ $inhousePayment->status === 'approved' ? 'selected' : '' }}>
+                                            Disetujui
+                                        </option>
+                                        <option value="rejected"
+                                            {{ $inhousePayment->status === 'rejected' ? 'selected' : '' }}>
+                                            Ditolak</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger waves-effect"
+                                        data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit"
+                                        class="btn btn-primary waves-effect waves-light float-end">Update</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        @endforeach
+    @endif
 @endsection
 @section('script')
     <script src="{{ URL::asset('assets/libs/datatables.net/datatables.net.min.js') }}"></script>
@@ -217,7 +228,7 @@
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
 
     {{-- modal --}}
-    <script>
+    {{-- <script>
         // Fungsi untuk menampilkan modal dengan status yang sesuai ketika tombol "Edit" diklik
         function submitEditForm(paymentId) {
             var form = document.getElementById('editForm' + paymentId);
@@ -237,7 +248,7 @@
                 myModal.show();
             });
         });
-    </script>
+    </script> --}}
 
     {{-- delete --}}
     <script>

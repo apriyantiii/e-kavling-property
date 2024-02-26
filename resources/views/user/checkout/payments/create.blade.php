@@ -185,23 +185,7 @@
                                                                     </div>
                                                                 @enderror
                                                             </div>
-                                                            {{-- 
-                                                            <div class="form-group mb-3">
-                                                                <label for="tenor" class="form-label">
-                                                                    Pilih Tenor <p class="text-danger">(opsional, isi
-                                                                        jika anda memilih tipe inhouse)</p>
-                                                                </label>
-                                                                <input type="text"
-                                                                    class="form-control form-rounded @error('tenor') is-invalid @enderror"
-                                                                    name="tenor" id="tenor"
-                                                                    placeholder="Maksimal 5 Tahun cth. 5 Tahun"
-                                                                    value="{{ old('tenor') }}" nullable>
-                                                                @error('tenor')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div> --}}
+
                                                             <div class="form-group mb-3">
                                                                 <label for="payment_description" class="form-label mb-1">
                                                                     Keterangan Pembayaran
@@ -249,9 +233,6 @@
                                                                     </div>
                                                                 @enderror
                                                             </div>
-
-
-
                                                         </div>
 
                                                     </div>

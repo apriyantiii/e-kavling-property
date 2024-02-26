@@ -126,12 +126,16 @@ Route::prefix('admin')->group(function () {
     Route::patch('data-validate/{purchaseValidate}', [Admin\Checkout\DataValidateController::class, 'updateStatus'])->name('data-validate.update');
     Route::get('data-validate-detail/{showValidate}', [Admin\Checkout\DataValidateController::class, 'show'])->name('checkout.validate.show');
     Route::delete('data-validate/delete/{id}', [Admin\Checkout\DataValidateController::class, 'destroy'])->name('checkout.validate.delete');
+    Route::get('data-validate/edit/{validateId}', [Admin\Checkout\DataValidateController::class, 'edit'])->name('checkout.validate.edit');
+    Route::put('data-validate/{purchaseValidation}/update', [Admin\Checkout\DataValidateController::class, 'update'])->name('checkout.validate.update');
 
     // payments
     Route::get('payments-validate', [Admin\Checkout\PaymentsValidateController::class, 'index'])->name('checkout.payments-validate');
     Route::get('payments-detail/{showPayment}', [Admin\Checkout\PaymentsValidateController::class, 'show'])->name('checkout.payment.show');
     Route::patch('/payments/{payment}', [Admin\Checkout\PaymentsValidateController::class, 'updateStatus'])->name('update-status');
     Route::delete('payments/delete{id}', [Admin\Checkout\PaymentsValidateController::class, 'destroy'])->name('checkout.payment.delete');
+    Route::get('payments/edit/{paymentId}', [Admin\Checkout\PaymentsValidateController::class, 'edit'])->name('checkout.payment.edit');
+    Route::put('payments/{payment}/update', [Admin\Checkout\PaymentsValidateController::class, 'update'])->name('checkout.payment.update');
 
     // inhouse-payments
     Route::get('inhouse-payments', [Admin\Checkout\InhousePaymentController::class, 'index'])->name('admin.checkout.inhouse-payments');
@@ -139,6 +143,8 @@ Route::prefix('admin')->group(function () {
     Route::delete('inhouse-payments/delete/{id}', [Admin\Checkout\InhousePaymentController::class, 'destroy'])->name('admin.checkout.inhouse-payment.destroy');
     Route::patch('inhouse-payments/{id}/update-status', [Admin\Checkout\InhousePaymentController::class, 'updateStatus'])->name('admin.checkout.inhouse-payment.update-status');
     Route::get('inhouse-payments/detail/{id}', [Admin\Checkout\InhousePaymentController::class, 'showInhouse'])->name('admin.checkout.inhouse-payments.detail');
+    Route::get('inhouse-payments/edit/{inhousePaymentId}', [Admin\Checkout\InhousePaymentController::class, 'edit'])->name('checkout.inhouse-payment.edit');
+    Route::put('inhouse-payments/{inhousePayment}/update', [Admin\Checkout\InhousePaymentController::class, 'update'])->name('checkout.inhouse-payment.update');
 
     //live chat
     Route::get('chat/index', [Admin\ChatController::class, 'index'])->name('admin.chat.index');

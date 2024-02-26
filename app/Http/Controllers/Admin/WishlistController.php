@@ -20,16 +20,17 @@ class WishlistController extends Controller
             DB::raw('COUNT(user_id) as user_count'),
             DB::raw('GROUP_CONCAT(DISTINCT users.name) as user_names')
         )
-            ->orderBy('created_at', 'desc') // Menyusun hasil berdasarkan yang terbaru
-            ->groupBy('product_id')
+            ->orderBy('product_id', 'desc') // Mengurutkan berdasarkan product_id
+            ->groupBy('product_id') // Mengelompokkan hasil berdasarkan product_id
             ->leftJoin('users', 'wishlists.user_id', '=', 'users.id') // Gabungkan dengan tabel users
             ->with(['product']) // Hanya perlu menggabungkan dengan tabel products jika ingin mendapatkan data produk terkait
             ->get();
 
-
-        // $wishlist = Wishlist::all();
         return view('admin.wishlist.index', compact('userCounts'));
     }
+
+
+
 
 
     /**

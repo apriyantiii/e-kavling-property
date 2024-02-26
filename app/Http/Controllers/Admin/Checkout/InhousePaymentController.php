@@ -7,6 +7,7 @@ use App\Models\InhousePayment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class InhousePaymentController extends Controller
 {
@@ -94,6 +95,64 @@ class InhousePaymentController extends Controller
         }
     }
 
+    public function edit(InhousePayment $inhousePaymentId)
+    {
+        return view('admin.checkout.inhouse-payment.edit', compact('inhousePaymentId'));
+    }
+
+    public function update(Request $request, InhousePayment $inhousePayment)
+    {
+        try {
+            // Validasi form jika diperlukan
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'payment_date' => 'required|date',
+                'payment_type' => 'required|string',
+                'home_bank' => 'required|string|max:255',
+                'tenor' => 'required|string',
+                'destination_bank' => 'required|string|max:255',
+                'rekening_name' => 'required|string|max:255',
+                'nominal' => 'required|integer',
+                'transfer' => 'nullable|mimes:jpeg,png,jpg,pdf|max:2048',
+                'payment_description' => 'nullable|string',
+                'status' => ['required', 'in:pending,approved,rejected'],
+            ]);
+
+            // Hapus bukti tf yang lama jika ada bukti tf baru diunggah
+            if ($request->hasFile('transfer') && $inhousePayment->transfer) {
+                Storage::delete('public/uploads/' . $inhousePayment->transfer);
+            }
+
+            // Simpan bukti tf yang baru jika ada file yang diunggah
+            $tfFileName = null;
+            if ($request->hasFile('transfer')) {
+                $transferFile = $request->file('transfer');
+                $tfFileName = 'tf_' . time() . '.' . $transferFile->getClientOriginalExtension();
+                $transferFile->storeAs('public/uploads', $tfFileName);
+            }
+
+            // Update data pembayaran
+            $inhousePayment->update([
+                'name' => $request->input('name'),
+                'payment_date' => $request->input('payment_date'),
+                'payment_type' => $request->input('payment_type'),
+                'home_bank' => $request->input('home_bank'),
+                'tenor' => $request->input('tenor'),
+                'destination_bank' => $request->input('destination_bank'),
+                'rekening_name' => $request->input('rekening_name'),
+                'nominal' => $request->input('nominal'),
+                'transfer' => $tfFileName ?? $inhousePayment->transfer, // Gunakan nilai lama jika tidak ada file yang diunggah
+                'payment_description' => $request->input('payment_description'),
+                'status' => $request->input('status'),
+            ]);
+
+            // Menggunakan redirect biasa
+            return redirect()->route('admin.checkout.inhouse-payments.detail', $inhousePayment->id)->with('success', 'Pembayaran inhouse berhasil diperbarui!');
+        } catch (\Exception $e) {
+            dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+        }
+    }
+
     // public function destroy($id)
     // {
     //     try {
@@ -140,18 +199,6 @@ class InhousePaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

@@ -31,7 +31,7 @@
                             </div>
                             <div class="row mt-5">
                                 <!-- Start left col -->
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="mb-4">
                                         <h5>Informasi Pembeli</h5>
                                         <hr class="mt-1 mb-1">
@@ -44,7 +44,7 @@
                                 </div>
                                 <!-- Stop left col -->
                                 <!-- Start Rifht col -->
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="mb-4">
                                         <h5>Order Kepada</h5>
                                         <hr class="mt-1 mb-1">
@@ -56,6 +56,12 @@
                                     </div>
                                 </div>
                                 <!-- Stop right col -->
+
+                                <div class="col-lg-2 text-end">
+                                    <a href="{{ route('checkout.payment.edit', $showPayment->id) }}"
+                                        class="btn btn-warning btn-rounded waves-effect waves-light text-dark">Edit
+                                        Pembayaran</a>
+                                </div>
                             </div>
                             <!-- Start Row -->
                             <div class="row align-items-center">
@@ -67,14 +73,13 @@
                                                 <th class="fw-bold">Harga</th>
                                                 <th class="fw-bold">Tanggal Bayar</th>
                                                 <th class="fw-bold">Tipe Pembelian</th>
-                                                <th class="fw-bold">Tenor</th>
+                                                <th class="fw-bold">Status</th>
                                                 <th class="fw-bold">Ditransfer Dari</th>
                                                 <th class="fw-bold">Bank Tujuan</th>
                                                 <th class="fw-bold">Nama Rekening</th>
                                                 <th class="fw-bold">Nominal</th>
                                                 <th class="fw-bold">Bukti Transfer</th>
                                                 <th class="fw-bold">Deskripsi</th>
-                                                <th class="fw-bold">Status</th>
                                                 <th class="fw-bold">Dibuat Pada</th>
                                             </tr>
                                         </thead>
@@ -93,10 +98,17 @@
                                                     {{ $showPayment->type }}
                                                 </td>
                                                 <td>
-                                                    @if ($showPayment->tenor !== null)
-                                                        {{ $showPayment->tenor }}
+                                                    @if ($showPayment->status == 'pending')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
+                                                    @elseif ($showPayment->status == 'approved')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-success font-size-14">Disetujui</span>
+                                                    @elseif ($showPayment->status == 'rejected')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-danger font-size-14">Ditolak</span>
                                                     @else
-                                                        <span class="text-danger">Null</span>
+                                                        <span class="badge bg-secondary">{{ $showPayment->status }}</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -121,9 +133,7 @@
                                                         <span class="text-danger">Tidak ada deskripsi</span>
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    {{ $showPayment->status }}
-                                                </td>
+
                                                 <td>
                                                     {{ $showPayment->created_at }}
                                                 </td>

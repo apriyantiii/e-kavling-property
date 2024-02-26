@@ -15,6 +15,21 @@
         @endslot
     @endcomponent
     <div class="row">
+        @if (session()->has('success'))
+            @include('components.alert.success', [
+                'type' => session('type', 'success'),
+                'delay' => session('delay', 2500),
+                'message' => session('success'),
+            ])
+        @endif
+
+        @if (session()->has('failure'))
+            @include('components.alert.failure', [
+                'type' => session('type', 'failure'),
+                'delay' => session('delay', 2500),
+                'message' => session('failure'),
+            ])
+        @endif
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body mx-4">
@@ -31,7 +46,7 @@
                             </div>
                             <div class="row mt-5">
                                 <!-- Start left col -->
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="mb-4">
                                         <h5>Informasi Pembeli</h5>
                                         <hr class="mt-1 mb-1">
@@ -44,7 +59,7 @@
                                 </div>
                                 <!-- Stop left col -->
                                 <!-- Start Rifht col -->
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="mb-4">
                                         <h5>Order Kepada</h5>
                                         <hr class="mt-1 mb-1">
@@ -56,6 +71,11 @@
                                     </div>
                                 </div>
                                 <!-- Stop right col -->
+                                <div class="col-lg-2 text-end">
+                                    <a href="{{ route('checkout.validate.edit', $showValidate->id) }}"
+                                        class="btn btn-warning btn-rounded waves-effect waves-light text-dark"><i
+                                            class="mdi mdi-pencil font-size-16 text-dark me-1"></i>Edit Data</a>
+                                </div>
                             </div>
                             <!-- Start Row -->
                             <div class="row align-items-center">

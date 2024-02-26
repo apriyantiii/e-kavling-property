@@ -124,7 +124,7 @@
                                                                         data-bs-target="#myModal{{ $payment->id }}">
                                                                         <i
                                                                             class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                        Edit
+                                                                        Edit Status
                                                                     </a>
                                                                 </li>
 
