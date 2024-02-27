@@ -42,6 +42,7 @@ Route::prefix('/')->group(function () {
 
     //product-categories
     Route::get('categories', [User\ProductController::class, 'indexCategories'])->name('categories.index');
+    Route::get('categories/show/{productCategory}', [User\ProductController::class, 'showCategories'])->name('categories.show');
 
     //profile route
     Route::get('profile', [User\ProfileController::class, 'index'])->name('profile.index');

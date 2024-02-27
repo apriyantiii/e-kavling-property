@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Payments;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\PurchaseValidation;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -14,10 +15,48 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function indexCategories()
+    public function indexCategories(Request $request)
     {
-        return view('user.products.index-categories');
+        $allCategories = ProductCategory::orderBy('created_at', 'desc')->get();
+
+        return view('user.categories.index', compact('allCategories'));
     }
+
+    public function showCategories(ProductCategory $productCategory)
+    {
+        // Mengambil data kategori produk dan mengurutkannya secara descending berdasarkan 'created_at'
+        $productCategory = $productCategory->orderBy('created_at', 'desc')->get();
+
+        // Mendapatkan ID kategori produk yang sedang ditampilkan
+        $categoryId = $productCategory->first()->id; // Anda mungkin perlu menyesuaikan cara Anda mendapatkan ID kategori ini sesuai dengan struktur data Anda.
+
+        // Mengambil produk yang memiliki product_category_id yang sama dengan $categoryId
+        $products = Product::where('product_category_id', $categoryId)->get();
+
+        // Menyiapkan array untuk menyimpan status setiap produk
+        $statuses = [];
+
+        // Loop melalui setiap produk untuk menentukan statusnya
+        foreach ($products as $product) {
+            // Cek apakah product_id tersebut sudah terdapat pada tabel purchase_validations
+            $isSold = PurchaseValidation::where('product_id', $product->id)->exists();
+            // Jika sudah, maka statusnya "sold", jika belum maka "available"
+            $status = $isSold ? 'sold' : 'available';
+            // Tambahkan status ke dalam array statuses
+            $statuses[$product->id] = $status;
+        }
+
+        return view('user.categories.show', compact('productCategory', 'products', 'statuses'));
+    }
+
+
+
+    // public function showCategories(ProductCategory $productCategory)
+    // {
+    //     // Mengambil data kategori produk dan mengurutkannya secara descending berdasarkan 'created_at'
+    //     $productCategory = $productCategory->orderBy('created_at', 'desc')->get();
+    //     return view('user.categories.show', compact('productCategory'));
+    // }
 
     public function search(Request $request)
     {
