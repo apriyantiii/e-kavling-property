@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use PharIo\Manifest\Author;
+
+// use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class LoginController extends Controller
 {
@@ -39,27 +43,43 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        if (auth()->guard('is_admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (auth()->guard('is_admin')->attempt($credentials)) {
+            // Otentikasi Admin berhasil
             $user = auth()->guard('is_admin')->user();
-            $level = $user->level == 'admin' ? 'Admin' : 'Direktur';
-            return redirect()->route('admin.home')->with('success', 'Anda berhasil login sebagai ' . $level);
-        } else {
-            return back()->with('error', 'Email atau password salah');
-        }
 
-        // if (auth()->guard('is_admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-        //     // $admin = auth()->guard('is_admin')->user();
-        //     // \Session::put('success', 'Anda berhasil login!');
-        //     return redirect()->route('admin.home')->with('success', 'Anda berhasil Login');
-        // } else {
-        //     return back()->with('error', 'email atau password salah');
-        // }
+            $level = $user->level == 'admin' ? 'Admin' : 'Direktur';
+            return redirect()->intended('/admin/home')->with('success', 'Anda berhasil login sebagai ' . $level);
+        } else {
+            // Otentikasi gagal, arahkan kembali ke halaman masuk dengan pesan kesalahan
+            return back()->withInput()->withErrors(['email' => 'Email atau password salah']);
+        }
     }
+
+    // public function login(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    //     if (auth()->guard('is_admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+    //         $user = auth()->guard('is_admin')->user();
+    //         $level = $user->level == 'admin' ? 'Admin' : 'Direktur';
+    //         return redirect()->route('admin.home')->with('success', 'Anda berhasil login sebagai ' . $level);
+    //     } else {
+    //         return back()->with('error', 'Email atau password salah');
+    //     }
+
+    //     // if (auth()->guard('is_admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+    //     //     // $admin = auth()->guard('is_admin')->user();
+    //     //     // \Session::put('success', 'Anda berhasil login!');
+    //     //     return redirect()->route('admin.home')->with('success', 'Anda berhasil Login');
+    //     // } else {
+    //     //     return back()->with('error', 'email atau password salah');
+    //     // }
+    // }
 
     public function logoutAdmin(Request $request)
     {
