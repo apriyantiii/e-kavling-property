@@ -53,6 +53,7 @@ class ChatController extends Controller
         // Pastikan $userId tersedia sebelum mengirimkan ke tampilan
         $userId = $userId ?? null;
 
+
         return view('admin.live-chat.show', ['userId' => $userId, 'allChats' => $allChats]);
     }
 

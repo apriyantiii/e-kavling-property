@@ -50,33 +50,34 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
-                                            <div>
-                                                <button type="button"
-                                                    class="btn btn-success btn-rounded waves-effect waves-light"
-                                                    data-bs-toggle="modal" data-bs-target="#addAdmin"><i
-                                                        class="bx bx-plus me-1"></i>
-                                                    Tambah Admin Baru</button>
+                                        @unless ($isDirector)
+                                            <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
+                                                <div>
+                                                    <button type="button"
+                                                        class="btn btn-success btn-rounded waves-effect waves-light"
+                                                        data-bs-toggle="modal" data-bs-target="#addAdmin"><i
+                                                            class="bx bx-plus me-1"></i>
+                                                        Tambah Admin Baru</button>
+                                                </div>
+
+                                                <div class="dropdown">
+                                                    <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
+                                                        href="#" role="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="bx bx-dots-horizontal-rounded"></i>
+                                                    </a>
+
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                <i class="bx bx-trash me-1 text-danger"></i>
+                                                                Hapus Semua
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-
-                                            <div class="dropdown">
-                                                <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
-                                                    href="#" role="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="bx bx-trash me-1 text-danger"></i>
-                                                            Hapus Semua
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
+                                        @endunless
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +101,9 @@
                                                     <th>Level</th>
                                                     <th>Kontak</th>
                                                     <th>Alamat</th>
-                                                    <th>Aksi</th>
+                                                    @unless ($isDirector)
+                                                        <th>Tindakan</th>
+                                                    @endunless
                                                 </tr>
                                             </thead>
 
@@ -135,39 +138,42 @@
                                                                 <p class="text-danger">null</p>
                                                             @endif
                                                         </td>
-                                                        <td class="align-middle">
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle card-drop"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    {{-- <li><a href="#" class="dropdown-item">
+                                                        @unless ($isDirector)
+                                                            <td class="align-middle">
+                                                                <div class="dropdown">
+                                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                                    </a>
+                                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                                        {{-- <li><a href="#" class="dropdown-item">
                                                                             <i
                                                                                 class="mdi mdi-eye font-size-16 text-success me-1"></i>
                                                                             Detail
                                                                         </a>
                                                                     </li> --}}
-                                                                    <li><a href="{{ route('admin.setting-admin.edit', $admin->id) }}"
-                                                                            class="dropdown-item">
-                                                                            <i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                            Edit
-                                                                        </a>
-                                                                    </li>
 
-                                                                    <li>
-                                                                        <a href="#" class="dropdown-item delete-user"
-                                                                            data-id="{{ $admin->id }}"
-                                                                            onclick="deleteUser(event)">
-                                                                            <i
-                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                            Hapus
-                                                                        </a>
+                                                                        <li><a href="{{ route('admin.setting-admin.edit', $admin->id) }}"
+                                                                                class="dropdown-item">
+                                                                                <i
+                                                                                    class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                                Edit
+                                                                            </a>
+                                                                        </li>
 
-                                                                    </li>
-                                                            </div>
-                                                        </td>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item delete-user"
+                                                                                data-id="{{ $admin->id }}"
+                                                                                onclick="deleteUser(event)">
+                                                                                <i
+                                                                                    class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                                Hapus
+                                                                            </a>
+                                                                        </li>
+
+                                                                </div>
+                                                            </td>
+                                                        @endunless
                                                     </tr>
                                                 @endforeach
 

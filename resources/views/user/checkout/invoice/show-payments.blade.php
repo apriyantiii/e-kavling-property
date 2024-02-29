@@ -563,7 +563,7 @@
                                                     {{ $payments->rekening_name }}
                                                 </td>
                                                 <td>
-                                                    {{ $payments->nominal }}
+                                                    {{ $payments->formatted_nominal }}
                                                 </td>
                                                 <td><a href="{{ asset('storage/uploads/' . $payments->transfer) }}"
                                                         target="_blank">Bukti Transfer</a>
@@ -579,7 +579,10 @@
                                                     {{ $payments->status }}
                                                 </td>
 
-                                                <td>{{ \Carbon\Carbon::parse($payments->created_at)->format('d-m-Y h:i A') }}
+                                                <td>
+                                                    {{ \Carbon\Carbon::parse($payments->created_at)->format('d M Y H:i') }}
+                                                </td>
+
 
                                             </tr>
                                         </tbody>

@@ -17,6 +17,13 @@ class InvoiceController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    // Fungsi bantu untuk meng-format nominal
+    private function formatNominal($nominal)
+    {
+        return 'Rp ' . number_format($nominal, 0, ',', '.');
+    }
+
     public function index()
     {
         // Fungsi formatPrice 
@@ -50,27 +57,18 @@ class InvoiceController extends Controller
             ->orderBy('created_at', 'desc') // Tambahkan orderBy untuk mengurutkan berdasarkan created_at terbaru
             ->get();
 
-
-        // $inhousePayments = InhousePayment::with('product')
-        //     ->where(function ($query) use ($currentUserId) {
-        //         $query->where('status', 'approved')
-        //             ->orWhere('status', 'process')
-        //             ->orWhere('status', 'pending');
-        //     })
-        //     ->where('user_id', $currentUserId)
-        //     ->get();
+        // INHOUSE PAYMENTS
         // Subquery untuk mendapatkan entri terbaru untuk setiap product_id
         $latestInhousePayments = InhousePayment::select('product_id', DB::raw('MAX(created_at) as latest_created_at'))
             ->groupBy('product_id');
 
-        // Query utama untuk mendapatkan entri terbaru untuk setiap product_id
         $allInhousePayments = InhousePayment::joinSub($latestInhousePayments, 'latest_payments', function ($join) {
             $join->on('inhouse_payments.product_id', '=', 'latest_payments.product_id')
                 ->on('inhouse_payments.created_at', '=', 'latest_payments.latest_created_at');
         })
+            ->where('user_id', $currentUserId)
             ->orderBy('created_at', 'desc')
             ->get();
-
 
         // Tambahkan formatted_price ke objek product
         foreach ($purchaseValidation as $validation) {
@@ -116,6 +114,8 @@ class InvoiceController extends Controller
 
     public function showPayment(Payments $payments)
     {
+        $payments->formatted_nominal = $this->formatNominal($payments->nominal);
+
         return view('user.checkout.invoice.show-payments', compact('payments'));
     }
 

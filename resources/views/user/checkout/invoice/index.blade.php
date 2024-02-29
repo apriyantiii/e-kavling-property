@@ -71,7 +71,10 @@
                                 // pengecekn di model payment
                                 $isPaid = \App\Models\Payments::where('product_id', $validation->product_id)->exists();
                                 // pengecekan juga di model InhousePayment
-                                $isPaidInhouse = \App\Models\InhousePayment::where('product_id', $validation->product_id)->exists();
+                                $isPaidInhouse = \App\Models\InhousePayment::where(
+                                    'product_id',
+                                    $validation->product_id,
+                                )->exists();
                             @endphp
                             <div class="card">
                                 <div class="card-body">
@@ -110,7 +113,8 @@
                                             @if ($validation->product)
                                                 <h4>{{ $validation->product->formatted_price }}</h4>
                                             @endif
-                                            @if (!($isPaid || $isPaidInhouse))
+
+                                            @if (!($isPaid || $isPaidInhouse) && !in_array($validation->status, ['pending', 'rejected']))
                                                 <h5>
                                                     <a href="{{ route('checkout.confirmation', ['productId' => $validation->product->id]) }}"
                                                         class="btn btn-warning mt-5 text-black">

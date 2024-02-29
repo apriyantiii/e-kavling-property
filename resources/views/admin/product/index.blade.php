@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Semua Produk
+    Semua Properti
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
@@ -9,6 +9,14 @@
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @component('components.breadcrumb')
+        @slot('li_1')
+            Semua Properti
+        @endslot
+        @slot('title')
+            Properti
+        @endslot
+    @endcomponent
     <div class="row">
         <div class="col-12">
 
@@ -36,49 +44,50 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <div>
-                                            <h5 class="card-title">Semua Produk
+                                            <h5 class="card-title">Semua Properti
                                                 <span class="text-muted fw-normal">({{ $products->count() }})</span>
                                             </h5>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
-                                            <div class="btn-group">
-                                                <button type="button"
-                                                    class="btn btn-outline-secondary btn-rounded dropdown-toggle waves-effect waves-light"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">Import & Download
-                                                    <i class="fas fa-angle-down "></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">
-                                                        <i class="fa fa-plus me-1 text-success"></i>
-                                                        Import Data Produk
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <i class="fa fa-file-excel me-1 text-success"></i>
-                                                        Unduh Data Produk
-                                                    </a>
+                                        @unless ($isDirector)
+                                            <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                        class="btn btn-outline-secondary btn-rounded dropdown-toggle waves-effect waves-light"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">Import & Download
+                                                        <i class="fas fa-angle-down "></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="fa fa-plus me-1 text-success"></i>
+                                                            Import Data Properti
+                                                        </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="fa fa-file-excel me-1 text-success"></i>
+                                                            Unduh Data Properti
+                                                        </a>
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <a href="{{ route('product.create') }}"
-                                                    class="btn btn-success btn-rounded waves-effect waves-light"><i
-                                                        class="bx bx-plus me-1"></i> Buat
-                                                    Produk Baru</a>
-                                            </div>
+                                                <div>
+                                                    <a href="{{ route('product.create') }}"
+                                                        class="btn btn-success btn-rounded waves-effect waves-light"><i
+                                                            class="bx bx-plus me-1"></i> Buat
+                                                        Properti Baru</a>
+                                                </div>
 
-                                            <div class="dropdown">
-                                                <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
-                                                    href="#" role="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                                </a>
+                                                <div class="dropdown">
+                                                    <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
+                                                        href="#" role="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="bx bx-dots-horizontal-rounded"></i>
+                                                    </a>
 
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li>
-                                                        {{-- <form action="{{ route('category.delete-all') }}" method="POST">
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            {{-- <form action="{{ route('category.delete-all') }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
 
@@ -87,12 +96,12 @@
                                                                 Hapus Semua
                                                             </button>
                                                         </form> --}}
-                                                    </li>
-                                                </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
                                             </div>
-
-                                        </div>
-
+                                        @endunless
                                     </div>
                                 </div>
                             </div>
@@ -109,13 +118,13 @@
                                                 <tr>
                                                     <th>Foto</th>
                                                     <th class="text-center">ID</th>
-                                                    <th>Nama Produk</th>
-                                                    <th>Kode Produk</th>
+                                                    <th>Nama Properti</th>
+                                                    <th>Kode Properti</th>
                                                     {{-- <th>Nama Kategori</th> --}}
                                                     <th>Lokasi</th>
                                                     <th>Ukuran</th>
                                                     {{-- <th>Harga</th> --}}
-                                                    <th>Action</th>
+                                                    <th>Tindakan</th>
                                                 </tr>
                                             </thead>
 
@@ -152,29 +161,31 @@
                                                                                 class="mdi mdi-eye font-size-16 text-success me-1"></i>
                                                                             Detail</a>
                                                                     </li>
-                                                                    <li><a href="{{ route('product.edit', $product->id) }}"
-                                                                            class="dropdown-item">
-                                                                            <i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                            Edit
-                                                                        </a>
-                                                                    </li>
+                                                                    @unless ($isDirector)
+                                                                        <li><a href="{{ route('product.edit', $product->id) }}"
+                                                                                class="dropdown-item">
+                                                                                <i
+                                                                                    class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                                Edit
+                                                                            </a>
+                                                                        </li>
 
-                                                                    <li>
-                                                                        <a href="#" class="dropdown-item"
-                                                                            onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
-                                                                            <i
-                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                            Hapus
-                                                                        </a>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item"
+                                                                                onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                                                <i
+                                                                                    class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                                Hapus
+                                                                            </a>
 
-                                                                        <form id="deleteProductForm"
-                                                                            action="{{ route('product.destroy', $product->id) }}"
-                                                                            method="POST" style="display: none;">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                        </form>
-                                                                    </li>
+                                                                            <form id="deleteProductForm"
+                                                                                action="{{ route('product.destroy', $product->id) }}"
+                                                                                method="POST" style="display: none;">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                            </form>
+                                                                        </li>
+                                                                    @endunless
                                                                 </ul>
                                                             </div>
                                                         </td>

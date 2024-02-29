@@ -39,61 +39,65 @@
             <div class="col-xl-12">
                 <div class="card justify-content-center">
                     <div class="card-body justify-content-center">
-                        <div class="table-responsive">
-                            <table class="table align-middle mb-0 table-nowrap">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Properti</th>
-                                        <th>Detail</th>
-                                        <th>Harga</th>
-                                        <th>Jumlah</th>
-                                        <th colspan="2">Total Harga</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($wishlist as $item)
+                        @if ($wishlist->isEmpty())
+                            <p class="text-center">Wishlist belum ditambahkan.</p>
+                        @else
+                            <div class="table-responsive">
+                                <table class="table align-middle mb-0 table-nowrap">
+                                    <thead class="table-light">
                                         <tr>
-                                            <td>
-                                                <img src="{{ URL::asset('storage/' . $item->product->photo) }}"
-                                                    alt="product-img" title="product-img" class="avatar-xl" />
-                                            </td>
-                                            <td>
-                                                <h5 class="font-size-14 text-truncate"><a
-                                                        href="{{ route('product.show', $item->product->id) }}"
-                                                        class="text-dark">{{ $item->product->name }}</a></h5>
-                                                <p class="mb-0">Lokasi : <span
-                                                        class="fw-medium">{{ $item->product->location }}</span></p>
-                                            </td>
-                                            <td>
-                                                {{ $item->product->formatted_price }}
-                                            </td>
-                                            <td>
-                                                <div class="me-3" style="width: 120px;">
-                                                    <input type="text" value="01" name="demo_vertical"
-                                                        oninput="validity.valid||(value='1');" disabled>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                {{ $item->product->location }}
-                                            </td>
-                                            <td>
-                                                <a href="#" class="action-icon text-danger delete-wishlist"
-                                                    onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
-                                                    <i class="mdi mdi-trash-can font-size-18"></i>
-                                                </a>
-
-                                                <form id="deleteProductForm"
-                                                    action="{{ route('wishlist.destroy', $item->id) }}" method="POST"
-                                                    style="display: none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
-                                            </td>
+                                            <th>Properti</th>
+                                            <th>Detail</th>
+                                            <th>Harga</th>
+                                            <th>Jumlah</th>
+                                            <th colspan="2">Total Harga</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($wishlist as $item)
+                                            <tr>
+                                                <td>
+                                                    <img src="{{ URL::asset('storage/' . $item->product->photo) }}"
+                                                        alt="product-img" title="product-img" class="avatar-xl" />
+                                                </td>
+                                                <td>
+                                                    <h5 class="font-size-14 text-truncate"><a
+                                                            href="{{ route('product.show', $item->product->id) }}"
+                                                            class="text-dark">{{ $item->product->name }}</a></h5>
+                                                    <p class="mb-0">Lokasi : <span
+                                                            class="fw-medium">{{ $item->product->location }}</span></p>
+                                                </td>
+                                                <td>
+                                                    {{ $item->product->formatted_price }}
+                                                </td>
+                                                <td>
+                                                    <div class="me-3" style="width: 120px;">
+                                                        <input type="text" value="01" name="demo_vertical"
+                                                            oninput="validity.valid||(value='1');" disabled>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{ $item->product->location }}
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="action-icon text-danger delete-wishlist"
+                                                        onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
+                                                        <i class="mdi mdi-trash-can font-size-18"></i>
+                                                    </a>
+
+                                                    <form id="deleteProductForm"
+                                                        action="{{ route('wishlist.destroy', $item->id) }}" method="POST"
+                                                        style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
                         <div class="row mt-4">
                             <div class="col-sm-6">
                                 <a href="{{ route('home.properti') }}" class="btn btn-secondary">

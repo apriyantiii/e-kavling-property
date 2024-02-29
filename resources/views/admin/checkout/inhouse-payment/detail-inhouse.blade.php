@@ -72,11 +72,14 @@
                                 </div>
                                 <!-- Stop right col -->
 
-                                <div class="col-lg-2 text-end">
-                                    <a href="{{ route('checkout.inhouse-payment.edit', $inhousePayments->id) }}"
-                                        class="btn btn-warning btn-rounded waves-effect waves-light text-dark">Edit
-                                        Pembayaran</a>
-                                </div>
+                                @unless ($isAdmin)
+                                    <div class="col-lg-2 text-end">
+                                        <a href="{{ route('checkout.inhouse-payment.edit', $inhousePayments->id) }}"
+                                            class="btn btn-warning btn-rounded waves-effect waves-light text-dark">Edit
+                                            Pembayaran</a>
+                                    </div>
+                                @endunless
+
                             </div>
                             <!-- Start Row -->
                             <div class="row align-items-center">
@@ -105,7 +108,7 @@
                                                     {{ $inhousePayments->product->name }}
                                                 </td>
                                                 <td>
-                                                    {{ $inhousePayments->product->price }}
+                                                    {{ $inhousePayments->formatted_price }}
                                                 </td>
                                                 <td>
                                                     {{ \Carbon\Carbon::parse($inhousePayments->payment_date)->format('d M Y') }}
@@ -144,9 +147,7 @@
                                                 <td>
                                                     {{ $inhousePayments->rekening_name }}
                                                 </td>
-                                                <td>
-                                                    {{ $inhousePayments->nominal }}
-                                                </td>
+                                                <td>{{ $inhousePayments->formatted_nominal }}</td>
                                                 <td><a href="{{ asset('storage/uploads/' . $inhousePayments->transfer) }}"
                                                         target="_blank">Bukti Transfer</a>
                                                 </td>
@@ -159,7 +160,7 @@
                                                 </td>
 
                                                 <td>
-                                                    {{ $inhousePayments->created_at }}
+                                                    {{ \Carbon\Carbon::parse($inhousePayments->created_at)->format('d M Y H:i') }}
                                                 </td>
                                             </tr>
                                         </tbody>

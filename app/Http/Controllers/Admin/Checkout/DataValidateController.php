@@ -18,8 +18,9 @@ class DataValidateController extends Controller
     public function index()
     {
         $validate = PurchaseValidation::orderBy('created_at', 'desc')->get();
+        $isDirector = Auth::guard('is_admin')->user()->level === 'director';
 
-        return view('admin.checkout.data-validate.index', compact('validate'));
+        return view('admin.checkout.data-validate.index', compact('validate', 'isDirector'));
     }
 
     public function updateStatus(Request $request, PurchaseValidation $purchaseValidate)

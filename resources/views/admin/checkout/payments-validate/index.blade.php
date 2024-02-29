@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Data Validasi Berkas Pembelian
+    Data Validasi Pembayaran
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
@@ -9,6 +9,14 @@
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @component('components.breadcrumb')
+        @slot('li_1')
+            Semua Validasi
+        @endslot
+        @slot('title')
+            Validasi Pembayaran
+        @endslot
+    @endcomponent
     <div class="row">
         <div class="col-12">
 
@@ -45,72 +53,71 @@
                             </div>
                         </div>
 
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="datatable-buttons"
+                                    class="table align-middle datatable dt-responsive table-check nowrap"
+                                    style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                ID
+                                            </th>
+                                            <th>Produk</th>
+                                            <th>Nama Rek</th>
+                                            <th>Tanggal Pembayaran</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Tindakan</th>
+                                        </tr>
+                                    </thead>
 
-                        {{-- form for checkbox --}}
-                        <form action="" method="POST" class="form-product">
-                            @csrf
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="datatable-buttons"
-                                        class="table align-middle datatable dt-responsive table-check nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
-                                        <thead>
+                                    <tbody>
+                                        @foreach ($payments as $payment)
                                             <tr>
-                                                <td>ID</td>
-                                                <th>Nama Produk</th>
-                                                <th>Nama Pembeli</th>
-                                                <th>Tanggal Pembayaran</th>
-                                                <th>Type</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
+                                                <td class="text-center">{{ $payment->id }}</td>
+                                                <td>
+                                                    @if ($payment->product)
+                                                        <a
+                                                            href="{{ route('product.index') }}">{{ $payment->product->code }}</a>
+                                                    @else
+                                                        Produk tidak tersedia
+                                                    @endif
+                                                </td>
+                                                <td>{{ $payment->rekening_name }}</td>
+                                                <td> {{ \Carbon\Carbon::parse($payment->payment_date)->format('d M Y') }}
+                                                </td>
+                                                <td>{{ $payment->type }}</td>
+                                                <td>
+                                                    @if ($payment->status == 'pending')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
+                                                    @elseif ($payment->status == 'approved')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-success font-size-14">Disetujui</span>
+                                                    @elseif ($payment->status == 'rejected')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-danger font-size-14">Ditolak</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">{{ $payment->status }}</span>
+                                                    @endif
+                                                </td>
 
-
-                                        <tbody>
-                                            @forelse ($payments as $payment)
-                                                <tr>
-                                                    <td class="text-center">{{ $payment->id }}</td>
-                                                    <td>
-                                                        @if ($payment->product)
-                                                            {{ $payment->product->name }}
-                                                        @else
-                                                            Produk tidak tersedia
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $payment->name }}</td>
-                                                    <td>{{ $payment->payment_date }}</td>
-                                                    <td>{{ $payment->type }}</td>
-                                                    <td>
-                                                        @if ($payment->status == 'pending')
-                                                            <span
-                                                                class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
-                                                        @elseif ($payment->status == 'approved')
-                                                            <span
-                                                                class="badge badge-pill rounded-pill bg-success font-size-14">Disetujui</span>
-                                                        @elseif ($payment->status == 'rejected')
-                                                            <span
-                                                                class="badge badge-pill rounded-pill bg-danger font-size-14">Ditolak</span>
-                                                        @else
-                                                            <span class="badge bg-secondary">{{ $payment->status }}</span>
-                                                        @endif
-                                                    </td>
-
-                                                    <td class="align-middle">
-                                                        <div class="dropdown">
-                                                            <a href="#" class="dropdown-toggle card-drop"
-                                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a href="{{ route('checkout.payment.show', $payment->id) }}"
-                                                                        class="dropdown-item">
-                                                                        <i
-                                                                            class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                        Detail
-                                                                    </a>
-                                                                </li>
-                                                                {{-- <li>
+                                                <td class="align-middle">
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li><a href="{{ route('checkout.payment.show', $payment->id) }}"
+                                                                    class="dropdown-item">
+                                                                    <i
+                                                                        class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                                    Detail
+                                                                </a>
+                                                            </li>
+                                                            {{-- <li>
                                                                     <a type="button" class="btn" data-bs-toggle="modal"
                                                                         data-bs-target="#myModal{{ $payment->id }}">
                                                                         <i
@@ -119,6 +126,7 @@
 
                                                                 </li> --}}
 
+                                                            @unless ($isAdmin)
                                                                 <li><a href="#" class="dropdown-item"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#myModal{{ $payment->id }}">
@@ -127,30 +135,118 @@
                                                                         Edit Status
                                                                     </a>
                                                                 </li>
+                                                            @endunless
 
-                                                                <li>
-                                                                    <a href="#" class="dropdown-item delete-user"
-                                                                        data-id="{{ $payment->id }}"
-                                                                        onclick="deleteUser(event)">
-                                                                        <i
-                                                                            class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                        Hapus
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="7" class="text-center">Data masih kosong</td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                            <li>
+                                                                <a href="#" class="dropdown-item delete-user"
+                                                                    data-id="{{ $payment->id }}"
+                                                                    onclick="deleteUser(event)">
+                                                                    <i
+                                                                        class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                    Hapus
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
+                        </div>
+
+                        {{-- <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="datatable-buttons"
+                                    class="table align-middle datatable dt-responsive table-check nowrap"
+                                    style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama Produk</th>
+                                            <th>Nama Pembeli</th>
+                                            <th>Tanggal Pembayaran</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Tindakan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($payments as $payment)
+                                            <tr>
+                                                <td class="text-center">{{ $payment->id }}</td>
+                                                <td>
+                                                    @if ($payment->product)
+                                                        {{ $payment->product->name }}
+                                                    @else
+                                                        Produk tidak tersedia
+                                                    @endif
+                                                </td>
+                                                <td>{{ $payment->name }}</td>
+                                                <td>{{ $payment->payment_date }}</td>
+                                                <td>{{ $payment->type }}</td>
+                                                <td>
+                                                    @if ($payment->status == 'pending')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-warning font-size-14">Pending</span>
+                                                    @elseif ($payment->status == 'approved')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-success font-size-14">Disetujui</span>
+                                                    @elseif ($payment->status == 'rejected')
+                                                        <span
+                                                            class="badge badge-pill rounded-pill bg-danger font-size-14">Ditolak</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">{{ $payment->status }}</span>
+                                                    @endif
+                                                </td>
+
+                                                <td class="align-middle">
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li><a href="{{ route('checkout.payment.show', $payment->id) }}"
+                                                                    class="dropdown-item">
+                                                                    <i
+                                                                        class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                                    Detail
+                                                                </a>
+                                                            </li>
+                                                            <li><a href="#" class="dropdown-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#myModal{{ $payment->id }}">
+                                                                    <i
+                                                                        class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                    Edit Status
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="#" class="dropdown-item delete-user"
+                                                                    data-id="{{ $payment->id }}"
+                                                                    onclick="deleteUser(event)">
+                                                                    <i
+                                                                        class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                    Hapus
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="7" class="text-center">Data masih kosong</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> --}}
                     </div>
                 </div>
             </div><!-- end card-body -->

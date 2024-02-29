@@ -540,14 +540,25 @@
                                                     @endif
                                                 </td>
 
-                                                <td><a href="{{ asset('storage/uploads/' . $purchaseValidation->kk_file) }}"
-                                                        target="_blank">Lihat KK</a>
+                                                <td>
+                                                    @if ($purchaseValidation->kk_file)
+                                                        <a href="{{ asset('storage/uploads/' . $purchaseValidation->kk_file) }}"
+                                                            target="_blank">Lihat KK</a>
+                                                    @else
+                                                        KK tidak tersedia
+                                                    @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{ asset('storage/uploads/' . $purchaseValidation->ktp_file) }}"
-                                                        target="_blank">Lihat KTP</a>
+                                                    @if ($purchaseValidation->ktp_file)
+                                                        <a href="{{ asset('storage/uploads/' . $purchaseValidation->ktp_file) }}"
+                                                            target="_blank">Lihat KTP</a>
+                                                    @else
+                                                        KTP tidak tersedia
+                                                    @endif
                                                 </td>
-                                                <td>{{ $purchaseValidation->created_at }}</td>
+                                                <td>
+                                                    {{ \Carbon\Carbon::parse($purchaseValidation->payment_date)->format('d M Y H:i') }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

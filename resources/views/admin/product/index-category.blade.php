@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Semua Produk
+    Semua Kategori
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
@@ -8,6 +8,14 @@
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @component('components.breadcrumb')
+        @slot('li_1')
+            Semua Kategori
+        @endslot
+        @slot('title')
+            Kategori Properti
+        @endslot
+    @endcomponent
     <div class="row">
         <div class="col-12">
             @if (session()->has('success'))
@@ -34,40 +42,42 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6">
                                     <div>
-                                        <h5 class="card-title">Kategori Produk
+                                        <h5 class="card-title">Kategori Properti
                                             <span class="text-muted fw-normal">({{ $productCategories->count() }})</span>
                                         </h5>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
-                                        <div>
+                                    @unless ($isDirector)
+                                        <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
+                                            <div>
 
-                                            <button type="button"
-                                                class="btn btn-success btn-rounded waves-effect waves-light"
-                                                data-bs-toggle="modal" data-bs-target="#addCategory"><i
-                                                    class="bx bx-plus me-1"></i>
-                                                Buat Kategori Baru</button>
+                                                <button type="button"
+                                                    class="btn btn-success btn-rounded waves-effect waves-light"
+                                                    data-bs-toggle="modal" data-bs-target="#addCategory"><i
+                                                        class="bx bx-plus me-1"></i>
+                                                    Buat Kategori Baru</button>
+                                            </div>
+
+                                            <div class="dropdown">
+                                                <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
+                                                    href="#" role="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <i class="bx bx-dots-horizontal-rounded"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ route('category.destroy-all') }}">
+                                                            <i class="bx bx-trash me-1 text-danger"></i>
+                                                            Hapus Semua
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-
-                                        <div class="dropdown">
-                                            <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
-                                                href="#" role="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <i class="bx bx-dots-horizontal-rounded"></i>
-                                            </a>
-
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li>
-                                                    <a class="dropdown-item" href="{{ route('category.destroy-all') }}">
-                                                        <i class="bx bx-trash me-1 text-danger"></i>
-                                                        Hapus Semua
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    @endunless
                                 </div>
                             </div>
                         </div>
@@ -82,7 +92,9 @@
                                             <th>Foto</th>
                                             <th>Nama Kategori</th>
                                             <th>Lokasi</th>
-                                            <th>Tindakan</th>
+                                            @unless ($isDirector)
+                                                <th>Tindakan</th>
+                                            @endunless
                                         </tr>
                                     </thead>
 
@@ -96,34 +108,36 @@
                                                 </td>
                                                 <td>{{ $productCategory->name }}</td>
                                                 <td>{{ $productCategory->location }}</td>
-                                                <td class="align-middle">
-                                                    <div class="dropdown">
-                                                        <a href="#" class="dropdown-toggle card-drop"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a href="{{ route('category.edit', $productCategory->id) }}"
-                                                                    class="dropdown-item">
-                                                                    <i
-                                                                        class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                    Edit
-                                                                </a>
-                                                            </li>
+                                                @unless ($isDirector)
+                                                    <td class="align-middle">
+                                                        <div class="dropdown">
+                                                            <a href="#" class="dropdown-toggle card-drop"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                <li><a href="{{ route('category.edit', $productCategory->id) }}"
+                                                                        class="dropdown-item">
+                                                                        <i
+                                                                            class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                        Edit
+                                                                    </a>
+                                                                </li>
 
-                                                            <li>
-                                                                <a href="#" class="dropdown-item delete-user"
-                                                                    data-id="{{ $productCategory->id }}"
-                                                                    onclick="deleteCategory(event)">
-                                                                    <i
-                                                                        class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                    Hapus
-                                                                </a>
+                                                                <li>
+                                                                    <a href="#" class="dropdown-item delete-user"
+                                                                        data-id="{{ $productCategory->id }}"
+                                                                        onclick="deleteCategory(event)">
+                                                                        <i
+                                                                            class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                        Hapus
+                                                                    </a>
 
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                @endunless
                                             </tr>
                                         @endforeach
                                     </tbody>

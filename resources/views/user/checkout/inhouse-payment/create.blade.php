@@ -42,13 +42,17 @@
                                                 </h5>
                                                 <p>Mohon lanjutkan pembayaran melalui nomor rekening berikut</p>
 
-                                                <h5 class="mt-0 mb-3 font-size-15 text-center">
-                                                    <strong>1345513457</strong>
-                                                </h5>
+                                                @if ($bank)
+                                                    <h5 class="mt-0 mb-3 font-size-15 text-center">
+                                                        <strong>{{ $bank->rekening }}</strong>
+                                                    </h5>
 
-                                                <h5 class="mt-0 mb-3 font-size-15 text-center">
-                                                    <strong>BNI a.n Narti Apriyanti</strong>
-                                                </h5>
+                                                    <h5 class="mt-0 mb-3 font-size-15 text-center">
+                                                        <strong>{{ $bank->bank }} a.n {{ $bank->name }}</strong>
+                                                    </h5>
+                                                @else
+                                                    <p class="text-center">Bank belum tersedia.</p>
+                                                @endif
                                                 <hr style="border-top: 4px solid #000000; width: 50%;margin: auto;">
 
                                                 <div class="row">
@@ -185,9 +189,9 @@
                                                                     Pembayaran<span class="text-danger">*</span></label>
                                                                 <input
                                                                     class="form-control form-rounded @error('payment_date') is-invalid @enderror"
-                                                                    type="date" value="2024-02-01" name="payment_date"
-                                                                    id="payment_date" value="{{ old('payment_date') }}"
-                                                                    required autocomplete="payment_date">
+                                                                    type="date" name="payment_date" id="payment_date"
+                                                                    value="{{ date('Y-m-d') }}" required
+                                                                    autocomplete="payment_date">
                                                                 @error('payment_date')
                                                                     <div class="invalid-feedback">
                                                                         {{ $message }}

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Payments;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentsValidateController extends Controller
@@ -16,7 +17,9 @@ class PaymentsValidateController extends Controller
     public function index()
     {
         $payments = Payments::orderBy('created_at', 'desc')->get();
-        return view('admin.checkout.payments-validate.index', compact('payments'));
+
+        $isAdmin = Auth::guard('is_admin')->user()->level === 'admin';
+        return view('admin.checkout.payments-validate.index', compact('payments', 'isAdmin'));
     }
 
     /**
@@ -108,7 +111,9 @@ class PaymentsValidateController extends Controller
      */
     public function show(Payments $showPayment)
     {
-        return view('admin.checkout.payments-validate.show', compact('showPayment'));
+        $isAdmin = Auth::guard('is_admin')->user()->level === 'admin';
+
+        return view('admin.checkout.payments-validate.show', compact('showPayment', 'isAdmin'));
     }
 
     /**

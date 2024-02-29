@@ -30,8 +30,15 @@
                     <div class="row justify-content-center" style="margin-left: 25px">
                         <div class="col-md-6">
                             <div class="mt-4 mt-md-0 mb-3">
-                                <img class="img-thumbnail rounded-circle avatar-xxl" alt="200x200"
-                                    src="{{ URL::asset('storage/' . $user->avatar) }}" data-holder-rendered="true">
+                                @if (!empty($user->avatar))
+                                    <img class="img-thumbnail rounded-circle avatar-xxl" alt="200x200"
+                                        src="{{ URL::asset('storage/' . $user->avatar) }}" data-holder-rendered="true">
+                                @else
+                                    <img class="img-thumbnail rounded-circle avatar-xxl" alt="200x200"
+                                        src="{{ URL::asset('assets/images/users/user.png') }}" data-holder-rendered="true">
+                                @endif
+                                {{-- <img class="img-thumbnail rounded-circle avatar-xxl" alt="200x200"
+                                    src="{{ URL::asset('storage/' . $user->avatar) }}" data-holder-rendered="true"> --}}
                             </div>
                         </div><!-- end col -->
                     </div><!-- end row -->
@@ -158,26 +165,25 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="gender" class="form-label">
-                                        Jenis Kelamin
-                                    </label>
-                                    <select class="form-control @error('gender') is-invalid @enderror" data-trigger
-                                        name="gender" id="gender">
-                                        <option value="">Pilih Jenis Kelamin</option>
-                                        <option value="Laki-laki" @if (old('gender', $user->gender) == 'Laki-laki') selected @endif>
-                                            Laki-laki
+                                    <label for="gender" class="form-label">Jenis Kelamin</label>
+                                    <select class="form-select @error('gender') is-invalid @enderror" name="gender"
+                                        id="gender">
+                                        <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                                        <option value="male"
+                                            {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>Laki-laki
                                         </option>
-                                        <option value="Perempuan" @if (old('gender', $user->gender) == 'Perempuan') selected @endif>
-                                            Perempuan
-                                        </option>
+                                        <option value="female"
+                                            {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>
+                                            Perempuan</option>
                                     </select>
                                     @error('gender')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
                             </div>
+
 
                             <div class="col-md-6">
                                 <div class="mb-3">

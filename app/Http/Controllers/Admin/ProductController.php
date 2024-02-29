@@ -18,8 +18,9 @@ class ProductController extends Controller
     {
         $productCategories = ProductCategory::orderBy('created_at', 'asc')->get();
         $products = Product::orderBy('created_at', 'asc')->get();
+        $isDirector = Auth::guard('is_admin')->user()->level === 'director';
 
-        return view('admin.product.index', compact('productCategories', 'products'));
+        return view('admin.product.index', compact('productCategories', 'products', 'isDirector'));
     }
 
     public function create()
@@ -189,8 +190,9 @@ class ProductController extends Controller
     {
         $productCategories = ProductCategory::orderBy('created_at', 'desc')->get();
         $products = Product::orderBy('created_at', 'desc')->get();
+        $isDirector = Auth::guard('is_admin')->user()->level === 'director';
 
-        return view('admin.product.index-category', compact('productCategories', 'products'));
+        return view('admin.product.index-category', compact('productCategories', 'products', 'isDirector'));
     }
 
     public function storeCategory(Request $request)

@@ -9,6 +9,14 @@
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @component('components.breadcrumb')
+        @slot('li_1')
+            Semua Wishlist
+        @endslot
+        @slot('title')
+            Wishlist Pengguna
+        @endslot
+    @endcomponent
     <div class="row">
         <div class="col-12">
 
@@ -44,39 +52,37 @@
                                 </div>
                             </div>
 
-                            {{-- form for checkbox --}}
-                            <form action="" method="POST" class="form-product">
-                                @csrf
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="datatable-buttons"
-                                            class="table align-middle datatable dt-responsive table-check nowrap"
-                                            style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
-                                            <thead>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="datatable-buttons"
+                                        class="table align-middle datatable dt-responsive table-check nowrap"
+                                        style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama Properti</th>
+                                                <th>Jumlah User</th>
+                                                <th>Detail Pengguna</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach ($userCounts as $userCount)
                                                 <tr>
-                                                    <th>No.</th>
-                                                    <th>Nama Properti</th>
-                                                    <th>Jumlah User</th>
-                                                    <th>Detail Pengguna</th>
-                                                </tr>
-                                            </thead>
+                                                    {{-- {{ $loop->iteration }} --}}
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ optional($userCount->product)->name }}</td>
+                                                    <td>{{ $userCount->user_count }}</td>
+                                                    <td>
+                                                        @if ($userCount->user_names)
+                                                            {{ implode(', ', explode(',', $userCount->user_names)) }}
+                                                        @else
+                                                            No user data available
+                                                        @endif
+                                                    </td>
 
-                                            <tbody>
-                                                @foreach ($userCounts as $userCount)
-                                                    <tr>
-                                                        {{-- {{ $loop->iteration }} --}}
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ optional($userCount->product)->name }}</td>
-                                                        <td>{{ $userCount->user_count }}</td>
-                                                        <td>
-                                                            @if ($userCount->user_names)
-                                                                {{ implode(', ', explode(',', $userCount->user_names)) }}
-                                                            @else
-                                                                No user data available
-                                                            @endif
-                                                        </td>
-
-                                                        {{-- <td class="align-middle">
+                                                    {{-- <td class="align-middle">
                                                             <a href="#"
                                                                 class="action-icon text-danger delete-wishlist"
                                                                 onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
@@ -90,12 +96,12 @@
                                                             </form>
                                                         </td> --}}
 
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
+                            </div>
                             </form>
                         </div>
                     </div>

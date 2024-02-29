@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\InhousePayment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,18 +32,32 @@ class InhousePaymentController extends Controller
         return view('admin.checkout.inhouse-payment.index', compact('allInhousePayments'));
     }
 
+    // Fungsi bantu untuk meng-format nominal
+    private function formatNominal($nominal)
+    {
+        return 'Rp ' . number_format($nominal, 0, ',', '.');
+    }
+
     public function show($userId)
     {
         // Cari pembayaran in-house berdasarkan ID pengguna (user)
         $inhousePayments = InhousePayment::where('user_id', $userId)->get();
+        // $inhousePayments->formatted_nominal = $this->formatNominal($inhousePayments->nominal);
 
         // Periksa apakah pembayaran in-house ditemukan
         if ($inhousePayments) {
             // Jika ditemukan, ambil data pengguna terkait
             $user = User::find($userId);
 
+            // Format nominal untuk setiap pembayaran
+            foreach ($inhousePayments as $inhousePayment) {
+                $inhousePayment->formatted_nominal = $this->formatNominal($inhousePayment->nominal);
+            }
+
+            $isAdmin = Auth::guard('is_admin')->user()->level === 'admin';
+
             // Jika ditemukan, tampilkan halaman detail pembayaran in-house
-            return view('admin.checkout.inhouse-payment.show', compact('inhousePayments', 'user'));
+            return view('admin.checkout.inhouse-payment.show', compact('inhousePayments', 'user', 'isAdmin'));
         } else {
             // Jika tidak ditemukan, redirect atau tampilkan pesan kesalahan
             return redirect()->back()->with('error', 'Pembayaran in-house tidak ditemukan untuk pengguna ini.');
@@ -53,7 +68,15 @@ class InhousePaymentController extends Controller
     {
         // Cari pembayaran in-house berdasarkan ID pengguna (user)
         $inhousePayments = InhousePayment::findOrFail($id);
-        return view('admin.checkout.inhouse-payment.detail-inhouse', compact('inhousePayments'));
+        // Format nominal untuk setiap pembayaran
+        $inhousePayments->formatted_nominal = $this->formatNominal($inhousePayments->nominal);
+
+        if ($inhousePayments->product) {
+            // Menambahkan formatted_nominal dan formatted_remaining_amount ke objek InhousePayments
+            $inhousePayments->formatted_price = $this->formatNominal($inhousePayments->product->price);
+        }
+        $isAdmin = Auth::guard('is_admin')->user()->level === 'admin';
+        return view('admin.checkout.inhouse-payment.detail-inhouse', compact('inhousePayments', 'isAdmin'));
     }
 
     public function destroy($id)

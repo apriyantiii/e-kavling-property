@@ -1,6 +1,10 @@
+@php
+    $user = auth()->guard('is_admin')->user();
+    $level = $user->level == 'admin' ? 'Admin' : 'Direktur';
+@endphp
 @extends('layouts.master')
 @section('title')
-    Admin - Live Chat
+    {{ $level }} - Room Chat
 @endsection
 @section('css')
 @endsection
@@ -8,10 +12,10 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            Admin
+            {{ $level }}
         @endslot
         @slot('title')
-            Live Chat
+            Room Chat
         @endslot
     @endcomponent
     <div class="w-100 user-chat mt-4 mt-sm-0 ms-lg-1">
@@ -131,6 +135,7 @@
                             </li>
                         @endif
 
+                        {{-- Bubble Admin --}}
                         @if ($chat->admin_id)
                             <li class="right">
                                 <div class="conversation-list">

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Data Validasi Berkas Pembelian
+    Data Transaksi
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
@@ -9,6 +9,14 @@
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @component('components.breadcrumb')
+        @slot('li_1')
+            Semua Transaksi
+        @endslot
+        @slot('title')
+            Transaksi Penjualan
+        @endslot
+    @endcomponent
     <div class="row">
         <div class="col-12">
 
@@ -37,7 +45,7 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6">
                                     <div>
-                                        <h5 class="card-title">Semua Berkas
+                                        <h5 class="card-title">Semua Transaksi
                                             <span class="text-muted fw-normal"></span>
                                         </h5>
                                     </div>

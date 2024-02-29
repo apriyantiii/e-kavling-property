@@ -15,7 +15,9 @@ class BankController extends Controller
     public function index()
     {
         $banks = Bank::orderBy('created_at', 'desc')->get();
-        return view('admin.bank.index', compact('banks'));
+        $isAdmin = Auth::guard('is_admin')->user()->level === 'admin';
+
+        return view('admin.bank.index', compact('banks', 'isAdmin'));
     }
 
     /**

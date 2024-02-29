@@ -51,25 +51,26 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
+                                        @unless ($isDirector)
+                                            <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
 
-                                            <div>
-                                                <a href="{{ !$isDirector ? route('admin.setting-user.create') : '#' }}"
-                                                    class="btn btn-success btn-rounded waves-effect waves-light{{ $isDirector ? ' disabled' : '' }}">
-                                                    <i class="bx bx-plus me-1"></i> Tambah Pengguna Baru
-                                                </a>
-                                            </div>
+                                                <div>
+                                                    <a href="{{ !$isDirector ? route('admin.setting-user.create') : '#' }}"
+                                                        class="btn btn-success btn-rounded waves-effect waves-light{{ $isDirector ? ' disabled' : '' }}">
+                                                        <i class="bx bx-plus me-1"></i> Tambah Pengguna Baru
+                                                    </a>
+                                                </div>
 
-                                            <div class="dropdown">
-                                                <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
-                                                    href="#" role="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                                </a>
+                                                <div class="dropdown">
+                                                    <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
+                                                        href="#" role="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="bx bx-dots-horizontal-rounded"></i>
+                                                    </a>
 
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li>
-                                                        {{-- <form action="{{ route('category.delete-all') }}" method="POST">
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            {{-- <form action="{{ route('category.delete-all') }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
 
@@ -78,10 +79,10 @@
                                                                 Hapus Semua
                                                             </button>
                                                         </form> --}}
-                                                    </li>
-                                                </ul>
-                                            </div>
-
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endunless
                                         </div>
                                     </div>
                                 </div>
@@ -105,7 +106,9 @@
                                                     <th>Role</th>
                                                     <th>Kontak</th>
                                                     <th>Alamat</th>
-                                                    <th>Aksi</th>
+                                                    @unless ($isDirector)
+                                                        <th>Tindakan</th>
+                                                    @endunless
                                                 </tr>
                                             </thead>
 
@@ -128,37 +131,39 @@
                                                         <td>{{ $user->role }}</td>
                                                         <td>{{ $user->contact }}</td>
                                                         <td>{{ $user->address }}</td>
-                                                        <td class="align-middle">
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle card-drop"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    {{-- class="mdi mdi-eye font-size-16 text-success me-1"></i> --}}
-                                                                    {{-- <li><a href="#" class="dropdown-item"><i
+                                                        @unless ($isDirector)
+                                                            <td class="align-middle">
+                                                                <div class="dropdown">
+                                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                                    </a>
+                                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                                        {{-- class="mdi mdi-eye font-size-16 text-success me-1"></i> --}}
+                                                                        {{-- <li><a href="#" class="dropdown-item"><i
                                                                             Detail</a>
                                                                     </li> --}}
-                                                                    <li><a href="{{ route('admin.setting-user.edit', $user->id) }}"
-                                                                            class="dropdown-item">
-                                                                            <i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                            Edit
-                                                                        </a>
-                                                                    </li>
+                                                                        <li><a href="{{ route('admin.setting-user.edit', $user->id) }}"
+                                                                                class="dropdown-item">
+                                                                                <i
+                                                                                    class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                                Edit
+                                                                            </a>
+                                                                        </li>
 
-                                                                    <li>
-                                                                        <a href="#" class="dropdown-item delete-user"
-                                                                            data-id="{{ $user->id }}"
-                                                                            onclick="deleteUser(event)">
-                                                                            <i
-                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                            Hapus
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item delete-user"
+                                                                                data-id="{{ $user->id }}"
+                                                                                onclick="deleteUser(event)">
+                                                                                <i
+                                                                                    class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                                Hapus
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        @endunless
                                                     </tr>
                                                 @endforeach
                                             </tbody>

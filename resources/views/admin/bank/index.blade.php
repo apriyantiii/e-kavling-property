@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Pengaturan Admin
+    Kelola Bank
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
@@ -11,10 +11,10 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            Pengaturan
+            Bank
         @endslot
         @slot('title')
-            Admin
+            Kelola Bank
         @endslot
     @endcomponent
     <div class="row">
@@ -50,33 +50,34 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
-                                            <div>
-                                                <button type="button"
-                                                    class="btn btn-success btn-rounded waves-effect waves-light"
-                                                    data-bs-toggle="modal" data-bs-target="#addAdmin"><i
-                                                        class="bx bx-plus me-1"></i>
-                                                    Tambah Rekening Baru</button>
+                                        @unless ($isAdmin)
+                                            <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
+                                                <div>
+                                                    <button type="button"
+                                                        class="btn btn-success btn-rounded waves-effect waves-light"
+                                                        data-bs-toggle="modal" data-bs-target="#addAdmin"><i
+                                                            class="bx bx-plus me-1"></i>
+                                                        Tambah Rekening Baru</button>
+                                                </div>
+
+                                                <div class="dropdown">
+                                                    <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
+                                                        href="#" role="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="bx bx-dots-horizontal-rounded"></i>
+                                                    </a>
+
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                <i class="bx bx-trash me-1 text-danger"></i>
+                                                                Hapus Semua
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-
-                                            <div class="dropdown">
-                                                <a class="py-1 shadow-none btn btn-link text-muted font-size-16 dropdown-toggle"
-                                                    href="#" role="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="bx bx-trash me-1 text-danger"></i>
-                                                            Hapus Semua
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
+                                        @endunless
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +96,9 @@
                                                     <th>Rekening Atas Nama</th>
                                                     <th>Bank</th>
                                                     <th>No. Rek</th>
-                                                    <th>Aksi</th>
+                                                    @unless ($isAdmin)
+                                                        <th>Tindakan</th>
+                                                    @endunless
                                                 </tr>
                                             </thead>
 
@@ -106,50 +109,51 @@
                                                         <td>{{ $bank->name }}</td>
                                                         <td>{{ $bank->bank }}</td>
                                                         <td>{{ $bank->rekening }}</td>
-                                                        <td class="align-middle">
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle card-drop"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    {{-- <li><a href="#" class="dropdown-item">
+                                                        @unless ($isAdmin)
+                                                            <td class="align-middle">
+                                                                <div class="dropdown">
+                                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                                    </a>
+                                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                                        {{-- <li><a href="#" class="dropdown-item">
                                                                             <i
                                                                                 class="mdi mdi-eye font-size-16 text-success me-1"></i>
                                                                             Detail
                                                                         </a>
                                                                     </li> --}}
-                                                                    {{-- <li><a href="#" class="dropdown-item">
+                                                                        {{-- <li><a href="#" class="dropdown-item">
                                                                             <i
                                                                                 class="mdi mdi-pencil font-size-16 text-success me-1"></i>
                                                                             Edit
                                                                         </a>
                                                                     </li> --}}
 
-                                                                    <li><a href="#" class="dropdown-item"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#editAdmin">
-                                                                            <i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                            Edit
-                                                                        </a>
-                                                                    </li>
+                                                                        <li><a href="#" class="dropdown-item"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#editAdmin">
+                                                                                <i
+                                                                                    class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                                Edit
+                                                                            </a>
+                                                                        </li>
 
-                                                                    <li>
-                                                                        <a href="#" class="dropdown-item delete-user"
-                                                                            data-id="{{ $bank->id }}"
-                                                                            onclick="deleteBank(event)">
-                                                                            <i
-                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                            Hapus
-                                                                        </a>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item delete-user"
+                                                                                data-id="{{ $bank->id }}"
+                                                                                onclick="deleteBank(event)">
+                                                                                <i
+                                                                                    class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                                Hapus
+                                                                            </a>
 
-                                                                    </li>
-                                                            </div>
-                                                        </td>
+                                                                        </li>
+                                                                </div>
+                                                            </td>
+                                                        @endunless
                                                     </tr>
                                                 @endforeach
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -243,94 +247,106 @@
     {{-- END:: Modal Tambah Admin Baru --}}
 
     {{-- START:: Modal Edit Admin --}}
-    <div id="editAdmin" class="modal fade" tabindex="-1" aria-labelledby="editAdminLabel" aria-hidden="true"
-        data-bs-scroll="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editAdminLabel">
-                        Edit Rekening
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                {{-- {{ route('admin.bank.update', ':id') }} --}}
-                <form id="editBankForm" action="{{ route('admin.bank.update', $bank->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <label for="bank" class="form-label">Bank<span class="text-danger">*</span></label>
-                                <select class="form-select @error('bank') is-invalid @enderror" name="bank"
-                                    id="bank" required>
-                                    <option value="" disabled>Pilih Bank</option>
-                                    <option value="Mandiri" {{ old('bank', $bank->bank) == 'Mandiri' ? 'selected' : '' }}>
-                                        Mandiri
-                                    </option>
-                                    <option value="BNI" {{ old('bank', $bank->bank) == 'BNI' ? 'selected' : '' }}>BNI -
-                                        Bank
-                                        Negara Indonesia</option>
-                                    <option value="BRI" {{ old('bank', $bank->bank) == 'BRI' ? 'selected' : '' }}>BRI -
-                                        Bank
-                                        Rakyat Indonesia</option>
-                                    <option value="BCA" {{ old('bank', $bank->bank) == 'BCA' ? 'selected' : '' }}>BCA -
-                                        Bank
-                                        Central Asia</option>
-                                    <option value="BTN" {{ old('bank', $bank->bank) == 'BTN' ? 'selected' : '' }}>BTN -
-                                        Bank
-                                        Tabungan Negara</option>
-                                    <option value="BSI" {{ old('bank', $bank->bank) == 'BSI' ? 'selected' : '' }}>BSI -
-                                        Bank
-                                        Syariah Indonesia</option>
-                                </select>
-
-                                @error('bank')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-
-                            <div class="col-6 mb-3">
-                                <label for="name" class="form-label">
-                                    Nama Lengkap <span class="text-danger">*</span>
-                                </label>
-                                <input type="text"
-                                    class="form-control form-rounded @error('name') is-invalid @enderror" name="name"
-                                    id="name" value="{{ $bank->name }}">
-                                @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="col-6 mb-3">
-                                <label for="rekening" class="form-label">
-                                    No. Rekening
-                                </label>
-                                <input type="text"
-                                    class="form-control form-rounded @error('rekening') is-invalid @enderror"
-                                    name="rekening" id="rekening"value="{{ $bank->rekening }}">
-                                @error('rekening')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+    @if ($banks->isNotEmpty())
+        @foreach ($banks as $bank)
+            <div id="editAdmin" class="modal fade" tabindex="-1" aria-labelledby="editAdminLabel" aria-hidden="true"
+                data-bs-scroll="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editAdminLabel">
+                                Edit Rekening
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
+                        {{-- {{ route('admin.bank.update', ':id') }} --}}
+                        <form id="editBankForm" action="{{ route('admin.bank.update', $bank->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <label for="bank" class="form-label">Bank<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-select @error('bank') is-invalid @enderror" name="bank"
+                                            id="bank" required>
+                                            <option value="" disabled>Pilih Bank</option>
+                                            <option value="Mandiri"
+                                                {{ old('bank', $bank->bank) == 'Mandiri' ? 'selected' : '' }}>
+                                                Mandiri
+                                            </option>
+                                            <option value="BNI"
+                                                {{ old('bank', $bank->bank) == 'BNI' ? 'selected' : '' }}>BNI -
+                                                Bank
+                                                Negara Indonesia</option>
+                                            <option value="BRI"
+                                                {{ old('bank', $bank->bank) == 'BRI' ? 'selected' : '' }}>BRI -
+                                                Bank
+                                                Rakyat Indonesia</option>
+                                            <option value="BCA"
+                                                {{ old('bank', $bank->bank) == 'BCA' ? 'selected' : '' }}>BCA -
+                                                Bank
+                                                Central Asia</option>
+                                            <option value="BTN"
+                                                {{ old('bank', $bank->bank) == 'BTN' ? 'selected' : '' }}>BTN -
+                                                Bank
+                                                Tabungan Negara</option>
+                                            <option value="BSI"
+                                                {{ old('bank', $bank->bank) == 'BSI' ? 'selected' : '' }}>BSI -
+                                                Bank
+                                                Syariah Indonesia</option>
+                                        </select>
+
+                                        @error('bank')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-6 mb-3">
+                                        <label for="name" class="form-label">
+                                            Nama Lengkap <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text"
+                                            class="form-control form-rounded @error('name') is-invalid @enderror"
+                                            name="name" id="name" value="{{ $bank->name }}">
+                                        @error('name')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <label for="rekening" class="form-label">
+                                            No. Rekening
+                                        </label>
+                                        <input type="text"
+                                            class="form-control form-rounded @error('rekening') is-invalid @enderror"
+                                            name="rekening" id="rekening"value="{{ $bank->rekening }}">
+                                        @error('rekening')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn-rounded btn btn-secondary waves-effect"
+                                    data-bs-dismiss="modal">Batal</button>
+                                <button type="submit"
+                                    class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-rounded btn btn-secondary waves-effect"
-                            data-bs-dismiss="modal">Batal</button>
-                        <button type="submit"
-                            class="btn-rounded btn btn-primary waves-effect waves-light">Simpan</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
+        @endforeach
+    @endif
     {{-- END:: Modal Edit Admin --}}
 @endsection
 @section('script')

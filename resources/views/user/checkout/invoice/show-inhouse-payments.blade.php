@@ -67,7 +67,9 @@
                                         <td>{{ $inhousePayment->payment_type }}</td>
                                         <td>{{ $inhousePayment->formatted_nominal }}</td>
                                         <td>{{ $inhousePayment->formatted_remaining_amount }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($inhousePayment->payment_date)->format('d-m-Y') }}</td>
+                                        <td>
+                                            {{ \Carbon\Carbon::parse($inhousePayment->payment_date)->format('d M Y') }}
+                                        </td>
                                         <td>{{ $inhousePayment->tenor }}</td>
 
                                         <td>
@@ -87,7 +89,8 @@
                                         <td><a href="{{ asset('storage/uploads/' . $inhousePayment->transfer) }}"
                                                 target="_blank">lihat</a>
                                         </td>
-                                        <td>{{ \Carbon\Carbon::parse($inhousePayment->created_at)->format('d-m-Y h:i A') }}
+                                        <td>
+                                            {{ \Carbon\Carbon::parse($inhousePayment->created_at)->format('d M Y H:i') }}
                                         </td>
 
 

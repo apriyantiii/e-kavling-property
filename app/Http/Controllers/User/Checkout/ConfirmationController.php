@@ -45,8 +45,10 @@ class ConfirmationController extends Controller
             return view('user.checkout.confirmation.index', compact('purchaseValidation', 'user', 'product'));
         }
 
+        $purchaseValidate = PurchaseValidation::findOrFail($productId);
+
         // Handle jika data pesanan tidak ditemukan
-        return redirect()->route('waiting-validate');
+        return redirect()->route('waiting-validate', $purchaseValidate->id);
     }
 
 

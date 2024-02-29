@@ -1,6 +1,10 @@
+@php
+    $user = auth()->guard('is_admin')->user();
+    $level = $user->level == 'admin' ? 'Admin' : 'Direktur';
+@endphp
 @extends('layouts.master')
 @section('title')
-    Live Chat
+    {{ $level }} - Live Chat
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
@@ -11,7 +15,7 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            Admin
+            {{ $level }}
         @endslot
         @slot('title')
             Live Chat

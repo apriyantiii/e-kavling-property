@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Setting;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -15,7 +16,9 @@ class AdminController extends Controller
     public function index()
     {
         $admin = Admin::orderBy('created_at', 'desc')->get();
-        return view('admin.setting.admin.index-admin', compact('admin'));
+        $isDirector = Auth::guard('is_admin')->user()->level === 'director';
+
+        return view('admin.setting.admin.index-admin', compact('admin', 'isDirector'));
     }
     public function store(Request $request)
     {

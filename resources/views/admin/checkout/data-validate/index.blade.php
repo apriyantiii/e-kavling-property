@@ -9,6 +9,14 @@
     <link href="{{ URL::asset('assets/libs/choices.js/choices.js.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+    @component('components.breadcrumb')
+        @slot('li_1')
+            Data Validasi
+        @endslot
+        @slot('title')
+            Validasi Berkas Pembelian
+        @endslot
+    @endcomponent
     <div class="row">
         <div class="col-12">
 
@@ -60,7 +68,9 @@
                                                     <th>No. Telp</th>
                                                     <th>Alamat</th>
                                                     <th>Status</th>
-                                                    <th>Aksi</th>
+                                                    @unless ($isDirector)
+                                                        <th>Tindakan</th>
+                                                    @endunless
                                                 </tr>
                                             </thead>
 
@@ -87,41 +97,43 @@
                                                                     class="badge bg-secondary">{{ $purchaseValidate->status }}</span>
                                                             @endif
                                                         </td>
-                                                        <td class="align-middle">
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle card-drop"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    <li><a href="{{ route('checkout.validate.show', $purchaseValidate->id) }}"
-                                                                            class="dropdown-item">
-                                                                            <i
-                                                                                class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                            Detail
-                                                                        </a>
-                                                                    </li>
-                                                                    <li><a href="#" class="dropdown-item"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#myModal{{ $purchaseValidate->id }}">
-                                                                            <i
-                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                            Edit Status
-                                                                        </a>
-                                                                    </li>
+                                                        @unless ($isDirector)
+                                                            <td class="align-middle">
+                                                                <div class="dropdown">
+                                                                    <a href="#" class="dropdown-toggle card-drop"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                                    </a>
+                                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                                        <li><a href="{{ route('checkout.validate.show', $purchaseValidate->id) }}"
+                                                                                class="dropdown-item">
+                                                                                <i
+                                                                                    class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                                                Detail
+                                                                            </a>
+                                                                        </li>
+                                                                        <li><a href="#" class="dropdown-item"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#myModal{{ $purchaseValidate->id }}">
+                                                                                <i
+                                                                                    class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                                Edit Status
+                                                                            </a>
+                                                                        </li>
 
-                                                                    <li>
-                                                                        <a href="#" class="dropdown-item delete-user"
-                                                                            data-id="{{ $purchaseValidate->id }}"
-                                                                            onclick="deleteUser(event)">
-                                                                            <i
-                                                                                class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
-                                                                            Hapus
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item delete-user"
+                                                                                data-id="{{ $purchaseValidate->id }}"
+                                                                                onclick="deleteUser(event)">
+                                                                                <i
+                                                                                    class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                                Hapus
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        @endunless
                                                     </tr>
                                                 @endforeach
                                             </tbody>

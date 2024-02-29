@@ -64,23 +64,23 @@
                                         <thead>
                                             <tr>
                                                 <th>Pembayaran ke</th>
-                                                <th>Kode Produk</th>
-                                                <th>Nama Pembeli</th>
+                                                <th>Nama Rek</th>
+                                                <th>Nominal</th>
                                                 <th>Tanggal Pembayaran</th>
                                                 <th>Tenor</th>
-
                                                 <th>Status</th>
-                                                <th>Aksi</th>
+                                                <th>Tindakan</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
                                             @foreach ($inhousePayments as $inhousePayment)
                                                 <tr>
-                                                    <td>{{ $inhousePayment->payment_type }}</td>
-                                                    <td>{{ $inhousePayment->product->code }}</td>
-                                                    <td>{{ $inhousePayment->user->name }}</td>
-                                                    <td>{{ $inhousePayment->payment_date }}</td>
+                                                    <td class="text-center">{{ $inhousePayment->payment_type }}</td>
+                                                    <td>{{ $inhousePayment->rekening_name }}</td>
+                                                    <td>{{ $inhousePayment->formatted_nominal }}</td>
+                                                    <td> {{ \Carbon\Carbon::parse($inhousePayment->payment_date)->format('d M Y') }}
+                                                    </td>
                                                     <td>{{ $inhousePayment->tenor }}</td>
 
                                                     <td>
@@ -113,14 +113,16 @@
                                                                     </a>
                                                                 </li>
 
-                                                                <li><a href="#" class="dropdown-item"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#myModal{{ $inhousePayment->id }}">
-                                                                        <i
-                                                                            class="mdi mdi-pencil font-size-16 text-success me-1"></i>
-                                                                        Edit Status
-                                                                    </a>
-                                                                </li>
+                                                                @unless ($isAdmin)
+                                                                    <li><a href="#" class="dropdown-item"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#myModal{{ $inhousePayment->id }}">
+                                                                            <i
+                                                                                class="mdi mdi-pencil font-size-16 text-success me-1"></i>
+                                                                            Edit Status
+                                                                        </a>
+                                                                    </li>
+                                                                @endunless
 
                                                                 <li>
                                                                     <a href="#" class="dropdown-item delete-user"
