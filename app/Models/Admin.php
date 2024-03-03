@@ -33,4 +33,10 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Bank::class);
     }
+
+    // Relasi One-to-Many
+    public function testimoni()
+    {
+        return $this->hasMany(Testimoni::class);
+    }
 }

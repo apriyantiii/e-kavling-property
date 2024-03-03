@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\User;
 use App\Http\Controllers\User\Checkout;
 /*
@@ -19,9 +20,15 @@ use App\Http\Controllers\User\Checkout;
 |
 */
 
-Route::get('/', function () {
-    return view('landing-page');
-});
+// Route::get('/', function () {
+//     return view('landing-page');
+// });
+Route::get('/', [LandingPageController::class, 'index'])->name('landing-page');
+Route::get('/properti', [LandingPageController::class, 'property'])->name('landing-page.property');
+Route::get('/properti/search', [LandingPageController::class, 'propertySearch'])->name('landing-page.property.search');
+Route::get('/properti/detail/{id}', [LandingPageController::class, 'detailProperti'])->name('landing-page.detail-properti');
+Route::get('/kategori-properti', [LandingPageController::class, 'cetegories'])->name('landing-page.kategori');
+Route::get('/kategori-properti/detail/{productCategory}', [LandingPageController::class, 'showCategories'])->name('landing-page.kategori.show');
 
 Route::get('/co', function () {
     return view('admin.live-chat.show');
@@ -54,7 +61,7 @@ Route::prefix('/')->group(function () {
     Route::delete('/wishlist/{wishlist}/delete', [User\WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
     //checkout
-    Route::get('checkout/{product}', [User\Checkout\PurchaseValidationController::class, 'index'])->name('checkout.purchase');
+    Route::get('checkout/{product}', [User\Checkout\PurchaseValidationController::class, 'index'])->name('checkout.purchase')->middleware('auth');
     Route::post('checkout/store', [User\Checkout\PurchaseValidationController::class, 'store'])->name('purchase.validation.store');
     Route::put('checkout/update-purchase-validation', [User\Checkout\PurchaseValidationController::class, 'update'])->name('purchase.updatePurchaseValidation');
 
@@ -82,7 +89,7 @@ Route::prefix('/')->group(function () {
     Route::get('invoice/inhouse-payments/detail/{userId}', [User\Checkout\InvoiceController::class, 'showInhouse'])->name('checkout.invoice.inhouse-payment');
 
     // live chat
-    Route::get('live-chat', [User\LiveChatController::class, 'index'])->name('user.live-chat');
+    Route::get('live-chat', [User\LiveChatController::class, 'index'])->name('user.live-chat')->middleware('auth');
     Route::post('live-chat/store', [User\LiveChatController::class, 'store'])->name('user.live-chat.store');
     Route::get('live-chat/product/{product}', [User\LiveChatController::class, 'indexChat'])->name('user.live-chat.product');
     Route::post('live-chat/product/store/{product}', [User\LiveChatController::class, 'storeChat'])->name('user.live-chat.product.storeChat');
@@ -173,6 +180,11 @@ Route::prefix('admin')->group(function () {
     Route::post('bank/store', [Admin\BankController::class, 'store'])->name('admin.bank.store');
     Route::put('bank/{bank}/update', [Admin\BankController::class, 'update'])->name('admin.bank.update');
     Route::delete('bank/delete/{id}', [Admin\BankController::class, 'destroy'])->name('admin.bank.destroy');
+
+    // Testimoni
+    Route::get('testimoni', [Admin\TestimoniController::class, 'index'])->name('admin.testimoni');
+    Route::post('testimoni/store', [Admin\TestimoniController::class, 'store'])->name('admin.testimoni.store');
+    Route::delete('testimonu/delete/{id}', [Admin\TestimoniController::class, 'destroy'])->name('admin.testimoni.destroy');
 });
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 

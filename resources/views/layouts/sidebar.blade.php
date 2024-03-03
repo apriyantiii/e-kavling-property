@@ -54,6 +54,20 @@
                     </a>
                 </li>
 
+                <li class="mb-2">
+                    <a href="{{ route('admin.bank') }}">
+                        <i class= "bx bxs-bank"></i>
+                        <span>Bank</span>
+                    </a>
+                </li>
+
+                <li class="mb-2">
+                    <a href="{{ route('admin.testimoni') }}">
+                        <i class= "bx bx-user-voice"></i>
+                        <span>Testimoni</span>
+                    </a>
+                </li>
+
                 <li class="my-2">
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="settings"></i>
@@ -65,12 +79,7 @@
                     </ul>
                 </li>
 
-                <li class="mb-2">
-                    <a href="{{ route('admin.bank') }}">
-                        <i class= "bx bxs-bank"></i>
-                        <span>Bank</span>
-                    </a>
-                </li>
+
 
                 {{-- @if (Auth::user()->hasPermissionTo('partner')) --}}
                 {{-- <li class="my-2">

@@ -1,4 +1,7 @@
     @extends('user.layouts.master')
+    @section('css')
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css">
+    @endsection
     @section('landing-page')
         {{-- Carousol Start --}}
         <section class="hero-wrap js-fullheight" style="background-image: url('front-end/images/bg_2.jpg');"
@@ -8,8 +11,9 @@
                 <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start"
                     data-scrollax-parent="true">
                     <div class="col-md-5 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-                        <h1 class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Properti Impian,
+                        <h1 class="mb-0" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Properti Impian,
                             Investasi Masadepan</h1>
+                        <h6 class="mb-5 text-dark">Area Jombang, Jatim</h6>
                         <p class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Bangun kekayaan
                             dan keamanan finansial jangka panjangmu melalui PT. Mutiara Putri Gemilang </p>
                         <form action="#" class="search-location">
@@ -30,211 +34,127 @@
         </section>
         {{-- Carousol End --}}
 
-        {{-- Property Start --}}
-        <section class="ftco-section ftco-properties" id="properties-section">
-            <div class="container">
-                <div class="row justify-content-center pb-5">
-                    <div class="col-md-12 heading-section text-center ftco-animate">
-                        <h2 class="mb-4">Properti Unggulan</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="carousel-properties owl-carousel">
-                            <div class="item">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="front-end/images/work-1.jpg" class="img-fluid" alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-primary d-flex text-center align-items-center justify-content-center">
-                                            <span>Dijual</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$120,000</h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
+        {{-- Why Choose Us --}}
+        <section class="ftco-counter img ftco-section ftco-no-pt ftco-no-pb bg-light" id="about-section">
+            <br>
+            <div class="col-md-12 col-lg-12 px-lg-5 py-md-5">
+                <div class="py-md-5">
+                    <div class="row justify-content-start pb-3">
+                        <div class="col-md-6 col-lg-5 py-md-5">
+                            <div class="img d-flex align-self-stretch align-items-center"
+                                style="background-image:url(front-end/images/tentang-4.jpg);height: 500px;">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-7 heading-section ftco-animate px-lg-5">
+                            <h2 class="mb-4">Sistem Pembayaran di <br>PT. Mutiara Putri Gemilang?</h2>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <img src="front-end/images/visi-misi/9.png" class="rounded-circle avatar-sm mb-4"
+                                        width="100" height="100" alt="">
+
+                                </div>
+                                <div class="col-lg-10">
+                                    <h4 class="text-start text-secondary"><strong>Cash/ Tunai</strong></h4>
+                                    <p>Pembayaran lunas secara tunai atau transfer tanpa melibatkan kredit atau angsuran
+                                    </p>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="front-end/images/work-2.jpg" class="img-fluid" alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-secondary d-flex text-center align-items-center justify-content-center">
-                                            <span>Dijual</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$120<span>/mo</span></h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <img src="front-end/images/visi-misi/8.png" class="rounded-circle avatar-sm mb-4"
+                                        width="100" height="100" alt="">
+
+                                </div>
+                                <div class="col-lg-10">
+                                    <h4 class="text-start text-secondary"><strong>In-house</strong></h4>
+                                    <p>Pembayaran dengan sistem angsuran antara pembeli dan pengembang tanpa melibatkan
+                                        pihak ketiga </p>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="front-end/images/work-3.jpg" class="img-fluid" alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-primary d-flex text-center align-items-center justify-content-center">
-                                            <span>Dijual</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$230,000</h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <img src="front-end/images/visi-misi/10.png" class="rounded-circle avatar-sm mb-4"
+                                        width="100" height="100" alt="">
+
+                                </div>
+                                <div class="col-lg-10">
+                                    <h4 class="text-start text-secondary"><strong>KPR (Kredit Pemilikan Rumah)</strong></h4>
+                                    <p>Pembayaran dengan melibatkan pihak Bank untuk membeli sebuah properti</p>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="front-end/images/work-4.jpg" class="img-fluid" alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-primary d-flex text-center align-items-center justify-content-center">
-                                            <span>Dijual</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$120,000</h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="properties ftco-animate">
-                                    <div class="img">
-                                        <img src="front-end/images/work-5.jpg" class="img-fluid" alt="Colorlib Template">
-                                    </div>
-                                    <div class="desc">
-                                        <div
-                                            class="text bg-secondary d-flex text-center align-items-center justify-content-center">
-                                            <span>Dijual</span>
-                                        </div>
-                                        <div class="d-flex pt-5">
-                                            <div>
-                                                <h3><a href="properties.html">Fatima Subdivision</a></h3>
-                                            </div>
-                                            <div class="pl-md-4">
-                                                <h4 class="price">$50<span>/mo</span></h4>
-                                            </div>
-                                        </div>
-                                        <p class="h-info"><span class="location">New York</span> <span
-                                                class="details">&mdash; 3bds, 2bath</span></p>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        {{-- Property End --}}
+        {{-- End Why Choose Us --}}
 
-        {{-- Agent Start --}}
-        <section class="ftco-section ftco-agent bg-light" id="komisaris">
+        {{-- Property Start --}}
+        <section class="ftco-section ftco-properties p-md-3 p-mt-5" id="properties-section">
             <div class="container">
-                <div class="row justify-content-center pb-5">
+                <div class="row justify-content-center py-md-5">
                     <div class="col-md-12 heading-section text-center ftco-animate">
-                        <h2 class="mb-4">Dewan Komisaris</h2>
+                        <h2 class="mb-4">Properti Unggulan</h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <h3 class="card-text text-right"><strong>HALO</strong></h3>
-                        <p class="card-text text-right">Some quick example text to build on the card title and make up the
-                            bulk of the card's content.</p>
-
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="front-end/images/team-1.jpg" class="card-img-top" alt="...">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            @foreach ($products as $product)
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="properties ftco-animate">
+                                        <a href="{{ route('product.show', $product->id) }}">
+                                            <div class="img">
+                                                <img src="{{ URL::asset('storage/' . $product->photo) }}"
+                                                    style="height: 250px; width: 450px" class="img-fluid rounded"
+                                                    alt="Colorlib Template">
+                                            </div>
+                                        </a>
+                                        <div class="desc">
+                                            <div class="d-flex pt-5">
+                                                <div>
+                                                    <h3><a
+                                                            href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
+                                                    </h3>
+                                                </div>
+                                                <div class="pl-md-4">
+                                                    <h4 class="price">{{ $product->formatted_price }}</h4>
+                                                </div>
+                                            </div>
+                                            <p class="h-info"><span class="location">{{ $product->code }}</span> <span
+                                                    class="details">&mdash; {{ $product->location }}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card">
-                            <img src="front-end/images/team-2.jpg" class="card-img-top" alt="...">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h3 class="card-text text-left"><strong>HALO</strong></h3>
-                        <p class="card-text text-left">Some quick example text to build on the card title and make up the
-                            bulk of the card's content.</p>
                     </div>
                 </div>
-                {{-- <div class="row">
-                    <div class="col-md-12">
-                        <div class="carousel-agent owl-carousel">
-                            <div class="item">
-                                <div class="agent">
-                                    <div class="img">
-                                        <img src="front-end/images/team-1.jpg" class="img-fluid" alt="Colorlib Template">
-                                        <div>
-                                            <h3>Komisaris</h3>
-                                        </div>
-                                    </div>
-                                    <div class="desc pt-3">
-                                        <div>
-                                            <h3><a href="properties.html">James Stallon</a></h3>
-                                            <p class="h-info"><span class="location">Listing</span> <span
-                                                    class="details">&mdash; 10 Properties</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="agent">
-                                    <div class="img">
-                                        <img src="front-end/images/team-2.jpg" class="img-fluid" alt="Colorlib Template">
-                                        <div>
-                                            <h3>I'm an agent</h3>
-                                        </div>
-                                    </div>
-                                    <div class="desc pt-3">
-                                        <div>
-                                            <h3><a href="properties.html">James Stallon</a></h3>
-                                            <p class="h-info"><span class="location">Listing</span> <span
-                                                    class="details">&mdash; 10 Properties</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+        </section>
+
+        {{-- Property End --}}
+
+        {{-- Agent Start --}}
+        <section class="ftco-section ftco-agent bg-light" id="komisaris" style="padding-top: 60px; padding-bottom: 30px">
+            <div class="container">
+                <div class="row justify-content-center pb-5">
+                    <div class="col-md-12 heading-section text-center ftco-animate">
+                        <h2 class="mb-2">Dewan Komisaris</h2>
                     </div>
-                </div> --}}
+                </div>
+                <div class="testimony-wrap text-center">
+
+                    <div class="user-img"
+                        style="background-image: url('front-end/images/komisaris.jpeg'); background-size: cover; background-position: center; width: 200px; height: 200px;">
+
+                    </div>
+                    <div class="text text-dark px-4 pb-5">
+                        <p class="mb-2">Saya mendirikan PT. Mutiara Putri Gemilang pada tahun 2022</p>
+                    </div>
+                </div>
+
             </div>
         </section>
         {{-- Agent End --}}
@@ -253,8 +173,8 @@
                 <div class="row">
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services text-center d-block">
-                            <div class="icon justify-content-center align-items-center d-flex"><span
-                                    class="flaticon-pin"></span></div>
+                            <img src="front-end/images/visi-misi/1.png" class="rounded-circle avatar-sm mb-4"
+                                width="100" height="100" alt="">
                             <div class="media-body">
                                 <h3 class="heading mb-3">Menyediakan Tanah Kavling Berkualitas Tinggi</h3>
                                 {{-- <p>Menyediakan tanah kavling yang berkualitas tinggi dengan akses mudah dan fasilitas yang
@@ -265,8 +185,8 @@
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services text-center d-block">
-                            <div class="icon justify-content-center align-items-center d-flex"><span
-                                    class="flaticon-detective"></span></div>
+                            <img src="front-end/images/visi-misi/2.png" class="rounded-circle avatar-sm mb-4"
+                                width="100" height="100" alt="">
                             <div class="media-body">
                                 <h3 class="heading mb-3">Integritas dan Kepatuhan Hukum</h3>
                                 {{-- <p>Mengutamakan integritas dalam setiap transaksi dan memastikan bahwa seluruh aspek
@@ -278,8 +198,8 @@
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services text-center d-block">
-                            <div class="icon justify-content-center align-items-center d-flex"><span
-                                    class="flaticon-house"></span></div>
+                            <img src="front-end/images/visi-misi/3.png" class="rounded-circle avatar-sm mb-4"
+                                width="100" height="100" alt="">
                             <div class="media-body">
                                 <h3 class="heading mb-3">Pelayanan Pelanggan yang Unggul</h3>
                                 {{-- <p>Memberikan pelayanan pelanggan yang unggul dengan mendengarkan kebutuhan dan keinginan
@@ -291,8 +211,8 @@
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services text-center d-block">
-                            <div class="icon justify-content-center align-items-center d-flex"><span
-                                    class="flaticon-purse"></span></div>
+                            <img src="front-end/images/visi-misi/4.png" class="rounded-circle avatar-sm mb-4"
+                                width="100" height="100" alt="">
                             <div class="media-body">
                                 <h3 class="heading mb-3">Inovasi dalam Pengembangan Properti</h3>
                                 {{-- <p>Terus mengembangkan inovasi dalam desain dan pengembangan properti guna menciptakan nilai
@@ -304,8 +224,8 @@
                 <div class="row">
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services text-center d-block mt-lg-5 pt-lg-4">
-                            <div class="icon justify-content-center align-items-center d-flex"><span
-                                    class="flaticon-house"></span></div>
+                            <img src="front-end/images/visi-misi/5.png" class="rounded-circle avatar-sm mb-4"
+                                width="100" height="100" alt="">
                             <div class="media-body">
                                 <h3 class="heading mb-3">Kemitraan yang Berkelanjutan </h3>
                                 {{-- <p> Membangun hubungan kemitraan yang berkelanjutan dengan pihak terkait, seperti
@@ -316,8 +236,8 @@
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services text-center d-block mt-lg-5 pt-lg-4">
-                            <div class="icon justify-content-center align-items-center d-flex"><span
-                                    class="flaticon-purse"></span></div>
+                            <img src="front-end/images/visi-misi/6.png" class="rounded-circle avatar-sm mb-4"
+                                width="100" height="100" alt="">
                             <div class="media-body">
                                 <h3 class="heading mb-3">Tanggung Jawab Sosial dan Lingkungan</h3>
                                 {{-- <p>Melibatkan diri dalam kegiatan tanggung jawab sosial dan lingkungan, seperti reboisasi,
@@ -328,8 +248,8 @@
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services text-center d-block mt-lg-5 pt-lg-4">
-                            <div class="icon justify-content-center align-items-center d-flex"><span
-                                    class="flaticon-house"></span></div>
+                            <img src="front-end/images/visi-misi/7.png" class="rounded-circle avatar-sm mb-4"
+                                width="100" height="100" alt="">
                             <div class="media-body">
                                 <h3 class="heading mb-3">Peningkatan Terus-Menerus</h3>
                                 {{-- <p>Melakukan evaluasi dan perbaikan terus-menerus dalam setiap aspek bisnis, mulai dari
@@ -351,7 +271,7 @@
                         <div class="row justify-content-start pb-3">
                             <div class="col-md-6 col-lg-5 py-md-5">
                                 <div class="img d-flex align-self-stretch align-items-center"
-                                    style="background-image:url(front-end/images/about.jpg);height: 500px;">
+                                    style="background-image:url(front-end/images/tentang-4.jpg);height: 500px;">
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-7 heading-section ftco-animate px-lg-5">
@@ -365,8 +285,9 @@
                                     tinggi dan layanan terbaik. Kami senantiasa berusaha untuk menjadi mitra terpercaya
                                     dalam memenuhi impian Anda memiliki properti atau kavling yang sesuai dengan keinginan
                                     dan kebutuhan Anda dengan jaminan Sertifikat Resmi.</p>
-                                <p><a href="#" class="btn btn-primary py-3 px-4">Beli Properti</a> <a
-                                        href="https://wa.me/6281249985217" class="btn btn-secondary py-3 px-4">Hubungi
+                                <p><a href="{{ route('landing-page.property') }}" class="btn btn-primary py-3 px-4">Beli
+                                        Properti</a> <a href="https://wa.me/6281249985217"
+                                        class="btn btn-secondary py-3 px-4">Hubungi
                                         Kami</a></p>
                             </div>
                         </div>
@@ -384,11 +305,19 @@
                         <h2 class="mb-4">Prosedur Pembelian</h2>
                         <p>Pembeli dapat melakukan pembelian melalui website resmi PT. Mutiara Putri Gemilang dengan
                             beberapa tahapan </p>
-                        <div class="media block-6 services text-center d-block pt-md-5 mt-md-5">
-                            <div class="icon justify-content-center align-items-center d-flex"><span>1</span></div>
+                        <div class="media block-6 services d-block pt-md-5 mt-md-5">
+                            <div class="icon justify-content-center align-items-center d-flex" style="margin-left: 30%">
+                                <span>1</span>
+                            </div>
                             <div class="media-body p-md-3">
-                                <h3 class="heading mb-5">Mengakses website e-kavling secara resmi milik PT. Mutiara Putri
-                                    Gemilang untuk bertransaksi</h3>
+                                <h3 class="heading mb-2">Akses Website E-Kavling Milik PT. Mutiara Putri Gemilang
+                                </h3>
+                                <p class="text-start">
+                                    &mdash; Lihat Profile PT. MPG Agar Anda Yakin Terhadap Perusahaan Kami <br>
+                                    &mdash; Lihat Kategori dan Properti yang Tersedia pada Navigation
+                                    Barr
+                                </p>
+
                                 {{-- <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
                                     and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right
                                     at the coast of the Semantics, a large language ocean.</p> --}}
@@ -397,24 +326,41 @@
                         </div>
                     </div>
                     <div class="col-md-4 d-flex align-self-stretch ftco-animate mt-lg-5">
-                        <div class="media block-6 services text-center d-block mt-lg-5 pt-md-5 pt-lg-4">
-                            <div class="icon justify-content-center align-items-center d-flex"><span>2</span></div>
+                        <div class="media block-6 services d-block mt-lg-5 pt-md-5 pt-lg-4">
+                            <div class="icon justify-content-center align-items-center d-flex" style="margin-left: 30%">
+                                <span>2</span>
+                            </div>
                             <div class="media-body p-md-3">
-                                <h3 class="heading mb-5">Registrasi dan Login di website E-kavling untuk melakukan live
-                                    chat dan survey kavling</h3>
-                                {{-- <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right
-                                    at the coast of the Semantics, a large language ocean.</p> --}}
+                                <h3 class="heading mb-2">Registrasi dan Login di website E-Kavling Milik PT. Mutiara Putri
+                                    Gemilang</h3>
+                                <p class="text-start">
+                                    Registrasi dan Login akan mendapat previlage berupa: <br>
+                                    &mdash; Live Chat <br>
+                                    &mdash; Wishlist <br>
+                                    &mdash; Pembelian Properti <br>
+                                </p>
                                 <hr class="bg-primary">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services text-center d-block">
-                            <div class="icon justify-content-center align-items-center d-flex"><span>3</span></div>
+                        <div class="media block-6 services d-block">
+                            <div class="icon justify-content-center align-items-center d-flex" style="margin-left: 30%">
+                                <span>3</span>
+                            </div>
                             <div class="media-body p-md-3">
-                                <h3 class="heading mb-5">Deal transaksi melalui website E-kavling -> melakukan Akad
-                                    Pembelian -> Pembayaran dan Penerbitan SHM</h3>
+                                <h3 class="heading mb-2">Beli Properti dengan Step Berikut.</h3>
+                                <p class="text-start">
+                                    &mdash; Pembelian Properti dilakukan dengan validasi berkas pembeli terlebih dahulu,
+                                    tunggu hingga berkas tersebut disetujui oleh pihak PT. MPG <br>
+                                    &mdash; Anda dapat melihat riwayat validasi berkas pada menu pembelian <br>
+                                    &mdash; Setelah berkas disetujui, anda dapat mengonfirmasi pembelian dan melanjutkan
+                                    pembayaran <br>
+                                    &mdash; Pembayaran dapat dilakukan melalui 3 metode, yakni Cash, KPR, atau Inhouse <br>
+                                    &mdash; Pilih metode bayar, dan lakukan pembayaran melalui No. Rekening yang telah
+                                    disediakan <br>
+                                    &mdash; Kirim bukti pembayaran dan lihat riwayat di bagian menu pembelian <br>
+                                </p>
                                 {{-- <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
                                     and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right
                                     at the coast of the Semantics, a large language ocean.</p> --}}
@@ -426,201 +372,6 @@
             </div>
         </section>
         {{-- Prosedur Pembelian End --}}
-        {{-- Blog Start --}}
-        {{-- <section class="ftco-section bg-light" id="blog-section">
-            <div class="container">
-                <div class="row justify-content-center mb-5 pb-5">
-                    <div class="col-md-7 heading-section text-center ftco-animate">
-                        <h2 class="mb-4">Our Blog</h2>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-                    </div>
-                </div>
-                <div class="row d-flex">
-                    <div class="col-md-6 col-lg-4 d-flex ftco-animate">
-                        <div class="blog-entry justify-content-end">
-                            <a href="single.html" class="block-20"
-                                style="background-image: url('front-end/images/image_1.jpg');">
-                            </a>
-                            <div class="text float-right d-block">
-                                <div class="d-flex align-items-center pt-2 mb-4 topp">
-                                    <div class="one mr-2">
-                                        <span class="day">12</span>
-                                    </div>
-                                    <div class="two">
-                                        <span class="yr">2019</span>
-                                        <span class="mos">april</span>
-                                    </div>
-                                </div>
-                                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business
-                                        Growth</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary
-                                    regelialia.</p>
-                                <div class="d-flex align-items-center mt-4 meta">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span
-                                                class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 d-flex ftco-animate">
-                        <div class="blog-entry justify-content-end">
-                            <a href="single.html" class="block-20"
-                                style="background-image: url('front-end/images/image_2.jpg');">
-                            </a>
-                            <div class="text float-right d-block">
-                                <div class="d-flex align-items-center pt-2 mb-4 topp">
-                                    <div class="one mr-2">
-                                        <span class="day">12</span>
-                                    </div>
-                                    <div class="two">
-                                        <span class="yr">2019</span>
-                                        <span class="mos">april</span>
-                                    </div>
-                                </div>
-                                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business
-                                        Growth</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary
-                                    regelialia.</p>
-                                <div class="d-flex align-items-center mt-4 meta">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span
-                                                class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 d-flex ftco-animate">
-                        <div class="blog-entry">
-                            <a href="single.html" class="block-20"
-                                style="background-image: url('front-end/images/image_3.jpg');">
-                            </a>
-                            <div class="text float-right d-block">
-                                <div class="d-flex align-items-center pt-2 mb-4 topp">
-                                    <div class="one mr-2">
-                                        <span class="day">12</span>
-                                    </div>
-                                    <div class="two">
-                                        <span class="yr">2019</span>
-                                        <span class="mos">april</span>
-                                    </div>
-                                </div>
-                                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business
-                                        Growth</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary
-                                    regelialia.</p>
-                                <div class="d-flex align-items-center mt-4 meta">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span
-                                                class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 d-flex ftco-animate">
-                        <div class="blog-entry justify-content-end">
-                            <a href="single.html" class="block-20"
-                                style="background-image: url('front-end/images/image_4.jpg');">
-                            </a>
-                            <div class="text float-right d-block">
-                                <div class="d-flex align-items-center pt-2 mb-4 topp">
-                                    <div class="one mr-2">
-                                        <span class="day">12</span>
-                                    </div>
-                                    <div class="two">
-                                        <span class="yr">2019</span>
-                                        <span class="mos">april</span>
-                                    </div>
-                                </div>
-                                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business
-                                        Growth</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary
-                                    regelialia.</p>
-                                <div class="d-flex align-items-center mt-4 meta">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span
-                                                class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 d-flex ftco-animate">
-                        <div class="blog-entry justify-content-end">
-                            <a href="single.html" class="block-20"
-                                style="background-image: url('front-end/images/image_5.jpg');">
-                            </a>
-                            <div class="text float-right d-block">
-                                <div class="d-flex align-items-center pt-2 mb-4 topp">
-                                    <div class="one mr-2">
-                                        <span class="day">12</span>
-                                    </div>
-                                    <div class="two">
-                                        <span class="yr">2019</span>
-                                        <span class="mos">april</span>
-                                    </div>
-                                </div>
-                                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business
-                                        Growth</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary
-                                    regelialia.</p>
-                                <div class="d-flex align-items-center mt-4 meta">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span
-                                                class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 d-flex ftco-animate">
-                        <div class="blog-entry">
-                            <a href="single.html" class="block-20"
-                                style="background-image: url('front-end/images/image_6.jpg');">
-                            </a>
-                            <div class="text float-right d-block">
-                                <div class="d-flex align-items-center pt-2 mb-4 topp">
-                                    <div class="one mr-2">
-                                        <span class="day">12</span>
-                                    </div>
-                                    <div class="two">
-                                        <span class="yr">2019</span>
-                                        <span class="mos">april</span>
-                                    </div>
-                                </div>
-                                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business
-                                        Growth</a></h3>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary
-                                    regelialia.</p>
-                                <div class="d-flex align-items-center mt-4 meta">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span
-                                                class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
-        {{-- Blog End --}}
 
         {{-- Testimoni Start --}}
         <section class="ftco-section testimony-section" id="testimoni">
@@ -635,170 +386,40 @@
                     <div class="col-md-12">
                         <div class="carousel-testimony owl-carousel ftco-owl">
                             <div class="item">
-                                <div class="testimony-wrap text-center py-4 pb-5">
-                                    <div class="user-img" style="background-image: url(front-end/images/person_1.jpg)">
-                                        <span class="quote d-flex align-items-center justify-content-center">
-                                            <i class="icon-quote-left"></i>
-                                        </span>
+                                @foreach ($testimonis as $testimoni)
+                                    <div class="testimony-wrap text-center py-4 pb-5">
+                                        @if (!empty($testimoni->photo))
+                                            <div class="user-img"
+                                                style="background-image: url('{{ asset('storage/' . $testimoni->photo) }}')">
+                                                <span class="quote d-flex align-items-center justify-content-center">
+                                                    <i class="icon-quote-left"></i>
+                                                </span>
+                                            </div>
+                                        @else
+                                            <div class="user-img"
+                                                style="background-image: url('assets/images/users/user.png')">
+                                                <span class="quote d-flex align-items-center justify-content-center">
+                                                    <i class="icon-quote-left"></i>
+                                                </span>
+                                            </div>
+                                        @endif
+                                        <div class="text px-4 pb-5">
+                                            <p class="mb-4">{{ $testimoni->message }}</p>
+                                            @if (!empty($testimoni->name))
+                                                <p class="name">{{ $testimoni->name }}</p>
+                                            @else
+                                                <p class="name">Anonymous</p>
+                                            @endif
+
+                                            <span class="position">{{ $testimoni->profesi }}</span>
+                                        </div>
                                     </div>
-                                    <div class="text px-4 pb-5">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries
-                                            Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Jeff Freshman</p>
-                                        <span class="position">Artist</span>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="item">
-                                <div class="testimony-wrap text-center py-4 pb-5">
-                                    <div class="user-img" style="background-image: url(front-end/images/person_2.jpg)">
-                                        <span class="quote d-flex align-items-center justify-content-center">
-                                            <i class="icon-quote-left"></i>
-                                        </span>
-                                    </div>
-                                    <div class="text px-4 pb-5">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries
-                                            Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Jeff Freshman</p>
-                                        <span class="position">Artist</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap text-center py-4 pb-5">
-                                    <div class="user-img" style="background-image: url(front-end/images/person_3.jpg)">
-                                        <span class="quote d-flex align-items-center justify-content-center">
-                                            <i class="icon-quote-left"></i>
-                                        </span>
-                                    </div>
-                                    <div class="text px-4 pb-5">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries
-                                            Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Jeff Freshman</p>
-                                        <span class="position">Artist</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap text-center py-4 pb-5">
-                                    <div class="user-img" style="background-image: url(front-end/images/person_1.jpg)">
-                                        <span class="quote d-flex align-items-center justify-content-center">
-                                            <i class="icon-quote-left"></i>
-                                        </span>
-                                    </div>
-                                    <div class="text px-4 pb-5">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries
-                                            Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Jeff Freshman</p>
-                                        <span class="position">Artist</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap text-center py-4 pb-5">
-                                    <div class="user-img" style="background-image: url(front-end/images/person_3.jpg)">
-                                        <span class="quote d-flex align-items-center justify-content-center">
-                                            <i class="icon-quote-left"></i>
-                                        </span>
-                                    </div>
-                                    <div class="text px-4 pb-5">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries
-                                            Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Jeff Freshman</p>
-                                        <span class="position">Artist</span>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         {{-- Testimoni End --}}
-
-        {{-- Contact Start --}}
-        {{-- <section class="ftco-section contact-section ftco-no-pb" id="contact-section">
-            <div class="container">
-                <div class="row justify-content-center mb-5 pb-3">
-                    <div class="col-md-7 heading-section text-center ftco-animate">
-                        <span class="subheading">Contact</span>
-                        <h2 class="mb-4">Contact Me</h2>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-                    </div>
-                </div>
-
-                <div class="row block-9">
-                    <div class="col-md-7 order-md-last d-flex ftco-animate">
-                        <form action="#" class="bg-light p-4 p-md-5 contact-form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Name">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Email">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Subject">
-                            </div>
-                            <div class="form-group">
-                                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
-                            </div>
-                        </form>
-
-                    </div>
-
-                    <div class="col-md-5 d-flex">
-                        <div class="row d-flex contact-info mb-5">
-                            <div class="col-md-12 ftco-animate">
-                                <div class="box p-2 px-3 bg-light d-flex">
-                                    <div class="icon mr-3">
-                                        <span class="icon-map-signs"></span>
-                                    </div>
-                                    <div>
-                                        <h3 class="mb-3">Address</h3>
-                                        <p>198 West 21th Street, Suite 721 New York NY 10016</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 ftco-animate">
-                                <div class="box p-2 px-3 bg-light d-flex">
-                                    <div class="icon mr-3">
-                                        <span class="icon-phone2"></span>
-                                    </div>
-                                    <div>
-                                        <h3 class="mb-3">Contact Number</h3>
-                                        <p><a href="tel://1234567920">+ 1235 2355 98</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 ftco-animate">
-                                <div class="box p-2 px-3 bg-light d-flex">
-                                    <div class="icon mr-3">
-                                        <span class="icon-paper-plane"></span>
-                                    </div>
-                                    <div>
-                                        <h3 class="mb-3">Email Address</h3>
-                                        <p><a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 ftco-animate">
-                                <div class="box p-2 px-3 bg-light d-flex">
-                                    <div class="icon mr-3">
-                                        <span class="icon-globe"></span>
-                                    </div>
-                                    <div>
-                                        <h3 class="mb-3">Website</h3>
-                                        <p><a href="#">yoursite.com</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
-        {{-- Contact End --}}
     @endsection
