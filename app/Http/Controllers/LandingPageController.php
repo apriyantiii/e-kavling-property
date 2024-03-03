@@ -106,13 +106,10 @@ class LandingPageController extends Controller
         return view('guest.categories', compact('allCategories'));
     }
 
-    public function showCategories(ProductCategory $productCategory)
+    public function showCategories($categoryId)
     {
-        // Mengambil data kategori produk dan mengurutkannya secara descending berdasarkan 'created_at'
-        $productCategory = $productCategory->orderBy('created_at', 'desc')->get();
-
-        // Mendapatkan ID kategori produk yang sedang ditampilkan
-        $categoryId = $productCategory->first()->id; // Anda mungkin perlu menyesuaikan cara Anda mendapatkan ID kategori ini sesuai dengan struktur data Anda.
+        // Mengambil data kategori produk berdasarkan $categoryId
+        $productCategory = ProductCategory::findOrFail($categoryId);
 
         // Mengambil produk yang memiliki product_category_id yang sama dengan $categoryId
         $products = Product::where('product_category_id', $categoryId)->get();
@@ -123,13 +120,15 @@ class LandingPageController extends Controller
         // Loop melalui setiap produk untuk menentukan statusnya
         foreach ($products as $product) {
             // Cek apakah product_id tersebut sudah terdapat pada tabel purchase_validations
-            $isSold = PurchaseValidation::where('product_id', $product->id)->exists();
+            $isSold =
+                PurchaseValidation::where('product_id', $product->id)
+                ->where('status', 'approved')
+                ->exists();
             // Jika sudah, maka statusnya "sold", jika belum maka "available"
             $status = $isSold ? 'sold' : 'available';
             // Tambahkan status ke dalam array statuses
             $statuses[$product->id] = $status;
         }
-
         return view('guest.categories-show', compact('productCategory', 'products', 'statuses'));
     }
 

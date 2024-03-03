@@ -14,9 +14,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9 text-center">
                         <h2>Rincian Properti Kategori
-                            @foreach ($productCategory as $category)
-                                {{ $category->name }}
-                            @endforeach
+                            {{ $productCategory->name }}
                         </h2>
                     </div>
                 </div>
@@ -30,7 +28,7 @@
                         <div class="d-flex flex-wrap justify-content-start" style="margin-left: 170px">
                             @php $count = 0 @endphp
                             @foreach ($products as $product)
-                                <a href="{{ route('product.show', $product->id) }}"
+                                <a href="{{ route('landing-page.detail-properti', $product->id) }}"
                                     class="btn {{ $statuses[$product->id] == 'sold' ? 'btn-danger' : 'btn-success' }}"
                                     style="width: 150px; height: 100px; margin-right: 15px; margin-bottom: 15px; padding-top: 27px">
                                     <div>{{ $product->productCategory->code }}/{{ $product->code }}</div>

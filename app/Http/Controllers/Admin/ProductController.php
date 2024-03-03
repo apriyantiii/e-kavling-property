@@ -278,9 +278,9 @@ class ProductController extends Controller
     public function destroyCategory(ProductCategory $productCategory)
     {
         // Cek apakah kategori memiliki produk
-        // if ($productCategory->products()->exists()) {
-        //     return redirect()->route('product.index')->with('failure', 'Tidak dapat menghapus Kategori yang memiliki Produk!');
-        // }
+        if ($productCategory->products()->exists()) {
+            return redirect()->route('category.index')->with('failure', 'Tidak dapat menghapus Kategori yang memiliki Produk!');
+        }
 
         // Hapus kategori produk dari database
         $productCategory->delete();

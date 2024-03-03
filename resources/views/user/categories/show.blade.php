@@ -14,9 +14,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9 text-center">
                         <h2>Rincian Properti Kategori
-                            @foreach ($productCategory as $category)
-                                {{ $category->name }}
-                            @endforeach
+                            {{ $productCategory->name }}
                         </h2>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ Route::get('/properti', [LandingPageController::class, 'property'])->name('landi
 Route::get('/properti/search', [LandingPageController::class, 'propertySearch'])->name('landing-page.property.search');
 Route::get('/properti/detail/{id}', [LandingPageController::class, 'detailProperti'])->name('landing-page.detail-properti');
 Route::get('/kategori-properti', [LandingPageController::class, 'cetegories'])->name('landing-page.kategori');
-Route::get('/kategori-properti/detail/{productCategory}', [LandingPageController::class, 'showCategories'])->name('landing-page.kategori.show');
+Route::get('/kategori-properti/detail/{categoryId}', [LandingPageController::class, 'showCategories'])->name('landing-page.kategori.show');
 
 Route::get('/co', function () {
     return view('admin.live-chat.show');
@@ -49,7 +49,7 @@ Route::prefix('/')->group(function () {
 
     //product-categories
     Route::get('categories', [User\ProductController::class, 'indexCategories'])->name('categories.index');
-    Route::get('categories/show/{productCategory}', [User\ProductController::class, 'showCategories'])->name('categories.show');
+    Route::get('categories/show/{categoryId}', [User\ProductController::class, 'showCategories'])->name('categories.show');
 
     //profile route
     Route::get('profile', [User\ProfileController::class, 'index'])->name('profile.index');

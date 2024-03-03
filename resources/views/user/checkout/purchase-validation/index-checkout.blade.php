@@ -170,6 +170,14 @@
                                                         @enderror
                                                     </div>
 
+                                                    <div class="form-group mb-3">
+                                                        <label for="address" class="form-label">
+                                                            Silahkan Checklist reCAPTCHA
+                                                        </label>
+                                                        {!! NoCaptcha::renderJs() !!}
+                                                        {!! NoCaptcha::display() !!}
+                                                    </div>
+
                                                 </div>
 
                                             </div>

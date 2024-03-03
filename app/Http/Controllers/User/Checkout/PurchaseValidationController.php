@@ -46,6 +46,7 @@ class PurchaseValidationController extends Controller
                 'product_id' => 'required|exists:products,id', // Validasi product_id
                 'kk_file' => 'nullable|mimes:jpeg,png,jpg,pdf|max:2048',
                 'ktp_file' => 'nullable|mimes:jpeg,png,jpg,pdf|max:2048',
+                'g-recaptcha-response' => 'required|captcha',
             ]);
 
             // Mengambil ID pengguna yang sedang login
