@@ -34,7 +34,7 @@
         </section>
         {{-- Carousol End --}}
 
-        {{-- Why Choose Us --}}
+        {{-- Sistem Pembayaran --}}
         <section class="ftco-counter img ftco-section ftco-no-pt ftco-no-pb bg-light" id="about-section">
             <br>
             <div class="col-md-12 col-lg-12 px-lg-5 py-md-5">
@@ -42,7 +42,7 @@
                     <div class="row justify-content-start pb-3">
                         <div class="col-md-6 col-lg-5 py-md-5">
                             <div class="img d-flex align-self-stretch align-items-center"
-                                style="background-image:url(front-end/images/tentang-4.jpg);height: 500px;">
+                                style="background-image:url(front-end/images/payments.jpg);height: 500px;">
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-7 heading-section ftco-animate px-lg-5">
@@ -88,7 +88,7 @@
                 </div>
             </div>
         </section>
-        {{-- End Why Choose Us --}}
+        {{-- End Sistem Pembayaran --}}
 
         {{-- Property Start --}}
         <section class="ftco-section ftco-properties p-md-3 p-mt-5" id="properties-section">

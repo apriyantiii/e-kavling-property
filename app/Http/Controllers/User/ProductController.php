@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payments;
+use App\Models\Picture;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\PurchaseValidation;
@@ -46,7 +47,9 @@ class ProductController extends Controller
             $statuses[$product->id] = $status;
         }
 
-        return view('user.categories.show', compact('productCategory', 'products', 'statuses'));
+        $picture = Picture::find(5);
+
+        return view('user.categories.show', compact('productCategory', 'products', 'statuses', 'picture'));
     }
 
     // public function showCategories(ProductCategory $productCategory)

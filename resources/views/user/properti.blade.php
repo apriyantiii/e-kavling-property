@@ -21,7 +21,8 @@
 @section('content')
 
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-        <section class="ftco-intro img" id="about-section" style="background-image: url(front-end/images/bg_1.jpg);">
+        <section class="ftco-intro img" id="about-section"
+            style="background-image: url(front-end/images/home-properties.jpg);">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row justify-content-center">
@@ -62,7 +63,7 @@
                                                 alt="Colorlib Template">
                                         </div>
                                         <div class="desc">
-                                            
+
                                             <div class="d-flex pt-5">
                                                 <div>
                                                     <h3><a

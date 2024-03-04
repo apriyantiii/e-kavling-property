@@ -175,6 +175,11 @@ Route::prefix('admin')->group(function () {
     Route::put('settings/user/{user}/update', [Admin\Setting\UserController::class, 'update'])->name('admin.setting-user.update');
     Route::delete('settings/delete-user/{id}', [Admin\Setting\UserController::class, 'destroy'])->name('admin.setting-admin.destroy');
 
+    // pengaturan -> gambar
+    Route::get('settings/picture', [Admin\Setting\PictureController::class, 'index'])->name('admin.setting-picture.index');
+    Route::post('settings/picture/store', [Admin\Setting\PictureController::class, 'store'])->name('admin.setting-picture.store');
+    Route::delete('settings/delete-picture/{id}', [Admin\Setting\PictureController::class, 'destroy'])->name('admin.setting-picture.destroy');
+
     // Bank
     Route::get('bank', [Admin\BankController::class, 'index'])->name('admin.bank');
     Route::post('bank/store', [Admin\BankController::class, 'store'])->name('admin.bank.store');
