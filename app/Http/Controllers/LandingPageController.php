@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Picture;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\PurchaseValidation;
@@ -129,7 +130,9 @@ class LandingPageController extends Controller
             // Tambahkan status ke dalam array statuses
             $statuses[$product->id] = $status;
         }
-        return view('guest.categories-show', compact('productCategory', 'products', 'statuses'));
+
+        $picture = Picture::find(5);
+        return view('guest.categories-show', compact('productCategory', 'products', 'statuses', 'picture'));
     }
 
     /**

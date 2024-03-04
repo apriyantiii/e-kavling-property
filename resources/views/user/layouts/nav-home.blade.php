@@ -11,14 +11,28 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav nav ml-auto justify-content-end">
                 <li class="nav-item"><a href="{{ url('/') }}" class="nav-link"><span>Beranda</span></a></li>
-                <li class="nav-item"><a href="{{ route('home.properti') }}" class="nav-link"><span>Properti</span></a>
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Properti
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('categories.index') }}">Kategori Properti
+                        </a>
+                        <a class="dropdown-item" href="{{ route('home.properti') }}">Properti
+                        </a>
+                    </div>
+                </li>
+                {{-- <li class="nav-item"><a href="{{ route('home.properti') }}" class="nav-link"><span>Properti</span></a>
                 </li>
 
                 <li class="nav-item"><a href="{{ route('categories.index') }}"
                         class="nav-link"><span>Kategori</span></a>
-                </li>
+                </li> --}}
 
-                <li class="nav-item"><a href="{{ route('user.live-chat') }}" class="nav-link"><span>Live Chat</span></a>
+                <li class="nav-item"><a href="{{ route('user.live-chat') }}" class="nav-link"><span>Live
+                            Chat</span></a>
                 </li>
 
                 <li class="nav-item"><a href="{{ route('wishlist.index') }}" class="nav-link"><span>Wishlist</span></a>

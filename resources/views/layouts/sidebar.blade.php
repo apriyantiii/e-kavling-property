@@ -76,6 +76,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin.setting-admin.index') }}">Admin</a></li>
                         <li><a href="{{ route('admin.setting-user.index') }}">Pengguna</a></li>
+                        <li><a href="{{ route('admin.setting-picture.index') }}">Pengaturan Gambar</a></li>
                     </ul>
                 </li>
 

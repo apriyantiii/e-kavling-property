@@ -8,7 +8,9 @@
 @section('content')
 
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-        <section class="ftco-intro img" id="about-section" style="background-image: url(/images/kategori.jpg);">
+        <section class="ftco-intro img" id="about-section"
+            style="background-image: url('{{ asset('storage/' . $picture->picture) }}');">
+
             <div class="overlay"></div>
             <div class="container">
                 <div class="row justify-content-center">

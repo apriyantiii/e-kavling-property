@@ -21,13 +21,13 @@
 @section('content')
 
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-        <section class="ftco-intro img" id="about-section" style="background-image: url(front-end/images/kategori.jpg);">
+        <section class="ftco-intro img" id="about-section" style="background-image: url(front-end/images/categories.jpg);">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row justify-content-start">
                     <div class="col-md-9 text-start">
-                        <h2 class="text-dark">Kategori Properti</h2>
-                        <p class="text-dark">Berikut adalah Kategori Properti yang dapat anda akses!
+                        <h2>Kategori Properti</h2>
+                        <p>Berikut adalah Kategori Properti yang dapat anda akses!
                         </p>
 
                     </div>
