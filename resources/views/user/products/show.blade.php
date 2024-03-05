@@ -118,7 +118,7 @@
                                                 style="margin-right: 3px"><span
                                                     class="far fa-heart pr-2"></span>Wishlist</button>
                                         </form>
-                                        <a href="{{ route('user.live-chat.product', $products->id) }}"
+                                        <a href="{{ route('user.live-chat') }}"
                                             class="btn btn-outline-danger py-3 px-4 me-2" style="margin-right: 3px"><span
                                                 class="fab fa-rocketchat pr-2"></span>Live
                                             Chat</a>

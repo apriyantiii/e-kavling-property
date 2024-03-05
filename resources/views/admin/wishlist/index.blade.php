@@ -45,7 +45,7 @@
                                     <div class="col-md-6">
                                         <div>
                                             <h5 class="card-title">Semua Wishlist
-                                                <span class="text-muted fw-normal"></span>
+                                                <span class="text-muted fw-normal">({{ $userCounts->count() }})</span>
                                             </h5>
                                         </div>
                                     </div>

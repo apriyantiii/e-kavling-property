@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->hasMany(Chat::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payments::class);
+    }
+
     public function inhousePayments()
     {
         return $this->hasMany(InhousePayment::class);
