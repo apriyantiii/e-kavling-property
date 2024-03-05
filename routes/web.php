@@ -33,7 +33,7 @@ Route::get('/kategori-properti/detail/{categoryId}', [LandingPageController::cla
 Route::get('/co', function () {
     return view('admin.live-chat.show');
 });
-
+// ini percobaan push yaa
 
 //USER AUTH
 Auth::routes();
