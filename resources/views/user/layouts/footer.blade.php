@@ -38,8 +38,7 @@
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script> PT. Mutiara Putri Gemilang <i class="icon-heart color-danger"
-                        aria-hidden="true"></i> by Apriyanti
+                    </script> PT. Mutiara Putri Gemilang
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>

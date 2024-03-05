@@ -19,3 +19,4 @@
 <link rel="stylesheet" href="{{ asset('front-end/css/flaticon.css') }}">
 <link rel="stylesheet" href="{{ asset('front-end/css/icomoon.css') }}">
 <link rel="stylesheet" href="{{ asset('front-end/css/style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css">
