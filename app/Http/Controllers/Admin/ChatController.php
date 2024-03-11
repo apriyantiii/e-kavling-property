@@ -36,7 +36,7 @@ class ChatController extends Controller
             ->get();
 
         $adminChats = Chat::whereNotNull('admin_id') // Hanya chat dari admin (admin_id tidak null)
-            ->whereNotNull('user_id') // Hanya chat yang tidak ditujukan kepada pengguna (user_id null)
+            ->where('user_id', $userId) // Hanya balasan yang ditujukan kepada pengguna yang sedang login
             ->orderBy('created_at', 'asc')
             ->get();
 

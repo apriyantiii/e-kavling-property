@@ -9,7 +9,7 @@
 @section('content')
     <br>
 
-    <div style="margin-left: 100px; margin-right: 100px">
+    <div class="p-3">
         @component('components.breadcrumb')
             @slot('li_1')
                 User
@@ -18,9 +18,9 @@
                 Live Chat
             @endslot
         @endcomponent
-        <div class="w-100 user-chat mt-4 mt-sm-0 ms-lg-1">
+        <div class="w-100 user-chat mt-4 ms-lg-1">
             <div class="card">
-                <div class="p-3 px-lg-4 border-bottom">
+                <div class="p-3 border-bottom">
                     <div class="row">
                         <div class="col-xl-4 col-7 justify-content-center">
                             <div class="d-flex align-items-center">

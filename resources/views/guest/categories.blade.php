@@ -23,7 +23,7 @@
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
         <section class="ftco-intro img" id="about-section" style="background-image: url(front-end/images/categories.jpg);">
             <div class="overlay"></div>
-            <div class="container">
+            <div class="container p-3">
                 <div class="row justify-content-start">
                     <div class="col-md-9 text-start">
                         <h2>Kategori Properti</h2>
@@ -36,7 +36,7 @@
             </div>
         </section>
         <section class="ftco-section ftco-properties" id="properties-section">
-            <div class="container-fluid px-md-5">
+            <div class="container-fluid px-md-5 p-3">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">

@@ -24,7 +24,7 @@
         <section class="ftco-intro img" id="about-section"
             style="background-image: url(front-end/images/home-properties.jpg);">
             <div class="overlay"></div>
-            <div class="container">
+            <div class="container p-3">
                 <div class="row justify-content-center">
                     <div class="col-md-9 text-center">
                         <h2>Pilih Properti Impianmu</h2>
@@ -50,7 +50,7 @@
             </div>
         </section>
         <section class="ftco-section ftco-properties" id="properties-section">
-            <div class="container-fluid px-md-5">
+            <div class="container-fluid px-md-5 p-3">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">

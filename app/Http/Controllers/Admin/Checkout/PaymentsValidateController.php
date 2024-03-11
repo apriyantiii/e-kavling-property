@@ -22,10 +22,6 @@ class PaymentsValidateController extends Controller
         return view('admin.checkout.payments-validate.index', compact('payments', 'isAdmin'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-
     public function updateStatus(Request $request, Payments $payment)
     {
         $request->validate([
@@ -93,22 +89,6 @@ class PaymentsValidateController extends Controller
         }
     }
 
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Payments $showPayment)
     {
         $isAdmin = Auth::guard('is_admin')->user()->level === 'admin';
@@ -116,14 +96,6 @@ class PaymentsValidateController extends Controller
         return view('admin.checkout.payments-validate.show', compact('showPayment', 'isAdmin'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         try {
@@ -137,5 +109,17 @@ class PaymentsValidateController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => 'Gagal menghapus Pembayaran: ' . $e->getMessage()], 500);
         }
+    }
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
     }
 }

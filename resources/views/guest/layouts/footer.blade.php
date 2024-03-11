@@ -1,6 +1,6 @@
 {{-- Footer Start --}}
 <footer class="ftco-footer ftco-section">
-    <div class="container-fluid px-md-5">
+    <div class="container-fluid p-5">
         <div class="row mb-5">
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">

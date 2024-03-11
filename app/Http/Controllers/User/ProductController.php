@@ -125,7 +125,9 @@ class ProductController extends Controller
 
             // Mengirimkan informasi ke tampilan
             $isProductPurchased = $purchaseValidation ? true : false;
-            return view('user.products.show', compact('products', 'allProducts', 'isProductPurchased'));
+
+            $picture = Picture::find(8);
+            return view('user.products.show', compact('products', 'allProducts', 'isProductPurchased', 'picture'));
         } catch (ModelNotFoundException $e) {
             // Produk tidak ditemukan, redirect atau tampilkan pesan error
             return redirect()->route('user.products.show')->with('error', 'Produk tidak ditemukan.');

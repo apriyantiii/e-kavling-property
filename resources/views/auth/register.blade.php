@@ -101,6 +101,7 @@
 
                                         <div class="row">
                                             <div class="col-lg-6">
+                                                <label for="avatar" class="form-label">Profil</label>
                                                 <div class="form-floating form-floating-custom mb-4">
                                                     <input type="file"
                                                         class="form-control @error('avatar') is-invalid @enderror"
@@ -117,6 +118,7 @@
                                             </div>
 
                                             <div class="col-lg-6">
+                                                <label for="gender" class="form-label">Jenis Kelamin</label>
                                                 <div class="form-floating form-floating-custom mb-4">
                                                     <select class="form-select @error('gender') is-invalid @enderror"
                                                         name="gender" id="gender" required>
@@ -124,7 +126,6 @@
                                                         <option value="male">Laki-laki</option>
                                                         <option value="female">Perempuan</option>
                                                     </select>
-                                                    <label for="gender" class="form-label">Jenis Kelamin</label>
                                                     @error('gender')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

@@ -39,7 +39,7 @@ class HomeController extends Controller
         $usersCount = $users->count();
 
         // count inhouse payment
-        $inhouse = InhousePayment::select('user_id')->distinct()->get();
+        $inhouse = InhousePayment::all();
         $inhouseCount = $inhouse->count();
 
         // count inhouse payment

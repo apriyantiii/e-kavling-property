@@ -119,7 +119,7 @@ class InvoiceController extends Controller
         return view('user.checkout.invoice.show-payments', compact('payments'));
     }
 
-    public function showInhouse($userId)
+    public function showInhouse($userId, $productId)
     {
         // Fungsi formatPrice 
         if (!function_exists('formatPrice')) {
@@ -128,8 +128,10 @@ class InvoiceController extends Controller
                 return 'Rp ' . number_format($price, 0, ',', '.');
             }
         }
-        // Cari pembayaran in-house berdasarkan ID pengguna (user)
-        $inhousePayments = InhousePayment::where('user_id', $userId)->get();
+        // Cari pembayaran in-house berdasarkan ID pengguna (user) dan ID produk
+        $inhousePayments = InhousePayment::where('user_id', $userId)
+            ->where('product_id', $productId)
+            ->get();
 
         // Periksa apakah pembayaran in-house ditemukan
         if ($inhousePayments) {

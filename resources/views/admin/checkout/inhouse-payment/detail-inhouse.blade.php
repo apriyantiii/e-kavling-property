@@ -89,6 +89,7 @@
                                             <tr>
                                                 <th class="fw-bold">Produk</th>
                                                 <th class="fw-bold">Harga</th>
+                                                <th class="fw-bold">Kredit</th>
                                                 <th class="fw-bold">Tanggal Bayar</th>
                                                 <th class="fw-bold">Tipe Pembelian</th>
                                                 <th class="fw-bold">Tenor</th>
@@ -109,6 +110,9 @@
                                                 </td>
                                                 <td>
                                                     {{ $inhousePayments->formatted_price }}
+                                                </td>
+                                                <td>
+                                                    {{ $inhousePayments->formatted_remaining_amount }}
                                                 </td>
                                                 <td>
                                                     {{ \Carbon\Carbon::parse($inhousePayments->payment_date)->format('d M Y') }}

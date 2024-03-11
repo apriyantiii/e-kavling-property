@@ -7,7 +7,7 @@
         <section class="hero-wrap js-fullheight" style="background-image: url('front-end/images/bg_2.jpg');"
             data-section="home" data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
-            <div class="container">
+            <div class="container p-5">
                 <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start"
                     data-scrollax-parent="true">
                     <div class="col-md-5 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
@@ -16,7 +16,7 @@
                         <h6 class="mb-5 text-dark">Area Jombang, Jatim</h6>
                         <p class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Bangun kekayaan
                             dan keamanan finansial jangka panjangmu melalui PT. Mutiara Putri Gemilang </p>
-                        <form action="#" class="search-location">
+                        {{-- <form action="#" class="search-location">
                             <div class="row">
                                 <div class="col-lg align-items-end">
                                     <div class="form-group">
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
 
         {{-- Property Start --}}
         <section class="ftco-section ftco-properties p-md-3 p-mt-5" id="properties-section">
-            <div class="container">
+            <div class="container p-3">
                 <div class="row justify-content-center py-md-5">
                     <div class="col-md-12 heading-section text-center ftco-animate">
                         <h2 class="mb-4">Properti Unggulan</h2>
@@ -104,7 +104,7 @@
                             @foreach ($products as $product)
                                 <div class="col-md-6 col-lg-4">
                                     <div class="properties ftco-animate">
-                                        <a href="{{ route('product.show', $product->id) }}">
+                                        <a href="{{ route('landing-page.detail-properti', $product->id) }}">
                                             <div class="img">
                                                 <img src="{{ URL::asset('storage/' . $product->photo) }}"
                                                     style="height: 250px; width: 450px" class="img-fluid rounded"
@@ -115,7 +115,7 @@
                                             <div class="d-flex pt-5">
                                                 <div>
                                                     <h3><a
-                                                            href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
+                                                            href="{{ route('landing-page.detail-properti', $product->id) }}">{{ $product->name }}</a>
                                                     </h3>
                                                 </div>
                                                 <div class="pl-md-4">
@@ -151,7 +151,17 @@
 
                     </div>
                     <div class="text text-dark px-4 pb-5">
-                        <p class="mb-2">Saya mendirikan PT. Mutiara Putri Gemilang pada tahun 2022</p>
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2 text-center">
+                                <h4><strong>Dhian Widhiastuti</strong></h4>
+                                <p class="mb-2">Saya mendirikan PT. Mutiara Putri Gemilang pada tahun 2022 yang merupakan
+                                    sebuah
+                                    perusahaan properti khusus daerah Jombang, Jawa Timur. Promosi melalui media cetak dan
+                                    sosial media telah dilakukan agar masyarakat luas mengetahui bisnis properti yang kami
+                                    kembangkan.</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -161,7 +171,7 @@
 
         {{-- Visi Misi Start --}}
         <section class="ftco-section ftco-services-2" id="visi-misi">
-            <div class="container">
+            <div class="container p-3">
                 <div class="row justify-content-center pb-5">
                     <div class="col-md-12 heading-section text-center ftco-animate">
                         <h2 class="mb-4">Visi Misi</h2>
@@ -184,7 +194,7 @@
                         </div>
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services text-center d-block">
+                        <div class="media block-6 services text-center d-block mt-lg-5 pt-lg-4">
                             <img src="front-end/images/visi-misi/2.png" class="rounded-circle avatar-sm mb-4"
                                 width="100" height="100" alt="">
                             <div class="media-body">
@@ -210,7 +220,7 @@
                         </div>
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services text-center d-block">
+                        <div class="media block-6 services text-center d-block mt-lg-5 pt-lg-4">
                             <img src="front-end/images/visi-misi/4.png" class="rounded-circle avatar-sm mb-4"
                                 width="100" height="100" alt="">
                             <div class="media-body">
@@ -221,9 +231,10 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services text-center d-block mt-lg-5 pt-lg-4">
+                        <div class="media block-6 services text-center d-block">
                             <img src="front-end/images/visi-misi/5.png" class="rounded-circle avatar-sm mb-4"
                                 width="100" height="100" alt="">
                             <div class="media-body">
@@ -299,7 +310,7 @@
 
         {{-- Prosedur Pembelian Start --}}
         <section class="ftco-section ftco-services-2" id="prosedur-pembelian">
-            <div class="container">
+            <div class="container p-3">
                 <div class="row">
                     <div class="col-md-4 heading-section ftco-animate">
                         <h2 class="mb-4">Prosedur Pembelian</h2>

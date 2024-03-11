@@ -30,13 +30,23 @@
                         <div class="col-xl-4 col-7 justify-content-center">
                             <div class="d-flex align-items-center">
                                 <div class="d-flex me-3">
-                                    <img src="{{ URL::asset('storage/' . $chat->user->avatar) }}" alt=""
-                                        class="img-fluid d-block rounded-circle avatar-md">
-
+                                    @if ($userId)
+                                        <?php $user = \App\Models\User::find($userId); ?>
+                                        @if ($user)
+                                            <img src="{{ URL::asset('storage/' . $user->avatar) }}" alt=""
+                                                class="img-fluid d-block rounded-circle avatar-md">
+                                        @endif
+                                    @endif
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h5 class="font-size-14 mb-1 text-truncate"><a href="#"
-                                            class="text-dark">{{ $chat->user->name }}</a></h5>
+                                    <h5 class="font-size-14 mb-1 text-truncate"><a href="#" class="text-dark">
+                                            @if ($userId)
+                                                <?php $user = \App\Models\User::find($userId); ?>
+                                                @if ($user)
+                                                    {{ $user->name }}
+                                                @endif
+                                            @endif
+                                        </a></h5>
                                     <p class="text-muted text-truncate mb-0">Online</p>
                                 </div>
                             </div>

@@ -66,6 +66,8 @@
                                                 <td class="text-center">ID</td>
                                                 <th>Kode Produk</th>
                                                 <th>Nama Pembeli</th>
+                                                <th>Harga</th>
+                                                <th>Kredit</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -78,9 +80,11 @@
                                                             href="{{ route('product.index') }}">{{ $allInhousePayment->product->code }}</a>
                                                     </td>
                                                     <td>{{ $allInhousePayment->user->name }}</td>
+                                                    <td>{{ $allInhousePayment->product->formatted_price }}</td>
+                                                    <td>{{ $allInhousePayment->formatted_remaining_amount }}</td>
                                                     <td class="align-middle">
                                                         <a
-                                                            href="{{ route('admin.checkout.inhouse-payment.show', $allInhousePayment->user->id) }}">
+                                                            href="{{ route('admin.checkout.inhouse-payment.show', ['userId' => $allInhousePayment->user->id, 'productId' => $allInhousePayment->product->id]) }}">
                                                             <i class="mdi mdi-eye font-size-16 text-success me-1"></i>
                                                         </a>
                                                     </td>

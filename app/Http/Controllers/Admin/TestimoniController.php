@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class TestimoniController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $testimonis = Testimoni::all();

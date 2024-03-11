@@ -25,7 +25,6 @@ class InhousePaymentController extends Controller
             }
         }
 
-
         // Ambil data pesanan berdasarkan status pembelian yang disetujui
         $purchaseValidation = PurchaseValidation::where('status', 'approved')->first();
 

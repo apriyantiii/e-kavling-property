@@ -20,18 +20,6 @@ class BankController extends Controller
         return view('admin.bank.index', compact('banks', 'isAdmin'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-
     public function store(Request $request)
     {
         try {
@@ -54,28 +42,7 @@ class BankController extends Controller
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
     }
-
-    // public function update(Request $request, Admin $admin)
-    // {
-    //     try {
-    //         $request->validate([
-    //             'name' => 'required|string',
-    //             'email' => 'required|email|unique:admins,email,' . $admin->id,
-    //             'password' => 'nullable|string|min:8',
-    //             'gender' => 'nullable|in:male,female',
-    //             'contact' => 'nullable|string',
-    //             'level' => 'required|in:admin,director',
-    //             'address' => 'nullable|string',
-    //         ]);
-
-    //         $admin->update($request->all());
-
-    //         return redirect()->route('admin.setting-admin.index')->with('success', 'Data admin berhasil diperbarui.');
-    //     } catch (\Exception $e) {
-    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
-    //     }
-    // }
-
+    
     public function update(Request $request, Bank $bank)
     {
         try {
@@ -113,6 +80,34 @@ class BankController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => 'Gagal menghapus Rekening: ' . $e->getMessage()], 500);
         }
+    }
+
+    // public function update(Request $request, Admin $admin)
+    // {
+    //     try {
+    //         $request->validate([
+    //             'name' => 'required|string',
+    //             'email' => 'required|email|unique:admins,email,' . $admin->id,
+    //             'password' => 'nullable|string|min:8',
+    //             'gender' => 'nullable|in:male,female',
+    //             'contact' => 'nullable|string',
+    //             'level' => 'required|in:admin,director',
+    //             'address' => 'nullable|string',
+    //         ]);
+
+    //         $admin->update($request->all());
+
+    //         return redirect()->route('admin.setting-admin.index')->with('success', 'Data admin berhasil diperbarui.');
+    //     } catch (\Exception $e) {
+    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+    //     }
+    // }
+
+    
+
+    public function create()
+    {
+        //
     }
 
 

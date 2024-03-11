@@ -55,7 +55,7 @@ class LoginController extends Controller
                 return redirect()->route('categories.index');
             }
         } else {
-            return redirect()->route('login')->with('error', 'salah email atau password');
+            return back()->withInput()->withErrors(['email' => 'Email atau password salah']);
         }
     }
 }

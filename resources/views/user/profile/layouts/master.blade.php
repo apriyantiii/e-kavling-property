@@ -29,7 +29,7 @@
     @include('user.profile.layouts.nav-profile')
     {{-- navbar End --}}
 
-    <main class="py-0 mb-5" style="margin-top: 75px">
+    <main class="py-0 mb-5">
         @yield('content')
     </main>
 

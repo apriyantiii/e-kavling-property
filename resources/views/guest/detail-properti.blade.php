@@ -55,16 +55,18 @@
 
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
         <section class="hero-wrap hero-wrap-2"
-            style="background-image:url('{{ URL::asset('front-end/images/bg_3.jpg') }}');"
+            style="background-image: url('{{ asset('storage/' . $picture->picture) }}');"
             data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row no-gutters slider-text align-items-end justify-content-start">
                     <div class="col-md-9 ftco-animate pb-4">
-                        <h1 class="mb-3 bread">Detail Properti</h1>
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Beranda Properti <i
-                                        class="ion-ios-arrow-forward"></i></a></span> <span>{{ $products->name }} <i
-                                    class="ion-ios-arrow-forward"></i></span></p>
+                        <h1 class="mb-3 bread text-white">Detail Properti</h1>
+                        <p class="breadcrumbs text-white"><span class="mr-2"><a href="{{ route('landing-page') }}"
+                                    class="text-white">Beranda Properti <i
+                                        class="ion-ios-arrow-forward text-white"></i></a></span>
+                            <span class="text-white">{{ $products->name }} <i class="ion-ios-arrow-forward"></i></span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -111,13 +113,6 @@
                                     </div>
                                     <p class="mb-5">{!! $products->description_sentences !!}</p>
                                     <div class="d-flex">
-                                        {{-- <form method="POST" action="{{ route('wishlist.store') }}" class="me-2">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $products->id }}">
-                                            <button type="submit" class="btn btn-outline-secondary py-3 px-4"
-                                                style="margin-right: 3px"><span
-                                                    class="far fa-heart pr-2"></span>Wishlist</button>
-                                        </form> --}}
                                         <a href="{{ route('user.live-chat', $products->id) }}"
                                             class="btn btn-outline-danger py-3 px-4 me-2" style="margin-right: 3px"><span
                                                 class="fab fa-rocketchat pr-2"></span>Live

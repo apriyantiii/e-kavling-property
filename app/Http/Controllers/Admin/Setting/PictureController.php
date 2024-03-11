@@ -47,7 +47,7 @@ class PictureController extends Controller
             $picture->save();
 
             // Kembalikan respons yang sesuai
-            return redirect()->route('admin.setting-picture.index')->with('success', 'Data pengguna berhasil ditambahkan.');
+            return redirect()->route('admin.setting-picture.index')->with('success', 'Gambar berhasil ditambahkan.');
         } catch (\Exception $e) {
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
         }
@@ -62,7 +62,7 @@ class PictureController extends Controller
             // Hapus pengguna
             $picture->delete();
 
-            return redirect()->back()->with('success', 'Pengguna berhasil dihapus.');
+            return redirect()->back()->with('success', 'Gambar berhasil dihapus.');
         } catch (\Exception $e) {
             return response()->json(['message' => 'Gagal menghapus pengguna: ' . $e->getMessage()], 500);
         }

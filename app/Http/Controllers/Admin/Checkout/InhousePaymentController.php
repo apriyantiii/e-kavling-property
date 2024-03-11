@@ -17,9 +17,16 @@ class InhousePaymentController extends Controller
      */
     public function index()
     {
+        // Fungsi formatPrice 
+        if (!function_exists('formatPrice')) {
+            function formatPrice($price)
+            {
+                return 'Rp ' . number_format($price, 0, ',', '.');
+            }
+        }
         // Subquery untuk mendapatkan entri terbaru untuk setiap user_id
-        $latestInhousePayments = InhousePayment::select('user_id', DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('user_id');
+        $latestInhousePayments = InhousePayment::select('user_id', 'product_id', DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('user_id', 'product_id');
 
         // Query utama untuk mendapatkan entri terbaru untuk setiap user_id
         $allInhousePayments = InhousePayment::joinSub($latestInhousePayments, 'latest_payments', function ($join) {
@@ -28,6 +35,17 @@ class InhousePaymentController extends Controller
         })
             ->orderBy('created_at', 'desc')
             ->get();
+
+        // Tambahkan formatted_price ke objek product
+        foreach ($allInhousePayments as $allInhousePayment) {
+            if ($allInhousePayment->product) {
+                $allInhousePayment->product->formatted_price = formatPrice($allInhousePayment->product->price);
+            }
+        }
+
+        foreach ($allInhousePayments as $allInhousePayment) {
+            $allInhousePayment->formatted_remaining_amount = formatPrice($allInhousePayment->remaining_amount);
+        }
 
         return view('admin.checkout.inhouse-payment.index', compact('allInhousePayments'));
     }
@@ -38,10 +56,12 @@ class InhousePaymentController extends Controller
         return 'Rp ' . number_format($nominal, 0, ',', '.');
     }
 
-    public function show($userId)
+    public function show($userId, $productId)
     {
         // Cari pembayaran in-house berdasarkan ID pengguna (user)
-        $inhousePayments = InhousePayment::where('user_id', $userId)->get();
+        $inhousePayments = InhousePayment::where('user_id', $userId)
+            ->where('product_id', $productId)
+            ->get();
         // $inhousePayments->formatted_nominal = $this->formatNominal($inhousePayments->nominal);
 
         // Periksa apakah pembayaran in-house ditemukan
@@ -70,6 +90,9 @@ class InhousePaymentController extends Controller
         $inhousePayments = InhousePayment::findOrFail($id);
         // Format nominal untuk setiap pembayaran
         $inhousePayments->formatted_nominal = $this->formatNominal($inhousePayments->nominal);
+
+        $inhousePayments->formatted_remaining_amount = $this->formatNominal($inhousePayments->remaining_amount);
+
 
         if ($inhousePayments->product) {
             // Menambahkan formatted_nominal dan formatted_remaining_amount ke objek InhousePayments

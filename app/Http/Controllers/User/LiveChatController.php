@@ -26,8 +26,9 @@ class LiveChatController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
 
+        // Mengambil semua balasan dari admin yang ditujukan kepada pengguna yang sedang login
         $adminChats = Chat::whereNotNull('admin_id')
-            ->whereNotNull('user_id')
+            ->where('user_id', $currentUser->id) // Hanya balasan yang ditujukan kepada pengguna yang sedang login
             ->orderBy('created_at', 'asc')
             ->get();
 

@@ -35,8 +35,9 @@
                 </div>
             </div>
         </section>
+
         <section class="ftco-section ftco-properties" id="properties-section">
-            <div class="container-fluid px-md-5">
+            <div class="container-fluid px-md-5 p-3">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">

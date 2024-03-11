@@ -12,7 +12,7 @@
             style="background-image: url('{{ asset('storage/' . $picture->picture) }}');">
 
             <div class="overlay"></div>
-            <div class="container">
+            <div class="container p-3">
                 <div class="row justify-content-center">
                     <div class="col-md-9 text-center">
                         <h2>Rincian Properti Kategori
@@ -24,22 +24,22 @@
         </section>
 
         <section class="ftco-section ftco-properties" id="properties-section">
-            <div class="container-fluid px-md-5">
+            <div class="container-fluid p-5">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="d-flex flex-wrap justify-content-start" style="margin-left: 170px">
+                        <div class="d-flex flex-wrap justify-content-start">
                             @php $count = 0 @endphp
                             @foreach ($products as $product)
                                 <a href="{{ route('product.show', $product->id) }}"
                                     class="btn {{ $statuses[$product->id] == 'sold' ? 'btn-danger' : 'btn-success' }}"
-                                    style="width: 150px; height: 100px; margin-right: 15px; margin-bottom: 15px; padding-top: 27px">
+                                    style="width: 150px; height: 100px; margin-bottom: 15px; padding-top: 27px">
                                     <div>{{ $product->productCategory->code }}/{{ $product->code }}</div>
                                     <div>{{ $statuses[$product->id] == 'sold' ? 'Terjual' : 'Tersedia' }}</div>
                                 </a>
                                 @php $count++ @endphp
                                 @if ($count % 6 == 0)
                         </div>
-                        <div class="d-flex flex-wrap justify-content-start mt-3" style="margin-left: 170px">
+                        <div class="d-flex flex-wrap justify-content-start mt-3">
                             @endif
                             @endforeach
                         </div>

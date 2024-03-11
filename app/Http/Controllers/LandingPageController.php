@@ -25,6 +25,14 @@ class LandingPageController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
+    public function cetegories(Request $request)
+    {
+        $allCategories = ProductCategory::orderBy('created_at', 'desc')->get();
+
+        return view('guest.categories', compact('allCategories'));
+    }
+
     public function property(Request $request)
     {
         // Fungsi formatPrice 
@@ -93,18 +101,13 @@ class LandingPageController extends Controller
 
             // Mengirimkan informasi ke tampilan
             $isProductPurchased = $purchaseValidation ? true : false;
-            return view('guest.detail-properti', compact('products', 'allProducts', 'isProductPurchased'));
+
+            $picture = Picture::find(8);
+            return view('guest.detail-properti', compact('products', 'allProducts', 'isProductPurchased', 'picture'));
         } catch (ModelNotFoundException $e) {
             // Produk tidak ditemukan, redirect atau tampilkan pesan error
             return redirect()->route('guest.detail-properti')->with('error', 'Produk tidak ditemukan.');
         }
-    }
-
-    public function cetegories(Request $request)
-    {
-        $allCategories = ProductCategory::orderBy('created_at', 'desc')->get();
-
-        return view('guest.categories', compact('allCategories'));
     }
 
     public function showCategories($categoryId)

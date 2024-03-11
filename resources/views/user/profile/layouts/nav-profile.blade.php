@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow fixed-top mb-5" style="height: 75px;">
+<nav class="navbar navbar-expand-lg navbar-light ftco_navbar bg-white ftco-navbar-dark site-navbar-target"
+    id="ftco-navbar">
+    {{-- <nav class="navbar navbar-expand-lg navbar-light ftco_navbar bg-white ftco-navbar-dark site-navbar-target"
+    id="ftco-navbar"> --}}
     <div class="container">
         {{-- <a class="navbar-brand" href="{{ url('/') }}">
             <span class="logo-lg">
@@ -24,14 +27,18 @@
                 <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">
                         <h5><span>Beranda</span></h5>
                     </a></li>
-                <li class="nav-item"><a href="{{ route('home.properti') }}" class="nav-link">
-                        <h5><span>Properti</span></h5>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProperti" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <h5><span>Properti<span class="fas fa-caret-down mr-2"></span></span></h5>
+                        <!-- Ikonya -->
                     </a>
-                </li>
-
-                <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link">
-                        <h5><span>Kategori</span></h5>
-                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownProperti">
+                        <!-- Isi dropdown untuk properti -->
+                        <li><a class="dropdown-item" href="{{ route('categories.index') }}">Kategori Properti</a></li>
+                        <li><a class="dropdown-item" href="{{ route('home.properti') }}">Properti</a></li>
+                        <!-- Tambahkan lebih banyak item dropdown sesuai kebutuhan -->
+                    </ul>
                 </li>
 
                 <li class="nav-item"><a href="{{ route('user.live-chat') }}" class="nav-link">
@@ -91,20 +98,6 @@
                             <a class="dropdown-item" href="{{ route('checkout.invoice') }}">
                                 <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
                             </a>
-                            {{-- <a class="dropdown-item" href="{{ url('checkout') }}"><span class="fas fa-shopping-cart"
-                                    style="margin-right: 5px;"></span>Pembelian
-                            </a> --}}
-                            {{-- @if (session('purchase_status') === 'waiting_confirmation')
-                                <!-- Tampilkan tautan atau menu yang sesuai ketika status pembelian adalah 'waiting_confirmation' -->
-                                <a class="dropdown-item" href="{{ route('purchase.waiting-validation') }}">
-                                    <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
-                                </a>
-                                @else
-                                <!-- Tampilkan tautan atau menu yang sesuai ketika status pembelian tidak 'waiting_confirmation' -->
-                                <a class="dropdown-item" href="{{ route('checkout.index') }}">
-                                    <span class="fas fa-shopping-cart" style="margin-right: 5px;"></span>Pembelian
-                                </a>
-                            @endif --}}
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();"><span

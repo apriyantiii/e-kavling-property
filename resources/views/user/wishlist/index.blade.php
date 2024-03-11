@@ -10,7 +10,7 @@
     <br><br>
 
     <div class="row mb-5">
-        <div class="container">
+        <div class="container p-4">
             @if (session()->has('success'))
                 @include('components.alert.success', [
                     'type' => session('type', 'success'),

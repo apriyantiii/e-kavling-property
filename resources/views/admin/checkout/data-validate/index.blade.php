@@ -68,9 +68,8 @@
                                                     <th>No. Telp</th>
                                                     <th>Alamat</th>
                                                     <th>Status</th>
-                                                    @unless ($isDirector)
-                                                        <th>Tindakan</th>
-                                                    @endunless
+                                                    <th>Tindakan</th>
+
                                                 </tr>
                                             </thead>
 
@@ -97,21 +96,22 @@
                                                                     class="badge bg-secondary">{{ $purchaseValidate->status }}</span>
                                                             @endif
                                                         </td>
-                                                        @unless ($isDirector)
-                                                            <td class="align-middle">
-                                                                <div class="dropdown">
-                                                                    <a href="#" class="dropdown-toggle card-drop"
-                                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="mdi mdi-dots-horizontal font-size-18"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                                        <li><a href="{{ route('checkout.validate.show', $purchaseValidate->id) }}"
-                                                                                class="dropdown-item">
-                                                                                <i
-                                                                                    class="mdi mdi-eye font-size-16 text-success me-1"></i>
-                                                                                Detail
-                                                                            </a>
-                                                                        </li>
+
+                                                        <td class="align-middle">
+                                                            <div class="dropdown">
+                                                                <a href="#" class="dropdown-toggle card-drop"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    <li><a href="{{ route('checkout.validate.show', $purchaseValidate->id) }}"
+                                                                            class="dropdown-item">
+                                                                            <i
+                                                                                class="mdi mdi-eye font-size-16 text-success me-1"></i>
+                                                                            Detail
+                                                                        </a>
+                                                                    </li>
+                                                                    @unless ($isDirector)
                                                                         <li><a href="#" class="dropdown-item"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#myModal{{ $purchaseValidate->id }}">
@@ -130,10 +130,11 @@
                                                                                 Hapus
                                                                             </a>
                                                                         </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        @endunless
+                                                                    @endunless
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+
                                                     </tr>
                                                 @endforeach
                                             </tbody>

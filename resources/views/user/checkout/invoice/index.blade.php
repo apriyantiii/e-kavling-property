@@ -239,13 +239,27 @@
                                         <div class="col-md-6">
                                             <div class="flex-wrap gap-2 d-flex align-items-center justify-content-end">
                                                 <div>
-                                                    <a href="{{ route('checkout.inhouse-payments', ['productId' => $allInhousePayment->product->id]) }}"
-                                                        class="btn btn-success btn-rounded waves-effect waves-light"><i
-                                                            class="mdi mdi-cash me-1"></i> Bayar Tenor</a>
+                                                    @if ($allInhousePayment->status == 'approved')
+                                                        @if ($allInhousePayment->remaining_amount > 0)
+                                                            <a href="{{ route('checkout.inhouse-payments', ['productId' => $allInhousePayment->product->id]) }}"
+                                                                class="btn btn-success btn-rounded waves-effect waves-light"><i
+                                                                    class="mdi mdi-cash me-1"></i> Bayar Tenor</a>
+                                                        @else
+                                                            <button
+                                                                class="btn btn-success btn-rounded waves-effect waves-light"
+                                                                disabled><i class="mdi mdi-cash me-1"></i> Lunas</button>
+                                                        @endif
+                                                    @else
+                                                        <button
+                                                            class="btn btn-success btn-rounded waves-effect waves-light"
+                                                            disabled><i class="mdi mdi-cash me-1"></i> Belum
+                                                            Disetujui</button>
+                                                    @endif
                                                 </div>
                                             </div>
-
                                         </div>
+
+
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -274,7 +288,7 @@
                                                     <td>{{ $allInhousePayment->formatted_remaining_amount }}</td>
                                                     <td class="align-middle">
                                                         <h5><a
-                                                                href="{{ route('checkout.invoice.inhouse-payment', $allInhousePayment->user->id) }}">
+                                                                href="{{ route('checkout.invoice.inhouse-payment', ['userId' => $allInhousePayment->user->id, 'productId' => $allInhousePayment->product->id]) }}">
                                                                 Selengkapnya <i class="mdi mdi-arrow-right me-1"></i>
                                                             </a></h5>
                                                     </td>
