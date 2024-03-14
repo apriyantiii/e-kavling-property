@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    @lang('translation.Dashboards')
+    Dashboard
 @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/admin-resources/admin-resources.min.css') }}" rel="stylesheet">
@@ -11,7 +11,7 @@
             Dashboard
         @endslot
         @slot('title')
-            Welcome !
+            Hi, {{ Auth::guard('is_admin')->user()->name }} !
         @endslot
     @endcomponent
 

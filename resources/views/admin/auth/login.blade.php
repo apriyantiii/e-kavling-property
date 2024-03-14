@@ -17,13 +17,13 @@
                                     </a>
                                     <a href="{{ url('/') }}" class="d-block auth-logo">
                                         {{-- <span class="logo-txt">MODIS ✖ MEGUMI</span> --}}
-                                        <span class="logo-txt">ADMIN E-KAVLING</span>
+                                        <span class="logo-txt">E-KAVLING ADMINISTRATOR</span>
                                     </a>
                                 </div>
                                 <div class="my-auto auth-content">
                                     <div class="text-center">
-                                        <h5 class="mb-0">Welcome Back !</h5>
-                                        <p class="mt-2 text-muted">Sign in to continue to your e-kavling admin</p>
+                                        <h5 class="mb-0">Selamat Datang !</h5>
+                                        <p class="mt-2 text-muted">Jalur login Admin dan Direktur</p>
                                     </div>
                                     @if (Session::has('success'))
                                         <div class="alert alert-success" role="alert">

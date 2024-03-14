@@ -35,7 +35,8 @@ class PaymentsValidateController extends Controller
 
     public function edit(Payments $paymentId)
     {
-        return view('admin.checkout.payments-validate.edit', compact('paymentId'));
+        $isAdmin = Auth::guard('is_admin')->user()->level === 'admin';
+        return view('admin.checkout.payments-validate.edit', compact('paymentId', 'isAdmin'));
     }
 
     public function update(Request $request, Payments $payment)

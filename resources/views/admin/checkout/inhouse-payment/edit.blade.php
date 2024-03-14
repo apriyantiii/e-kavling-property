@@ -158,23 +158,25 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select class="nice-select default-select wide form-control solid" name="status">
-                                        //onchange="this.form.submit()
+                                @unless ($isAdmin)
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select class="nice-select default-select wide form-control solid" name="status">
+                                            //onchange="this.form.submit()
                                         <option value="pending"
-                                        {{ $inhousePaymentId->status === 'pending' ? 'selected' : '' }}>
-                                        Pending
-                                        </option>
-                                        <option value="approved"
-                                            {{ $inhousePaymentId->status === 'approved' ? 'selected' : '' }}>
-                                            Disetujui
-                                        </option>
-                                        <option value="rejected"
-                                            {{ $inhousePaymentId->status === 'rejected' ? 'selected' : '' }}>
-                                            Ditolak</option>
-                                    </select>
-                                </div>
+                                            {{ $inhousePaymentId->status === 'pending' ? 'selected' : '' }}>
+                                            Pending
+                                            </option>
+                                            <option value="approved"
+                                                {{ $inhousePaymentId->status === 'approved' ? 'selected' : '' }}>
+                                                Disetujui
+                                            </option>
+                                            <option value="rejected"
+                                                {{ $inhousePaymentId->status === 'rejected' ? 'selected' : '' }}>
+                                                Ditolak</option>
+                                        </select>
+                                    </div>
+                                @endunless
 
                                 <div class="form-group mb-3">
                                     <label for="destination_bank" class="form-label">

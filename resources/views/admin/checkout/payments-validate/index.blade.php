@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Data Validasi Pembayaran
+    Validasi Pembayaran
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"

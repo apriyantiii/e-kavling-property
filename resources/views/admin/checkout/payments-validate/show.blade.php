@@ -57,13 +57,13 @@
                                 </div>
                                 <!-- Stop right col -->
 
-                                @unless ($isAdmin)
-                                    <div class="col-lg-2 text-end">
-                                        <a href="{{ route('checkout.payment.edit', $showPayment->id) }}"
-                                            class="btn btn-warning btn-rounded waves-effect waves-light text-dark">Edit
-                                            Pembayaran</a>
-                                    </div>
-                                @endunless
+                                {{-- @unless ($isAdmin) --}}
+                                <div class="col-lg-2 text-end">
+                                    <a href="{{ route('checkout.payment.edit', $showPayment->id) }}"
+                                        class="btn btn-warning btn-rounded waves-effect waves-light text-dark">Edit
+                                        Pembayaran</a>
+                                </div>
+                                {{-- @endunless --}}
                             </div>
                             <!-- Start Row -->
                             <div class="row align-items-center">

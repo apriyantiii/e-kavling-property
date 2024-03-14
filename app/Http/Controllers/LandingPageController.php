@@ -66,11 +66,23 @@ class LandingPageController extends Controller
             ->orWhere('price', 'like', '%' . $keyword . '%')
             ->orWhere('code', 'like', '%' . $keyword . '%')
             ->get();
+
+        $picture = Picture::find(9);
+
+        // Check if results are empty
+        if ($results->isEmpty()) {
+            // If no results, create an empty collection
+            $results = collect();
+        }
+
         return view('guest.search-property', [
             'keyword' => $keyword,
-            'allProducts' => $results
+            'allProducts' => $results,
+            'picture' => $picture,
         ]);
     }
+
+
 
     public function detailProperti(string $id)
     {
@@ -134,7 +146,7 @@ class LandingPageController extends Controller
             $statuses[$product->id] = $status;
         }
 
-        $picture = Picture::find(5);
+        $picture = Picture::find(3);
         return view('guest.categories-show', compact('productCategory', 'products', 'statuses', 'picture'));
     }
 

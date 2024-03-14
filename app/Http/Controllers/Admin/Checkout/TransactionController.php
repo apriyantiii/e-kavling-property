@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Checkout;
 
 use App\Http\Controllers\Controller;
+use App\Models\InhousePayment;
 use App\Models\Payments;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,15 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Payments::orderBy('created_at', 'desc')->get();
-        return view('admin.checkout.transaction.index', compact('transactions'));
+        $transactions = Payments::where('status', 'approved')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $inhouseTransactions = InhousePayment::where('status', 'approved')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('admin.checkout.transaction.index', compact('transactions', 'inhouseTransactions'));
     }
 
     /**

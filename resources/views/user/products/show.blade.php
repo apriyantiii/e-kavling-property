@@ -116,9 +116,11 @@
                                         <form method="POST" action="{{ route('wishlist.store') }}" class="me-2">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $products->id }}">
-                                            <button type="submit" class="btn btn-outline-secondary py-3 px-4"
-                                                style="margin-right: 3px"><span
-                                                    class="far fa-heart pr-2"></span>Wishlist</button>
+                                            <button type="submit"
+                                                class="btn btn-outline-secondary py-3 px-4 {{ $isProductPurchased ? 'disabled' : '' }}"
+                                                style="margin-right: 3px" {{ $isProductPurchased ? 'disabled' : '' }}>
+                                                <span class="far fa-heart pr-2"></span>Wishlist
+                                            </button>
                                         </form>
                                         <a href="{{ route('user.live-chat') }}"
                                             class="btn btn-outline-danger py-3 px-4 me-2" style="margin-right: 3px"><span

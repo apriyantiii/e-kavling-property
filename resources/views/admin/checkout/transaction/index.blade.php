@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Data Transaksi
+    Transaksi
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/datatables.net-bs4/datatables.net-bs4.min.css') }}" rel="stylesheet"
@@ -64,8 +64,9 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">No.</th>
-                                                <th class="text-center">ID Pengguna</th>
-                                                <th class="text-center">ID Produk</th>
+                                                <th class="text-center">Pembeli</th>
+                                                <th class="text-center">Code Produk</th>
+                                                <th class="text-center">Tipe Pembayaran</th>
                                                 <th class="text-center">ID Validasi Pembelian</th>
                                                 <th class="text-center">ID Pembayaran</th>
                                             </tr>
@@ -74,14 +75,10 @@
                                         <tbody>
                                             @foreach ($transactions as $transaction)
                                                 <tr>
-                                                    <td class="text-center">{{ $loop->iteration }}
-                                                    </td>
-                                                    <td class="text-center"><a
-                                                            href="{{ route('admin.setting-user.index') }}">{{ $transaction->user_id }}</a>
-                                                    </td>
-                                                    <td class="text-center"><a
-                                                            href="{{ route('product.index') }}">{{ $transaction->product_id }}</a>
-                                                    </td>
+                                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                                    <td class="text-center">{{ $transaction->user->name }}</td>
+                                                    <td class="text-center">{{ $transaction->product->code }}</td>
+                                                    <td class="text-center">Cash / KPR</td>
                                                     <td class="text-center"><a
                                                             href="{{ route('checkout.data-validate') }}">{{ $transaction->purchase_validation_id }}</a>
                                                     </td>
@@ -90,6 +87,39 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+
+                                            @foreach ($inhouseTransactions as $transaction)
+                                                <tr>
+                                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                                    <td class="text-center">{{ $transaction->user->name }}</td>
+                                                    <td class="text-center">{{ $transaction->product->code }}</td>
+                                                    <td class="text-center">Inhouse</td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('checkout.data-validate') }}">{{ $transaction->purchase_validation_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('admin.checkout.inhouse-payments') }}">{{ $transaction->id }}</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            {{-- @foreach ($transactions as $transaction)
+                                                <tr>
+                                                    <td class="text-center">{{ $loop->iteration }}
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('admin.setting-user.index') }}">{{ $transaction->user_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('product.index') }}">{{ $transaction->product->code }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('checkout.data-validate') }}">{{ $transaction->purchase_validation_id }}</a>
+                                                    </td>
+                                                    <td class="text-center"><a
+                                                            href="{{ route('checkout.payments-validate') }}">{{ $transaction->id }}</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>

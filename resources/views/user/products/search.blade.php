@@ -20,7 +20,8 @@
 @section('content')
 
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-        <section class="ftco-intro img" id="about-section" style="background-image: url(front-end/images/home-properties.jpg);">
+        <section class="ftco-intro img" id="about-section"
+            style="background-image: url(front-end/images/home-properties.jpg);">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row justify-content-center">
@@ -40,51 +41,57 @@
         <section class="ftco-section ftco-properties" id="properties-section">
             <div class="container-fluid px-md-5">
                 <div class="row">
-                    <h1 class="text-center">Hasil Pencarian dari {{ $keyword }}</h1>
-                    <div class="col-lg-12">
-                        <div class="row">
-                            @foreach ($allProducts as $allProduct)
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="properties ftco-animate">
-                                        <div class="img">
-                                            <img src="{{ URL::asset('storage/' . $allProduct->photo) }}"
-                                                style="height: 250px; width: 450px" class="img-fluid rounded"
-                                                alt="Colorlib Template">
-                                        </div>
-                                        <div class="desc">
-                                            <div class="d-flex pt-5">
-                                                <div>
-                                                    <h3><a
-                                                            href="{{ route('product.show', $allProduct->id) }}">{{ $allProduct->name }}</a>
-                                                    </h3>
-                                                </div>
-                                                <div class="pl-md-4">
-                                                    <h4 class="price">{{ $allProduct->price }}</h4>
-                                                </div>
+                    @if ($allProducts->isEmpty())
+                        <h1 class="text-center">Tidak ada hasil yang ditemukan</h1>
+                    @else
+                        <h1 class="text-center">Hasil Pencarian dari <strong class="text-info">{{ $keyword }}</strong>
+                        </h1>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                @foreach ($allProducts as $allProduct)
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="properties ftco-animate">
+                                            <div class="img">
+                                                <img src="{{ URL::asset('storage/' . $allProduct->photo) }}"
+                                                    style="height: 250px; width: 450px" class="img-fluid rounded"
+                                                    alt="Colorlib Template">
                                             </div>
-                                            <p class="h-info"><span class="location">{{ $allProduct->code }}</span> <span
-                                                    class="details">&mdash; {{ $allProduct->location }}</span></p>
+                                            <div class="desc">
+                                                <div class="d-flex pt-5">
+                                                    <div>
+                                                        <h3><a
+                                                                href="{{ route('product.show', $allProduct->id) }}">{{ $allProduct->name }}</a>
+                                                        </h3>
+                                                    </div>
+                                                    <div class="pl-md-4">
+                                                        <h4 class="price">{{ $allProduct->price }}</h4>
+                                                    </div>
+                                                </div>
+                                                <p class="h-info"><span class="location">{{ $allProduct->code }}</span>
+                                                    <span class="details">&mdash; {{ $allProduct->location }}</span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col text-center">
-                                <div class="block-27">
-                                    <ul>
-                                        <li><a href="#">&lt;</a></li>
-                                        <li class="active"><span>1</span></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">&gt;</a></li>
-                                    </ul>
+                                @endforeach
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col text-center">
+                                    <div class="block-27">
+                                        <ul>
+                                            <li><a href="#">&lt;</a></li>
+                                            <li class="active"><span>1</span></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                            <li><a href="#">&gt;</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </section>

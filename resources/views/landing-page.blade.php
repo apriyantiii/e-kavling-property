@@ -35,7 +35,7 @@
         {{-- Carousol End --}}
 
         {{-- Sistem Pembayaran --}}
-        <section class="ftco-counter img ftco-section ftco-no-pt ftco-no-pb bg-light" id="about-section">
+        <section class="ftco-counter img ftco-section ftco-no-pt ftco-no-pb bg-light" id="payment">
             <br>
             <div class="col-md-12 col-lg-12 px-lg-5 py-md-5">
                 <div class="py-md-5">

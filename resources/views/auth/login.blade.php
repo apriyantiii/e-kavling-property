@@ -20,7 +20,7 @@
                                 <div class="auth-content my-auto">
                                     <div class="text-center">
                                         <h5 class="mb-0">Selamat Datang !</h5>
-                                        <p class="text-muted mt-2">Masuk untuk mengakses E-kavling</p>
+                                        <p class="text-muted mt-2">Silahkan login untuk mengakses semua fitur E-Kavling</p>
                                     </div>
 
                                     <form class="mt-4 pt-2" action="{{ route('login') }}" method="POST">

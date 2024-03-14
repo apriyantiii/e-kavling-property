@@ -19,10 +19,10 @@
                 <li class="my-2">
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="box"></i>
-                        <span>Produk & Kategori</span>
+                        <span>Properti & Kategori</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('product.index') }}">Produk</a></li>
+                        <li><a href="{{ route('product.index') }}">Properti</a></li>
                         <li><a href="{{ route('category.index') }}">Kategori</a></li>
                     </ul>
                 </li>

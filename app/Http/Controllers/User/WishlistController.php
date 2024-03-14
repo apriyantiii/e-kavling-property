@@ -30,7 +30,7 @@ class WishlistController extends Controller
             ->where('user_id', $user->id)
             ->whereNotIn('product_id', function ($query) {
                 $query->select('product_id')
-                    ->from('payments');
+                    ->from('purchase_validations');
             })
             ->get();
 

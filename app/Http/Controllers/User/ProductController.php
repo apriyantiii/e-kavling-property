@@ -47,7 +47,7 @@ class ProductController extends Controller
             $statuses[$product->id] = $status;
         }
 
-        $picture = Picture::find(5);
+        $picture = Picture::find(3);
 
         return view('user.categories.show', compact('productCategory', 'products', 'statuses', 'picture'));
     }
@@ -58,6 +58,7 @@ class ProductController extends Controller
     //     $productCategory = $productCategory->orderBy('created_at', 'desc')->get();
     //     return view('user.categories.show', compact('productCategory'));
     // }
+
 
     public function search(Request $request)
     {
@@ -71,9 +72,19 @@ class ProductController extends Controller
             ->orWhere('price', 'like', '%' . $keyword . '%')
             ->orWhere('code', 'like', '%' . $keyword . '%')
             ->get();
+
+        $picture = Picture::find(9);
+
+        // Check if results are empty
+        if ($results->isEmpty()) {
+            // If no results, create an empty collection
+            $results = collect();
+        }
+
         return view('user.products.search', [
             'keyword' => $keyword,
-            'allProducts' => $results
+            'allProducts' => $results,
+            'picture' => $picture,
         ]);
     }
 

@@ -143,7 +143,9 @@ class InhousePaymentController extends Controller
 
     public function edit(InhousePayment $inhousePaymentId)
     {
-        return view('admin.checkout.inhouse-payment.edit', compact('inhousePaymentId'));
+        $isAdmin = Auth::guard('is_admin')->user()->level === 'admin';
+
+        return view('admin.checkout.inhouse-payment.edit', compact('inhousePaymentId', 'isAdmin'));
     }
 
     public function update(Request $request, InhousePayment $inhousePayment)
