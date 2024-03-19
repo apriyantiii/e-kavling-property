@@ -154,10 +154,13 @@
                                         @if ($products->photo_2)
                                             <img src="{{ asset('storage/' . $products->photo_2) }}" alt="Photo 2"
                                                 width="800" height="400">
+                                        @else
+                                            Tidak ada foto pendukung
                                         @endif
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->
+
 
                                 <tr>
                                     <th scope="row"><strong>Lokasi</strong></th>

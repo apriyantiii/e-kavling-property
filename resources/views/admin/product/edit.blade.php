@@ -103,19 +103,40 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="photo" class="form-label">
-                                        Upload Foto
-                                    </label>
-                                    <input type="file"
-                                        class="form-control form-rounded @error('photo') is-invalid @enderror"
-                                        name="photo" id="photo" placeholder="" value="{{ $product->photo }}">
-                                    @error('photo')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label for="photo" class="form-label">
+                                                Upload Foto 1
+                                            </label>
+                                            <input type="file"
+                                                class="form-control form-rounded @error('photo') is-invalid @enderror"
+                                                name="photo" id="photo" placeholder="" value="{{ $product->photo }}">
+                                            @error('photo')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                    @enderror
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label for="photo_2" class="form-label">
+                                                Upload Foto 2
+                                            </label>
+                                            <input type="file"
+                                                class="form-control form-rounded @error('photo_2') is-invalid @enderror"
+                                                name="photo_2" id="photo_2" placeholder=""
+                                                value="{{ $product->photo_2 }}">
+                                            @error('photo_2')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
+
 
                                 <div class="mb-3">
                                     <label for="description">Deskrips</label>
@@ -137,8 +158,9 @@
                                         Kode Produk
                                     </label>
                                     <input type="text"
-                                        class="form-control form-rounded @error('code') is-invalid @enderror" name="code"
-                                        id="code" placeholder="cth. PM001" value="{{ $product->code }}">
+                                        class="form-control form-rounded @error('code') is-invalid @enderror"
+                                        name="code" id="code" placeholder="cth. PM001"
+                                        value="{{ $product->code }}">
                                     @error('code')
                                         <div class="invalid-feedback">
                                             {{ $message }}

@@ -149,6 +149,7 @@ class ProductController extends Controller
                 'size' => 'required|string|max:255',
                 'price' => 'required|integer|min:0',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
+                'photo_2' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
                 'latitude' => ['required', 'regex:/^-?\d{1,2}\.\d{6}$/'],
                 'longitude' => ['required', 'regex:/^-?\d{1,6}\.\d{5}$/'],
                 'video_url' => 'nullable|mimes:mp4,avi,wmv,mov|max:20480', // Maksimal 20MB, bisa null
@@ -175,6 +176,7 @@ class ProductController extends Controller
                 'size' => $request->input('size'),
                 'price' => $request->input('price'),
                 'photo' => $request->hasFile('photo') ? $request->file('photo')->store('products', 'public') : $product->photo,
+                'photo_2' => $request->hasFile('photo_2') ? $request->file('photo_2')->store('products', 'public') : $product->photo_2,
                 'video_url' => $videoPath, // Simpan path video_url yang baru atau yang lama
                 'latitude' => $request->input('latitude'),
                 'longitude' => $request->input('longitude'),

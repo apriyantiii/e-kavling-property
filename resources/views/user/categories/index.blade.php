@@ -42,13 +42,13 @@
                     <div class="col-lg-12">
                         <div class="row">
                             @foreach ($allCategories as $allCategory)
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-12 col-lg-12">
                                     <div class="properties ftco-animate">
-                                        <a href="{{ route('categories.show', $allCategory->id) }}">
+                                        <a href="{{ route('landing-page.kategori.show', $allCategory->id) }}">
                                             @if (!empty($allCategory->photo))
                                                 <div class="img">
                                                     <img src="{{ URL::asset('storage/' . $allCategory->photo) }}"
-                                                        style="height: 250px; width: 450px" class="img-fluid rounded"
+                                                        style="height: 350px; width: 100%" class="img-fluid rounded"
                                                         alt="Colorlib Template">
                                                 </div>
                                             @else
@@ -57,12 +57,13 @@
                                                 </div>
                                             @endif
                                         </a>
+
                                         <div class="desc">
 
                                             <div class="d-flex pt-5">
                                                 <div>
                                                     <h3><a
-                                                            href="{{ route('categories.show', $allCategory->id) }}">{{ $allCategory->name }}</a>
+                                                            href="{{ route('landing-page.kategori.show', $allCategory->id) }}">{{ $allCategory->name }}</a>
                                                     </h3>
                                                 </div>
 

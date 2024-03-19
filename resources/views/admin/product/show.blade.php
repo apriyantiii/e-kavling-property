@@ -60,6 +60,11 @@
                                                 alt=""></td>
                                     </tr>
                                     <tr>
+                                        <td data-label="Foto Produk"><strong>Foto Pendukung</strong></td>
+                                        <td><img src="{{ URL::asset('storage/' . $products->photo_2) }}" width="70"
+                                                alt=""></td>
+                                    </tr>
+                                    <tr>
                                         <td data-label="Nama Produk"><strong>Nama Produk</strong></td>
                                         <td>{{ $products->name }}</td>
                                     </tr>
