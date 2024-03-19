@@ -117,6 +117,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Foto</th>
+                                                    <th>Foto 2</th>
                                                     <th class="text-center">ID</th>
                                                     <th>Nama Properti</th>
                                                     <th>Kode Properti</th>
@@ -136,6 +137,16 @@
                                                             <img src="{{ URL::asset('storage/' . $product->photo) }}"
                                                                 width="70" alt="">
                                                         </td>
+                                                        <td class="text-center align-middle">
+                                                            <img src="{{ URL::asset('storage/' . $product->photo_2) }}"
+                                                                width="70" alt="">
+                                                        </td>
+                                                        {{-- <td>
+                                                            @if ($product->photo_2)
+                                                                <img src="{{ asset('storage/' . $product->photo_2) }}"
+                                                                    alt="Photo 2">
+                                                            @endif
+                                                        </td> --}}
                                                         <td class="text-center">{{ $product->id }}</td>
                                                         <td>{{ $product->name }}</td>
                                                         <td>{{ $product->code }}</td>
@@ -146,8 +157,8 @@
                                                                 <span class="text-danger">Tidak Masuk Kategori</span>
                                                             @endif
                                                         </td> --}}
-                                                        <td>{{ $product->location }}</td>
-                                                        <td>{{ $product->size }}</td>
+                                                        <td>{{ Str::limit($product->location, 20) }}</td>
+                                                        <td>{{ Str::limit($product->size, 20) }}</td>
                                                         {{-- <td>{{ $product->price }}</td> --}}
                                                         <td class="align-middle">
                                                             <div class="dropdown">
@@ -171,6 +182,15 @@
                                                                         </li>
 
                                                                         <li>
+                                                                            <a href="#" class="dropdown-item delete-user"
+                                                                                data-id="{{ $product->id }}"
+                                                                                onclick="deleteProduct(event)">
+                                                                                <i
+                                                                                    class="mdi mdi-trash-can font-size-16 text-danger me-1"></i>
+                                                                                Hapus
+                                                                            </a>
+                                                                        </li>
+                                                                        {{-- <li>
                                                                             <a href="#" class="dropdown-item"
                                                                                 onclick="event.preventDefault(); document.getElementById('deleteProductForm').submit();">
                                                                                 <i
@@ -184,7 +204,7 @@
                                                                                 @csrf
                                                                                 @method('DELETE')
                                                                             </form>
-                                                                        </li>
+                                                                        </li> --}}
                                                                     @endunless
                                                                 </ul>
                                                             </div>
@@ -220,6 +240,52 @@
     <script src="{{ URL::asset('assets/libs/choices.js/choices.js.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
+
+    {{-- delete --}}
+    <script>
+        function deleteProduct(event) {
+            event.preventDefault();
+            const userId = event.currentTarget.getAttribute('data-id');
+            if (confirm('Apakah Anda yakin ingin menghapus Produk ini?')) {
+                fetch(`{{ route('product.destroy', ':id') }}`.replace(':id', userId), {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            _token: '{{ csrf_token() }}',
+                            _method: 'DELETE'
+                        })
+                    })
+                    .then(response => {
+                        if (response.redirected) {
+                            // Jika ada redirection, maka penghapusan berhasil
+                            const alertMessage = document.createElement('div');
+                            alertMessage.classList.add('alert', 'alert-success');
+                            alertMessage.innerHTML = 'Produk berhasil dihapus.';
+                            document.body.appendChild(alertMessage);
+
+                            // Hilangkan pesan setelah beberapa detik
+                            setTimeout(() => {
+                                alertMessage.remove();
+                            }, 3000);
+
+                            // Redirect ke halaman yang ditentukan
+                            window.location.href = response.url;
+                        } else {
+                            // Jika tidak ada redirection, berarti ada kesalahan
+                            console.error('Gagal menghapus Produk');
+                        }
+                    })
+
+
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+    </script>
 
     <script>
         $(document).ready(function() {

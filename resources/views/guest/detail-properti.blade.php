@@ -95,12 +95,12 @@
                 <div class="row">
                     <div class="col-md-12 property-wrap mb-5">
                         <div class="row">
-                            <div class="col-md-6 d-flex ftco-animate">
+                            <div class="col-md-6 d-flex ftco-animate p-5">
                                 <div class="img align-self-stretch"
-                                    style="background-image:url('{{ URL::asset('storage/' . $products->photo) }}');">
+                                    style="background-image:url('{{ URL::asset('storage/' . $products->photo) }}'); width: 400px; height: 400px;">
                                 </div>
                             </div>
-                            <div class="col-md-6 ftco-animate py-5">
+                            <div class="col-md-6 ftco-animate p-0">
                                 <div class="text py-5 pl-md-5">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div>
@@ -144,6 +144,17 @@
                                     <th scope="row"><strong>Fasilitas</strong></th>
                                     <td>
                                         <p>{!! $products->feature_sentences !!}</p>
+                                    </td>
+                                    <td></td>
+                                </tr><!-- END TR-->
+
+                                <tr>
+                                    <th scope="row"><strong>Foto Pendukung</strong></th>
+                                    <td>
+                                        @if ($products->photo_2)
+                                            <img src="{{ asset('storage/' . $products->photo_2) }}" alt="Photo 2"
+                                                width="800" height="400">
+                                        @endif
                                     </td>
                                     <td></td>
                                 </tr><!-- END TR-->

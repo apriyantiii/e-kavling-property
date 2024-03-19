@@ -26,7 +26,8 @@
                         Edit Kategori Produk Anda dengan mudah sesuai kebutuhan
                     </p>
                 </div>
-                <form action="{{ route('category.update', $productCategory->id) }}" method="POST">
+                <form action="{{ route('category.update', $productCategory->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="p-4 card-body">
@@ -73,6 +74,22 @@
                                         name="location" id="location" placeholder="cth. Japanan Lor, Jombang"
                                         value="{{ $productCategory->location }}">
                                     @error('location')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="photo" class="form-label">
+                                        Foto Kategori
+                                    </label>
+                                    <input type="file"
+                                        class="form-control form-rounded @error('photo') is-invalid @enderror"
+                                        name="photo" id="photo" placeholder="" value="{{ $productCategory->photo }}">
+                                    @error('photo')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('size');
             $table->integer('price');
             $table->string('photo');
+            $table->string('photo_2')->nullable();
             $table->string('video_url')->nullable();
             $table->timestamps();
             $table->softDeletes();

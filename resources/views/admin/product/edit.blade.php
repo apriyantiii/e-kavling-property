@@ -210,9 +210,7 @@
                                 <div class="mb-3">
                                     <label for="video_url" class="form-label">
                                         Upload Vidio
-                                    </label><span class="text-danger">
-                                        *masukkan ulang vidio
-                                    </span>
+                                    </label>
                                     <input type="file"
                                         class="form-control form-rounded @error('video_url') is-invalid @enderror"
                                         name="video_url" id="video_url" placeholder=""
