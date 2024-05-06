@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('purchase_validation_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
 
             $table->string('name');
             $table->string('tenor'); //12 bulan, 6 bulan dst
@@ -32,6 +33,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('purchase_validation_id')->references('id')->on('purchase_validations')->onDelete('cascade');
         });

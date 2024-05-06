@@ -29,7 +29,11 @@ class DataValidateController extends Controller
             'status' => ['required', 'in:pending,approved,rejected'],
         ]);
 
-        $purchaseValidate->update(['status' => $request->status]);
+        // Mendapatkan ID admin yang login
+        $adminId = Auth::id();
+
+        // Update status pembelian dan catat ID admin yang melakukan perubahan
+        $purchaseValidate->update(['status' => $request->status, 'admin_id' => $adminId]);
 
         // Set session 'purchase_status' sesuai dengan status pembelian yang baru
         Session::put('purchase_status', $request->status);
@@ -39,7 +43,8 @@ class DataValidateController extends Controller
 
     public function show(PurchaseValidation $showValidate)
     {
-        return view('admin.checkout.data-validate.show', compact('showValidate'));
+        $isDirector = Auth::guard('is_admin')->user()->level === 'director';
+        return view('admin.checkout.data-validate.show', compact('showValidate', 'isDirector'));
     }
 
     public function destroy($id)
@@ -104,6 +109,9 @@ class DataValidateController extends Controller
                 $ktpFile->storeAs('public/uploads', $ktpFileName);
             }
 
+            // Mendapatkan ID admin yang login
+            $adminId = Auth::id();
+
             // Update data PurchaseValidation
             $purchaseValidation->update([
                 'name' => $request->input('name'),
@@ -115,6 +123,7 @@ class DataValidateController extends Controller
                 'kk_file' => $kkFileName,
                 'ktp_file' => $ktpFileName,
                 'status' => $request->input('status'),
+                'admin_id' => $adminId,
                 // tambahkan field lain yang perlu diupdate
             ]);
             // Redirect atau tampilkan pesan sukses

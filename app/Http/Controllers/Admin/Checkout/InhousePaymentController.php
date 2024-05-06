@@ -131,8 +131,12 @@ class InhousePaymentController extends Controller
                 'status' => 'required|in:pending,approved,rejected'
             ]);
 
+            // Mendapatkan ID admin yang login
+            $adminId = Auth::guard('is_admin')->user()->id;
+
             // Perbarui status pembayaran in-house
             $inhousePayment->status = $request->status;
+            $inhousePayment->admin_id = $adminId;
             $inhousePayment->save();
 
             return redirect()->back()->with('success', 'Status pembayaran in-house berhasil diperbarui.');
@@ -179,6 +183,9 @@ class InhousePaymentController extends Controller
                 $transferFile->storeAs('public/uploads', $tfFileName);
             }
 
+            // Mendapatkan ID admin yang login
+            $adminId = Auth::guard('is_admin')->user()->id;
+
             // Update data pembayaran
             $inhousePayment->update([
                 'name' => $request->input('name'),
@@ -192,6 +199,7 @@ class InhousePaymentController extends Controller
                 'transfer' => $tfFileName ?? $inhousePayment->transfer, // Gunakan nilai lama jika tidak ada file yang diunggah
                 'payment_description' => $request->input('payment_description'),
                 'status' => $request->input('status'),
+                'admin_id' => $adminId,
             ]);
 
             // Menggunakan redirect biasa

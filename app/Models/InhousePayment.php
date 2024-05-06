@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class InhousePayment extends Model
 {
     protected $fillable = [
-        'purchase_validation_id','product_id','user_id','name','tenor','payment_type','payment_date','home_bank','destination_bank','rekening_name','nominal','remaining_amount','transfer','payment_description','status',
+        'purchase_validation_id', 'product_id', 'user_id', 'admin_id', 'name', 'tenor', 'payment_type', 'payment_date', 'home_bank', 'destination_bank', 'rekening_name', 'nominal', 'remaining_amount', 'transfer', 'payment_description', 'status',
     ];
 
     protected $dates = [
-        'payment_date','created_at','updated_at',
+        'payment_date', 'created_at', 'updated_at',
     ];
 
     // one to many
@@ -29,5 +29,9 @@ class InhousePayment extends Model
     public function purchaseValidation()
     {
         return $this->belongsTo(PurchaseValidation::class);
+    }
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
     }
 }

@@ -22,10 +22,6 @@ class LandingPageController extends Controller
         return view('landing-page', compact('testimonis', 'products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-
     public function cetegories(Request $request)
     {
         $allCategories = ProductCategory::orderBy('created_at', 'desc')->get();
@@ -81,8 +77,6 @@ class LandingPageController extends Controller
             'picture' => $picture,
         ]);
     }
-
-
 
     public function detailProperti(string $id)
     {

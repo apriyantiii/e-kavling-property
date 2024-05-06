@@ -39,4 +39,21 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Testimoni::class);
     }
+
+    // Relasi one-to-many
+    public function payments()
+    {
+        return $this->hasMany(Payments::class);
+    }
+
+    public function inhousePayments()
+    {
+        return $this->hasMany(InhousePayment::class);
+    }
+
+    // Definisi relasi one-to-many dengan model PurchaseValidation
+    public function purchaseValidations()
+    {
+        return $this->hasMany(PurchaseValidation::class);
+    }
 }

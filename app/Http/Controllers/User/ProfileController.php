@@ -53,9 +53,6 @@ class ProfileController extends Controller
         return view('user.profile.index', compact('user'));
     }
 
-    /**
-     * Update the user's profile.
-     */
     public function update(Request $request, User $user)
     {
         try {

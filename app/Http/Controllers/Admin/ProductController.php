@@ -114,10 +114,6 @@ class ProductController extends Controller
         return view('admin.product.show', compact('products', 'allProducts'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-
     public function edit(Product $product)
     {
         // Ambil kategori produk terkait
@@ -132,9 +128,6 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Product $product)
     {
         try {
@@ -245,36 +238,6 @@ class ProductController extends Controller
         }
     }
 
-
-    // public function storeCategory(Request $request)
-    // {
-    //     try {
-    //         $request->validate([
-    //             'name' => 'required|string',
-    //             'code' => 'required|string',
-    //             'location' => 'required|string',
-    //             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
-    //         ]);
-
-    //         dd($request->file('photo')->getMimeType(), $request->file('photo')->getClientOriginalExtension());
-
-
-    //         $productCategory = new ProductCategory([
-    //             'name' => $request->input('name'),
-    //             'code' => $request->input('code'),
-    //             'location' => $request->input('location'),
-    //             'photo' => $request->hasFile('photo') ? $request->file('photo')->store('productCategories', 'public') : null,
-    //         ]);
-
-    //         $productCategory->save();
-
-    //         // Menggunakan redirect biasa
-    //         return redirect()->route('category.index')->with('success', 'Data kategori produk berhasil ditambahkan!');
-    //     } catch (\Exception $e) {
-    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
-    //     }
-    // }
-
     public function editCategory(ProductCategory $productCategory)
     {
         return view('admin.product.edit-category', compact('productCategory'));
@@ -334,4 +297,36 @@ class ProductController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->route('category.index')->with('success', 'Semua data kategori produk berhasil dihapus!');
     }
+
+
+    // public function storeCategory(Request $request)
+    // {
+    //     try {
+    //         $request->validate([
+    //             'name' => 'required|string',
+    //             'code' => 'required|string',
+    //             'location' => 'required|string',
+    //             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+    //         ]);
+
+    //         dd($request->file('photo')->getMimeType(), $request->file('photo')->getClientOriginalExtension());
+
+
+    //         $productCategory = new ProductCategory([
+    //             'name' => $request->input('name'),
+    //             'code' => $request->input('code'),
+    //             'location' => $request->input('location'),
+    //             'photo' => $request->hasFile('photo') ? $request->file('photo')->store('productCategories', 'public') : null,
+    //         ]);
+
+    //         $productCategory->save();
+
+    //         // Menggunakan redirect biasa
+    //         return redirect()->route('category.index')->with('success', 'Data kategori produk berhasil ditambahkan!');
+    //     } catch (\Exception $e) {
+    //         dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+    //     }
+    // }
+
+    
 }

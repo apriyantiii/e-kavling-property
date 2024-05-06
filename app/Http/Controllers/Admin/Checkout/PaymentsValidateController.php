@@ -28,7 +28,18 @@ class PaymentsValidateController extends Controller
             'status' => ['required', 'in:pending,approved,rejected'],
         ]);
 
-        $payment->update(['status' => $request->status]);
+        // Mendapatkan ID admin yang login
+        // Mengambil ID admin yang sedang login
+        $adminId = Auth::guard('is_admin')->user()->id;
+
+        // Mengupdate status pembayaran serta mencatat ID admin yang melakukan perubahan
+        $payment->update([
+            'status' => $request->status,
+            'admin_id' => $adminId,
+        ]);
+
+        // // Update status pembelian dan catat ID admin yang melakukan perubahan
+        // $payment->update(['status' => $request->status, 'admin_id' => $adminId]);
 
         return redirect()->back()->with('success', 'Status pembayaran berhasil di update!');
     }
@@ -69,6 +80,9 @@ class PaymentsValidateController extends Controller
                 $transferFile->storeAs('public/uploads', $tfFileName);
             }
 
+            // Mendapatkan ID admin yang login
+            $adminId = Auth::guard('is_admin')->user()->id;
+
             // Update data pembayaran
             $payment->update([
                 'name' => $request->input('name'),
@@ -81,6 +95,7 @@ class PaymentsValidateController extends Controller
                 'transfer' => $tfFileName ?? $payment->transfer, // Gunakan nilai lama jika tidak ada file yang diunggah
                 'payment_description' => $request->input('payment_description'),
                 'status' => $request->input('status'),
+                'admin_id' => $adminId,
             ]);
 
             // Menggunakan redirect biasa

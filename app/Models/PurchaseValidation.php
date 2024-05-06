@@ -10,7 +10,7 @@ class PurchaseValidation extends Model
     use HasFactory;
     public $timestamps = true;
     protected $fillable = [
-        'user_id', 'product_id', 'name', 'nik', 'job', 'age', 'telpon', 'address', 'status', 'kk_file', 'ktp_file',
+        'user_id', 'product_id', 'admin_id', 'name', 'nik', 'job', 'age', 'telpon', 'address', 'status', 'kk_file', 'ktp_file',
     ];
     // Definisi relasi many-to-one dengan model User
     public function user()
@@ -31,5 +31,10 @@ class PurchaseValidation extends Model
     public function inhousePayments()
     {
         return $this->hasMany(InhousePayment::class);
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
     }
 }

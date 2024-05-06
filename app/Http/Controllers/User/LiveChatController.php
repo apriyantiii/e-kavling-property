@@ -36,17 +36,7 @@ class LiveChatController extends Controller
 
         return view('user.live-chat.index', compact('allChats'));
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
@@ -75,6 +65,23 @@ class LiveChatController extends Controller
             return $redirect;
         } catch (\Exception $e) {
             dd($e->getMessage()); // Tampilkan pesan exception untuk debugging
+        }
+    }
+
+    public function destroy($chatId)
+    {
+        try {
+            // Cari chat berdasarkan ID
+            $chat = Chat::findOrFail($chatId);
+
+            // Hapus chat
+            $chat->delete();
+
+            // Redirect kembali ke halaman sebelumnya
+            return back()->with('success', 'Pesan berhasil dihapus!');
+        } catch (\Exception $e) {
+            // Tampilkan pesan exception untuk debugging
+            dd($e->getMessage());
         }
     }
 
@@ -110,21 +117,12 @@ class LiveChatController extends Controller
         }
     }
 
-    public function destroy($chatId)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        try {
-            // Cari chat berdasarkan ID
-            $chat = Chat::findOrFail($chatId);
-
-            // Hapus chat
-            $chat->delete();
-
-            // Redirect kembali ke halaman sebelumnya
-            return back()->with('success', 'Pesan berhasil dihapus!');
-        } catch (\Exception $e) {
-            // Tampilkan pesan exception untuk debugging
-            dd($e->getMessage());
-        }
+        //
     }
 
     /**

@@ -71,11 +71,13 @@
                                     </div>
                                 </div>
                                 <!-- Stop right col -->
-                                <div class="col-lg-2 text-end">
-                                    <a href="{{ route('checkout.validate.edit', $showValidate->id) }}"
-                                        class="btn btn-warning btn-rounded waves-effect waves-light text-dark"><i
-                                            class="mdi mdi-pencil font-size-16 text-dark me-1"></i>Edit Data</a>
-                                </div>
+                                @unless ($isDirector)
+                                    <div class="col-lg-2 text-end">
+                                        <a href="{{ route('checkout.validate.edit', $showValidate->id) }}"
+                                            class="btn btn-warning btn-rounded waves-effect waves-light text-dark"><i
+                                                class="mdi mdi-pencil font-size-16 text-dark me-1"></i>Edit Data</a>
+                                    </div>
+                                @endunless
                             </div>
                             <!-- Start Row -->
                             <div class="row align-items-center">

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
+
             $table->string('name');
             $table->bigInteger('nik');
             $table->string('job');
@@ -22,11 +24,11 @@ return new class extends Migration
             $table->string('telpon');
             $table->text('address');
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
-            $table->string('kk_file')->nullable(); 
-            $table->string('ktp_file')->nullable(); 
-
+            $table->string('kk_file')->nullable();
+            $table->string('ktp_file')->nullable();
             $table->timestamps();
 
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
