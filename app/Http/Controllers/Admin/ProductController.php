@@ -141,10 +141,11 @@ class ProductController extends Controller
                 'location' => 'required|string|max:255',
                 'size' => 'required|string|max:255',
                 'price' => 'required|integer|min:0',
-                'photo' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
-                'photo_2' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+                'photo_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
                 'latitude' => ['required', 'regex:/^-?\d{1,2}\.\d{6}$/'],
-                'longitude' => ['required', 'regex:/^-?\d{1,6}\.\d{5}$/'],
+                'longitude' => ['required', 'regex:/^-?\d{1,3}\.\d{6}$/'],
+
                 'video_url' => 'nullable|mimes:mp4,avi,wmv,mov|max:20480', // Maksimal 20MB, bisa null
             ]);
 
@@ -328,5 +329,5 @@ class ProductController extends Controller
     //     }
     // }
 
-    
+
 }

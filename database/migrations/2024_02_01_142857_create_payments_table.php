@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->date('payment_date');
-            $table->enum('type', ['cash', 'kpr']);
+            $table->enum('type', ['cash', 'kpr', 'inhouse']);
             // $table->string('tenor')->nullable();
             $table->string('home_bank');
             $table->string('destination_bank');

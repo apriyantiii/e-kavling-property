@@ -44,7 +44,7 @@ Route::prefix('/')->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.properti')->middleware('auth');
 
     // product route
-    Route::get('product/detail/{id}', [User\ProductController::class, 'show'])->name('product.show')->middleware('auth');
+    Route::get('product/detail/{id}', [User\ProductController::class, 'show'])->name('product.show');
     Route::get('/search', [User\ProductController::class, 'search'])->name('product.search');
 
     //product-categories

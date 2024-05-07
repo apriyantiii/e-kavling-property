@@ -18,6 +18,9 @@ class Admin extends Authenticatable
         'name', 'email', 'password', 'level', 'gender', 'contact', 'address'
     ];
 
+    // Tambahkan baris ini untuk mengabaikan kolom remember_token
+    protected $rememberTokenName = null;
+
     public function products()
     {
         return $this->hasMany(Product::class);

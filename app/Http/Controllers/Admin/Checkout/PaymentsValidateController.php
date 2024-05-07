@@ -24,6 +24,11 @@ class PaymentsValidateController extends Controller
 
     public function updateStatus(Request $request, Payments $payment)
     {
+        // Check if the user is a director
+        if (Auth::guard('is_admin')->user()->level !== 'director') {
+            abort(403, 'You are not authorized to perform this action.');
+        }
+
         $request->validate([
             'status' => ['required', 'in:pending,approved,rejected'],
         ]);
